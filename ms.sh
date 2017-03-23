@@ -962,6 +962,32 @@ mysql -u root -p$SQL_ROOT_PASS $ROUNDCUBE_DB < /usr/share/roundcubemail/SQL/mysq
 # spamassassin cron update /etc/cron.d/sa-update
 # freshclam cron update    /etc/cron.d/clamav-update
 
+
+############# POSTFIX ADMIN CONFIGURATION ##########################
+
+POSTFIX_HASH=''
+#DKIM_SELECTOR=$2
+
+
+   while [[ $POSTFIX_HASH = "" ]]; do # to be replaced with regex
+        read -p "ENTER POSTFIX ADMIN HASH: " POSTFIX_HASH
+    done
+
+	
+    echo "Working..."
+sleep 3
+
+echo "\$CONF['setup_password'] = '$POSTFIX_HASH';" >> /var/www/html/postfixadmin/config.inc.php
+echo 'Location : /var/www/html/postfixadmin/config.inc.php'
+echo '...'
+
+echo 'PostFixAdmin Configured!'
+
+echo '#################  DONE  ######################'
+
+#######################################
+
+
 echo "
 installed/configured:
 + Dovecot(managesieve)
