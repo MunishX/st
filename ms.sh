@@ -3,10 +3,6 @@ echo "MAINTAINER XYZ"
 sleep 2
 
 #######################################
-INTERFACE=$1
-BLOCK_ADDR=$2
-BLOCK_SUBNET=$3
-BLOCK_DUID=$4
 
 if [[ "$(id -u)" != 0 ]]; then
     echo "Sorry, you need to run this as root"
@@ -27,46 +23,91 @@ else
 fi
 
 ###########
+SRV_MAIL_IP=$1
+WEBMAIL_HOST=$2
+WEBMAIL_DOMAIN=$3
+SQL_ROOT_PASS=$4
 
-   while [[ $BLOCK_ADDR = "" ]]; do # to be replaced with regex
-        read -p "Your IPv6 block address (e.g. 2001:bb8:3e23:200::): " BLOCK_ADDR
+   while [[ $SRV_MAIL_IP = "" ]]; do # to be replaced with regex
+        read -p "Main Server IP (e.g. 123.345.567.789): " SRV_MAIL_IP
+    done
+   while [[ $WEBMAIL_HOST = "" ]]; do # to be replaced with regex
+        read -p "WEBMAIL HOST (e.g. mail): " WEBMAIL_HOST
+    done
+   while [[ $WEBMAIL_DOMAIN = "" ]]; do # to be replaced with regex
+        read -p "WEBMAIL DOMAIN (e.g. website.com): " WEBMAIL_DOMAIN
+    done
+   while [[ $SQL_ROOT_PASS = "" ]]; do # to be replaced with regex
+        read -p "MYSQL ROOT Password (e.g. !@#qweRTY%): " SQL_ROOT_PASS
     done
     
-    while ! [[ $BLOCK_SUBNET =~ ^[0-9]+$ ]]; do
-        read -p "Subnet for your block (e.g. if it's /56, input 56): " BLOCK_SUBNET
-    done
+#    while ! [[ $BLOCK_SUBNET =~ ^[0-9]+$ ]]; do
+#        read -p "Subnet for your block (e.g. if it's /56, input 56): " BLOCK_SUBNET
+#    done
 
-    while [[ $BLOCK_DUID = "" ]]; do # to be replaced with regex
-        read -p "Associated DUID (e.g. 00:03:00:00:34:b0:0c:47:4a:0e): " BLOCK_DUID
-    done
+#    while [[ $BLOCK_DUID = "" ]]; do # to be replaced with regex
+#        read -p "Associated DUID (e.g. 00:03:00:00:34:b0:0c:47:4a:0e): " BLOCK_DUID
+#    done
 
     echo "Working..."
-
+sleep 3
 
 #######################################
-
 ## <Variabile de schimbat> ###
-# Update program links
-WEB_LATEST_POSTFIXADM='https://raw.github.com/munishgaurav5/st/master/pfa302.tar.gz'
-#
-SRV_MAIL_IP=192.168.2.162
+
+#SRV_MAIL_IP=192.168.2.162
+#SQL_ROOT_PASS='change-SQL_change'
+#WEBMAIL_HOST='mail'
+#WEBMAIL_DOMAIN='cmail.cf'
+
+HOSTNAME_WEB=${WEBMAIL_HOST}.${WEBMAIL_DOMAIN}
+VH_ROUNCUBE='roundcube.'${WEBMAIL_DOMAIN}
+VH_POSTFIXADMIN='postfix.'${WEBMAIL_DOMAIN}
+SRV_ALIAS='webmail.'${WEBMAIL_DOMAIN}
+MAIL_ADMIN='mail@'${WEBMAIL_DOMAIN}
+
+
 USR_ID=30791
 #
-SQL_ROOT_PASS='change-SQL_change'
-POSTFIX_USER='vmail'
-POSTFIX_PASS='some_pass_to_change'
-POSTFIX_SQL_DB='go_mailDB'
+POSTFIX_USER='postfixuser'
+POSTFIX_PASS='postfixpass'
+POSTFIX_SQL_DB='postfix_mailDB'
 POSTFIX_MAIL_LOCATION=/var/vmail
 #
-ROUNDCUBE_USER='ro0und'
-ROUNDCUBE_PASS='change_rouncube_pawss'
-ROUNDCUBE_DB='round_lDB'
+ROUNDCUBE_USER='rcuser'
+ROUNDCUBE_PASS='rcpass'
+ROUNDCUBE_DB='roundcube_lDB'
 #
-HOSTNAME_WEB=mail.euroweb.ro
-VH_ROUNCUBE='roundcube.euroweb.ro'
-VH_POSTFIXADMIN='postfix.euroweb.ro'
-SRV_ALIAS='webmail.euroweb.ro'
-MAIL_ADMIN='dev@'
+
+# Update program links
+WEB_LATEST_POSTFIXADM='https://raw.github.com/munishgaurav5/st/master/pfa302.tar.gz'
+## </Variabile de schimbat> ###
+
+
+#######################
+## <Variabile de schimbat> ###
+#
+#SRV_MAIL_IP=192.168.2.162
+#USR_ID=30791
+#
+#SQL_ROOT_PASS='change-SQL_change'
+#POSTFIX_USER='postfixuser'
+#POSTFIX_PASS='postfixpass'
+#POSTFIX_SQL_DB='postfix_mailDB'
+#POSTFIX_MAIL_LOCATION=/var/vmail
+#
+#ROUNDCUBE_USER='rcuser'
+#ROUNDCUBE_PASS='rcpass'
+#ROUNDCUBE_DB='roundcube_lDB'
+#
+#HOSTNAME_WEB=mail.euroweb.ro
+#VH_ROUNCUBE='roundcube.euroweb.ro'
+#VH_POSTFIXADMIN='postfix.euroweb.ro'
+#SRV_ALIAS='webmail.euroweb.ro'
+#MAIL_ADMIN='mail@localhost'
+
+# Update program links
+#WEB_LATEST_POSTFIXADM='https://raw.github.com/munishgaurav5/st/master/pfa302.tar.gz'
 
 ## </Variabile de schimbat> ###
 
