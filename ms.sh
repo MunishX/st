@@ -241,7 +241,7 @@ chown -R opendkim:opendkim /etc/opendkim/keys/
 #echo "*dkim_selector._domainkey.$HOSTNAME_WEB $HOSTNAME_WEB:dkim_selector:/etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector" >> /etc/opendkim/KeyTable
 #mv /etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector.private /etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector
 echo "localhost" >> /etc/opendkim/TrustedHosts
-#echo "$HOSTNAME_WEB" >> /etc/opendkim/TrustedHosts
+echo "$HOSTNAME_WEB" >> /etc/opendkim/TrustedHosts
 echo "$SRV_MAIL_IP" >> /etc/opendkim/TrustedHosts
 
 #
