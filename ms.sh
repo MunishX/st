@@ -2,6 +2,49 @@
 echo "MAINTAINER XYZ"
 sleep 2
 
+#######################################
+INTERFACE=$1
+BLOCK_ADDR=$2
+BLOCK_SUBNET=$3
+BLOCK_DUID=$4
+
+if [[ "$(id -u)" != 0 ]]; then
+    echo "Sorry, you need to run this as root"
+    exit 1
+fi
+
+if [[ -e /etc/debian_version ]]; then
+    DISTRO="Debian"
+    echo "This distribution type/version is not supported"
+    exit 1
+elif [[ -f /etc/centos-release ]]; then
+    RELEASE=$(rpm -q --queryformat '%{VERSION}' centos-release)
+    DISTRO="CentOS${RELEASE}"
+    echo "OS : $CURRENT_IPV6    OK "
+else
+    echo "This distribution type/version is not supported"
+    exit 1
+fi
+
+###########
+
+   while [[ $BLOCK_ADDR = "" ]]; do # to be replaced with regex
+        read -p "Your IPv6 block address (e.g. 2001:bb8:3e23:200::): " BLOCK_ADDR
+    done
+    
+    while ! [[ $BLOCK_SUBNET =~ ^[0-9]+$ ]]; do
+        read -p "Subnet for your block (e.g. if it's /56, input 56): " BLOCK_SUBNET
+    done
+
+    while [[ $BLOCK_DUID = "" ]]; do # to be replaced with regex
+        read -p "Associated DUID (e.g. 00:03:00:00:34:b0:0c:47:4a:0e): " BLOCK_DUID
+    done
+
+    echo "Working..."
+
+
+#######################################
+
 ## <Variabile de schimbat> ###
 # Update program links
 WEB_LATEST_POSTFIXADM='https://raw.github.com/munishgaurav5/st/master/pfa302.tar.gz'
