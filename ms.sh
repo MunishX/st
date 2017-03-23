@@ -11,7 +11,7 @@ sleep 2
 #cd /tmp
 #wget https://raw.github.com/munishgaurav5/st/master/dk.sh
 #chmod 777 dk.sh
-#./ms.sh
+#./dk.sh
 
 #######################################
 
