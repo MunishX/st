@@ -16,7 +16,7 @@ if [[ -e /etc/debian_version ]]; then
 elif [[ -f /etc/centos-release ]]; then
     RELEASE=$(rpm -q --queryformat '%{VERSION}' centos-release)
     DISTRO="CentOS${RELEASE}"
-    echo "OS : $CURRENT_IPV6    OK "
+    echo "OS : $DISTRO    OK "
 else
     echo "This distribution type/version is not supported"
     exit 1
