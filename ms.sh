@@ -132,8 +132,15 @@ yum install -y opendkim php-gd php-intl php-ldap php-mbstring php-mcrypt roundcu
 # 3 packages to install #security test last
 #yum install -y mod_security mod_security_crs redhat-lsb-submod-security 
 ## install_PostfixAdmin #
-curl -s $WEB_LATEST_POSTFIXADM --insecure | tar zxvf - -C /var/www/html/
-mv /var/www/html/postfixadmin-*/ /var/www/html/postfixadmin
+#curl -s $WEB_LATEST_POSTFIXADM --insecure | tar zxvf - -C /var/www/html/
+#mv /var/www/html/postfixadmin-*/ /var/www/html/postfixadmin
+#chown apache:apache -R /var/www/html/postfixadmin
+cd /tmp
+rm -rf postfixadmi*
+wget $WEB_LATEST_POSTFIXADM -O postfixadmin-302.tar.gz
+tar zvxf postfixadmin-*.tar.gz
+rm -rf /var/www/html/postfixadmin 
+mv postfixadmin-* /var/www/html/postfixadmin
 chown apache:apache -R /var/www/html/postfixadmin
 
 # Configure email-services ###############################
