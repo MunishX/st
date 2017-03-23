@@ -14,8 +14,9 @@ if [[ -e /etc/debian_version ]]; then
     echo "This distribution type/version is not supported"
     exit 1
 elif [[ -f /etc/centos-release ]]; then
-    RELEASE=$(rpm -q --queryformat '%{VERSION}' centos-release)
-    DISTRO="CentOS${RELEASE}"
+    #RELEASE=$(rpm -q --queryformat '%{VERSION}' centos-release)
+    #DISTRO="CentOS${RELEASE}"
+    DISTRO="CentOS"
     echo "OS : $DISTRO    OK "
 else
     echo "This distribution type/version is not supported"
