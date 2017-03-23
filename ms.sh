@@ -920,7 +920,7 @@ installed/configured:
 + PostfixAdmin
 + Rouncube
 ## to do ##
-- configure pass postfixadmin /var/www/html/postfixadmin/config.inc.php + create admin-user
+- configure pass postfixadmin https://$VH_POSTFIXADMIN/setup.php  + create admin-user
 - configure final_virus/spam_destiny /etc/amavisd/amavisd.conf
 - secure postfixadmin (apache)
 - setup iptables
