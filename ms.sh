@@ -70,7 +70,7 @@ MAIL_ADMIN='mail@'${WEBMAIL_DOMAIN}
 
 USR_ID=30791
 #
-POSTFIX_USER='postfixuser'
+POSTFIX_USER='vmail'
 POSTFIX_PASS='postfixpass'
 POSTFIX_SQL_DB='postfix_mailDB'
 POSTFIX_MAIL_LOCATION=/var/vmail
