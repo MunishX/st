@@ -3,6 +3,16 @@ echo "MAINTAINER XYZ"
 sleep 2
 
 #######################################
+#cd /tmp
+#wget https://raw.github.com/munishgaurav5/st/master/ms.sh
+#chmod 777 ms.sh
+#./ms.sh
+
+
+#cd /tmp
+#wget https://raw.github.com/munishgaurav5/st/master/dk.sh
+#chmod 777 dk.sh
+#./ms.sh
 
 ###########
 #WORK_TODO=$1
