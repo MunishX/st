@@ -139,8 +139,11 @@ cd /tmp
 rm -rf postfixadmi*
 wget $WEB_LATEST_POSTFIXADM -O postfixadmin-302.tar.gz
 tar zvxf postfixadmin-*.tar.gz
-rm -rf /var/www/html/postfixadmin 
-mv postfixadmin-* /var/www/html/postfixadmin
+rm -rf /var/www/html/postfixadmi*
+
+mkdir -p /var/www/html/postfixadmin
+mv postfixadmin-*/* /var/www/html/postfixadmin
+
 chown apache:apache -R /var/www/html/postfixadmin
 
 # Configure email-services ###############################
@@ -213,14 +216,14 @@ EOF
 #
 
 # _config: DKIM ###
-mkdir -p /etc/opendkim/keys/$HOSTNAME_WEB
-/usr/sbin/opendkim-genkey -D /etc/opendkim/keys/$HOSTNAME_WEB/ -d $HOSTNAME_WEB -s dkim_selector
+mkdir -p /etc/opendkim/keys/
+#/usr/sbin/opendkim-genkey -D /etc/opendkim/keys/$HOSTNAME_WEB/ -d $HOSTNAME_WEB -s dkim_selector
 chown -R opendkim:opendkim /etc/opendkim/keys/
-echo "*@$HOSTNAME_WEB dkim_selector._domainkey.$HOSTNAME_WEB" >> /etc/opendkim/SigningTable
-echo "*dkim_selector._domainkey.$HOSTNAME_WEB $HOSTNAME_WEB:dkim_selector:/etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector" >> /etc/opendkim/KeyTable
-mv /etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector.private /etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector
+#echo "*@$HOSTNAME_WEB dkim_selector._domainkey.$HOSTNAME_WEB" >> /etc/opendkim/SigningTable
+#echo "*dkim_selector._domainkey.$HOSTNAME_WEB $HOSTNAME_WEB:dkim_selector:/etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector" >> /etc/opendkim/KeyTable
+#mv /etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector.private /etc/opendkim/keys/$HOSTNAME_WEB/dkim_selector
 echo "localhost" >> /etc/opendkim/TrustedHosts
-echo "$HOSTNAME_WEB" >> /etc/opendkim/TrustedHosts
+#echo "$HOSTNAME_WEB" >> /etc/opendkim/TrustedHosts
 echo "$SRV_MAIL_IP" >> /etc/opendkim/TrustedHosts
 
 #
