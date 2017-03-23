@@ -216,6 +216,8 @@ sed -i "s|^\(\$CONF\['quota'\] =\).*$|\1 \'YES\';|" /var/www/html/postfixadmin/c
 
 cd /tmp
 rm -rf /opt/letsencryp*
+rm -rf /etc/letsencryp*
+
 yum -y install git bc
 git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
 #/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $WEBMAIL_DOMAIN -d www.$WEBMAIL_DOMAIN -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS -d
