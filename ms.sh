@@ -1,10 +1,10 @@
 #!/bin/bash
-echo "MAINTAINER Eduard Zaharia"
-sleep 1
+echo "MAINTAINER XYZ"
+sleep 2
 
 ## <Variabile de schimbat> ###
 # Update program links
-WEB_LATEST_POSTFIXADM='https://netix.dl.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-3.0/postfixadmin-3.0.tar.gz'
+WEB_LATEST_POSTFIXADM='https://raw.github.com/munishgaurav5/st/master/pfa302.tar.gz'
 #
 SRV_MAIL_IP=192.168.2.162
 USR_ID=30791
