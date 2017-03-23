@@ -977,7 +977,7 @@ echo ''
 echo ''
 echo '############# POSTFIX ADMIN CONFIGURATION ##########################'
 echo ''
-echo 'Get Pass Hash at https://$VH_POSTFIXADMIN/setup.php '
+echo "Get Pass Hash at https://$VH_POSTFIXADMIN/setup.php"
 echo ''
 echo ''
 
