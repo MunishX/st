@@ -962,8 +962,13 @@ mysql -u root -p$SQL_ROOT_PASS $ROUNDCUBE_DB < /usr/share/roundcubemail/SQL/mysq
 # spamassassin cron update /etc/cron.d/sa-update
 # freshclam cron update    /etc/cron.d/clamav-update
 
-
-############# POSTFIX ADMIN CONFIGURATION ##########################
+echo ''
+echo ''
+echo '############# POSTFIX ADMIN CONFIGURATION ##########################'
+echo ''
+echo 'Get Pass Hash at https://$VH_POSTFIXADMIN/setup.php '
+echo ''
+echo ''
 
 POSTFIX_HASH=''
 #DKIM_SELECTOR=$2
@@ -999,7 +1004,7 @@ installed/configured:
 + PostfixAdmin
 + Rouncube
 ## to do ##
-- configure pass postfixadmin https://$VH_POSTFIXADMIN/setup.php  + create admin-user
+- configured pass for postfixadmin now create admin-user at https://$VH_POSTFIXADMIN/setup.php   
 - configure final_virus/spam_destiny /etc/amavisd/amavisd.conf
 - secure postfixadmin (apache)
 - setup iptables
