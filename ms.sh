@@ -219,11 +219,11 @@ rm -rf /opt/letsencryp*
 yum -y install git bc
 git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
 #/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $WEBMAIL_DOMAIN -d www.$WEBMAIL_DOMAIN -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS -d
-/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS -d
+/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $HOSTNAME_WEB -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS -d
 
 chown -R root:root /etc/letsencrypt/live/
 
-#/etc/letsencrypt/live/$WEBMAIL_DOMAIN/fullchain.pem
+#/etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem/privkey.pem
 #fullchain.pem
 #privkey.pem
 #cert.pem
@@ -285,8 +285,8 @@ cat <<EOT >> /etc/httpd/conf.d/vh1_postfix-roundcube.conf
     SSLEngine On
     SSLProtocol all -SSLv2 -SSLv3
 # Self Signed Certificate
-    SSLCertificateFile /etc/letsencrypt/live/$WEBMAIL_DOMAIN/fullchain.pem.crt
-    SSLCertificateKeyFile /etc/letsencrypt/live/$WEBMAIL_DOMAIN/fullchain.key
+    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
     SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
     SSLHonorCipherOrder on
 #    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/cert.pem
@@ -333,8 +333,8 @@ cat <<EOT >> /etc/httpd/conf.d/vh2_postfix-postfixadmin.conf
     ErrorLog /var/log/httpd/error_log
 # Apache Self Signed Certificate
     SSLEngine On
-    SSLCertificateFile /etc/httpd/ssl/$HOSTNAME_WEB.crt
-    SSLCertificateKeyFile /etc/httpd/ssl/$HOSTNAME_WEB.key
+    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
     SSLCipherSuite HIGH:!MEDIUM:!aNULL:!MD5:!RC4
 <Directory /var/www/html/postfixadmin/>
     <IfModule mod_authz_core.c>
@@ -456,8 +456,8 @@ disable_vrfy_command = yes
 broken_sasl_auth_clients = yes
 
 # Certificates
-smtpd_tls_cert_file = /etc/httpd/ssl/$HOSTNAME_WEB.crt
-smtpd_tls_key_file = /etc/httpd/ssl/$HOSTNAME_WEB.key
+smtpd_tls_cert_file = /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
 
 # SMTP info http://www.postfix.org/TLS_README.html
 # may=Even though TLS encryption is always used, mail delivery continues even if the server certificate is untrusted/wrong name
@@ -708,9 +708,9 @@ service dict {
 }
 
 ## 10-ssl.conf
-ssl_cert = </etc/httpd/ssl/$HOSTNAME_WEB.crt
-ssl_key = </etc/httpd/ssl/$HOSTNAME_WEB.key
-ssl_ca = </etc/httpd/ssl/$HOSTNAME_WEB.key
+ssl_cert = </etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
+ssl_key = </etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
+ssl_ca = </etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
 ssl_verify_client_cert = yes
 ssl_protocols = !SSLv2 !SSLv3
 ssl = required
