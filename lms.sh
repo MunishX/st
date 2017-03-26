@@ -160,9 +160,24 @@ yum install -y epel-release
 # 8 packages to install
 yum install -y amavisd-new clamav-server-systemd clamav-update dovecot dovecot-mysql dovecot-pigeonhole httpd pypolicyd-spf
 # 8 packages to install
-yum install -y mariadb mariadb-server mod_ssl ntp php php-imap php-mysql php-xml
+#yum install -y mariadb mariadb-server mod_ssl ntp php php-imap php-mysql php-xml
+
+cat > "/etc/yum.repos.d/mariadb.repo" <<END
+# MariaDB 10.1 CentOS repository list - created 2016-12-24 04:21 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.1/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+END
+
+
+mkdir -p /var/lib/mysql/
+yum install -y ntp MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
 # 8 packages to install
-yum install -y opendkim php-gd php-intl php-ldap php-mbstring php-mcrypt roundcubemail spamassassin
+#yum install -y opendkim php-gd php-intl php-ldap php-mbstring php-mcrypt roundcubemail spamassassin
+yum install -y opendkim roundcubemail spamassassin
 # 3 packages to install #security test last
 #yum install -y mod_security mod_security_crs redhat-lsb-submod-security 
 ## install_PostfixAdmin #
@@ -182,10 +197,10 @@ chown apache:apache -R /var/www/html/postfixadmin
 
 # Configure email-services ###############################
 # set timezone
-sed -i "s/^;date.timezone =$/date.timezone = \"Europe\/Bucharest\"/" /etc/php.ini 
+#sed -i "s/^;date.timezone =$/date.timezone = \"UTC\"/" /etc/php.ini 
 
 # enable @Boot_Services"
-systemctl enable postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
+systemctl enable postfix dovecot httpd mysql amavisd clamd@amavisd spamassassin opendkim
 
 # conf_RoundCube ###
 cp /etc/roundcubemail/config.inc.php.sample /etc/roundcubemail/config.inc.php
@@ -892,7 +907,7 @@ sed -i -e 's/^Example/#Example/' /etc/freshclam.conf
 echo > /etc/sysconfig/freshclam
 
 #  start @mail services #
-systemctl start postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
+systemctl start postfix dovecot httpd mysql amavisd clamd@amavisd spamassassin opendkim
 
 # Configure MySQL_secure_install ###
 mysql_secure_installation <<EOF
