@@ -975,31 +975,6 @@ mysql -u root -p$SQL_ROOT_PASS $ROUNDCUBE_DB < /usr/share/roundcubemail/SQL/mysq
 
 echo ''
 echo ''
-echo '############# POSTFIX ADMIN CONFIGURATION ##########################'
-echo ''
-echo "Get Pass Hash at https://$VH_POSTFIXADMIN/setup.php"
-echo ''
-echo ''
-
-POSTFIX_HASH=''
-#DKIM_SELECTOR=$2
-
-
-   while [[ $POSTFIX_HASH = "" ]]; do # to be replaced with regex
-        read -p "ENTER POSTFIX ADMIN HASH: " POSTFIX_HASH
-    done
-
-	
-    echo "Working..."
-sleep 3
-
-echo "\$CONF['setup_password'] = '$POSTFIX_HASH';" >> /var/www/html/postfixadmin/config.inc.php
-echo 'Location : /var/www/html/postfixadmin/config.inc.php'
-echo '...'
-
-echo 'PostFixAdmin Configured!'
-
-echo '#################  DONE  ######################'
 
 #######################################
 
@@ -1021,3 +996,13 @@ installed/configured:
 - setup iptables
 - dkim add DNS text
 - "
+
+
+echo '############# POSTFIX ADMIN CONFIGURATION ##########################'
+echo ''
+echo "Get Pass Hash at https://$VH_POSTFIXADMIN/setup.php"
+echo 'and run the command wget https://raw.github.com/munishgaurav5/st/master/pf.sh  && ./pf.sh '
+echo ''
+echo ' To setup DKIM run the command wget https://raw.github.com/munishgaurav5/st/master/dk.sh && chmod 777 dk.sh && ./dk.sh '
+echo ''
+echo ''
