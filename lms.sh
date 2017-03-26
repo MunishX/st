@@ -162,6 +162,8 @@ yum install -y amavisd-new clamav-server-systemd clamav-update dovecot dovecot-m
 # 8 packages to install
 #yum install -y mariadb mariadb-server mod_ssl ntp php php-imap php-mysql php-xml
 
+#### MARIADB 10
+
 cat > "/etc/yum.repos.d/mariadb.repo" <<END
 # MariaDB 10.1 CentOS repository list - created 2016-12-24 04:21 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
@@ -174,7 +176,23 @@ END
 
 
 mkdir -p /var/lib/mysql/
-yum install -y ntp MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
+yum install -y ntp 
+
+yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
+yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
+
+sudo mv /etc/my.cnf /etc/my.cnf.bak
+sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
+
+netstat -tap | grep mysql
+
+cd /tmp
+yum -y install epel-release wget telnet 
+
+yum -y update
+
+#### PHP7
+
 # 8 packages to install
 #yum install -y opendkim php-gd php-intl php-ldap php-mbstring php-mcrypt roundcubemail spamassassin
 yum install -y opendkim roundcubemail spamassassin
