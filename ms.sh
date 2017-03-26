@@ -1001,7 +1001,7 @@ installed/configured:
 echo '############# POSTFIX ADMIN CONFIGURATION ##########################'
 echo ''
 echo "Get Pass Hash at https://$VH_POSTFIXADMIN/setup.php"
-echo 'and run the command wget https://raw.github.com/munishgaurav5/st/master/pf.sh  && ./pf.sh '
+echo 'and run the command wget https://raw.github.com/munishgaurav5/st/master/pf.sh  && chmod 777 pf.sh && ./pf.sh '
 echo ''
 echo ' To setup DKIM run the command wget https://raw.github.com/munishgaurav5/st/master/dk.sh && chmod 777 dk.sh && ./dk.sh '
 echo ''
