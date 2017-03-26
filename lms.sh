@@ -288,8 +288,12 @@ rm -rf /etc/letsencryp*
 yum -y install git bc
 git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
 #/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $WEBMAIL_DOMAIN -d www.$WEBMAIL_DOMAIN -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS
-/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $HOSTNAME_WEB -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS
+/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $HOSTNAME_WEB -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS  <<EOF
 #/opt/letsencrypt/letsencrypt-auto renew
+sleep 10
+n
+EOF
+#
 
 chown -R root:root /etc/letsencrypt/live/
 
