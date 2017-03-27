@@ -142,7 +142,15 @@ sudo yum -y groupinstall "Development Tools"
 sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel mailx expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel libgcj gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel  GeoIP-devel gperftools-devel libicu libicu-devel aspell gmp-devel aspell-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant enchant-devel pam-devel git perl-ExtUtils perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils libc-client libc-client-devel numactl lsof pkgconfig gdbm-devel tk-devel bluez-libs-devel
 sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo
 
-
+echo ""
+echo ""
+echo ""
+echo "Step 1 auto install"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
 ########################################################
 
 
@@ -158,93 +166,10 @@ yum localinstall -y /home/ansible/postfix*.rpm
 # _install_preparation
 yum install -y epel-release 
 # 8 packages to install
-yum install -y amavisd-new clamav-server-systemd clamav-update dovecot dovecot-mysql dovecot-pigeonhole httpd pypolicyd-spf
+#yum install -y amavisd-new clamav-server-systemd clamav-update dovecot dovecot-mysql dovecot-pigeonhole httpd pypolicyd-spf
+yum install -y amavisd-new clamav-server-systemd clamav-update dovecot dovecot-mysql dovecot-pigeonhole pypolicyd-spf
 # 8 packages to install
 #yum install -y mariadb mariadb-server mod_ssl ntp php php-imap php-mysql php-xml
-
-#### MARIADB 10
-
-cat > "/etc/yum.repos.d/mariadb.repo" <<END
-# MariaDB 10.1 CentOS repository list - created 2016-12-24 04:21 UTC
-# http://downloads.mariadb.org/mariadb/repositories/
-[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/10.1/centos7-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-END
-
-
-mkdir -p /var/lib/mysql/
-yum install -y ntp 
-
-yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
-yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
-
-sudo mv /etc/my.cnf /etc/my.cnf.bak
-sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
-
-netstat -tap | grep mysql
-
-cd /tmp
-yum -y install epel-release wget telnet 
-
-yum -y update
-
-#### PHP7
-
-#php 7
-cd /tmp
-wget https://centos7.iuscommunity.org/ius-release.rpm
-wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-#wget http://remi.mirrors.arminco.com/enterprise//remi-release-7.rpm
-rpm -ivh ius-release.rpm remi-release-7.rpm
-yum -y update
-
-
-# PHP 7
-yum -y install php70-php-bcmath php70-php-mysql php70-php-devel php70-php-fpm php70-php-gd php70-php-intl php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pear php70-php-soap php70-php-xml php70-php-xmlrpc
-yum -y install php70-php-pecl-uploadprogress php70-php-pecl-zip
-yum -y install php70-php-memcached php70-php-memcache php70-php-apcu* memcached
-#mkdir -p /run/memcached/
-#chown -R memcached:memcached /run/memcached/
-
-#### /// nano /etc/opt/remi/php70/php-fpm.d/www.conf
-#### /// update
-#### /// listen = 127.0.0.1:9007
-
-echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/php70/php.ini
-echo "date.timezone = UTC" >> /etc/opt/remi/php70/php.ini
-
-ln -s /usr/bin/php70 /usr/bin/php
-
-## TIME UTC 
-
- timedatectl  status
- timedatectl set-timezone UTC
- timedatectl  status
-
-## sudo apt install -y ntp
-#yum -y install ntp   
-#systemctl start ntpd
-#systemctl enable ntpd
-
-## for centos 7 time updator
-yum install -y chrony
-systemctl enable chronyd
-systemctl start chronyd
-
-##
-
-
-yum -y install libevent libevent-devel
-
-yum -y update
-
-cd /tmp
-chown -R lighttpd:lighttpd /var/opt/remi/php70
-
-
 # 8 packages to install
 #yum install -y opendkim php-gd php-intl php-ldap php-mbstring php-mcrypt roundcubemail spamassassin
 yum install -y opendkim roundcubemail spamassassin
@@ -258,19 +183,30 @@ cd /tmp
 rm -rf postfixadmi*
 wget $WEB_LATEST_POSTFIXADM -O postfixadmin-302.tar.gz
 tar zvxf postfixadmin-*.tar.gz
-rm -rf /var/www/html/postfixadmi*
+rm -rf /home/html/postfixadmi*
 
-mkdir -p /var/www/html/postfixadmin
-mv postfixadmin-*/* /var/www/html/postfixadmin
+mkdir -p /home/html/postfixadmin
+mv postfixadmin-*/* /home/html/postfixadmin
 
-chown apache:apache -R /var/www/html/postfixadmin
+chown lighttpd:lighttpd -R /home/html/postfixadmin
+
+
+echo ""
+echo ""
+echo ""
+echo "Step 2 postfixadmin"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
 
 # Configure email-services ###############################
 # set timezone
-#sed -i "s/^;date.timezone =$/date.timezone = \"UTC\"/" /etc/php.ini 
+sed -i "s/^;date.timezone =$/date.timezone = \"Europe\/Bucharest\"/" /etc/php.ini 
 
 # enable @Boot_Services"
-systemctl enable postfix dovecot httpd mysql amavisd clamd@amavisd spamassassin opendkim
+systemctl enable postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
 
 # conf_RoundCube ###
 cp /etc/roundcubemail/config.inc.php.sample /etc/roundcubemail/config.inc.php
@@ -311,13 +247,13 @@ sed -i "s|^\(\$config\['managesieve_vacation'\] =\).*$|\1 \'2\';|" /usr/share/ro
 sed -i "s|^\(\$config\['managesieve_vacation_interval'\] =\).*$|\1 \'1\';|" /usr/share/roundcubemail/plugins/managesieve/config.inc.php
 
 # conf_PostfixAdmin ###
-sed -i "s|^\(\$CONF\['configured'\] =\).*$|\1 \ true\;|" /var/www/html/postfixadmin/config.inc.php
-sed -i "s|^\(\$CONF\['database_user'\] =\).*$|\1 \'$POSTFIX_USER\';|" /var/www/html/postfixadmin/config.inc.php
-sed -i "s|^\(\$CONF\['database_password'\] =\).*$|\1 \'$POSTFIX_PASS\';|" /var/www/html/postfixadmin/config.inc.php
-sed -i "s|^\(\$CONF\['database_name'\] =\).*$|\1 \'$POSTFIX_SQL_DB\';|" /var/www/html/postfixadmin/config.inc.php
+sed -i "s|^\(\$CONF\['configured'\] =\).*$|\1 \ true\;|" /home/html/postfixadmin/config.inc.php
+sed -i "s|^\(\$CONF\['database_user'\] =\).*$|\1 \'$POSTFIX_USER\';|" /home/html/postfixadmin/config.inc.php
+sed -i "s|^\(\$CONF\['database_password'\] =\).*$|\1 \'$POSTFIX_PASS\';|" /home/html/postfixadmin/config.inc.php
+sed -i "s|^\(\$CONF\['database_name'\] =\).*$|\1 \'$POSTFIX_SQL_DB\';|" /home/html/postfixadmin/config.inc.php
 # user mailbox quota=2056MB
-sed -i "s|^\(\$CONF\['maxquota'\] =\).*$|\1 \'2056\';|" /var/www/html/postfixadmin/config.inc.php
-sed -i "s|^\(\$CONF\['quota'\] =\).*$|\1 \'YES\';|" /var/www/html/postfixadmin/config.inc.php
+sed -i "s|^\(\$CONF\['maxquota'\] =\).*$|\1 \'2056\';|" /home/html/postfixadmin/config.inc.php
+sed -i "s|^\(\$CONF\['quota'\] =\).*$|\1 \'YES\';|" /home/html/postfixadmin/config.inc.php
 # domain quota (default enabled)
 #sed -i "s|^\(\$CONF\['domain_quota'\] =\).*$|\1 \'NO\';|" /var/www/html/postfixadmin/config.inc.php
 
@@ -333,6 +269,17 @@ sed -i "s|^\(\$CONF\['quota'\] =\).*$|\1 \'YES\';|" /var/www/html/postfixadmin/c
 #$MAIL_ADMIN
 #EOF
 
+echo ""
+echo ""
+echo ""
+echo "Step 3 RC and Postfixadmin config"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
+
+
 cd /tmp
 rm -rf /opt/letsencryp*
 rm -rf /etc/letsencryp*
@@ -340,12 +287,8 @@ rm -rf /etc/letsencryp*
 yum -y install git bc
 git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
 #/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $WEBMAIL_DOMAIN -d www.$WEBMAIL_DOMAIN -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS
-/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $HOSTNAME_WEB -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS  <<EOF
+/opt/letsencrypt/letsencrypt-auto certonly --standalone --agree-tos --email myemail@$WEBMAIL_DOMAIN -d $HOSTNAME_WEB -d $VH_ROUNCUBE -d $VH_POSTFIXADMIN -d $SRV_ALIAS
 #/opt/letsencrypt/letsencrypt-auto renew
-sleep 10
-n
-EOF
-#
 
 chown -R root:root /etc/letsencrypt/live/
 
@@ -356,6 +299,15 @@ chown -R root:root /etc/letsencrypt/live/
 #chain.pem
 
 #
+echo ""
+echo ""
+echo ""
+echo "Step 4 ssl"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
 
 # _config: DKIM ###
 mkdir -p /etc/opendkim/keys/
@@ -391,87 +343,86 @@ UserID                  opendkim:opendkim
 EOT
 
 # _config_HTTPD=(vh_roundcube+vh_postfixadmin)  ###
-rm -f /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/roundcubemail.conf /etc/httpd/conf.d/autoindex.conf
-echo "Listen 443" >> /etc/httpd/conf/httpd.conf
-echo "ServerName $HOSTNAME_WEB" >> /etc/httpd/conf/httpd.conf
-cat <<EOT >> /etc/httpd/conf.d/vh1_postfix-roundcube.conf
-<VirtualHost *:80>
-    ServerName $VH_ROUNCUBE
-    DocumentRoot /usr/share/roundcubemail
-    Redirect / https://$VH_ROUNCUBE
-</VirtualHost>
-<VirtualHost *:443>
-    ServerName $VH_ROUNCUBE
-    ServerAlias $SRV_ALIAS
-    ServerAlias $VH_ROUNCUBE
-    ServerAdmin $MAIL_ADMIN
-    DocumentRoot /usr/share/roundcubemail
-    ErrorLog /var/log/httpd/error_log
-    SSLEngine On
-    SSLProtocol all -SSLv2 -SSLv3
+#rm -f /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/roundcubemail.conf /etc/httpd/conf.d/autoindex.conf
+#echo "Listen 443" >> /etc/httpd/conf/httpd.conf
+#echo "ServerName $HOSTNAME_WEB" >> /etc/httpd/conf/httpd.conf
+#cat <<EOT >> /etc/httpd/conf.d/vh1_postfix-roundcube.conf
+#3<VirtualHost *:80>
+ #   ServerName $VH_ROUNCUBE
+#    DocumentRoot /usr/share/roundcubemail
+#    Redirect / https://$VH_ROUNCUBE
+#</VirtualHost>
+#<VirtualHost *:443>
+#    ServerName $VH_ROUNCUBE
+#3    ServerAlias $SRV_ALIAS
+#    ServerAlias $VH_ROUNCUBE
+#    ServerAdmin $MAIL_ADMIN
+#    DocumentRoot /usr/share/roundcubemail
+#    ErrorLog /var/log/httpd/error_log
+#    SSLEngine On
+#3    SSLProtocol all -SSLv2 -SSLv3
 # Self Signed Certificate
-    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
-    SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
-    SSLHonorCipherOrder on
+#    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
+#    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
+#    SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+#    SSLHonorCipherOrder on
 #    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/cert.pem
 #    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
 #    SSLCertificateChainFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
-<Directory /usr/share/roundcubemail/>
-    Options -Indexes
-    <IfModule mod_authz_core.c>
-        Require all granted
-    </IfModule>
-</Directory>
-<Directory /usr/share/roundcubemail/installer/>
-        Order allow,deny
-        Deny from all
-</Directory>
+#<Directory /usr/share/roundcubemail/>
+#    Options -Indexes
+#    <IfModule mod_authz_core.c>
+#        Require all granted
+#    </IfModule>
+#</Directory>
+##<Directory /usr/share/roundcubemail/installer/>
+#        Order allow,deny
+#        Deny from all
+#</Directory>
 # Those directories should not be viewed by Web clients.
-<Directory /usr/share/roundcubemail/bin/>
-    Order Allow,Deny
-    Deny from all
-</Directory>
-<Directory /usr/share/roundcubemail/plugins/enigma/home/>
-    Order Allow,Deny
-    Deny from all
-</Directory>
+#<Directory /usr/share/roundcubemail/bin/>
+#    Order Allow,Deny
+#    Deny from all
+#</Directory>
+#<Directory /usr/share/roundcubemail/plugins/enigma/home/>
+#    Order Allow,Deny
+#    Deny from all
+#</Directory>
 # Secure
-    ErrorDocument 404 /
-    Options -FollowSymLinks
-    Header always append X-Frame-Options SAMEORIGIN
-    Header set X-XSS-Protection "1; mode=block"
-</VirtualHost>
-EOT
+#    ErrorDocument 404 /
+#    Options -FollowSymLinks
+#    Header always append X-Frame-Options SAMEORIGIN
+#    Header set X-XSS-Protection "1; mode=block"
+#</VirtualHost>
+#EOT
 
 #
-cat <<EOT >> /etc/httpd/conf.d/vh2_postfix-postfixadmin.conf
-<VirtualHost *:80>
-    ServerName $VH_POSTFIXADMIN
-    DocumentRoot /var/www/html/postfixadmin
-    Redirect / https://$VH_POSTFIXADMIN
-</VirtualHost>
-<VirtualHost *:443>
-    ServerName $VH_POSTFIXADMIN
-    ServerAdmin $MAIL_ADMIN
-    DocumentRoot /var/www/html/postfixadmin
-    ErrorLog /var/log/httpd/error_log
-# Apache Self Signed Certificate
-    SSLEngine On
-    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
-    SSLCipherSuite HIGH:!MEDIUM:!aNULL:!MD5:!RC4
-<Directory /var/www/html/postfixadmin/>
-    <IfModule mod_authz_core.c>
-        Require all granted
-    </IfModule>
+#cat <<EOT >> /etc/httpd/conf.d/vh2_postfix-postfixadmin.conf
+#<VirtualHost *:80>
+#    ServerName $VH_POSTFIXADMIN
+#    DocumentRoot /var/www/html/postfixadmin
+#    Redirect / https://$VH_POSTFIXADMIN
+#</VirtualHost>
+#<VirtualHost *:443>
+#    ServerName $VH_POSTFIXADMIN
+#    ServerAdmin $MAIL_ADMIN
+#    DocumentRoot /var/www/html/postfixadmin
+#    ErrorLog /var/log/httpd/error_log
+##   SSLEngine On
+#    SSLCertificateFile /etc/letsencrypt/live/$HOSTNAME_WEB/fullchain.pem
+#    SSLCertificateKeyFile /etc/letsencrypt/live/$HOSTNAME_WEB/privkey.pem
+ #   SSLCipherSuite HIGH:!MEDIUM:!aNULL:!MD5:!RC4
+#<Directory /var/www/html/postfixadmin/>
+#    <IfModule mod_authz_core.c>
+#        Require all granted
+#    </IfModule>
 # disable /setup.php
 #    <Files setup.php>
 #        Require all denied
 #    </Files>
-</Directory>
-    Options -FollowSymLinks
-    Header set X-XSS-Protection "1; mode=block"
+#</Directory>
+#    Options -FollowSymLinks
+#    Header set X-XSS-Protection "1; mode=block"
 # Apache user/pass protection
 #    <Location />
 #        Order allow,deny
@@ -482,8 +433,19 @@ cat <<EOT >> /etc/httpd/conf.d/vh2_postfix-postfixadmin.conf
 #        AuthUserFile /etc/httpd/conf/.htpasswd
 #        Require user euroweb
 #    </Location>
-</VirtualHost>
-EOT
+#</VirtualHost>
+#EOT
+
+echo ""
+echo ""
+echo ""
+echo "Step 5 vhost"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
+
 
 ### configure PostFix/Dovecot MAPS ##########
 cat <<EOT >> /etc/postfix/mysql_virtual_alias_maps.cf
@@ -720,6 +682,17 @@ anvil     unix  -       -       n       -       1       anvil
 EOT
 
 postmap /etc/postfix/access
+
+echo ""
+echo ""
+echo ""
+echo "Step 6 postfix config"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
+
 
 ## conf_Dovecot ###
 cat <<EOT >> /etc/dovecot/local.conf
@@ -980,20 +953,41 @@ EOT
 sed -i -e 's/^Example/#Example/' /etc/freshclam.conf
 echo > /etc/sysconfig/freshclam
 
-#  start @mail services #
-systemctl start postfix dovecot httpd mysql amavisd clamd@amavisd spamassassin opendkim
+echo ""
+echo ""
+echo ""
+echo "Step 7 davcot config"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
 
+
+#  start @mail services #
+#systemctl start postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
+systemctl start postfix dovecot amavisd clamd@amavisd spamassassin opendkim
+#systemctl start postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
 # Configure MySQL_secure_install ###
-mysql_secure_installation <<EOF
-y
-$SQL_ROOT_PASS
-$SQL_ROOT_PASS
-y
-y
-y
-y
-EOF
+#mysql_secure_installation <<EOF
+#y
+#$SQL_ROOT_PASS
+#$SQL_ROOT_PASS
+#y
+#y
+#y
+#y
+#EOF
 #
+echo ""
+echo ""
+echo ""
+echo "Step 8 restart"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
 
 # postfix-db / rouncube-db
 mysql -uroot -p$SQL_ROOT_PASS -e "CREATE DATABASE $POSTFIX_SQL_DB CHARACTER SET utf8 COLLATE utf8_general_ci;" 
@@ -1015,6 +1009,17 @@ mysql -u root -p$SQL_ROOT_PASS $ROUNDCUBE_DB < /usr/share/roundcubemail/SQL/mysq
 
 echo ''
 echo ''
+
+echo ""
+echo ""
+echo ""
+echo "Step 9 mysql done!"
+sleep 10
+echo ""
+echo ""
+echo ""
+echo ""
+
 
 #######################################
 
