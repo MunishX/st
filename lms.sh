@@ -210,7 +210,7 @@ systemctl enable postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassi
 
 # conf_RoundCube ###
 cp /etc/roundcubemail/config.inc.php.sample /etc/roundcubemail/config.inc.php
-chown root:apache /etc/roundcubemail/config.inc.php
+chown root:lighttpd /etc/roundcubemail/config.inc.php
 echo "\$rcmail_config['force_https'] = true;" >> /etc/roundcubemail/config.inc.php
 echo "\$rcmail_config['preview_pane'] = true;" >> /etc/roundcubemail/config.inc.php
 echo "\$config['login_rate_limit'] = 3;" >> /etc/roundcubemail/config.inc.php
@@ -1020,7 +1020,7 @@ echo ""
 echo ""
 echo ""
 
-
+chown -R lighttpd:lighttpd /home/html
 #######################################
 
 
