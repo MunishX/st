@@ -1,106 +1,58 @@
 #!/bin/bash
+echo "MAINTAINER XYZ"
+sleep 2
 
-#------------------------------------------------------------------------------------
-# Params
-#------------------------------------------------------------------------------------
-
-FTP_USER=$1
-if [ -z $FTP_USER ] 
-then
-	echo -e "What is the default FTP user: \c "
-	read FTP_USER
-fi
-
-SERVER_NAME=$2
-if [ -z $SERVER_NAME ] 
-then
-	echo -e "What is the full server name: \c "
-	read SERVER_NAME
-fi
-
-#------------------------------------------------------------------------------------
-# Install vsFTPd
-#------------------------------------------------------------------------------------
-
-yum -y install vsftpd
-
-#------------------------------------------------------------------------------------
-# Configure
-#------------------------------------------------------------------------------------
-
-useradd -s /sbin/nologin -d /var/www/html vsftpd
-chown -R vsftpd:vsftpd /var/www/html
-
-mkdir -p /etc/vsftpd/vconf
-cp /etc/vsftpd/vsftpd.conf{,.original}
- 
-sed -i "s/^.*anonymous_enable.*/anonymous_enable=NO/g" /etc/vsftpd/vsftpd.conf
-sed -i "/^xferlog_std_format*a*/ s/^/#/" /etc/vsftpd/vsftpd.conf
-sed -i "s/#idle_session_timeout=600/idle_session_timeout=900/" /etc/vsftpd/vsftpd.conf
-sed -i "s/#nopriv_user=ftpsecure/nopriv_user=vsftpd/" /etc/vsftpd/vsftpd.conf
-sed -i "/#chroot_list_enable=YES/i\chroot_local_user=YES" /etc/vsftpd/vsftpd.conf
-sed -i 's/listen=NO/listen=YES/' /etc/vsftpd/vsftpd.conf
-sed -i 's/listen_ipv6=YES/listen_ipv6=NO/' /etc/vsftpd/vsftpd.conf
- 
-echo 'allow_writeable_chroot=YES
-guest_enable=YES
-guest_username=vsftpd
-local_root=/var/www/html
-user_sub_token=$USER
-virtual_use_local_privs=YES
-user_config_dir=/etc/vsftpd/vconf' >> /etc/vsftpd/vsftpd.conf
+#######################################
+#cd /tmp
+#wget https://raw.github.com/munishgaurav5/st/master/ms.sh
+#chmod 777 ms.sh
+#./ms.sh
 
 
-echo "
-rsa_cert_file=/etc/letsencrypt/live/$SERVER_NAME/cert.pem
-rsa_private_key_file=/etc/letsencrypt/live/$SERVER_NAME/privkey.pem
+#cd /tmp
+#wget https://raw.github.com/munishgaurav5/st/master/dk.sh
+#chmod 777 dk.sh
+#./dk.sh
 
-ssl_enable=YES
-allow_anon_ssl=NO
-force_local_data_ssl=YES
-force_local_logins_ssl=YES
+###########
+#WORK_TODO=$1
 
-ssl_tlsv1=YES
-ssl_sslv2=NO
-ssl_sslv3=NO
-
-require_ssl_reuse=NO
-ssl_ciphers=HIGH" >> /etc/vsftpd/vsftpd.conf
+WEBSITE_NAME=$1
+DKIM_SELECTOR=$2
 
 
+   while [[ $WEBSITE_NAME = "" ]]; do # to be replaced with regex
+        read -p "Website (website.com/mail.website.com): " WEBSITE_NAME
+    done
+   while [[ $DKIM_SELECTOR = "" ]]; do # to be replaced with regex
+        read -p "WEBMAIL HOST (e.g. default): " DKIM_SELECTOR
+    done
+
+	
+    echo "Working..."
+sleep 3
+
+#######################################
 
 
-systemctl start vsftpd.service
-systemctl enable vsftpd.service
+mkdir -p /etc/opendkim/keys/$WEBSITE_NAME
 
-#------------------------------------------------------------------------------------
-# Configure pam
-#------------------------------------------------------------------------------------
- 
-cp /etc/pam.d/vsftpd{,.original}
- 
-echo '#%PAM-1.0
-auth required pam_userdb.so db=/etc/vsftpd/password crypt=crypt
-account required pam_userdb.so db=/etc/vsftpd/password crypt=crypt
-session required pam_loginuid.so' > /etc/pam.d/vsftpd
+#/usr/sbin/opendkim-genkey -b 2048 -S -a -r -s $DKIM_SELECTOR -d $WEBSITE_NAME -D /etc/opendkim/keys/$WEBSITE_NAME/
+#/usr/sbin/opendkim-genkey -D /etc/opendkim/keys/cmail.cf/ -b 2048 -d cmail.cf -s $DKIM_SELECTOR
 
-#------------------------------------------------------------------------------------
-# Create default user
-#------------------------------------------------------------------------------------
+#/usr/sbin/opendkim-genkey -D /etc/opendkim/keys/$WEBSITE_NAME/ -d $WEBSITE_NAME -s $DKIM_SELECTOR
+/usr/sbin/opendkim-genkey -b 1024 -S -a -r -s $DKIM_SELECTOR -d $WEBSITE_NAME -D /etc/opendkim/keys/$WEBSITE_NAME/
 
-# /etc/vsftpd/vconf/defaultuser
-echo 'dirlist_enable=YES
-download_enable=YES
-local_root=/var/www/html
-write_enable=YES' > /etc/vsftpd/vconf/$FTP_USER
- 
-echo "$FTP_USER" | tee /etc/vsftpd/password{,-nocrypt} > /dev/null
- 
-FTP_PASS=$(openssl rand -base64 6)
-echo $FTP_PASS >> /etc/vsftpd/password-nocrypt
-echo $(openssl passwd -crypt $FTP_PASS) >> /etc/vsftpd/password
- 
-# /etc/vsftpd/password.db
-db_load -T -t hash -f /etc/vsftpd/password /etc/vsftpd/password.db
+chown -R opendkim:opendkim /etc/opendkim/keys/
 
-FTP_DEFAULT_PASS=$FTP_PASS
+echo "*@$WEBSITE_NAME $DKIM_SELECTOR._domainkey.$WEBSITE_NAME" >> /etc/opendkim/SigningTable
+echo "*$DKIM_SELECTOR._domainkey.$WEBSITE_NAME $WEBSITE_NAME:$DKIM_SELECTOR:/etc/opendkim/keys/$WEBSITE_NAME/$DKIM_SELECTOR.private" >> /etc/opendkim/KeyTable
+#mv /etc/opendkim/keys/$WEBSITE_NAME/$DKIM_SELECTOR.private /etc/opendkim/keys/$WEBSITE_NAME/$DKIM_SELECTOR
+#echo "$WEBSITE_NAME" >> /etc/opendkim/TrustedHosts
+
+
+#systemctl restart postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
+#systemctl restart postfix dovecot opendkim
+systemctl restart opendkim
+
+cat /etc/opendkim/keys/$WEBSITE_NAME/$DKIM_SELECTOR.txt
