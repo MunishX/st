@@ -134,7 +134,7 @@ cp /usr/bin/transmission-daemon /usr/bin/$software_name
 
 cd /etc/init.d
 sed -i "s%processname: transmission-daemon%processname: $software_name%" $software_name
-sed -i 's%NAME=transmission-daemon%NAME=$software_name%' $software_name
+sed -i "s%NAME=transmission-daemon%NAME=$software_name%" $software_name
 
 #update /etc/init.d/transmissiond
 #processname: transmission-daemon2
