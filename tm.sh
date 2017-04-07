@@ -64,7 +64,7 @@ then
 	echo "Selected Mode : Add User Only "
    install_type="n"
 else
-	echo "Selected Mode : Full Install + Add User Only "
+	echo "Selected Mode : Full Install + Add User "
    install_type="y"
 fi
 
