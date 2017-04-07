@@ -181,11 +181,19 @@ service $software_name stop
 sleep 3
 
 cd /home/$uname/.config/transmission
-sed -i 's/^.*rpc-whitelist-enabled.*/"rpc-whitelist-enabled": false,/' settings.json
 sed -i 's/^.*rpc-authentication-required.*/"rpc-authentication-required": true,/' settings.json
+sed -i 's/^.*download-queue-enabled.*/"download-queue-enabled": false,/' settings.json
+sed -i 's/^.*peer-limit-global.*/"peer-limit-global": 9000,/' settings.json
+sed -i 's/^.*peer-limit-per-torrent.*/"peer-limit-per-torrent": 500,/' settings.json
+sed -i 's/^.*peer-port-random-on-start.*/"peer-port-random-on-start": true,/' settings.json
+sed -i 's/^.*"ratio-limit".*/"ratio-limit": 0,/' settings.json
+sed -i 's/^.*ratio-limit-enabled.*/"ratio-limit-enabled": true,/' settings.json
+sed -i 's/^.*rpc-whitelist-enabled.*/"rpc-whitelist-enabled": false,/' settings.json
+sed -i 's/^.*speed-limit-up-enabled.*/"speed-limit-up-enabled": true,/' settings.json
+sed -i 's/^.*umask.*/"umask": 2,/' settings.json
+
 sed -i 's/^.*rpc-username.*/"rpc-username": "placeholder123",/' settings.json
 sed -i 's/^.*rpc-password.*/"rpc-password": "placeholder321",/' settings.json
-sed -i 's/^.*peer-port-random-on-start.*/"peer-port-random-on-start": true,/' settings.json
 sed -i 's/^.*rpc-port.*/"rpc-port": placeholderport,/' settings.json
 
 sed -i "s/placeholderport/$myport/" settings.json
