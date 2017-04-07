@@ -5,7 +5,7 @@
 
 install_type=$1
    while [[ $install_type = "" ]]; do # to be replaced with regex
-       read -p "Install Type : Full Install with all software y/n : " install_type
+       read -p "Transmission Install Type : Full Install with all software y/n : " install_type
     done
 
 ###########
@@ -38,6 +38,33 @@ myport=$4
 
 software_root=transmissiond
 software_name=${software_root}_${uname}
+
+#### Check User Status
+USERID=${uname}
+STOP_IT=0
+
+/bin/id -u $USERID 2>/dev/null
+if [ $? -eq 0 ]; then
+   echo "User $USERID already exists."
+   STOP_IT=1
+else
+   echo "UserID : OK"
+fi
+
+/bin/id -g $USERID 2>/dev/null
+if [ $? -eq 0 ]; then
+   echo "Group $USERID already exists."
+   STOP_IT=1
+else
+   echo "GroupID : OK"
+fi
+
+if [[ $STOP_IT = 1 ]]; then
+echo 'Error! Username already available. Please change Username and try again.'
+exit 1
+fi
+
+echo 'User Status :  OK'
 
 ############################################################
 ############################################################
