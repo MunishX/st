@@ -3,25 +3,18 @@
 #####################################################
 #####################################################
 
-install_type=$1
-   while [[ $install_type = "" ]]; do # to be replaced with regex
-       read -p "Transmission Install Type : Full Install with all software y/n : " install_type
-    done
-
-###########
-
 # Take input for username and password
-uname=$2
+uname=$1
    while [[ $uname = "" ]]; do # to be replaced with regex
        read -p "Transmission username: " uname
     done
 
-passw=$3
+passw=$2
    while [[ $passw = "" ]]; do # to be replaced with regex
        read -p "$uname's Password: " passw
     done
 
-myport=$4
+myport=$3
    while [[ $myport = "" ]]; do # to be replaced with regex
        read -p "$uname's Port: " myport
     done
@@ -29,15 +22,10 @@ myport=$4
 #read -p "Transmission username: " uname
 #read -p "$uname's Password: " passw
 
-##########
-
-#software_name=$5
-#   while [[ $software_name = "" ]]; do # to be replaced with regex
-#       read -p "Full Install (f) / Add User Only (a): " software_name
-#    done
-
 software_root=transmissiond
 software_name=${software_root}_${uname}
+
+##########
 
 #### Check User Status
 USERID=${uname}
@@ -66,8 +54,26 @@ fi
 
 echo 'User Status :  OK'
 
+###########
+
+#### check full install or half
+
+file="/usr/bin/transmission-daemon"
+if [ -f "$file" ]
+then
+	echo "Selected Mode : Add User Only "
+   install_type="n"
+else
+	echo "Selected Mode : Full Install + Add User Only "
+   install_type="y"
+fi
+
+sleep 3
+
+
+
 ############################################################
-############################################################
+########################## START INSTALL ##################################
 
 # Update system and install required packages
 yum -y update
