@@ -37,7 +37,7 @@ myport=$4
 #    done
 
 software_root=transmissiond
-software_name=${software_root}.${uname}
+software_name=${software_root}_${uname}
 
 ############################################################
 ############################################################
