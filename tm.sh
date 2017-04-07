@@ -1,8 +1,46 @@
 #!/bin/bash
 
+#####################################################
+#####################################################
+
+install_type=$1
+   while [[ $install_type = "" ]]; do # to be replaced with regex
+       read -p "Install Type : Full Install with all software y/n : " install_type
+    done
+
+###########
+
 # Take input for username and password
-read -p "Transmission username: " uname
-read -p "$uname's Password: " passw
+uname=$2
+   while [[ $uname = "" ]]; do # to be replaced with regex
+       read -p "Transmission username: " uname
+    done
+
+passw=$3
+   while [[ $passw = "" ]]; do # to be replaced with regex
+       read -p "$uname's Password: " passw
+    done
+
+myport=$4
+   while [[ $myport = "" ]]; do # to be replaced with regex
+       read -p "$uname's Port: " myport
+    done
+
+#read -p "Transmission username: " uname
+#read -p "$uname's Password: " passw
+
+##########
+
+#software_name=$5
+#   while [[ $software_name = "" ]]; do # to be replaced with regex
+#       read -p "Full Install (f) / Add User Only (a): " software_name
+#    done
+
+software_root=transmissiond
+software_name=${software_root}.${uname}
+
+############################################################
+############################################################
 
 # Update system and install required packages
 yum -y update
@@ -38,6 +76,10 @@ chmod g+w /home/$uname/Downloads/
 #make
 #make install
 
+##### install all softwares
+
+if [[ $install_type = "y" ]]; then
+
 
 # Install libevent
 cd /usr/local/src
@@ -72,20 +114,21 @@ cd transmission-2.92
 make
 make install
 
+    fi
 
 # Set up init script for transmission-daemon
 cd /etc/init.d
-wget -O transmissiond https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
-sed -i "s%TRANSMISSION_HOME=/home/transmission%TRANSMISSION_HOME=/home/$uname%" transmissiond
-sed -i 's%DAEMON_USER="transmission"%DAEMON_USER="placeholder123"%' transmissiond
-sed -i "s%placeholder123%$uname%" transmissiond
-chmod 755 /etc/init.d/transmissiond
-chkconfig --add transmissiond
-chkconfig --level 345 transmissiond on
+wget -O $software_name https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
+sed -i "s%TRANSMISSION_HOME=/home/transmission%TRANSMISSION_HOME=/home/$uname%" $software_name
+sed -i 's%DAEMON_USER="transmission"%DAEMON_USER="placeholder123"%' $software_name
+sed -i "s%placeholder123%$uname%" $software_name
+chmod 755 /etc/init.d/$software_name
+chkconfig --add $software_name
+chkconfig --level 345 $software_name on
 
 # Edit the transmission configuration
-service transmissiond start
-service transmissiond stop
+service $software_name start
+service $software_name stop
 sleep 3
 
 cd /home/$uname/.config/transmission
@@ -93,8 +136,16 @@ sed -i 's/^.*rpc-whitelist-enabled.*/"rpc-whitelist-enabled": false,/' settings.
 sed -i 's/^.*rpc-authentication-required.*/"rpc-authentication-required": true,/' settings.json
 sed -i 's/^.*rpc-username.*/"rpc-username": "placeholder123",/' settings.json
 sed -i 's/^.*rpc-password.*/"rpc-password": "placeholder321",/' settings.json
+sed -i 's/^.*peer-port-random-on-start.*/"peer-port-random-on-start": true,/' settings.json
+sed -i 's/^.*rpc-port.*/"rpc-port": placeholderport,/' settings.json
+
+sed -i "s/placeholderport/$myport/" settings.json
 sed -i "s/placeholder123/$uname/" settings.json
 sed -i "s/placeholder321/$passw/" settings.json
 
+# "peer-port-random-on-start": false,
+# "rpc-port": 9091,
+# "rpc-username": "admin",
+
 # Yay!!!
-service transmissiond start
+service $software_name start
