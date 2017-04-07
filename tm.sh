@@ -116,6 +116,8 @@ make install
 
     fi
 
+
+
 # Set up init script for transmission-daemon
 cd /etc/init.d
 wget -O $software_name https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
@@ -125,6 +127,20 @@ sed -i "s%placeholder123%$uname%" $software_name
 chmod 755 /etc/init.d/$software_name
 chkconfig --add $software_name
 chkconfig --level 345 $software_name on
+
+##### UPDATE BIN FILE
+## only centos 7 supported 
+cp /usr/bin/transmission-daemon /usr/bin/$software_name
+
+cd /etc/init.d
+sed -i "s%processname: transmission-daemon%processname: $software_name%" $software_name
+sed -i 's%NAME=transmission-daemon%NAME=$software_name%' $software_name
+
+#update /etc/init.d/transmissiond
+#processname: transmission-daemon2
+#NAME=transmission-daemon2
+systemctl daemon-reload
+##########
 
 # Edit the transmission configuration
 service $software_name start
