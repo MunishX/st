@@ -109,7 +109,7 @@ chown -R $uname:$uname $domain_root$mydom
 chown -R lighttpd:$uname $domain_root$mydom/logs
 
 
- cat > "/etc/lighttpd/vhosts.d/$mydom.conf" <<END
+ cat >> "/etc/lighttpd/vhosts.d/$mydom.conf" <<END
  
  \$HTTP["host"] == "$mydom" {
     server.document-root = "$domain_root$mydom/html" 
@@ -139,37 +139,8 @@ chown -R $uname:$uname $domain_root$mydom/html
 systemctl restart  lighttpd.service
 
 echo "Done!"
-#mkdir -p /home/html/web/fastcgi/uploadtotal
-#chown -R uploadtotal:uploadtotal /home/html/web/fastcgi/uploadtotal
-
-#chown -R root:root /home/html/web/fastcgi/startup
 
 
-#mkdir -p /home/$uname/Downloads/
-#chown -R $uname.$uname /home/$uname/Downloads/
-
-## Install the firewall (CSF)
-#cd /usr/local/src
-#wget http://configserver.com/free/csf.tgz
-#tar xzf csf.tgz
-#cd csf
-#./install.generic.sh
-#cd /etc/csf
-#sed -i 's/^TESTING =.*/TESTING = "0"/' csf.conf
-#sed -i 's/^TCP_IN =.*/TCP_IN = "22,80,9091,10000,51413"/' csf.conf
-#sed -i 's/^TCP_OUT =.*/TCP_OUT = "1:65535"/' csf.conf
-#sed -i 's/^UDP_IN =.*/UDP_IN = "51413"/' csf.conf
-#sed -i 's/^UDP_OUT =.*/UDP_OUT = "1:65535"/' csf.conf
-#csf -r
-
-# Install libevent
-#cd /usr/local/src
-#wget https://github.com/libevent/libevent/releases/download/release-2.0.22-stable/libevent-2.0.22-stable.tar.gz
-#tar xzf libevent-2.0.22-stable.tar.gz
-#cd libevent-2.0.22-stable
-#./configure --prefix=/usr
-#make
-#make install
 
 ##### install all softwares
 
@@ -177,7 +148,14 @@ if [[ $install_type = "y" ]]; then
 
 echo ""
 # Install libevent
-    fi
+fi
+######################
 
+## PHP-FPM
+
+wget https://github.com/munishgaurav5/st/raw/master/php -O $startup_root$uname
+sed -i 's/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/' $startup_root$uname
+sed -i 's/^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*/php_fpm_CONF=$domain_root$mydom/socket/$software_name.conf/' $startup_root$uname
+sed -i 's/^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*/php_fpm_PID=$domain_root$mydom/socket/$software_name.pid/' $startup_root$uname
 
 
