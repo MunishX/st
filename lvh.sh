@@ -124,7 +124,7 @@ chown -R lighttpd:$uname $domain_root$mydom/logs
 }
 
  
- END
+END
  
  echo '
 <?php
