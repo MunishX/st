@@ -6,7 +6,7 @@
 # Take input for username and password
 uname=$1
    while [[ $uname = "" ]]; do # to be replaced with regex
-       read -p "Transmission username: " uname
+       read -p "VHost username: " uname
     done
 
 passw=$2
@@ -14,27 +14,28 @@ passw=$2
        read -p "$uname's Password: " passw
     done
 
-myport=$3
-   while [[ $myport = "" ]]; do # to be replaced with regex
-       read -p "$uname's Port: " myport
+mydom=$3
+   while [[ $mydom = "" ]]; do # to be replaced with regex
+       read -p "$uname's Domain: " mydom
     done
 
 #read -p "Transmission username: " uname
 #read -p "$uname's Password: " passw
 
-software_root=transmissiond
-software_name=${software_root}_${uname}
-
+software_root=php
+software_name=${software_root}-${uname}
+domain_root=/home/html/web/
+startup_root=/home/html/startup/
+user_root=/home/html/users/
 ##########
 
-#### Check User Status
+#### Check Status
 USERID=${uname}
 STOP_IT=0
 
 /bin/id -u $USERID 2>/dev/null
 if [ $? -eq 0 ]; then
-   echo "User $USERID already exists."
-   STOP_IT=1
+   echo "User $USERID already exists."   
 else
    echo "UserID : OK"
 fi
@@ -42,33 +43,33 @@ fi
 /bin/id -g $USERID 2>/dev/null
 if [ $? -eq 0 ]; then
    echo "Group $USERID already exists."
-   STOP_IT=1
 else
    echo "GroupID : OK"
 fi
 
-if [[ $STOP_IT = 1 ]]; then
-echo 'Error! Username already available. Please change Username and try again.'
-exit 1
-fi
 
-echo 'User Status :  OK'
-
-###########
-
-#### check full install or half
-
-file="/usr/bin/transmission-daemon"
-if [ -f "$file" ]
+domain_loc=${startup_root}${mydom}
+if [ -f "$domain_loc" ]
 then
-	echo "Selected Mode : Add User Only "
-   install_type="n"
+	echo "Domain : Error "
+        STOP_IT=1
 else
-	echo "Selected Mode : Full Install + Add User "
+	echo "Domain : OK "
    install_type="y"
 fi
 
+
+if [[ $STOP_IT = 1 ]]; then
+echo 'Error! Domain already available. Please add new domain and try again.'
+exit 1
+fi
+
+echo "Starting Install : All OK! "
 sleep 3
+
+###########
+
+
 
 
 
@@ -79,12 +80,73 @@ sleep 3
 yum -y update
 yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gettext openssl-devel perl-Time-HiRes wget
 
+yum -y update
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at
+
+yum -y update
+
+sudo yum -y groupinstall "Development Tools"
+sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel mailx expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel libgcj gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel  GeoIP-devel gperftools-devel libicu libicu-devel aspell gmp-devel aspell-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant enchant-devel pam-devel git perl-ExtUtils perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils libc-client libc-client-devel numactl lsof pkgconfig gdbm-devel tk-devel bluez-libs-devel
+sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo
+
+
 #Create UNIX user and directories for transmission
 encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 useradd -m -p $encrypt_pass $uname
-mkdir -p /home/$uname/Downloads/
-chown -R $uname.$uname /home/$uname/Downloads/
-chmod g+w /home/$uname/Downloads/
+
+sed -i "s/^\($uname.*\)$/\1$uname,lighttpd/g" /etc/group
+
+mkdir -p $startup_root
+chown -R lighttpd:lighttpd $startup_root
+
+
+mkdir -p $domain_root$mydom/{html,socket,logs}
+
+chmod g+w $domain_root$mydom
+chmod -R 777 $domain_root$mydom/socket
+
+chown -R $uname:$uname $domain_root$mydom
+chown -R lighttpd:$uname $domain_root$mydom/logs
+
+
+ cat > "/etc/lighttpd/vhosts.d/$mydom.conf" <<END
+ 
+ \$HTTP["host"] == "$mydom" {
+    server.document-root = "$domain_root$mydom/html" 
+    accesslog.filename = "$domain_root$mydom/logs/access_log.txt" 
+    fastcgi.server = ( ".php" =>
+                       (
+                          ( "socket" => "$domain_root$mydom/socket/$software_name.sock",
+                            "broken-scriptfilename" => "enable" 
+                          )
+                        )
+                      )
+}
+
+ 
+ END
+ 
+ echo '
+<?php
+echo "<h1>Hello World!</h1>";
+echo "<p>Current User ID is: ". posix_getuid();
+echo "<p>Current Group ID is: ". posix_getgid();
+?>
+' > $domain_root$mydom/html/test.php
+
+chown -R $uname:$uname $domain_root$mydom/html
+
+systemctl restart  lighttpd.service
+
+echo "Done!"
+#mkdir -p /home/html/web/fastcgi/uploadtotal
+#chown -R uploadtotal:uploadtotal /home/html/web/fastcgi/uploadtotal
+
+#chown -R root:root /home/html/web/fastcgi/startup
+
+
+#mkdir -p /home/$uname/Downloads/
+#chown -R $uname.$uname /home/$uname/Downloads/
 
 ## Install the firewall (CSF)
 #cd /usr/local/src
@@ -113,96 +175,9 @@ chmod g+w /home/$uname/Downloads/
 
 if [[ $install_type = "y" ]]; then
 
-
+echo ""
 # Install libevent
-cd /usr/local/src
-wget https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
-tar xzf libevent-2.1.8-stable.tar.gz
-cd libevent-2.1.8-stable
-./configure --prefix=/usr
-make
-make install
-
-# Where are those libevent libraries?
-echo /usr/lib > /etc/ld.so.conf.d/libevent-i386.conf
-echo /usr/lib > /etc/ld.so.conf.d/libevent-x86_64.conf
-ldconfig
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig
-
-# Install transmission
-#cd /usr/local/src
-#wget https://transmission.cachefly.net/transmission-2.84.tar.xz
-#tar xvf transmission-2.84.tar.xz
-#cd transmission-2.84
-#./configure --prefix=/usr
-#make
-#make install
-
-# Install transmission
-cd /usr/local/src
-wget https://github.com/transmission/transmission-releases/raw/master/transmission-2.92.tar.xz
-tar xvf transmission-2.92.tar.xz
-cd transmission-2.92
-./configure --prefix=/usr
-make
-make install
-
     fi
 
 
 
-# Set up init script for transmission-daemon
-cd /etc/init.d
-wget -O $software_name https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
-sed -i "s%TRANSMISSION_HOME=/home/transmission%TRANSMISSION_HOME=/home/$uname%" $software_name
-sed -i 's%DAEMON_USER="transmission"%DAEMON_USER="placeholder123"%' $software_name
-sed -i "s%placeholder123%$uname%" $software_name
-chmod 755 /etc/init.d/$software_name
-chkconfig --add $software_name
-chkconfig --level 345 $software_name on
-
-##### UPDATE BIN FILE
-## only centos 7 supported 
-cp /usr/bin/transmission-daemon /usr/bin/$software_name
-
-cd /etc/init.d
-sed -i "s%processname: transmission-daemon%processname: $software_name%" $software_name
-sed -i "s%NAME=transmission-daemon%NAME=$software_name%" $software_name
-
-#update /etc/init.d/transmissiond
-#processname: transmission-daemon2
-#NAME=transmission-daemon2
-systemctl daemon-reload
-##########
-
-# Edit the transmission configuration
-service $software_name start
-service $software_name stop
-sleep 3
-
-cd /home/$uname/.config/transmission
-sed -i 's/^.*rpc-authentication-required.*/"rpc-authentication-required": true,/' settings.json
-sed -i 's/^.*download-queue-enabled.*/"download-queue-enabled": false,/' settings.json
-sed -i 's/^.*peer-limit-global.*/"peer-limit-global": 9000,/' settings.json
-sed -i 's/^.*peer-limit-per-torrent.*/"peer-limit-per-torrent": 500,/' settings.json
-sed -i 's/^.*peer-port-random-on-start.*/"peer-port-random-on-start": true,/' settings.json
-sed -i 's/^.*"ratio-limit".*/"ratio-limit": 0,/' settings.json
-sed -i 's/^.*ratio-limit-enabled.*/"ratio-limit-enabled": true,/' settings.json
-sed -i 's/^.*rpc-whitelist-enabled.*/"rpc-whitelist-enabled": false,/' settings.json
-sed -i 's/^.*speed-limit-up-enabled.*/"speed-limit-up-enabled": true,/' settings.json
-sed -i 's/^.*umask.*/"umask": 2,/' settings.json
-
-sed -i 's/^.*rpc-username.*/"rpc-username": "placeholder123",/' settings.json
-sed -i 's/^.*rpc-password.*/"rpc-password": "placeholder321",/' settings.json
-sed -i 's/^.*rpc-port.*/"rpc-port": placeholderport,/' settings.json
-
-sed -i "s/placeholderport/$myport/" settings.json
-sed -i "s/placeholder123/$uname/" settings.json
-sed -i "s/placeholder321/$passw/" settings.json
-
-# "peer-port-random-on-start": false,
-# "rpc-port": 9091,
-# "rpc-username": "admin",
-
-# Yay!!!
-service $software_name start
