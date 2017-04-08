@@ -1,7 +1,10 @@
 ; Start a new pool named 'www'.
 ; the variable $pool can we used in any directive and will be replaced by the
 ; pool name ('www' here)
-[www]
+[global]
+pid = /run/php-fpm-pool.pid
+
+[www-name]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -21,9 +24,9 @@
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
 ; RPM: apache user chosen to provide access to the same directories as httpd
-user = lighttpd
+user = user-name
 ; RPM: Keep a group allowed to write in log dir.
-group = lighttpd
+group = group-name
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -48,12 +51,12 @@ listen = /run/php70-php-fpm.sock
 ;                 mode is set to 0660
 ;listen.owner = nobody
 ;listen.group = nobody
-;listen.mode = 0660
+listen.mode = 0666
 
 ; When POSIX Access Control Lists are supported you can set them using
 ; these options, value is a comma separated list of user/group names.
 ; When set, listen.owner and listen.group are ignored
-listen.acl_users = lighttpd,uploadtotal
+listen.acl_users = user-name
 ;listen.acl_groups =
 
 ; List of addresses (IPv4/IPv6) of FastCGI clients which are allowed to connect.
