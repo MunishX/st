@@ -155,7 +155,15 @@ fi
 
 wget https://github.com/munishgaurav5/st/raw/master/php -O $startup_root$uname
 sed -i 's/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/' $startup_root$uname
-sed -i 's/^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*/php_fpm_CONF=$domain_root$mydom/socket/$software_name.conf/' $startup_root$uname
-sed -i 's/^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*/php_fpm_PID=$domain_root$mydom/socket/$software_name.pid/' $startup_root$uname
+sed -i 's/^.*\/etc\/opt\/remi\/php70\/php-fpm.d\/www.conf.*/php_fpm_CONF=$domain_root$mydom\/socket\/$software_name.conf/' $startup_root$uname
+sed -i 's/^.*\/etc\/opt\/remi\/php70\/php-fpm.d\/php-fpm.pid.*/php_fpm_PID=$domain_root$mydom\/socket\/$software_name.pid/' $startup_root$uname
 
+wget https://github.com/munishgaurav5/st/raw/master/www -O $domain_root$mydom/socket/$software_name.conf
+sed -i 's/^.*\/run\/php-fpm-pool.pid.*/pid = $domain_root$mydom\/socket\/$software_name.pid /' $domain_root$mydom/socket/$software_name.conf
+sed -i 's/^.*www-name.*/[$software_name]/' $domain_root$mydom/socket/$software_name.conf
+sed -i 's/^.*user-name.*/user = $uname/' $domain_root$mydom/socket/$software_name.conf
+sed -i 's/^.*group-name.*/group = $uname/' $domain_root$mydom/socket/$software_name.conf
+sed -i 's/^.*\/run\/php70-php-fpm.sock.*/listen = $domain_root$mydom/socket/$software_name.sock/' $domain_root$mydom/socket/$software_name.conf
+sed -i 's/^.*listen-u-name.*/listen.acl_users = $uname/' $domain_root$mydom/socket/$software_name.conf
 
+echo "Done!!!!!"
