@@ -1,56 +1,56 @@
 #!/bin/bash
-## https://github.com/munishgaurav5/install-golang-all
-## Install Golang 1.7.4 64Bits on all Linux (Debian|Ubuntu|OpenSUSE|CentOS)
-## Run as root | (sudo su)
-## curl https://raw.githubusercontent.com/munishgaurav5/install-golang-all/master/install.sh 2>/dev/null | bash
 
 
-GO_URL="https://storage.googleapis.com/golang"
-GO_VERSION=${1:-"1.7.4"}
-GO_FILE="go$GO_VERSION.linux-amd64.tar.gz"
+#php 7
+cd /tmp
+wget https://centos7.iuscommunity.org/ius-release.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+#wget http://remi.mirrors.arminco.com/enterprise//remi-release-7.rpm
+rpm -ivh ius-release.rpm remi-release-7.rpm
+yum -y update
 
 
-# Check if user has root privileges
-if [[ $EUID -ne 0 ]]; then
-echo "You must run the script as root or using sudo"
-   exit 1
-fi
+# PHP 7
+yum -y install php70-php-bcmath php70-php-mysql php70-php-devel php70-php-fpm php70-php-gd php70-php-intl php70-php-imap php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pear php70-php-soap php70-php-xml php70-php-xmlrpc
+yum -y install php70-php-pecl-uploadprogress php70-php-pecl-zip
+yum -y install php70-php-memcached php70-php-memcache php70-php-apcu* memcached
+#mkdir -p /run/memcached/
+#chown -R memcached:memcached /run/memcached/
 
+#### /// nano /etc/opt/remi/php70/php-fpm.d/www.conf
+#### /// update
+#### /// listen = 127.0.0.1:9007
 
-GET_OS=$(cat /etc/os-release | head -n1 | cut -d'=' -f2 | awk '{ print tolower($1) }'| tr -d '"')
+echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/php70/php.ini
+echo "date.timezone = UTC" >> /etc/opt/remi/php70/php.ini
 
-if [[ $GET_OS == 'debian' || $GET_OS == 'ubuntu' ]]; then
-   apt-get update
-   apt-get install wget git-core
-fi
+ln -s /usr/bin/php70 /usr/bin/php
+ln -s /opt/remi/php70/root/usr/sbin/php-fpm /usr/bin/php-fpm
 
-if [[ $GET_OS == 'opensuse' ]]; then
-   zypper in -y wget git-core
-fi
+## TIME UTC 
 
-if [[ $GET_OS == 'centos' ]]; then
-   yum install wget git-core
-fi
+ timedatectl  status
+ timedatectl set-timezone UTC
+ timedatectl  status
+# date -s '2017-04-02 20:43:30'
 
+## sudo apt install -y ntp
+#yum -y install ntp   
+#systemctl start ntpd
+#systemctl enable ntpd
+
+## for centos 7 time updator
+#yum install -y chrony
+#systemctl enable chronyd
+#systemctl start chronyd
+
+##
+#timedatectl set-local-rtc 0
+
+yum -y install libevent libevent-devel
+
+yum -y update
 
 cd /tmp
-wget --no-check-certificate ${GO_URL}/${GO_FILE}
-tar -xzf ${GO_FILE}
-mv go /usr/local/go
+chown -R lighttpd:lighttpd /var/opt/remi/php70
 
-
-echo 'export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/GO
-export PATH=$PATH:$GOPATH/bin' >> /etc/profile
-
-sleep 3
- 
-source /etc/profile
-mkdir -p $HOME/GO
-
-## Test if Golang is working
-go version
-
-echo 'Golang Installation Complete' 
-### The output is this:
-## go version go1.7 linux/amd64
