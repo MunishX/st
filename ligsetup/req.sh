@@ -1,56 +1,26 @@
 #!/bin/bash
-## https://github.com/munishgaurav5/install-golang-all
-## Install Golang 1.7.4 64Bits on all Linux (Debian|Ubuntu|OpenSUSE|CentOS)
-## Run as root | (sudo su)
-## curl https://raw.githubusercontent.com/munishgaurav5/install-golang-all/master/install.sh 2>/dev/null | bash
 
-
-GO_URL="https://storage.googleapis.com/golang"
-GO_VERSION=${1:-"1.7.4"}
-GO_FILE="go$GO_VERSION.linux-amd64.tar.gz"
-
-
-# Check if user has root privileges
-if [[ $EUID -ne 0 ]]; then
-echo "You must run the script as root or using sudo"
-   exit 1
-fi
-
-
-GET_OS=$(cat /etc/os-release | head -n1 | cut -d'=' -f2 | awk '{ print tolower($1) }'| tr -d '"')
-
-if [[ $GET_OS == 'debian' || $GET_OS == 'ubuntu' ]]; then
-   apt-get update
-   apt-get install wget git-core
-fi
-
-if [[ $GET_OS == 'opensuse' ]]; then
-   zypper in -y wget git-core
-fi
-
-if [[ $GET_OS == 'centos' ]]; then
-   yum install wget git-core
-fi
-
-
+############## Req Install Start #############
 cd /tmp
-wget --no-check-certificate ${GO_URL}/${GO_FILE}
-tar -xzf ${GO_FILE}
-mv go /usr/local/go
+
+yum -y update
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at
+
+yum -y update
+
+sudo yum -y groupinstall "Development Tools"
+sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel mailx expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel libgcj gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel  GeoIP-devel gperftools-devel libicu libicu-devel aspell gmp-devel aspell-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant enchant-devel pam-devel git perl-ExtUtils perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils libc-client libc-client-devel numactl lsof pkgconfig gdbm-devel tk-devel bluez-libs-devel
+sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo
 
 
-echo 'export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/GO
-export PATH=$PATH:$GOPATH/bin' >> /etc/profile
+### RAR
+cd /tmp
+wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
+tar xzf rarlinux-x64-*.tar.gz
+cd rar
+make
+cd ..
+rm -rf rar*
 
-sleep 3
- 
-source /etc/profile
-mkdir -p $HOME/GO
+########
 
-## Test if Golang is working
-go version
-
-echo 'Golang Installation Complete' 
-### The output is this:
-## go version go1.7 linux/amd64
