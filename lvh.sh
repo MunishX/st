@@ -168,7 +168,7 @@ sed -i "s/^.*user-name.*/user = $uname/" $domain_root$mydom/socket/$software_nam
 sed -i "s/^.*group-name.*/group = $uname/" $domain_root$mydom/socket/$software_name.conf
 sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $domain_root$mydom/socket/$software_name.sock," $domain_root$mydom/socket/$software_name.conf
 sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $domain_root$mydom/socket/$software_name.conf
-sed -i "s,/user-php-root/,$domain_root$mydom/socket/,g"
+sed -i "s,/user-php-root/,$domain_root$mydom/socket/,g" $domain_root$mydom/socket/$software_name.conf
 
 mkdir -p $domain_root$mydom/socket/{session,wsdlcache,opcache,log}
 
