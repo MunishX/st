@@ -23,7 +23,7 @@ myport=$3
 #read -p "$uname's Password: " passw
 
 software_root=transmissiond
-software_name=${software_root}_${uname}
+software_name=${software_root}-${uname}
 
 ##########
 
