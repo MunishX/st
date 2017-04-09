@@ -114,9 +114,11 @@ chown -R lighttpd:$uname $domain_root$mydom/logs
  \$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$domain_root$mydom/html\" 
     accesslog.filename = \"$domain_root$mydom/logs/access_log.txt\" 
+    fastcgi.map-extensions = (".fpm" => ".php")
     fastcgi.server = ( \".php\" =>
                        (
-                          ( \"socket\" => \"$domain_root$mydom/socket/$software_name.sock\",
+                          (
+			    \"socket\" => \"$domain_root$mydom/socket/$software_name.sock\",
                             \"broken-scriptfilename\" => \"enable\" 
                           )
                         )
