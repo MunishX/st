@@ -99,8 +99,9 @@ sed -i "s/^\($uname.*\)$/\1$uname,lighttpd/g" /etc/group
 mkdir -p $startup_root
 chown -R lighttpd:lighttpd $startup_root
 
-
 mkdir -p $domain_root$mydom/{html,socket,logs}
+mkdir -p $domain_root$mydom/socket/{session,wsdlcache,opcache,log}
+touch $domain_root$mydom/html/status.php
 
 chmod g+w $domain_root$mydom
 chmod -R 777 $domain_root$mydom/socket
@@ -114,7 +115,7 @@ chown -R lighttpd:$uname $domain_root$mydom/logs
  \$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$domain_root$mydom/html\" 
     accesslog.filename = \"$domain_root$mydom/logs/access_log.txt\" 
-    fastcgi.map-extensions = (".fpm" => ".php")
+   # fastcgi.map-extensions = (".fpm" => ".php")
     fastcgi.server = ( \".php\" =>
                        (
                           (
@@ -170,7 +171,9 @@ sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $domain_root$mydom/socket/$softw
 sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $domain_root$mydom/socket/$software_name.conf
 sed -i "s,/user-php-root/,$domain_root$mydom/socket/,g" $domain_root$mydom/socket/$software_name.conf
 
-mkdir -p $domain_root$mydom/socket/{session,wsdlcache,opcache,log}
+
+chown -R $uname:$uname $domain_root$mydom
+chown -R lighttpd:$uname $domain_root$mydom/logs
 
 echo "Done!!!!!"
 
