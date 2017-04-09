@@ -1,56 +1,46 @@
 #!/bin/bash
-## https://github.com/munishgaurav5/install-golang-all
-## Install Golang 1.7.4 64Bits on all Linux (Debian|Ubuntu|OpenSUSE|CentOS)
-## Run as root | (sudo su)
-## curl https://raw.githubusercontent.com/munishgaurav5/install-golang-all/master/install.sh 2>/dev/null | bash
+
+##### MariaDB 10.1 config
+echo "
+# MariaDB 10.1 CentOS repository list - created 2016-12-24 04:21 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+[mariadb]
+name = MariaDB
+baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.1.22/yum/centos7-amd64
+gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
+gpgcheck=1
+" > /etc/yum.repos.d/mariadb.repo
 
 
-GO_URL="https://storage.googleapis.com/golang"
-GO_VERSION=${1:-"1.7.4"}
-GO_FILE="go$GO_VERSION.linux-amd64.tar.gz"
+#### MariaDB install ####
 
+mkdir -p /var/lib/mysql/
 
-# Check if user has root privileges
-if [[ $EUID -ne 0 ]]; then
-echo "You must run the script as root or using sudo"
-   exit 1
-fi
+yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
+yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
 
+#systemctl start mysql
+#systemctl enable mysql
 
-GET_OS=$(cat /etc/os-release | head -n1 | cut -d'=' -f2 | awk '{ print tolower($1) }'| tr -d '"')
+systemctl start mariadb
+systemctl enable mariadb
+systemctl status mariadb
 
-if [[ $GET_OS == 'debian' || $GET_OS == 'ubuntu' ]]; then
-   apt-get update
-   apt-get install wget git-core
-fi
+# service mysql start
+# chkconfig mysql on
 
-if [[ $GET_OS == 'opensuse' ]]; then
-   zypper in -y wget git-core
-fi
+sudo mv /etc/my.cnf /etc/my.cnf.bak
+sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
 
-if [[ $GET_OS == 'centos' ]]; then
-   yum install wget git-core
-fi
-
+systemctl restart mariadb
+systemctl status mariadb
 
 cd /tmp
-wget --no-check-certificate ${GO_URL}/${GO_FILE}
-tar -xzf ${GO_FILE}
-mv go /usr/local/go
+yum -y install epel-release wget telnet 
+
+yum -y update
 
 
-echo 'export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/GO
-export PATH=$PATH:$GOPATH/bin' >> /etc/profile
+netstat -tap | grep mysql
 
-sleep 3
- 
-source /etc/profile
-mkdir -p $HOME/GO
-
-## Test if Golang is working
-go version
-
-echo 'Golang Installation Complete' 
-### The output is this:
-## go version go1.7 linux/amd64
+#######
