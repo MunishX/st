@@ -13,7 +13,7 @@
 prefix=/usr
 exec_prefix=/usr
 
-php_fpm_BIN=php-fpm-bin
+php_fpm_BIN=php-fpm
 php_fpm_CONF=/etc/opt/remi/php70/php-fpm.d/www.conf
 php_fpm_PID=/etc/opt/remi/php70/php-fpm.d/php-fpm.pid
 
