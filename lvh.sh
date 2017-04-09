@@ -169,4 +169,5 @@ sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $domain_root$mydom/sock
 
 echo "Done!!!!!"
 
-bash $startup_root$uname
+bash $startup_root$uname start
+
