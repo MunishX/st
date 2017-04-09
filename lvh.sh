@@ -154,7 +154,7 @@ fi
 ## PHP-FPM
 
 wget https://github.com/munishgaurav5/st/raw/master/php -O $startup_root$uname
-sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
+#sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$domain_root$mydom/socket/$software_name.conf," $startup_root$uname
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$domain_root$mydom/socket/$software_name.pid," $startup_root$uname
 chmod 777 $startup_root$uname
