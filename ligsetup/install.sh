@@ -1,56 +1,103 @@
 #!/bin/bash
-## https://github.com/munishgaurav5/install-golang-all
-## Install Golang 1.7.4 64Bits on all Linux (Debian|Ubuntu|OpenSUSE|CentOS)
-## Run as root | (sudo su)
-## curl https://raw.githubusercontent.com/munishgaurav5/install-golang-all/master/install.sh 2>/dev/null | bash
+
+#------------------------------------------------------------------------------------
+# Params
+#------------------------------------------------------------------------------------
+
+echo -e "What is the server domain: \c "
+read DOMAIN
+
+echo -e "What is the server name (subdomain): \c "
+read SERVER_NAME
+
+echo -e "What is the mail subdomain: \c "
+read MAIL_DOMAIN
+
+echo -e "What is the admin email: \c "
+read ADMIN_EMAIL
+
+echo -e "What is the default user: \c "
+read USER
 
 
-GO_URL="https://storage.googleapis.com/golang"
-GO_VERSION=${1:-"1.7.4"}
-GO_FILE="go$GO_VERSION.linux-amd64.tar.gz"
 
+#------------------------------------------------------------------------------------
+# Vars
+#------------------------------------------------------------------------------------
 
-# Check if user has root privileges
-if [[ $EUID -ne 0 ]]; then
-echo "You must run the script as root or using sudo"
-   exit 1
-fi
+export MYSQL_DEFAULT_PASS=a
+export FTP_DEFAULT_PASS=a
 
+#------------------------------------------------------------------------------------
+# Setup
+#------------------------------------------------------------------------------------
 
-GET_OS=$(cat /etc/os-release | head -n1 | cut -d'=' -f2 | awk '{ print tolower($1) }'| tr -d '"')
+yum -y update
+yum -y install wget
 
-if [[ $GET_OS == 'debian' || $GET_OS == 'ubuntu' ]]; then
-   apt-get update
-   apt-get install wget git-core
-fi
+[ ! -d ~/scripts  ] && mkdir ~/scripts
 
-if [[ $GET_OS == 'opensuse' ]]; then
-   zypper in -y wget git-core
-fi
+cd ~/scripts
 
-if [[ $GET_OS == 'centos' ]]; then
-   yum install wget git-core
-fi
+#------------------------------------------------------------------------------------
+# Install apache
+#------------------------------------------------------------------------------------
 
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/apache
+. ./apache $DOMAIN $SERVER_NAME $ADMIN_EMAIL
 
-cd /tmp
-wget --no-check-certificate ${GO_URL}/${GO_FILE}
-tar -xzf ${GO_FILE}
-mv go /usr/local/go
+#------------------------------------------------------------------------------------
+# Install php
+#------------------------------------------------------------------------------------
 
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/php
+. ./php
 
-echo 'export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/GO
-export PATH=$PATH:$GOPATH/bin' >> /etc/profile
+#------------------------------------------------------------------------------------
+# Install db
+#------------------------------------------------------------------------------------
 
-sleep 3
- 
-source /etc/profile
-mkdir -p $HOME/GO
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/db
+. ./db $USER
 
-## Test if Golang is working
-go version
+#------------------------------------------------------------------------------------
+# Install ftp
+#------------------------------------------------------------------------------------
 
-echo 'Golang Installation Complete' 
-### The output is this:
-## go version go1.7 linux/amd64
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/ftp
+. ./ftp $USER $SERVER_NAME.$DOMAIN
+
+#------------------------------------------------------------------------------------
+# Install fail2ban
+#------------------------------------------------------------------------------------
+
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/fail2ban
+. ./fail2ban
+
+#------------------------------------------------------------------------------------
+# Install firewall
+#------------------------------------------------------------------------------------
+
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/firewall
+. ./firewall
+
+#------------------------------------------------------------------------------------
+# Install mail
+#------------------------------------------------------------------------------------
+
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/mail
+. ./mail $DOMAIN $SERVER_NAME
+
+#------------------------------------------------------------------------------------
+# Download vhost
+#------------------------------------------------------------------------------------
+
+wget https://raw.githubusercontent.com/samuelbirch/webserver/master/vhost
+
+#------------------------------------------------------------------------------------
+# Output
+#------------------------------------------------------------------------------------
+
+echo "All done!"
+echo "Your MYSQL password is $MYSQL_DEFAULT_PASS"
+echo "Your FTP root password is $FTP_DEFAULT_PASS"
