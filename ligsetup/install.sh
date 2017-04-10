@@ -29,6 +29,15 @@ export MYSQL_DEFAULT_PASS=a
 export FTP_DEFAULT_PASS=a
 
 #------------------------------------------------------------------------------------
+# Req Install and Update
+#------------------------------------------------------------------------------------
+
+cd /tmp
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/req.sh
+chmod 777 req.sh
+./req.sh
+
+#------------------------------------------------------------------------------------
 # Setup
 #------------------------------------------------------------------------------------
 
@@ -40,11 +49,12 @@ yum -y install wget
 cd ~/scripts
 
 #------------------------------------------------------------------------------------
-# Install apache
+# Install Lighttpd
 #------------------------------------------------------------------------------------
 
-wget https://raw.githubusercontent.com/samuelbirch/webserver/master/apache
-. ./apache $DOMAIN $SERVER_NAME $ADMIN_EMAIL
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/lig.sh
+chmod 777 lig.sh
+./lig.sh
 
 #------------------------------------------------------------------------------------
 # Install php
@@ -57,8 +67,14 @@ wget https://raw.githubusercontent.com/samuelbirch/webserver/master/php
 # Install db
 #------------------------------------------------------------------------------------
 
-wget https://raw.githubusercontent.com/samuelbirch/webserver/master/db
-. ./db $USER
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/db.sh
+chmod 777 db.sh
+./db.sh
+
+#------------------------------------------------------------------------------------
+# Install db pw up
+#------------------------------------------------------------------------------------
+
 
 #------------------------------------------------------------------------------------
 # Install ftp
