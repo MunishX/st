@@ -6,34 +6,61 @@
 # Params
 #------------------------------------------------------------------------------------
 
-echo -e "What is the server domain: \c "
-read DOMAIN
+MAIN_IP="$(hostname -I)"
+IP_CORRECT=n
 
-echo -e "What is the server name (subdomain): \c "
-read SERVER_NAME
+   while [[ $IP_CORRECT = "y" ]]; do # to be replaced with regex       
+       read -p "SERVER IP is ${MAIN_IP} (y/n) : " $IP_CORRECT
+       #$MAIN_IP
+    done
 
-echo -e "What is the mail subdomain: \c "
-read MAIL_DOMAIN
 
-echo -e "What is the admin email: \c "
-read ADMIN_EMAIL
+ADMIN_PASS=$1
+   while [[ $ADMIN_PASS = "" ]]; do # to be replaced with regex
+       read -p "Admin Password (user : admin): " ADMIN_PASS
+    done
 
-echo -e "What is the default user: \c "
-read USER
+SERVER_HOST=$2
+   while [[ $SERVER_HOST = "" ]]; do # to be replaced with regex
+       read -p "Host Name (mail): " SERVER_HOST
+    done
 
-echo -e "Setup Root Password for MariaDB : \c "
-read DB_PASS
+SERVER_DOMAIN=$3
+   while [[ $SERVER_DOMAIN = "" ]]; do # to be replaced with regex
+       read -p "Domain Name (example.com): " SERVER_DOMAIN
+    done
 
+DB_PASS=$4
+   while [[ $DB_PASS = "" ]]; do # to be replaced with regex
+       read -p "MariaDB Root Password: " DB_PASS
+    done
+
+SSH_PORT=$5
+   while [[ $SSH_PORT = "" ]]; do # to be replaced with regex
+       read -p "SSH New Port: " SSH_PORT
+    done
 
 
 #------------------------------------------------------------------------------------
-# READY
+# READY :  Hostname & Admin User Setup
 #------------------------------------------------------------------------------------
 
+hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
+hostname
+
+nano /etc/hosts
+echo "" >> /etc/hosts
+163.172.55.159 admin.fastshrink.com admin
 
 rm -rf /tmp/lig_installer
 mkdir -p /tmp/lig_installer
 cd /tmp/lig_installer
+
+echo ""
+echo ""
+echo "0) READY TO INSTALL!"
+echo ""
+sleep 10
 
 #------------------------------------------------------------------------------------
 # Req Install and Update
@@ -61,7 +88,7 @@ sleep 10
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/ssh.sh
 chmod 777 ssh.sh
-./ssh.sh
+./ssh.sh $SSH_PORT
 
 echo ""
 echo ""
