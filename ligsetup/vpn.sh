@@ -38,6 +38,8 @@ sudo systemctl start mongod pritunl
 sudo systemctl enable mongod pritunl
 sudo systemctl status mongod pritunl
 
+echo -e "VISIT https://IP/ and add this setup key and Setup VPN. Then Press ENTER KEY. \c "
+read TEMP_INPUT
 
 sudo sh -c 'echo "* hard nofile 64000" >> /etc/security/limits.conf'
 sudo sh -c 'echo "* soft nofile 64000" >> /etc/security/limits.conf'
@@ -46,6 +48,7 @@ sudo sh -c 'echo "root soft nofile 64000" >> /etc/security/limits.conf'
 
 pritunl set app.server_port 789
 pritunl set app.redirect_server false
+
 systemctl restart pritunl
 systemctl status pritunl
 
