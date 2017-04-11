@@ -5,7 +5,6 @@
 cd /tmp
 wget https://centos7.iuscommunity.org/ius-release.rpm
 wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-#wget http://remi.mirrors.arminco.com/enterprise//remi-release-7.rpm
 rpm -ivh ius-release.rpm remi-release-7.rpm
 yum -y update
 
@@ -14,6 +13,8 @@ yum -y update
 yum -y install php70-php-bcmath php70-php-mysql php70-php-devel php70-php-fpm php70-php-gd php70-php-intl php70-php-imap php70-php-mbstring php70-php-mcrypt php70-php-mysqlnd php70-php-opcache php70-php-pdo php70-php-pear php70-php-soap php70-php-xml php70-php-xmlrpc
 yum -y install php70-php-pecl-uploadprogress php70-php-pecl-zip
 yum -y install php70-php-memcached php70-php-memcache php70-php-apcu* memcached
+yum -y install libevent libevent-devel
+yum -y update
 #mkdir -p /run/memcached/
 #chown -R memcached:memcached /run/memcached/
 
@@ -26,31 +27,4 @@ echo "date.timezone = UTC" >> /etc/opt/remi/php70/php.ini
 
 ln -s /usr/bin/php70 /usr/bin/php
 ln -s /opt/remi/php70/root/usr/sbin/php-fpm /usr/bin/php-fpm
-
-## TIME UTC 
-
- timedatectl  status
- timedatectl set-timezone UTC
- timedatectl  status
-# date -s '2017-04-02 20:43:30'
-
-## sudo apt install -y ntp
-#yum -y install ntp   
-#systemctl start ntpd
-#systemctl enable ntpd
-
-## for centos 7 time updator
-#yum install -y chrony
-#systemctl enable chronyd
-#systemctl start chronyd
-
-##
-#timedatectl set-local-rtc 0
-
-yum -y install libevent libevent-devel
-
-yum -y update
-
-cd /tmp
-chown -R lighttpd:lighttpd /var/opt/remi/php70
 
