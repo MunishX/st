@@ -1,6 +1,6 @@
 #!/bin/bash
 
-##### MariaDB 10.1 config
+##### add MariaDB 10.1 repo
 echo "
 # MariaDB 10.1 CentOS repository list - created 2016-12-24 04:21 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
@@ -10,6 +10,7 @@ baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.1.22/yu
 gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
 gpgcheck=1
 " > /etc/yum.repos.d/mariadb.repo
+#####
 
 
 #### MariaDB install ####
@@ -39,9 +40,6 @@ sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
 systemctl restart mariadb
 systemctl status mariadb
 
-
-
 netstat -tap | grep mysql
 
-sleep 10
 #######
