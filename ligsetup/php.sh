@@ -22,4 +22,6 @@ echo "date.timezone = UTC" >> /etc/opt/remi/php70/php.ini
 ln -s /usr/bin/php70 /usr/bin/php
 ln -s /opt/remi/php70/root/usr/sbin/php-fpm /usr/bin/php-fpm
 
+sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/php70/php.ini
+
 ####
