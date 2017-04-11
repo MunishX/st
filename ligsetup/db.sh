@@ -37,6 +37,11 @@ systemctl status mariadb
 sudo mv /etc/my.cnf /etc/my.cnf.bak
 sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
 
+### IMGMAGIX FIX
+sed -i 's,^.*<policy domain="coder" rights="none" pattern="HTTPS".*, <!--- <policy domain="coder" rights="none" pattern="HTTPS" />,' /etc/ImageMagick/policy.xml
+sed -i 's,^.*<policy domain="coder" rights="none" pattern="URL".*, ---> <policy domain="coder" rights="none" pattern="URL" />,' /etc/ImageMagick/policy.xml
+###
+
 systemctl restart mariadb
 systemctl status mariadb
 
