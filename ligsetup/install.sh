@@ -6,14 +6,37 @@
 # Params
 #------------------------------------------------------------------------------------
 
+######
 MAIN_IP="$(hostname -I)"
-IP_CORRECT=n
+#IP_CORRECT=n
 
-   while [[ $IP_CORRECT = "y" ]]; do # to be replaced with regex       
+   while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
        read -p "SERVER IP is ${MAIN_IP} (y/n) : " $IP_CORRECT
        #$MAIN_IP
     done
 
+if [ $IP_CORRECT != "y" ]; then
+   read -p "SERVER IP : " MAIN_IP
+   #exit 1
+   
+      IP_CORRECT=
+      while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
+       read -p "SERVER IP is ${MAIN_IP} (y/n) : " $IP_CORRECT
+       #$MAIN_IP
+      done
+
+
+fi
+
+if [ $IP_CORRECT != "y" ]; then
+   #read -p "SERVER IP : " MAIN_IP
+   echo "ERROR!"
+   exit 1
+fi
+
+echo "IP CORRECT"
+sleep 10
+#######
 
 ADMIN_PASS=$1
    while [[ $ADMIN_PASS = "" ]]; do # to be replaced with regex
@@ -46,7 +69,20 @@ SSH_PORT=$5
 #------------------------------------------------------------------------------------
 
 hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
-hostname
+#hostname
+
+OUT_HOSTNAME="$(hostname)"
+#$HOST_CORRECT=a
+
+while [[ $HOST_CORRECT = "" ]]; do # to be replaced with regex       
+       read -p "Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
+       #$MAIN_IP
+    done
+
+if [ $HOST_CORRECT != "y" ]; then
+   echo "Hostname incorrect exiting..." 
+   exit 1
+fi
 
 nano /etc/hosts
 echo "" >> /etc/hosts
