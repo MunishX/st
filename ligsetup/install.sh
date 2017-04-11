@@ -11,7 +11,7 @@ MAIN_IP="$(hostname -I)"
 #IP_CORRECT=n
 
    while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "SERVER IP is ${MAIN_IP} (y/n) : " $IP_CORRECT
+       read -p "SERVER IP is ${MAIN_IP} (y/n) : " IP_CORRECT
        #$MAIN_IP
     done
 
@@ -21,7 +21,7 @@ if [ $IP_CORRECT != "y" ]; then
    
       IP_CORRECT=
       while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "SERVER IP is ${MAIN_IP} (y/n) : " $IP_CORRECT
+       read -p "SERVER IP is ${MAIN_IP} (y/n) : " IP_CORRECT
        #$MAIN_IP
       done
 
