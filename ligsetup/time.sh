@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## TIME UTC 
 
  timedatectl  status
