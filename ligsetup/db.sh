@@ -16,6 +16,10 @@ gpgcheck=1
 
 mkdir -p /var/lib/mysql/
 
+cd /tmp
+yum -y install epel-release wget telnet 
+yum -y update
+
 yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
 yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
 
@@ -35,12 +39,9 @@ sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
 systemctl restart mariadb
 systemctl status mariadb
 
-cd /tmp
-yum -y install epel-release wget telnet 
-
-yum -y update
 
 
 netstat -tap | grep mysql
 
+sleep 10
 #######
