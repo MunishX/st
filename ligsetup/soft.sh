@@ -1,16 +1,27 @@
 #!/bin/bash
 
+ADMIN_USER_NAME=$1
+echo ""
+   while [[ $ADMIN_USER_NAME = "" ]]; do # to be replaced with regex
+       read -p "Enter Admin UserName : " ADMIN_USER_NAME
+    done
 
-mkdir -p /home/html/
-cd /home/html/
+ADMIN_PUBLIC_HTML=$2
+echo ""
+   while [[ $ADMIN_PUBLIC_HTML = "" ]]; do # to be replaced with regex
+       read -p "Enter Public_Html dir (html) : " ADMIN_PUBLIC_HTML
+    done
+
+mkdir -p /home/$ADMIN_USER_NAME/$ADMIN_PUBLIC_HTML/
+cd /home/$ADMIN_USER_NAME/$ADMIN_PUBLIC_HTML/
 
 
 ################### AWSTATS INSTALL ########################
 #yum install awstats -y 
 
 mkdir -p cgi-bin
-wget https://prdownloads.sourceforge.net/awstats/awstats-7.6.zip
-unzip awstats-*.zip
+wget https://github.com/munishgaurav5/st/raw/master/aw76.zip
+unzip aw76.zip
 mv awstats-7.6/wwwroot/ awstats
 mv awstats/cgi-bin/* cgi-bin
 rm -rf awstats-*
@@ -36,7 +47,7 @@ wget https://github.com/Th3-822/rapidleech/archive/master.zip
 unzip master
 unzip php*
 rm -rf phpF*.zip
-rm -rf master*.zip
+#rm -rf master*.zip
 rm -rf LICENSE.html
 mv index.php up.php
 mv rapidleech-master test
@@ -48,6 +59,8 @@ echo "composer create-project kleiram/transmission-php --keep-vcs -s dev ftl" >>
 
 mkdir status
 cd status
+touch php.php
+
 wget https://raw.github.com/rlerdorf/opcache-status/master/opcache.php
 wget https://gist.github.com/ck-on/4959032/raw/0b871b345fd6cfcd6d2be030c1f33d1ad6a475cb/ocp.php
 wget https://raw.github.com/amnuts/opcache-gui/master/index.php -O op.php
@@ -84,20 +97,21 @@ cd ..
 
 yum -y install vnstat
 #apt -y install vnstat
-vnstat -i eth0
-vnstat -u -i eth0
+
+NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
+
+echo ""
+echo "Network Interface Name : ${NETWORK_INTERFACE_NAME}"
+sleep 10
+
+#vnstat -i eth0
+#vnstat -u -i eth0
+
+vnstat -i $NETWORK_INTERFACE_NAME
+vnstat -u -i $NETWORK_INTERFACE_NAME
+
 */5 * * * * /usr/bin/vnstat -u >/dev/null 2>&1
 chown -R vnstat:vnstat /var/lib/vnstat
-
-##cd /tmp
-#wget http://www.sqweek.com/sqweek/files/vnstat_php_frontend-1.5.1.tar.gz
-#tar xzf vnstat_php_frontend-1.5.1.tar.gz
-#rm -rf vnstat_php_frontend-1.5.1.tar.gz
-#mv vnstat_php_frontend-1.5.1 stat
-
-## eth0 em1 venet0
-
-#wget http://s1.fastrapidleech.com/vnstat.zip
 
 ########
 wget https://raw.github.com/munishgaurav5/st/master/vn.zip -O vnstat.zip
@@ -112,17 +126,6 @@ service vnstat start
 chkconfig vnstat on
 vnstat -d
 
-
-############## SSH POrt Change #########################
-
-echo "Port 1997" >> /etc/ssh/sshd_config
-service sshd restart
-
-firewall-cmd --permanent --zone=public --add-port=1997/tcp
-sudo firewall-cmd --reload
-sudo firewall-cmd --list-all
-
-###########################################
 
 ############## PHP COMPOSER #########################
 #cd /tmp
