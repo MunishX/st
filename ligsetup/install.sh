@@ -10,6 +10,9 @@
 MAIN_IP="$(hostname -I)"
 #IP_CORRECT=n
 
+echo ""
+echo ""
+
    while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
        read -p "SERVER IP is ${MAIN_IP} (y/n) : " IP_CORRECT
        #$MAIN_IP
