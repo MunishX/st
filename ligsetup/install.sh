@@ -3,18 +3,17 @@
 # yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/install.sh && chmod 777 install.sh && ./install.sh
 
 #------------------------------------------------------------------------------------
-# Vars
+# Vars AND Inputs 
 #------------------------------------------------------------------------------------
 
-######
+###### IP Check
 MAIN_IP="$(hostname -I)"
-#IP_CORRECT=n
 
 echo ""
 echo ""
 
    while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "SERVER IP is ${MAIN_IP} (y/n) : " IP_CORRECT
+       read -p "(1/7) SERVER MAIN IP is ${MAIN_IP} (y/n) : " IP_CORRECT
        #$MAIN_IP
     done
 
@@ -27,9 +26,8 @@ if [ $IP_CORRECT != "y" ]; then
        read -p "SERVER IP is ${MAIN_IP} (y/n) : " IP_CORRECT
        #$MAIN_IP
       done
-
-
 fi
+
 
 if [ $IP_CORRECT != "y" ]; then
    #read -p "SERVER IP : " MAIN_IP
@@ -39,34 +37,35 @@ fi
 
 #######
 
+####### INPUT VARIABLES
 ADMIN_PASS=$1
 echo ""
    while [[ $ADMIN_PASS = "" ]]; do # to be replaced with regex
-       read -p "Admin Password (user : admin): " ADMIN_PASS
+       read -p "(2/7) Admin Password (user : admin): " ADMIN_PASS
     done
 
 SERVER_HOST=$2
 echo ""
    while [[ $SERVER_HOST = "" ]]; do # to be replaced with regex
-       read -p "Host Name (mail): " SERVER_HOST
+       read -p "(3/7) Host Name (host): " SERVER_HOST
     done
 
 SERVER_DOMAIN=$3
 echo ""
    while [[ $SERVER_DOMAIN = "" ]]; do # to be replaced with regex
-       read -p "Domain Name (example.com): " SERVER_DOMAIN
+       read -p "(4/7) Domain Name (domain.com): " SERVER_DOMAIN
     done
 
 DB_PASS=$4
 echo ""
    while [[ $DB_PASS = "" ]]; do # to be replaced with regex
-       read -p "MariaDB Root Password: " DB_PASS
+       read -p "(5/7) MariaDB Root Password: " DB_PASS
     done
 
 SSH_PORT=$5
 echo ""
    while [[ $SSH_PORT = "" ]]; do # to be replaced with regex
-       read -p "SSH New Port: " SSH_PORT
+       read -p "(6/7) SSH Port: " SSH_PORT
     done
 
 
@@ -74,12 +73,14 @@ echo ""
 # READY :  Hostname & Admin User Setup
 #------------------------------------------------------------------------------------
 
+#### SETUP HOSTNAME AND HOST FILE
+
 hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
 
 OUT_HOSTNAME="$(hostname)"
 echo ""
 while [[ $HOST_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
+       read -p "(7/7) Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
        #$MAIN_IP
     done
 
@@ -88,14 +89,12 @@ if [ $HOST_CORRECT != "y" ]; then
    exit 1
 fi
 
-
 echo "$MAIN_IP $OUT_HOSTNAME $SERVER_HOST" >> /etc/hosts
-
-#echo "IP CORRECT"
-#sleep 10
 
 #######################
 
+
+##### Create Installer Folder
 rm -rf /tmp/lig_installer
 mkdir -p /tmp/lig_installer
 cd /tmp/lig_installer
@@ -121,6 +120,21 @@ echo ""
 sleep 10
 
 #------------------------------------------------------------------------------------
+# INSTALL VPN
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh
+chmod 777 vpn.sh
+./vpn.sh
+
+echo ""
+echo ""
+echo "2) VPN COMPLETED!"
+echo ""
+sleep 10
+
+
+#------------------------------------------------------------------------------------
 # Setup
 #------------------------------------------------------------------------------------
 
@@ -136,7 +150,7 @@ chmod 777 ssh.sh
 
 echo ""
 echo ""
-echo "2) SSH COMPLETED!"
+echo "3) SSH COMPLETED!"
 echo ""
 sleep 10
 
@@ -150,21 +164,7 @@ chmod 777 time.sh
 
 echo ""
 echo ""
-echo "3) TIME COMPLETED!"
-echo ""
-sleep 10
-
-#------------------------------------------------------------------------------------
-# INSTALL VPN
-#------------------------------------------------------------------------------------
-
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh
-chmod 777 vpn.sh
-./vpn.sh
-
-echo ""
-echo ""
-echo "4) VPN COMPLETED!"
+echo "4) TIME COMPLETED!"
 echo ""
 sleep 10
 
