@@ -28,7 +28,7 @@ echo ""
 echo ""
 echo "Please Wait!    TIME  Sync in Process...";
 echo ""
-sleep 10 
+sleep 15 
 
 chronyc sources 
 timedatectl  status
