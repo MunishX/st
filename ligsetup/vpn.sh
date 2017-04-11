@@ -1,56 +1,51 @@
 #!/bin/bash
-## https://github.com/munishgaurav5/install-golang-all
-## Install Golang 1.7.4 64Bits on all Linux (Debian|Ubuntu|OpenSUSE|CentOS)
-## Run as root | (sudo su)
-## curl https://raw.githubusercontent.com/munishgaurav5/install-golang-all/master/install.sh 2>/dev/null | bash
 
 
-GO_URL="https://storage.googleapis.com/golang"
-GO_VERSION=${1:-"1.7.4"}
-GO_FILE="go$GO_VERSION.linux-amd64.tar.gz"
+yum -y update
+yum -y install git zip unzip curl nano sudo wget
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release 
+yum -y groupinstall "Development Tools"
+yum -y update
 
 
-# Check if user has root privileges
-if [[ $EUID -ne 0 ]]; then
-echo "You must run the script as root or using sudo"
-   exit 1
-fi
+sudo tee -a /etc/yum.repos.d/mongodb-org-3.2.repo << EOF
+[mongodb-org-3.2]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.2/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.2.asc
+EOF
+
+sudo tee -a /etc/yum.repos.d/pritunl.repo << EOF
+[pritunl]
+name=Pritunl Repository
+baseurl=http://repo.pritunl.com/stable/yum/centos/7/
+gpgcheck=1
+enabled=1
+EOF
 
 
-GET_OS=$(cat /etc/os-release | head -n1 | cut -d'=' -f2 | awk '{ print tolower($1) }'| tr -d '"')
-
-if [[ $GET_OS == 'debian' || $GET_OS == 'ubuntu' ]]; then
-   apt-get update
-   apt-get install wget git-core
-fi
-
-if [[ $GET_OS == 'opensuse' ]]; then
-   zypper in -y wget git-core
-fi
-
-if [[ $GET_OS == 'centos' ]]; then
-   yum install wget git-core
-fi
 
 
-cd /tmp
-wget --no-check-certificate ${GO_URL}/${GO_FILE}
-tar -xzf ${GO_FILE}
-mv go /usr/local/go
+sudo yum -y install epel-release
+gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+gpg --armor --export 7568D9BB55FF9E5287D586017AE645C0CF8E292A > key.tmp; sudo rpm --import key.tmp; rm -f key.tmp
 
 
-echo 'export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/GO
-export PATH=$PATH:$GOPATH/bin' >> /etc/profile
+sudo yum -y install pritunl mongodb-org
+sudo systemctl start mongod pritunl
+sudo systemctl enable mongod pritunl
+sudo systemctl status mongod pritunl
 
-sleep 3
- 
-source /etc/profile
-mkdir -p $HOME/GO
 
-## Test if Golang is working
-go version
+sudo sh -c 'echo "* hard nofile 64000" >> /etc/security/limits.conf'
+sudo sh -c 'echo "* soft nofile 64000" >> /etc/security/limits.conf'
+sudo sh -c 'echo "root hard nofile 64000" >> /etc/security/limits.conf'
+sudo sh -c 'echo "root soft nofile 64000" >> /etc/security/limits.conf'
 
-echo 'Golang Installation Complete' 
-### The output is this:
-## go version go1.7 linux/amd64
+pritunl set app.server_port 789
+pritunl set app.redirect_server false
+systemctl restart pritunl
+systemctl status pritunl
+
