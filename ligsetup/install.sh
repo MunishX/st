@@ -68,6 +68,8 @@ echo ""
        read -p "(6/7) SSH Port: " SSH_PORT
     done
 
+ADMIN_USER=admin 
+ADMIN_HTML=html
 
 #------------------------------------------------------------------------------------
 # READY :  Hostname & Admin User Setup
@@ -224,6 +226,23 @@ echo ""
 echo "8) DB_PASS COMPLETED!"
 echo ""
 sleep 10
+
+#------------------------------------------------------------------------------------
+# Software Install
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/soft.sh
+chmod 777 soft.sh
+./soft.sh $ADMIN_USER $ADMIN_HTML
+
+echo ""
+echo ""
+echo "9) Software Install COMPLETED!"
+echo ""
+sleep 10
+
+
+
 
 echo "END!!"
 exit 1
