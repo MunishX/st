@@ -24,7 +24,7 @@ wget https://github.com/munishgaurav5/st/raw/master/aw76.zip
 unzip aw76.zip
 mv awstats-7.6/wwwroot/ awstats
 mv awstats/cgi-bin/* cgi-bin
-rm -rf awstats-*
+rm -rf aw76.zip
 
 ########
 wget https://raw.github.com/munishgaurav5/st/master/default.conf -O cgi-bin/default.conf
@@ -102,7 +102,7 @@ NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
 
 echo ""
 echo "Network Interface Name : ${NETWORK_INTERFACE_NAME}"
-sleep 10
+sleep 2
 
 #vnstat -i eth0
 #vnstat -u -i eth0
@@ -121,6 +121,9 @@ unzip vnstat.zip
 rm -rf vnstat.zip
 mv vnstat stat
 
+if [ $NETWORK_INTERFACE_NAME != "eth0" ]; then
+sed -i "s/^.*eth0.*/ '$NETWORK_INTERFACE_NAME',/" stat/config.php
+fi
 
 service vnstat start
 chkconfig vnstat on
