@@ -22,5 +22,11 @@ systemctl enable chronyd
 firewall-cmd --add-service=ntp --permanent 
 firewall-cmd --reload 
 
+echo ""
+echo ""
+echo "Please Wait!    TIME  Sync in Process...";
+echo ""
+sleep 10 
+
 chronyc sources 
 timedatectl  status
