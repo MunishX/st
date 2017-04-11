@@ -39,6 +39,7 @@ group = group-name
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
 ;listen = 127.0.0.1:9000
+
 listen = /run/php70-php-fpm.sock
 pm.status_path = /status/php.php
 
