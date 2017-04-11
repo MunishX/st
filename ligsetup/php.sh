@@ -26,7 +26,7 @@ sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/php70/php.ini
 
 ####
 
-### MEMCACHED
+### MEMCACHED CONFIG
 yum -y install memcached
 
 echo '
@@ -39,4 +39,8 @@ OPTIONS="localhost"
 
 #####
 
+#### OPCACHE CONFIG
+sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/php70/php.d/10-opcache.ini
+sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/php70/php.d/10-opcache.ini
+####
 
