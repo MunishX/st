@@ -52,3 +52,4 @@ pritunl set app.redirect_server false
 systemctl restart pritunl
 systemctl status pritunl
 
+# yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh && chmod 777 vpn.sh && ./vpn.sh
