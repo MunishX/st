@@ -3,7 +3,7 @@
 # yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/install.sh && chmod 777 install.sh && ./install.sh
 
 #------------------------------------------------------------------------------------
-# Params
+# Vars
 #------------------------------------------------------------------------------------
 
 ######
@@ -33,35 +33,38 @@ fi
 
 if [ $IP_CORRECT != "y" ]; then
    #read -p "SERVER IP : " MAIN_IP
-   echo "ERROR!"
+   echo "Error!... Try Again!"
    exit 1
 fi
 
-echo "IP CORRECT"
-sleep 10
 #######
 
 ADMIN_PASS=$1
+echo ""
    while [[ $ADMIN_PASS = "" ]]; do # to be replaced with regex
        read -p "Admin Password (user : admin): " ADMIN_PASS
     done
 
 SERVER_HOST=$2
+echo ""
    while [[ $SERVER_HOST = "" ]]; do # to be replaced with regex
        read -p "Host Name (mail): " SERVER_HOST
     done
 
 SERVER_DOMAIN=$3
+echo ""
    while [[ $SERVER_DOMAIN = "" ]]; do # to be replaced with regex
        read -p "Domain Name (example.com): " SERVER_DOMAIN
     done
 
 DB_PASS=$4
+echo ""
    while [[ $DB_PASS = "" ]]; do # to be replaced with regex
        read -p "MariaDB Root Password: " DB_PASS
     done
 
 SSH_PORT=$5
+echo ""
    while [[ $SSH_PORT = "" ]]; do # to be replaced with regex
        read -p "SSH New Port: " SSH_PORT
     done
@@ -72,24 +75,26 @@ SSH_PORT=$5
 #------------------------------------------------------------------------------------
 
 hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
-#hostname
 
 OUT_HOSTNAME="$(hostname)"
-#$HOST_CORRECT=a
-
+echo ""
 while [[ $HOST_CORRECT = "" ]]; do # to be replaced with regex       
        read -p "Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
        #$MAIN_IP
     done
 
 if [ $HOST_CORRECT != "y" ]; then
-   echo "Hostname incorrect exiting..." 
+   echo "Error!... Try Again!" 
    exit 1
 fi
 
-nano /etc/hosts
-echo "" >> /etc/hosts
-163.172.55.159 admin.fastshrink.com admin
+
+echo "$MAIN_IP $OUT_HOSTNAME $SERVER_HOST" >> /etc/hosts
+
+#echo "IP CORRECT"
+#sleep 10
+
+#######################
 
 rm -rf /tmp/lig_installer
 mkdir -p /tmp/lig_installer
