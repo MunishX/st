@@ -53,6 +53,49 @@ sleep 10
 cd /tmp
 
 #------------------------------------------------------------------------------------
+# UPDATE SSH
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/ssh.sh
+chmod 777 ssh.sh
+./ssh.sh
+
+echo ""
+echo ""
+echo "2) SSH COMPLETED!"
+echo ""
+sleep 10
+
+#------------------------------------------------------------------------------------
+# UPDATE TIME
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/time.sh
+chmod 777 time.sh
+./time.sh
+
+echo ""
+echo ""
+echo "3) TIME COMPLETED!"
+echo ""
+sleep 10
+
+#------------------------------------------------------------------------------------
+# INSTALL VPN
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh
+chmod 777 vpn.sh
+./vpn.sh
+
+echo ""
+echo ""
+echo "4) VPN COMPLETED!"
+echo ""
+sleep 10
+
+
+#------------------------------------------------------------------------------------
 # Install Lighttpd
 #------------------------------------------------------------------------------------
 
@@ -62,7 +105,7 @@ chmod 777 lig.sh
 
 echo ""
 echo ""
-echo "2) LIG COMPLETED!"
+echo "5) LIG COMPLETED!"
 echo ""
 sleep 10
 
@@ -76,7 +119,7 @@ chmod 777 php.sh
 
 echo ""
 echo ""
-echo "3) PHP COMPLETED!"
+echo "6) PHP COMPLETED!"
 echo ""
 sleep 10
 
@@ -90,7 +133,7 @@ chmod 777 db.sh
 
 echo ""
 echo ""
-echo "4) DB COMPLETED!"
+echo "7) DB COMPLETED!"
 echo ""
 sleep 10
 
@@ -104,7 +147,7 @@ chmod 777 dbpass.sh
 
 echo ""
 echo ""
-echo "5) DB_PASS COMPLETED!"
+echo "8) DB_PASS COMPLETED!"
 echo ""
 sleep 10
 
