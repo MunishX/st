@@ -1,0 +1,11 @@
+
+server.modules += ( "mod_fastcgi" )
+# FastCGI unix socket setting for ADMIN
+fastcgi.server += ( ".php" =>
+        ((
+#                "host" => "127.0.0.1",
+#                "port" => "9000",
+                "socket" => "/run/php-admin.sock",
+                "broken-scriptfilename" => "enable"
+        ))
+)
