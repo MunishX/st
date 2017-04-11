@@ -41,12 +41,7 @@ chmod 777 req.sh
 # Setup
 #------------------------------------------------------------------------------------
 
-yum -y update
-yum -y install wget
-
-[ ! -d ~/scripts  ] && mkdir ~/scripts
-
-cd ~/scripts
+cd /tmp
 
 #------------------------------------------------------------------------------------
 # Install Lighttpd
@@ -60,8 +55,9 @@ chmod 777 lig.sh
 # Install php
 #------------------------------------------------------------------------------------
 
-wget https://raw.githubusercontent.com/samuelbirch/webserver/master/php
-. ./php
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/php.sh
+chmod 777 php.sh
+./php.sh
 
 #------------------------------------------------------------------------------------
 # Install db
