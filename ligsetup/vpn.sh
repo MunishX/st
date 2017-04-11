@@ -40,8 +40,12 @@ sudo systemctl status mongod pritunl
 
 echo ""
 echo ""
-echo "SETUP KEY :"
-pritunl setup-key
+echo "SETUP KEY : "
+
+OUTPUT="$(pritunl setup-key)"
+echo "${OUTPUT}"
+
+
 echo ""
 echo ""
 
