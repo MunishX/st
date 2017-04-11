@@ -19,14 +19,17 @@ read ADMIN_EMAIL
 echo -e "What is the default user: \c "
 read USER
 
+echo -e "Setup Root Password for MariaDB : \c "
+read DB_PASS
+
 
 
 #------------------------------------------------------------------------------------
 # Vars
 #------------------------------------------------------------------------------------
 
-export MYSQL_DEFAULT_PASS=a
-export FTP_DEFAULT_PASS=a
+#export MYSQL_DEFAULT_PASS=a
+#export FTP_DEFAULT_PASS=a
 
 #------------------------------------------------------------------------------------
 # Req Install and Update
@@ -36,6 +39,12 @@ cd /tmp
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/req.sh
 chmod 777 req.sh
 ./req.sh
+
+echo ""
+echo ""
+echo "1) REQ COMPLETED!"
+echo ""
+sleep 10
 
 #------------------------------------------------------------------------------------
 # Setup
@@ -51,6 +60,12 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/lig.sh
 chmod 777 lig.sh
 ./lig.sh
 
+echo ""
+echo ""
+echo "2) LIG COMPLETED!"
+echo ""
+sleep 10
+
 #------------------------------------------------------------------------------------
 # Install php
 #------------------------------------------------------------------------------------
@@ -58,6 +73,12 @@ chmod 777 lig.sh
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/php.sh
 chmod 777 php.sh
 ./php.sh
+
+echo ""
+echo ""
+echo "3) PHP COMPLETED!"
+echo ""
+sleep 10
 
 #------------------------------------------------------------------------------------
 # Install db
@@ -67,10 +88,28 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/db.sh
 chmod 777 db.sh
 ./db.sh
 
+echo ""
+echo ""
+echo "4) DB COMPLETED!"
+echo ""
+sleep 10
+
 #------------------------------------------------------------------------------------
 # Install db pw up
 #------------------------------------------------------------------------------------
 
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/dbpass.sh
+chmod 777 dbpass.sh
+./dbpass.sh $DB_PASS
+
+echo ""
+echo ""
+echo "5) DB_PASS COMPLETED!"
+echo ""
+sleep 10
+
+echo "END!!"
+exit 1
 
 #------------------------------------------------------------------------------------
 # Install ftp
