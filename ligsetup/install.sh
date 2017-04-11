@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/install.sh && chmod 777 install.sh && ./install.sh
+
 #------------------------------------------------------------------------------------
 # Params
 #------------------------------------------------------------------------------------
@@ -25,17 +27,18 @@ read DB_PASS
 
 
 #------------------------------------------------------------------------------------
-# Vars
+# READY
 #------------------------------------------------------------------------------------
 
-#export MYSQL_DEFAULT_PASS=a
-#export FTP_DEFAULT_PASS=a
+
+rm -rf /tmp/lig_installer
+mkdir -p /tmp/lig_installer
+cd /tmp/lig_installer
 
 #------------------------------------------------------------------------------------
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-cd /tmp
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/req.sh
 chmod 777 req.sh
 ./req.sh
@@ -50,7 +53,7 @@ sleep 10
 # Setup
 #------------------------------------------------------------------------------------
 
-cd /tmp
+#cd /tmp
 
 #------------------------------------------------------------------------------------
 # UPDATE SSH
