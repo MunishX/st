@@ -25,3 +25,18 @@ ln -s /opt/remi/php70/root/usr/sbin/php-fpm /usr/bin/php-fpm
 sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/php70/php.ini
 
 ####
+
+### MEMCACHED
+yum -y install memcached
+
+echo '
+PORT="11211"
+USER="memcached"
+MAXCONN="1024"
+CACHESIZE="1024"
+OPTIONS="localhost"
+' > /etc/sysconfig/memcached
+
+#####
+
+
