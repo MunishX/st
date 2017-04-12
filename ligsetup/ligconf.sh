@@ -207,6 +207,7 @@ chown -R lighttpd:$uname $user_root/logs
 
 if [ $restart_now = "y" ]; then
 systemctl restart  lighttpd.service
+systemctl status  lighttpd.service
 fi
 
 
