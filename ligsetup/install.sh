@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/install.sh && chmod 777 install.sh && ./install.sh
+# yum -y install wget nano && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/install.sh && chmod 777 install.sh && nano install.sh 
+
 
 #------------------------------------------------------------------------------------
 # Vars AND Inputs 
