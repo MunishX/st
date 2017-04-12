@@ -14,3 +14,4 @@ yum -y update
 yum -y install lighttpd
 yum -y install lighttpd-fastcgi
 
+mkdir -p /etc/lighttpd/enabled/
