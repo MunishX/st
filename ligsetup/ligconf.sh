@@ -1,5 +1,9 @@
 #!/bin/bash
 
+rm -rf /etc/lighttpd/lighttpd.old
+rm -rf /etc/lighttpd/conf.d/fastcgi.old
+rm -rf /etc/lighttpd/modules.old
+
 mv  /etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.old
 mv /etc/lighttpd/conf.d/fastcgi.conf /etc/lighttpd/conf.d/fastcgi.old
 mv /etc/lighttpd/modules.conf /etc/lighttpd/modules.old
@@ -40,6 +44,11 @@ admin_username=$3
        read -p "ADMIN USERNAME: " admin_username
     done
 
+restart_now=$4
+   while [[ $restart_now = "" ]]; do # to be replaced with regex
+       read -p "Restart Lighttpd after Finish: (y/n)" restart_now
+    done
+
 #read -p "Transmission username: " uname
 #read -p "$uname's Password: " passw
 
@@ -50,9 +59,9 @@ admin_username=$3
 
 php_add_head=php
 software_name=${php_add_head}-${uname}
-user_root=/home/$uname/
+user_root=/home/$uname
 user_php=php
-admin_bin_loc=/home/$admin_username/bin/
+admin_bin_loc=/home/$admin_username/bin
 
 
 #### Check Status
@@ -74,7 +83,7 @@ else
 fi
 
 
-domain_loc=${user_root}php/$software_name.conf
+domain_loc=$user_root/php/$software_name.conf
 if [ -f "$domain_loc" ]
 then
 	echo "Domain : Error "
@@ -129,30 +138,33 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 useradd -m -p $encrypt_pass $uname
 
+if [[ $uname != $admin_username ]]; then
 sed -i "s/^\($uname.*\)$/\1$uname,$admin_username/g" /etc/group
+fi
 
 
-mkdir -p $user_root{html,php,logs}
-mkdir -p $user_rootphp/{session,wsdlcache,opcache,log}
-touch $user_roothtml/status/php.php
+
+mkdir -p $user_root/{html,$user_php,logs}
+mkdir -p $user_root/$user_php/{session,wsdlcache,opcache,log}
+touch $user_root/html/status/php.php
 
 chmod g+w $user_root
-chmod -R 777 $user_rootphp
+chmod -R 777 $user_root/$user_php
 
 chown -R $uname:$uname $user_root
-chown -R $admin_username:$uname $user_rootlogs
+chown -R $admin_username:$uname $user_root/logs
 
 
  echo "
  
  \$HTTP[\"host\"] == \"$mydom\" {
-    server.document-root = \"$user_roothtml\" 
-    accesslog.filename = \"$user_rootlogs/access_log.txt\" 
+    server.document-root = \"$user_root/html\" 
+    accesslog.filename = \"$user_root/logs/access_log.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
     fastcgi.server = ( \".php\" =>
                        (
                           (
-			    \"socket\" => \"$user_rootphp/$software_name.sock\",
+			    \"socket\" => \"$user_root/$user_php/$software_name.sock\",
                             \"broken-scriptfilename\" => \"enable\" 
                           )
                         )
@@ -167,11 +179,11 @@ echo "<h1>Hello World!</h1>";
 echo "<p>Current User ID is: ". posix_getuid();
 echo "<p>Current Group ID is: ". posix_getgid();
 ?>
-' > $user_roothtml/test.php
+' > $user_root/html/test.php
 
-chown -R $uname:$uname $user_roothtml
+chown -R $uname:$uname $user_root/html
 
-if [ $admin_username != $uname ]; then
+if [ $restart_now = "y" ]; then
 systemctl restart  lighttpd.service
 fi
 
@@ -181,19 +193,19 @@ echo "Done!"
 
 ###################
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/www -O $user_root$user_php/$software_name.conf
-sed -i "s,^.*/run/php-fpm-pool.pid.*,pid = $user_root$user_php/$software_name.pid," $user_root$user_php/$software_name.conf
-sed -i "s/^.*www-name.*/[$software_name]/" $user_root$user_php/$software_name.conf
-sed -i "s/^.*user-name.*/user = $uname/" $user_root$user_php/$software_name.conf
-sed -i "s/^.*group-name.*/group = $uname/" $user_root$user_php/$software_name.conf
-sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $user_root$user_php/$software_name.sock," $user_root$user_php/$software_name.conf
-sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $user_root$user_php/$software_name.conf
-sed -i "s,/user-php-root/,$user_root$user_php/,g" $user_root$user_php/$software_name.conf
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/www -O $user_root/$user_php/$software_name.conf
+sed -i "s,^.*/run/php-fpm-pool.pid.*,pid = $user_root/$user_php/$software_name.pid," $user_root/$user_php/$software_name.conf
+sed -i "s/^.*www-name.*/[$software_name]/" $user_root/$user_php/$software_name.conf
+sed -i "s/^.*user-name.*/user = $uname/" $user_root/$user_php/$software_name.conf
+sed -i "s/^.*group-name.*/group = $uname/" $user_root/$user_php/$software_name.conf
+sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $user_root/$user_php/$software_name.sock," $user_root/$user_php/$software_name.conf
+sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $user_root/$user_php/$software_name.conf
+sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$user_php/$software_name.conf
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $admin_bin_loc/$software_name
 #sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
-sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root$user_php/$software_name.conf," $admin_bin_loc/$software_name
-sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root$user_php/$software_name.pid," $admin_bin_loc/$software_name
+sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$user_php/$software_name.conf," $admin_bin_loc/$software_name
+sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$user_php/$software_name.pid," $admin_bin_loc/$software_name
 chmod 777 $admin_bin_loc/$software_name
 
 chown -R $uname:$uname $user_root
