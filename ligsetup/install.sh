@@ -228,6 +228,42 @@ echo ""
 sleep 10
 
 #------------------------------------------------------------------------------------
+# Install REPLACE
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace.sh
+chmod 777 replace.sh
+./replace.sh
+
+echo ""
+echo ""
+echo "9) REPLACE COMPLETED!"
+echo ""
+sleep 10
+
+
+
+
+#------------------------------------------------------------------------------------
+# Install LIG CONFIG 
+#------------------------------------------------------------------------------------
+restart_no=n
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/ligconf.sh
+chmod 777 ligconf.sh
+./ligconf.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
+
+echo ""
+echo ""
+echo "10) LIG CONFIG  COMPLETED!"
+echo ""
+sleep 10
+
+while [[ $Continue_do != "y" ]]; do # to be replaced with regex       
+       read -p "Press y to continue (y/n) : " Continue_do
+       #$MAIN_IP
+    done
+
+#------------------------------------------------------------------------------------
 # Software Install
 #------------------------------------------------------------------------------------
 
@@ -237,7 +273,7 @@ chmod 777 soft.sh
 
 echo ""
 echo ""
-echo "9) Software Install COMPLETED!"
+echo "11) Software Install COMPLETED!"
 echo ""
 sleep 10
 
