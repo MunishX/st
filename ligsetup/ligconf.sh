@@ -20,12 +20,12 @@ mydom=$3
        read -p "$uname's Domain: " mydom
     done
 
-admin_username=$3
+admin_username=$4
    while [[ $admin_username = "" ]]; do # to be replaced with regex
        read -p "ADMIN USERNAME: " admin_username
     done
 
-restart_now=$4
+restart_now=$5
    while [[ $restart_now = "" ]]; do # to be replaced with regex
        read -p "Restart Lighttpd after Finish: (y/n)" restart_now
     done
