@@ -24,3 +24,5 @@ usermod -m -d /home/lighttpd lighttpd
 
 service lighttpd stop
 usermod -m -d /home/lighttpd lighttpd
+
+# check errors at /var/log/lighttpd/error.log
