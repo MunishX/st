@@ -20,3 +20,7 @@ mkdir -p /home/lighttpd/html/ip/
 
 chown -R lighttpd:lighttpd /home/lighttpd
 chmod -R 777 /home/lighttpd/bin
+usermod -m -d /home/lighttpd lighttpd
+
+service lighttpd stop
+usermod -m -d /home/lighttpd lighttpd
