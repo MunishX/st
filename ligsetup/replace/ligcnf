@@ -101,8 +101,8 @@ server.use-ipv6 = "disable"
 ## Run as a different username/groupname.
 ## This requires root permissions during startup. 
 ##
-server.username  = "admin"
-server.groupname = "admin"
+server.username  = "lighttpd"
+server.groupname = "lighttpd"
 
 ## 
 ## enable core files.
