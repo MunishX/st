@@ -27,7 +27,7 @@ admin_username=$4
 
 restart_now=$5
    while [[ $restart_now = "" ]]; do # to be replaced with regex
-       read -p "Restart Lighttpd after Finish: (y/n)" restart_now
+       read -p "Restart Lighttpd after Finish (y/n) : " restart_now
     done
 
 #read -p "Transmission username: " uname
