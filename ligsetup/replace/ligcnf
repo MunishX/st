@@ -113,7 +113,7 @@ server.groupname = "lighttpd"
 ## Document root
 ##
 #server.document-root = server_root + "/lighttpd"
-server.document-root = "/home/admin/html/ip" 
+server.document-root = "/home/lighttpd/html/ip" 
 
 ##
 ## The value for the "Server:" response field.
@@ -328,7 +328,7 @@ server.max-connections = 4000
 ##                                 "index.htm", "default.htm" )
 ##
 index-file.names += (
-  "index.xhtml", "index.html", "index.htm", "default.htm", "index.php"
+   "index.php", "index.html", "index.htm", "default.htm", "index.xhtml"
 )
 
 ##
