@@ -83,7 +83,7 @@ else
 fi
 
 
-domain_loc=$user_root/php/$software_name.conf
+domain_loc=$user_root/$user_php/$software_name.conf
 if [ -f "$domain_loc" ]
 then
 	echo "Domain : Error "
@@ -135,12 +135,25 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 
 
 #Create UNIX user and directories for transmission
-encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
-useradd -m -p $encrypt_pass $uname
+#encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
+#useradd -m -p $encrypt_pass -g $admin_username $uname
+
+#######
+ encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
+## sudo useradd -m -p $encrypt_pass -g $admin_username $uname
+
+ sudo useradd -m -p $encrypt_pass $uname
+ sudo usermod -a -G $uname $uname
 
 if [[ $uname != $admin_username ]]; then
-sed -i "s/^\($uname.*\)$/\1$uname,$admin_username/g" /etc/group
+ sudo usermod -a -G $admin_username $uname
 fi
+#######
+
+
+#if [[ $uname != $admin_username ]]; then
+#sed -i "s/^\($uname.*\)$/\1$uname,$admin_username/g" /etc/group
+#fi
 
 
 
