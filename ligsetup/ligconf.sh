@@ -129,6 +129,11 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 if [[ $uname != $admin_username ]]; then
  sudo usermod -a -G $admin_username $uname
 fi
+
+if [[ $uname = $admin_username ]]; then
+ mkdir -p /home/$admin_username/bin
+fi
+
 #######
 
 
