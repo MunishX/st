@@ -201,6 +201,7 @@ sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $user_root/$user_php/$software_n
 sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $user_root/$user_php/$software_name.conf
 sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$user_php/$software_name.conf
 
+sleep 5
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $admin_bin_loc/$software_name
 #sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$user_php/$software_name.conf," $admin_bin_loc/$software_name
