@@ -125,6 +125,7 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 
  sudo useradd -m -p $encrypt_pass $uname
  sudo usermod -a -G $uname $uname
+ sudo usermod -a -G lighttpd $uname
 
 if [[ $uname != $admin_username ]]; then
  sudo usermod -a -G $admin_username $uname
@@ -149,9 +150,6 @@ touch $user_root/html/status/php.php
 
 chmod g+w $user_root
 chmod -R 777 $user_root/$user_php
-
-chown -R $uname:$uname $user_root
-chown -R $admin_username:$uname $user_root/logs
 
 
  echo "
@@ -180,12 +178,6 @@ echo "<p>Current Group ID is: ". posix_getgid();
 ?>
 ' > $user_root/html/test.php
 
-chown -R $uname:$uname $user_root/html
-
-if [ $restart_now = "y" ]; then
-systemctl restart  lighttpd.service
-fi
-
 
 echo "Done!"
 
@@ -208,8 +200,16 @@ sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$u
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$user_php/$software_name.pid," $admin_bin_loc/$software_name
 chmod 777 $admin_bin_loc/$software_name
 
+
 chown -R $uname:$uname $user_root
-chown -R $admin_username:$uname $user_root/logs
+#chown -R $admin_username:$uname $user_root/logs
+chown -R lighttpd:$uname $user_root/logs
+
+if [ $restart_now = "y" ]; then
+systemctl restart  lighttpd.service
+fi
+
+
 
 echo "Done!!!!!"
 
