@@ -214,15 +214,16 @@ cd $user_root/$mydom/html/admin
 
 if [[ $uname != $admin_username ]]; then
 
-wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
+#wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
 wget https://github.com/Th3-822/rapidleech/archive/master.zip
 unzip master
-unzip php*
-rm -rf phpF*.zip
-#rm -rf master*.zip
-rm -rf LICENSE.html
-mv index.php up.php
+#unzip php*
+#rm -rf phpF*.zip
+##rm -rf master*.zip
+#rm -rf LICENSE.html
+#mv index.php up.php
 mv rapidleech-master test
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/man.php -O up.php
 
 fi
 
