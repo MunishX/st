@@ -340,6 +340,22 @@ sleep 10
 
 
 
+#------------------------------------------------------------------------------------
+# Enable & RESTART ALL
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/restart.sh
+chmod 777 restart.sh
+./restart.sh $OUT_HOSTNAME $ADMIN_USER 
+
+echo ""
+echo ""
+echo "12) Restart and Enable COMPLETED!"
+echo ""
+sleep 10
+
+
+
 echo "END!!"
 exit 1
 
