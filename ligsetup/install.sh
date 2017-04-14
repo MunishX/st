@@ -250,9 +250,13 @@ sleep 10
 # Install LIG CONFIG 
 #------------------------------------------------------------------------------------
 restart_no=n
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/ligconf.sh
-chmod 777 ligconf.sh
-./ligconf.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
+#wget https://github.com/munishgaurav5/st/raw/master/ligsetup/ligconf.sh
+#chmod 777 ligconf.sh
+#./ligconf.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/create_vhost.sh
+chmod 777 create_vhost.sh
+./create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
 
 echo ""
 echo ""
