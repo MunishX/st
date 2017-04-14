@@ -29,7 +29,7 @@ wget https://github.com/munishgaurav5/st/raw/master/aw76.zip
 unzip aw76.zip
 mv awstats-7.6/wwwroot/ awstats
 mv awstats/cgi-bin/* cgi-bin
-rm -rf aw76.zip
+rm -rf aw76.zip awstats-7.6
 
 ########
 wget https://raw.github.com/munishgaurav5/st/master/default.conf -O cgi-bin/default.conf
