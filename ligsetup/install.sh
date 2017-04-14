@@ -291,10 +291,10 @@ echo "10) LIG CONFIG  COMPLETED!"
 echo ""
 sleep 10
 
-while [[ $Continue_do != "y" ]]; do # to be replaced with regex       
-       read -p "Press y to continue (y/n) : " Continue_do
-       #$MAIN_IP
-    done
+#while [[ $Continue_do != "y" ]]; do # to be replaced with regex       
+#       read -p "Press y to continue (y/n) : " Continue_do
+#       #$MAIN_IP
+#    done
 
 #------------------------------------------------------------------------------------
 # Software Install
