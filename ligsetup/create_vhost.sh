@@ -176,17 +176,6 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
   " > /etc/lighttpd/enabled/$mydom.conf
 
  
- echo '
-<?php
-echo "<h1>Hello World!</h1>";
-echo "<p>Current User ID is: ". posix_getuid();
-echo "<p>Current Group ID is: ". posix_getgid();
-?>
-' > $user_root/$mydom/html/admin/test.php
-
-
-echo "Done!"
-
 
 ###################
 
@@ -222,6 +211,19 @@ mv index.php up.php
 mv rapidleech-master test
 
 fi
+
+
+ echo '
+<?php
+echo "<h1>Hello World!</h1>";
+echo "<p>Current User ID is: ". posix_getuid();
+echo "<p>Current Group ID is: ". posix_getgid();
+?>
+' > $user_root/$mydom/html/admin/test.php
+
+
+echo "Done!"
+
 
 
 chmod -R 777 $admin_bin_loc/
