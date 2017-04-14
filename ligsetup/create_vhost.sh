@@ -175,6 +175,17 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
     server.document-root = \"$user_root/$mydom/html\" 
     accesslog.filename = \"home/logs/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
+   
+    auth.backend = "htpasswd"
+    auth.backend.htpasswd.userfile = "/home/admin/.htpasswd"
+    auth.require = ( "/admin/" =>
+      (
+      "method"  => "basic",
+      "realm"   => "Admin Area!  Password Required!",
+      "require" => "admin-user-only"
+      ),
+    )
+   
     fastcgi.server = ( \".php\" =>
                        (
                           (
@@ -186,8 +197,10 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
 }
   " > /etc/lighttpd/enabled/$mydom.conf
 
+ echo "admin:ZmQSkiPCXoQs2" > /home/$admin_username/.htpasswd
+ chmod 775 /home/$admin_username/.htpasswd
+ chown $admin_username:$admin_username /home/$admin_username/.htpasswd
  
-
 ###################
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/www -O $user_root/$mydom/$php_add_head/$software_name.conf
