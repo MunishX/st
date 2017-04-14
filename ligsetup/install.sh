@@ -15,7 +15,7 @@ echo ""
 echo ""
 
    while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "(1/7) SERVER MAIN IP is ${MAIN_IP} (y/n) : " IP_CORRECT
+       read -p "(1/8) SERVER MAIN IP is ${MAIN_IP} (y/n) : " IP_CORRECT
        #$MAIN_IP
     done
 
@@ -43,32 +43,45 @@ fi
 ADMIN_PASS=$1
 echo ""
    while [[ $ADMIN_PASS = "" ]]; do # to be replaced with regex
-       read -p "(2/7) Admin Password (user : admin): " ADMIN_PASS
+       read -p "(2/8) Admin Password (user : admin): " ADMIN_PASS
     done
 
 SERVER_HOST=$2
 echo ""
    while [[ $SERVER_HOST = "" ]]; do # to be replaced with regex
-       read -p "(3/7) Host Name (host): " SERVER_HOST
+       read -p "(3/8) Host Name (host): " SERVER_HOST
     done
 
 SERVER_DOMAIN=$3
 echo ""
    while [[ $SERVER_DOMAIN = "" ]]; do # to be replaced with regex
-       read -p "(4/7) Domain Name (domain.com): " SERVER_DOMAIN
+       read -p "(4/8) Domain Name (domain.com): " SERVER_DOMAIN
     done
 
 DB_PASS=$4
 echo ""
    while [[ $DB_PASS = "" ]]; do # to be replaced with regex
-       read -p "(5/7) MariaDB Root Password: " DB_PASS
+       read -p "(5/8) MariaDB Root Password: " DB_PASS
     done
 
 SSH_PORT=$5
 echo ""
    while [[ $SSH_PORT = "" ]]; do # to be replaced with regex
-       read -p "(6/7) SSH Port: " SSH_PORT
+       read -p "(6/8) SSH Port: " SSH_PORT
     done
+
+Install_VPN=$6
+echo ""
+   while [[ $Install_VPN = "" ]]; do # to be replaced with regex
+       read -p "(7/8) INSTALL VPN (y/n): " Install_VPN
+    done
+
+Install_Torrent=$7
+echo ""
+   while [[ $Install_Torrent = "" ]]; do # to be replaced with regex
+       read -p "(7/8) INSTALL Torrent (y/n): " Install_Torrent
+    done
+
 
 ADMIN_USER=admin 
 ADMIN_HTML=html
@@ -84,7 +97,7 @@ hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
 OUT_HOSTNAME="$(hostname)"
 echo ""
 while [[ $HOST_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "(7/7) Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
+       read -p " Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
        #$MAIN_IP
     done
 
@@ -126,6 +139,7 @@ sleep 10
 #------------------------------------------------------------------------------------
 # INSTALL VPN
 #------------------------------------------------------------------------------------
+if [[ $Install_VPN = 'y' ]]; then
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh
 chmod 777 vpn.sh
@@ -135,6 +149,15 @@ echo ""
 echo ""
 echo "2) VPN COMPLETED!"
 echo ""
+
+else
+echo ""
+echo ""
+echo "2) SKIPPING VPN!"
+echo ""
+fi
+
+
 sleep 10
 
 
