@@ -162,7 +162,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
  
  \$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$user_root/$mydom/html\" 
-   # accesslog.filename = \"$user_root/logs/access_log.txt\" 
+    accesslog.filename = \"home/logs/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
     fastcgi.server = ( \".php\" =>
                        (
@@ -204,6 +204,18 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $ad
 #sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/$software_name
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/$software_name
+
+cd $user_root/$mydom/html
+wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
+wget https://github.com/Th3-822/rapidleech/archive/master.zip
+unzip master
+unzip php*
+rm -rf phpF*.zip
+#rm -rf master*.zip
+rm -rf LICENSE.html
+mv index.php up.php
+mv rapidleech-master test
+
 
 chmod -R 777 $admin_bin_loc/
 chown -R $admin_username:$admin_username $admin_bin_loc
