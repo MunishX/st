@@ -43,7 +43,8 @@ php_add_head=php
 software_name=${php_add_head}-${mydom}
 user_root=/home/$uname
 user_php=${php_add_head}-${mydom}
-admin_bin_loc=/home/$admin_username/intl
+#admin_bin_loc=/home/$admin_username/intl
+admin_bin_loc=/home/$admin_username/bin
 
 
 #### Check Status
