@@ -124,7 +124,7 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
  encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 ## sudo useradd -m -p $encrypt_pass -g $admin_username $uname
 sudo useradd -m -p $encrypt_pass $uname
-sudo usermod -a -G $uname $admin_username
+sudo usermod -a -G $uname $uname
 ############################################# #sudo useradd -m -p $encrypt_pass $uname
  #sudo useradd -m -p $encrypt_pass –g $admin_username $uname
 #############################################
@@ -132,9 +132,10 @@ sudo usermod -a -G $uname $admin_username
 # sudo usermod -a -G $uname $uname
 # sudo usermod -a -G lighttpd $uname
 
-#if [[ $uname != $admin_username ]]; then
+if [[ $uname != $admin_username ]]; then
 # sudo usermod -a -G $admin_username $uname
-#fi
+sudo usermod -a -G $uname $admin_username
+fi
 
 #if [[ $uname = $admin_username ]]; then
 # mkdir -p $admin_bin_loc
