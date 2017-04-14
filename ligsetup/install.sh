@@ -139,7 +139,7 @@ sleep 10
 #------------------------------------------------------------------------------------
 # INSTALL VPN
 #------------------------------------------------------------------------------------
-if [[ $Install_VPN = 'y' ]]; then
+if [[ $Install_VPN = "y" ]]; then
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh
 chmod 777 vpn.sh
