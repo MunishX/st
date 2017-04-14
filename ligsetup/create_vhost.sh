@@ -239,8 +239,9 @@ echo "Done!"
 
 
 
-chmod -R 777 $admin_bin_loc/
-chown -R $admin_username:$admin_username $admin_bin_loc
+#chmod -R 777 $admin_bin_loc/
+chmod -R 777 /etc/init.d/$software_name
+#chown -R $admin_username:$admin_username $admin_bin_loc
 
 chmod -R 777 $user_root/$mydom/$php_add_head/
 ###################################################### chown -R $uname:$uname $user_root
