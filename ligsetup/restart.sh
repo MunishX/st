@@ -10,17 +10,31 @@ php_soft=$1
        read -p "Php-fpm Name: " php_soft
     done
 
-tor_name=$2
-   while [[ $tor_name = "" ]]; do # to be replaced with regex
-       read -p "Transmission Name: " tor_name
+tor_soft=$2
+   while [[ $tor_soft = "" ]]; do # to be replaced with regex
+       read -p "Transmission Name: " tor_soft
     done
+
+#php_name=$3
+#   while [[ $php_name = "" ]]; do # to be replaced with regex
+#       read -p "PHP Name: " php_name
+#    done
+
+php_name=php
+
+#tor_name=$3
+#   while [[ $tor_name = "" ]]; do # to be replaced with regex
+#       read -p "Transmission Name: " tor_name
+#    done
+
+tor_name=tor
 
 
 systemctl restart lighttpd.service
 systemctl restart memcached
 systemctl restart mysql
-service $tor_name restart
-service $php_soft restart
+service $tor_name-$tor_soft restart
+service $php_name-$php_soft restart
 
 sleep 5
 
