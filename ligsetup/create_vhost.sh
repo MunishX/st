@@ -65,7 +65,7 @@ else
 fi
 
 
-domain_loc=$user_root/$user_php/$software_name.conf
+domain_loc=$user_root/$mydom/$php_add_head/$software_name.conf
 if [ -f "$domain_loc" ]
 then
 	echo "Domain : Error "
@@ -205,7 +205,9 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $ad
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/$software_name
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/$software_name
 
-cd $user_root/$mydom/html
+mkdir -p $user_root/$mydom/html/admin
+cd $user_root/$mydom/html/admin
+
 wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
 wget https://github.com/Th3-822/rapidleech/archive/master.zip
 unzip master
