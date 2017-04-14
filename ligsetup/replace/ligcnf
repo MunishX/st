@@ -113,7 +113,7 @@ server.groupname = "lighttpd"
 ## Document root
 ##
 #server.document-root = server_root + "/lighttpd"
-server.document-root = "/home/lighttpd/html/ip" 
+server.document-root = "/home/admin/ip/html" 
 
 ##
 ## The value for the "Server:" response field.
@@ -343,9 +343,10 @@ url.access-deny             = ( "~", ".inc" )
 ## disable range requests for pdf files
 ## workaround for a bug in the Acrobat Reader plugin.
 ##
-$HTTP["url"] =~ "\.pdf$" {
-  server.range-requests = "disable"
-}
+
+# $HTTP["url"] =~ "\.pdf$" {
+#   server.range-requests = "disable"
+# }
 
 ##
 ## url handling modules (rewrite, redirect)
