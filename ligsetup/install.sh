@@ -298,7 +298,7 @@ while [[ $Continue_do != "y" ]]; do # to be replaced with regex
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/soft.sh
 chmod 777 soft.sh
-./soft.sh $ADMIN_USER $ADMIN_HTML
+./soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
 
 echo ""
 echo ""
