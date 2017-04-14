@@ -123,7 +123,8 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 #######
  encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 ## sudo useradd -m -p $encrypt_pass -g $admin_username $uname
-
+sudo useradd -m -p $encrypt_pass $uname
+sudo usermod -a -G $uname $admin_username
 ############################################# #sudo useradd -m -p $encrypt_pass $uname
  #sudo useradd -m -p $encrypt_pass –g $admin_username $uname
 #############################################
@@ -135,19 +136,19 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 # sudo usermod -a -G $admin_username $uname
 #fi
 
-if [[ $uname = $admin_username ]]; then
- mkdir -p $admin_bin_loc
- sudo useradd -m -p $encrypt_pass $uname
+#if [[ $uname = $admin_username ]]; then
+# mkdir -p $admin_bin_loc
+# sudo useradd -m -p $encrypt_pass $uname
  #sudo usermod -a -G $admin_username $admin_username
-fi
+#fi
 
 #######
 
 
-if [[ $uname != $admin_username ]]; then
+#if [[ $uname != $admin_username ]]; then
 #sed -i "s/^\($uname.*\)$/\1$uname,$admin_username/g" /etc/group
-sudo useradd -m -p $encrypt_pass –g $admin_username $uname
-fi
+#sudo useradd -m -p $encrypt_pass –g $admin_username $uname
+#fi
 
 #########
 #php_add_head=php
