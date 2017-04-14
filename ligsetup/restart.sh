@@ -30,6 +30,18 @@ php_name=php
 tor_name=tor
 
 
+
+systemctl start  lighttpd.service
+systemctl enable  lighttpd.service
+
+#systemctl start php70-php-fpm 
+#systemctl enable php70-php-fpm
+
+systemctl enable memcached
+systemctl start memcached
+
+sleep 5
+
 systemctl restart lighttpd.service
 systemctl restart memcached
 systemctl restart mysql
