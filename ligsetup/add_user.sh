@@ -49,7 +49,7 @@ ADMIN_HTML=html
 #------------------------------------------------------------------------------------
 # Install LIG CONFIG 
 #------------------------------------------------------------------------------------
-restart_no=n
+restart_no=y
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/create_vhost.sh
 chmod 777 create_vhost.sh
