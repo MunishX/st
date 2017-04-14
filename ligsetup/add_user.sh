@@ -45,8 +45,10 @@ fi
 Admin_User=admin 
 ADMIN_HTML=html
 
+rm -rf /tmp/add_user_script
 mkdir -p /tmp/add_user_script
 cd /tmp/add_user_script
+
 #------------------------------------------------------------------------------------
 # Install LIG CONFIG 
 #------------------------------------------------------------------------------------
