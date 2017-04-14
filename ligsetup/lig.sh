@@ -27,4 +27,6 @@ chmod -R 777 /home/logs
 service lighttpd stop
 usermod -m -d /home/logs lighttpd
 
+umask 0002
+umask
 # check errors at /var/log/lighttpd/error.log
