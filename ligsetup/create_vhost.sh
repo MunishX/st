@@ -124,7 +124,10 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
  encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 ## sudo useradd -m -p $encrypt_pass -g $admin_username $uname
 
- sudo useradd -m -p $encrypt_pass $uname
+############################################# #sudo useradd -m -p $encrypt_pass $uname
+ sudo useradd -m -p $encrypt_pass –g $admin_username $uname
+#############################################
+ 
 # sudo usermod -a -G $uname $uname
 # sudo usermod -a -G lighttpd $uname
 
@@ -134,6 +137,7 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 
 if [[ $uname = $admin_username ]]; then
  mkdir -p $admin_bin_loc
+ #sudo usermod -a -G $admin_username $admin_username
 fi
 
 #######
@@ -230,7 +234,8 @@ chmod -R 777 $admin_bin_loc/
 chown -R $admin_username:$admin_username $admin_bin_loc
 
 chmod -R 777 $user_root/$mydom/$php_add_head/
-chown -R $uname:$uname $user_root
+###################################################### chown -R $uname:$uname $user_root
+chown -R $uname:$admin_username $user_root
 
 cd /home
 sudo find . -type f -exec chmod 664 {} \;
