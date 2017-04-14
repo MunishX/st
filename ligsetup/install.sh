@@ -355,6 +355,22 @@ echo ""
 sleep 10
 
 
+#------------------------------------------------------------------------------------
+# FIREWALL
+#------------------------------------------------------------------------------------
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/firewall.sh
+chmod 777 firewall.sh
+./firewall.sh 
+
+echo ""
+echo ""
+echo "13) Firewall COMPLETED!"
+echo ""
+sleep 10
+
+
+
 
 echo "END!!"
 exit 1
