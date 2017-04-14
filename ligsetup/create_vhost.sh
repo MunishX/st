@@ -182,7 +182,7 @@ echo "<h1>Hello World!</h1>";
 echo "<p>Current User ID is: ". posix_getuid();
 echo "<p>Current Group ID is: ". posix_getgid();
 ?>
-' > $user_root/$mydom/html/test.php
+' > $user_root/$mydom/html/admin/test.php
 
 
 echo "Done!"
