@@ -82,6 +82,15 @@ echo ""
        read -p "(8/9) INSTALL Torrent (y/n): " Install_Torrent
     done
 
+if [ $Install_Torrent = "y" ]; then
+   
+   Torrent_Port=$8
+   echo ""
+   while [[ $Torrent_Port = "" ]]; do # to be replaced with regex
+       read -p "(8/9) Torrent Port (9091): " Torrent_Port
+    done
+  
+fi
 
 ADMIN_USER=admin 
 ADMIN_HTML=html
@@ -161,11 +170,6 @@ fi
 sleep 10
 
 
-#------------------------------------------------------------------------------------
-# Setup
-#------------------------------------------------------------------------------------
-
-#cd /tmp
 
 #------------------------------------------------------------------------------------
 # UPDATE SSH
@@ -306,6 +310,33 @@ echo "11) Software Install COMPLETED!"
 echo ""
 sleep 10
 
+
+
+#------------------------------------------------------------------------------------
+# Install Torrent
+#------------------------------------------------------------------------------------
+
+if [[ $Install_Torrent = "y" ]]; then
+
+old_user_true=y
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/tmm.sh
+chmod 777 tmm.sh 
+./tmm.sh $ADMIN_USER $ADMIN_PASS $Torrent_Port $OUT_HOSTNAME $ADMIN_USER $old_user_true
+
+echo ""
+echo ""
+echo "12) Torrent COMPLETED!"
+echo ""
+
+else
+echo ""
+echo ""
+echo "12) SKIPPING Torrent!"
+echo ""
+fi
+
+
+sleep 10
 
 
 
