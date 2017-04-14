@@ -210,7 +210,7 @@ chmod 777 $admin_bin_loc/$software_name
 
 chown -R $uname:$uname $user_root
 #chown -R $admin_username:$uname $user_root/logs
-chown -R lighttpd:$uname $user_root/logs
+#chown -R lighttpd:$uname $user_root/logs
 
 if [ $restart_now = "y" ]; then
 systemctl restart  lighttpd.service
