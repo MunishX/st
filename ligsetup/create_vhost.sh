@@ -161,7 +161,8 @@ fi
 #admin_bin_loc=/home/$admin_username/intl
 #########
 
-mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
+#mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
+mkdir -p $user_root/$mydom/{html,$php_add_head}
 mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
 #touch $user_root/html/status/php.php
 
