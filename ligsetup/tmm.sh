@@ -31,7 +31,7 @@ admin_uname=$5
     
 user_old=$6
    while [[ $user_old = "" ]]; do # to be replaced with regex
-       read -p "Is this new user ? (y/n): " user_old
+       read -p "Is this old user ? (y/n): " user_old
     done
     
 
@@ -63,10 +63,15 @@ else
    echo "GroupID : OK"
 fi
 
+if [[ $user_old != "y" ]]; then 
+
 if [[ $STOP_IT = 1 ]]; then
 echo 'Error! Username already available. Please change Username and try again.'
 exit 1
 fi
+
+fi
+
 
 echo 'User Status :  OK'
 
