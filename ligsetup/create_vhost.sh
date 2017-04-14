@@ -155,8 +155,7 @@ mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
 mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
 #touch $user_root/html/status/php.php
 
-chmod g+w $user_root
-chmod -R 777 $user_root/$mydom/$php_add_head/
+#chmod g+w $user_root
 
 
  echo "
@@ -205,10 +204,17 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $ad
 #sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/$software_name
 sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/$software_name
-chmod 777 $admin_bin_loc/$software_name
 
+chmod -R 777 $admin_bin_loc/
+chown -R $admin_username:$admin_username $admin_bin_loc
 
+chmod -R 777 $user_root/$mydom/$php_add_head/
 chown -R $uname:$uname $user_root
+
+cd /home
+sudo find . -type f -exec chmod 664 {} \;
+sudo find . -type d -exec chmod 775 {} \;
+
 #chown -R $admin_username:$uname $user_root/logs
 #chown -R lighttpd:$uname $user_root/logs
 
