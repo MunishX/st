@@ -6,14 +6,19 @@ echo ""
        read -p "Enter Admin UserName : " ADMIN_USER_NAME
     done
 
-ADMIN_PUBLIC_HTML=$2
+mydom=$2
+   while [[ $mydom = "" ]]; do # to be replaced with regex
+       read -p "$ADMIN_USER_NAME's Domain: " mydom
+    done
+
+ADMIN_PUBLIC_HTML=$3
 echo ""
    while [[ $ADMIN_PUBLIC_HTML = "" ]]; do # to be replaced with regex
        read -p "Enter Public_Html dir (html) : " ADMIN_PUBLIC_HTML
     done
 
-mkdir -p /home/$ADMIN_USER_NAME/$ADMIN_PUBLIC_HTML/
-cd /home/$ADMIN_USER_NAME/$ADMIN_PUBLIC_HTML/
+mkdir -p /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/
+cd /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/
 
 
 ################### AWSTATS INSTALL ########################
