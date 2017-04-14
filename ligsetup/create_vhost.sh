@@ -176,13 +176,13 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
     accesslog.filename = \"home/logs/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
    
-    auth.backend = "htpasswd"
-    auth.backend.htpasswd.userfile = "/home/admin/.htpasswd"
-    auth.require = ( "/admin/" =>
+    auth.backend = \"htpasswd\"
+    auth.backend.htpasswd.userfile = \"/home/admin/.htpasswd\"
+    auth.require = ( \"/admin/\" =>
       (
-      "method"  => "basic",
-      "realm"   => "Admin Area!  Password Required!",
-      "require" => "admin-user-only"
+      \"method\"  => \"basic\",
+      \"realm\"   => \"Admin Area!  Password Required!\",
+      \"require\" => \"admin-user-only\"
       ),
     )
    
