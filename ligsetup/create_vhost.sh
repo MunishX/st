@@ -39,10 +39,11 @@ restart_now=$5
 #admin_username=$4
 
 php_add_head=php
-software_name=${php_add_head}-${uname}
+#software_name=${php_add_head}-${uname}
+software_name=${php_add_head}-${mydom}
 user_root=/home/$uname
-user_php=php
-admin_bin_loc=/home/$admin_username/bin
+user_php=${php_add_head}-${mydom}
+admin_bin_loc=/home/$admin_username/intl
 
 
 #### Check Status
@@ -124,15 +125,15 @@ yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gette
 ## sudo useradd -m -p $encrypt_pass -g $admin_username $uname
 
  sudo useradd -m -p $encrypt_pass $uname
- sudo usermod -a -G $uname $uname
- sudo usermod -a -G lighttpd $uname
+# sudo usermod -a -G $uname $uname
+# sudo usermod -a -G lighttpd $uname
 
-if [[ $uname != $admin_username ]]; then
- sudo usermod -a -G $admin_username $uname
-fi
+#if [[ $uname != $admin_username ]]; then
+# sudo usermod -a -G $admin_username $uname
+#fi
 
 if [[ $uname = $admin_username ]]; then
- mkdir -p /home/$admin_username/bin
+ mkdir -p $admin_bin_loc
 fi
 
 #######
@@ -142,26 +143,32 @@ fi
 #sed -i "s/^\($uname.*\)$/\1$uname,$admin_username/g" /etc/group
 #fi
 
+#########
+#php_add_head=php
+#software_name=${php_add_head}-${mydom}
+#user_root=/home/$uname
+#user_php=${php_add_head}-${mydom}
+#admin_bin_loc=/home/$admin_username/intl
+#########
 
-
-mkdir -p $user_root/{html,$user_php,logs}
-mkdir -p $user_root/$user_php/{session,wsdlcache,opcache,log}
-touch $user_root/html/status/php.php
+mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
+mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
+#touch $user_root/html/status/php.php
 
 chmod g+w $user_root
-chmod -R 777 $user_root/$user_php
+chmod -R 777 $user_root/$mydom/$php_add_head/
 
 
  echo "
  
  \$HTTP[\"host\"] == \"$mydom\" {
-    server.document-root = \"$user_root/html\" 
-    accesslog.filename = \"$user_root/logs/access_log.txt\" 
+    server.document-root = \"$user_root/$mydom/html\" 
+   # accesslog.filename = \"$user_root/logs/access_log.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
     fastcgi.server = ( \".php\" =>
                        (
                           (
-			    \"socket\" => \"$user_root/$user_php/$software_name.sock\",
+			    \"socket\" => \"$user_root/$mydom/$php_add_head/$software_name.sock\",
                             \"broken-scriptfilename\" => \"enable\" 
                           )
                         )
@@ -184,20 +191,20 @@ echo "Done!"
 
 ###################
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/www -O $user_root/$user_php/$software_name.conf
-sed -i "s,^.*/run/php-fpm-pool.pid.*,pid = $user_root/$user_php/$software_name.pid," $user_root/$user_php/$software_name.conf
-sed -i "s/^.*www-name.*/[$software_name]/" $user_root/$user_php/$software_name.conf
-sed -i "s/^.*user-name.*/user = $uname/" $user_root/$user_php/$software_name.conf
-sed -i "s/^.*group-name.*/group = $uname/" $user_root/$user_php/$software_name.conf
-sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $user_root/$user_php/$software_name.sock," $user_root/$user_php/$software_name.conf
-sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $user_root/$user_php/$software_name.conf
-sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$user_php/$software_name.conf
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/www -O $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s,^.*/run/php-fpm-pool.pid.*,pid = $user_root/$mydom/$php_add_head/$software_name.pid," $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s/^.*www-name.*/[$software_name]/" $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s/^.*user-name.*/user = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s/^.*group-name.*/group = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s,^.*/run/php70-php-fpm.sock.*,listen = $user_root/$mydom/$php_add_head/$software_name.sock," $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$mydom/$php_add_head/$software_name.conf
 
 sleep 5
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $admin_bin_loc/$software_name
 #sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
-sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$user_php/$software_name.conf," $admin_bin_loc/$software_name
-sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$user_php/$software_name.pid," $admin_bin_loc/$software_name
+sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/$software_name
+sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/$software_name
 chmod 777 $admin_bin_loc/$software_name
 
 
