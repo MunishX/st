@@ -44,7 +44,7 @@ software_name=${php_add_head}-${mydom}
 user_root=/home/$uname
 user_php=${php_add_head}-${mydom}
 #admin_bin_loc=/home/$admin_username/intl
-admin_bin_loc=/home/$admin_username/bin
+#admin_bin_loc=/home/$admin_username/bin
 
 
 #### Check Status
@@ -138,12 +138,12 @@ if [[ $uname != $admin_username ]]; then
 sudo usermod -a -G $uname $admin_username
 fi
 
-if [[ $uname = $admin_username ]]; then
+#if [[ $uname = $admin_username ]]; then
  #mkdir -p $admin_bin_loc/{active,inactive}
- mkdir -p $admin_bin_loc/
+ #mkdir -p $admin_bin_loc/
  #sudo useradd -m -p $encrypt_pass $uname
  #sudo usermod -a -G $admin_username $admin_username
-fi
+#fi
 
 #######
 
@@ -201,20 +201,20 @@ sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$mydom/$php_add_he
 
 sleep 5
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $admin_bin_loc/$software_name
-##sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
-sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/$software_name
-sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/$software_name
+#wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $admin_bin_loc/$software_name
+###sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
+#sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/$software_name
+#sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/$software_name
 
 #wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O $admin_bin_loc/active/$software_name
 ###sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
 #sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," $admin_bin_loc/active/$software_name
 #sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," $admin_bin_loc/active/$software_name
 
-#wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O /etc/init.d/$software_name
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O /etc/init.d/$software_name
 ##sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
-#sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," /etc/init.d/$software_name
-#sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," /etc/init.d/$software_name
+sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," /etc/init.d/$software_name
+sed -i "s,^.*/etc/opt/remi/php70/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," /etc/init.d/$software_name
 
 #/etc/init.d/
 
@@ -250,8 +250,8 @@ echo "Done!"
 
 
 
-##chmod -R 777 /etc/init.d/$software_name
-chown -R $admin_username:$admin_username $admin_bin_loc
+chmod -R 777 /etc/init.d/$software_name
+#chown -R $admin_username:$admin_username $admin_bin_loc
 
 #chmod -R 777 $user_root/$mydom/$php_add_head/
 ###################################################### chown -R $uname:$uname $user_root
@@ -261,7 +261,7 @@ cd /home
 sudo find . -type f -exec chmod 664 {} \;
 sudo find . -type d -exec chmod 775 {} \;
 
-chmod -R 777 $admin_bin_loc
+#chmod -R 777 $admin_bin_loc
 
 #chown -R $admin_username:$uname $user_root/logs
 #chown -R lighttpd:$uname $user_root/logs
@@ -269,7 +269,7 @@ chmod -R 777 $admin_bin_loc
 sleep 5
 
 #export PATH="$admin_bin_loc/active:$PATH"
-export PATH="$admin_bin_loc:$PATH"
+#export PATH="$admin_bin_loc:$PATH"
 
 sleep 2
 
@@ -283,6 +283,11 @@ fi
 echo "Done!!!!!"
 
 #bash $admin_bin_loc/$software_name start
+
+chkconfig --add $software_name
+chkconfig --level 345 $software_name on
+
+systemctl daemon-reload
 
 service $software_name start
 
