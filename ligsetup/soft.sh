@@ -158,4 +158,6 @@ echo "<?php header(\"Location: src/\"); ?> " > cron/index.php
 
 #####
 
+chown -R $ADMIN_USER_NAME:$ADMIN_USER_NAME /home/$ADMIN_USER_NAME
+
 echo "DONE!"
