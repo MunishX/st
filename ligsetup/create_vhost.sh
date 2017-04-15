@@ -188,12 +188,12 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
    #)
 
     auth.backend = \"htpasswd\"
-    auth.backend.htpasswd.userfile = \"/home/admin/.htpasswd\"
-    auth.require = ( \"/admin/\" =>
+    auth.backend.htpasswd.userfile = \"/home/$admin_username/.htpasswd\"
+    auth.require = ( \"/$admin_username/\" =>
       (
       \"method\"  => \"basic\",
       \"realm\"   => \"Admin Area!  Password Required!\",
-      \"require\" => \"user=admin\"
+      \"require\" => \"user=$admin_username\"
       )
     )
    
