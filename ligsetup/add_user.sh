@@ -38,7 +38,7 @@ fi
 Restart_Lig=$6
 echo ""
    while [[ $Restart_Lig = "" ]]; do # to be replaced with regex
-       read -p "(6/6) INSTALL Torrent (y/n): " Restart_Lig
+       read -p "(6/6) Restart Lighttpd (y/n): " Restart_Lig
     done
 
 # Admin_User=$6
