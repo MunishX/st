@@ -146,14 +146,6 @@ fi
 
 if [[ $uname = $admin_username ]]; then
 
-# create ip vhost
-
-\$HTTP["host"] == "62.210.38.180" {
-  server.document-root = "/home/html/web/ip/"
-  server.name = "62.210.38.180"
-  #server.port = 80
-}
-
 
 echo "
  ## IP Vhost (default)
