@@ -3,6 +3,7 @@
 #### PHP CONFIG
 
 ############################### ADDED START
+main_ip="$(hostname -I)"
 
 # Take input for username and password
 uname=$1
@@ -30,6 +31,11 @@ restart_now=$5
        read -p "Restart Lighttpd after Finish (y/n) : " restart_now
     done
 
+#main_ip_ok=$6
+#   while [[ $main_ip_ok = "" ]]; do # to be replaced with regex
+#       read -p "SERVER MAIN IP is ${main_ip} (y/n) : " main_ip_ok
+#    done
+    
 #read -p "Transmission username: " uname
 #read -p "$uname's Password: " passw
 
@@ -138,12 +144,29 @@ if [[ $uname != $admin_username ]]; then
 sudo usermod -a -G $uname $admin_username
 fi
 
-#if [[ $uname = $admin_username ]]; then
- #mkdir -p $admin_bin_loc/{active,inactive}
- #mkdir -p $admin_bin_loc/
- #sudo useradd -m -p $encrypt_pass $uname
- #sudo usermod -a -G $admin_username $admin_username
-#fi
+if [[ $uname = $admin_username ]]; then
+
+# create ip vhost
+
+\$HTTP["host"] == "62.210.38.180" {
+  server.document-root = "/home/html/web/ip/"
+  server.name = "62.210.38.180"
+  #server.port = 80
+}
+
+
+echo "
+ ## IP Vhost (default)
+ 
+ \$HTTP[\"host\"] == \"$main_ip\" {
+    server.document-root = \"/home/admin/ip/html\" 
+    server.name = \"$main_ip\"
+    accesslog.filename = \"home/logs/log-ip-access.txt\" 
+    server.errorfile-prefix = \"/home/admin/ip/error/\"
+}
+  " > /etc/lighttpd/enabled/1ip.conf
+
+fi
 
 #######
 
@@ -205,6 +228,9 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
                           )
                         )
                       )
+
+    server.errorfile-prefix = \"$user_root/$mydom/error/\"
+
 }
   " > /etc/lighttpd/enabled/$mydom.conf
 
