@@ -176,14 +176,25 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
     accesslog.filename = \"home/logs/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
    
+   #auth.debug = 2
+   #auth.backend = \"plain\"
+   #auth.backend.plain.userfile = \"/home/admin/.lighttpdpassword\"
+   #auth.require = ( \"/admin/\" =>
+   #  (
+   #   \"method\" => \"basic\",
+   #   \"realm\" => \"Password protected area\",
+   #   \"require\" => \"user=vivek\"
+   #  )
+   #)
+
     auth.backend = \"htpasswd\"
     auth.backend.htpasswd.userfile = \"/home/admin/.htpasswd\"
     auth.require = ( \"/admin/\" =>
       (
       \"method\"  => \"basic\",
       \"realm\"   => \"Admin Area!  Password Required!\",
-      \"require\" => \"admin-user-only\"
-      ),
+      \"require\" => \"user=admin\"
+      )
     )
    
     fastcgi.server = ( \".php\" =>
@@ -199,6 +210,10 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
 
  echo "admin:ZmQSkiPCXoQs2" > /home/$admin_username/.htpasswd
  chmod 775 /home/$admin_username/.htpasswd
+ 
+ #echo "admin:pass" > /home/$admin_username/.lighttpdpassword
+ #chmod 775 /home/$admin_username/.lighttpdpassword
+ 
  chown $admin_username:$admin_username /home/$admin_username/.htpasswd
  
 ###################
