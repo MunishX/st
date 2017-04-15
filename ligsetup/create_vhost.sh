@@ -262,7 +262,7 @@ unzip master
 #mv index.php up.php
 mv rapidleech-master test
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/man.php -O up.php
-
+touch $user_root/$mydom/html/admin/status/php.php
 fi
 
 
