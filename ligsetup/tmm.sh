@@ -221,7 +221,8 @@ sed -i 's/^.*rpc-password.*/"rpc-password": "placeholder321",/' settings.json
 sed -i 's/^.*rpc-port.*/"rpc-port": placeholderport,/' settings.json
 
 sed -i "s/placeholderport/$myport/" settings.json
-sed -i "s/placeholder123/$uname/" settings.json
+#sed -i "s/placeholder123/$uname/" settings.json
+sed -i "s/placeholder123/$admin_uname/" settings.json
 sed -i "s/placeholder321/$passw/" settings.json
 
 # "peer-port-random-on-start": false,
