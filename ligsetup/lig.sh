@@ -22,6 +22,8 @@ mkdir -p /home/admin/ip/{html,error}
 
 chown -R lighttpd:lighttpd /home/logs
 chmod -R 777 /home/logs
+chmod -R 777 /home/admin/ip/
+
 #usermod -m -d /home/lighttpd lighttpd
 
 service lighttpd stop
