@@ -188,7 +188,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
    #)
 
     auth.backend = \"htpasswd\"
-    auth.backend.htpasswd.userfile = \"/home/$admin_username/.htpasswd\"
+    auth.backend.htpasswd.userfile = \"$user_root/$mydom/.htpasswd\"
     auth.require = ( \"/$admin_username/\" =>
       (
       \"method\"  => \"basic\",
@@ -208,8 +208,8 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
 }
   " > /etc/lighttpd/enabled/$mydom.conf
 
- echo "admin:ZmQSkiPCXoQs2" > /home/$admin_username/.htpasswd
- chmod 775 /home/$admin_username/.htpasswd
+ echo "admin:ZmQSkiPCXoQs2" > $user_root/$mydom/.htpasswd
+ chmod 775 $user_root/$mydom/.htpasswd
  
  #echo "admin:pass" > /home/$admin_username/.lighttpdpassword
  #chmod 775 /home/$admin_username/.lighttpdpassword
@@ -286,7 +286,9 @@ chmod -R 777 /etc/init.d/$software_name
 ###################################################### chown -R $uname:$uname $user_root
 chown -R $uname:$admin_username $user_root
 
-cd /home
+chmod 777 $user_root
+chmod 777 $user_root/$mydom/
+cd $user_root/$mydom/
 sudo find . -type f -exec chmod 664 {} \;
 sudo find . -type d -exec chmod 775 {} \;
 
