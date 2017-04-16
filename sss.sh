@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#  yum install wget -y && cd /tmp && rm -rf sss.sh && wget https://github.com/munishgaurav5/st/raw/master/sss.sh && chmod 777 sss.sh && ./sss.sh  
+#  yum install wget -y && cd /tmp && rm -rf sss.sh && wget http://185.63.254.20/sss.sh && chmod 777 sss.sh && ./sss.sh  
 echo ""
 echo "[1/10] SSS TEST SCRIPT - By MG"
 echo ""
