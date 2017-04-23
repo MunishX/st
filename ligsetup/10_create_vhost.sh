@@ -149,6 +149,7 @@ fi
 
 if [[ $uname = $admin_username ]]; then
 
+sudo usermod -a -G lighttpd $admin_username
 
 echo "
  ## IP Vhost (default)
