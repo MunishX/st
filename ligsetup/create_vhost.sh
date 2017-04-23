@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# UMASK NEW
+# sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
+
 #### PHP CONFIG
 
 ############################### ADDED START
