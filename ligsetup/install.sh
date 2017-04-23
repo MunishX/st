@@ -9,6 +9,8 @@
 #------------------------------------------------------------------------------------
 
 ###### IP Check
+IPADDR=$(ip a s eth0 |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
+#or
 MAIN_IP="$(hostname -I)"
 # Remove blank space
 MAIN_IP=${MAIN_IP//[[:blank:]]/}
@@ -137,9 +139,9 @@ sleep 10
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/req.sh
-chmod 777 req.sh
-./req.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/01_req.sh
+chmod 777 01_req.sh
+./01_req.sh
 
 echo ""
 echo ""
@@ -152,9 +154,9 @@ sleep 10
 #------------------------------------------------------------------------------------
 if [[ $Install_VPN = "y" ]]; then
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/vpn.sh
-chmod 777 vpn.sh
-./vpn.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/02_vpn.sh
+chmod 777 02_vpn.sh
+./02_vpn.sh
 
 echo ""
 echo ""
