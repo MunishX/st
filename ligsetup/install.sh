@@ -304,9 +304,9 @@ sleep 10
 # Software Install
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/soft.sh
-chmod 777 soft.sh
-./soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/11_soft.sh
+chmod 777 11_soft.sh
+./11_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
 
 echo ""
 echo ""
@@ -323,9 +323,9 @@ sleep 10
 if [[ $Install_Torrent = "y" ]]; then
 
 old_user_true=y
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/tmm.sh
-chmod 777 tmm.sh 
-./tmm.sh $ADMIN_USER $ADMIN_PASS $Torrent_Port $OUT_HOSTNAME $ADMIN_USER $old_user_true
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/12_tmm.sh
+chmod 777 12_tmm.sh 
+./12_tmm.sh $ADMIN_USER $ADMIN_PASS $Torrent_Port $OUT_HOSTNAME $ADMIN_USER $old_user_true
 
 echo ""
 echo ""
@@ -348,13 +348,13 @@ sleep 10
 # Enable & RESTART ALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/restart.sh
-chmod 777 restart.sh
-./restart.sh $OUT_HOSTNAME $ADMIN_USER 
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/13_restart.sh
+chmod 777 13_restart.sh
+./13_restart.sh $OUT_HOSTNAME $ADMIN_USER 
 
 echo ""
 echo ""
-echo "12) Restart and Enable COMPLETED!"
+echo "13) Restart and Enable COMPLETED!"
 echo ""
 sleep 10
 
@@ -363,13 +363,13 @@ sleep 10
 # FIREWALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/firewall.sh
-chmod 777 firewall.sh
-./firewall.sh 
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/14_firewall.sh
+chmod 777 14_firewall.sh
+./14_firewall.sh 
 
 echo ""
 echo ""
-echo "13) Firewall COMPLETED!"
+echo "14) Firewall COMPLETED!"
 echo ""
 sleep 10
 
