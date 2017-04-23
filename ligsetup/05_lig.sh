@@ -18,11 +18,8 @@ mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
 mkdir -p /home/lighttpd/
 
-mkdir -p /home/admin/ip/{html,error}
-
 chown -R lighttpd:lighttpd /home/lighttpd
 chmod -R 777 /home/lighttpd/
-chmod -R 777 /home/admin/ip/
 
 #usermod -m -d /home/lighttpd lighttpd
 
