@@ -7,6 +7,7 @@
 
 ############################### ADDED START
 main_ip="$(hostname -I)"
+main_ip=${main_ip//[[:blank:]]/}
 
 # Take input for username and password
 uname=$1
