@@ -126,7 +126,7 @@ echo "$MAIN_IP $OUT_HOSTNAME $SERVER_HOST" >> /etc/hosts
 
 ### UMASK FIX FOR ROOT ###
 echo ""
-echo "UMASK FIX ..."
+echo "Temporary UMASK FIX for root user..."
 umask
 umask 0002
 umask
