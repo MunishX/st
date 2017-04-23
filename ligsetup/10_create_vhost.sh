@@ -286,7 +286,7 @@ unzip master
 #rm -rf LICENSE.html
 #mv index.php up.php
 mv rapidleech-master test
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/man.php -O up.php
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/man.php -O up.php
 mkdir -p $user_root/$mydom/html/admin/status/
 touch $user_root/$mydom/html/admin/status/php.php
 fi
