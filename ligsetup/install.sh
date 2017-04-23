@@ -285,9 +285,9 @@ restart_no=n
 #chmod 777 ligconf.sh
 #./ligconf.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/create_vhost.sh
-chmod 777 create_vhost.sh
-./create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/10_create_vhost.sh
+chmod 777 10_create_vhost.sh
+./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
 
 echo ""
 echo ""
