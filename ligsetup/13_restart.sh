@@ -54,7 +54,7 @@ systemctl status lighttpd.service
 #systemctl status $php_soft
 systemctl status memcached
 systemctl status mysql
-service $tor_name status
+service $tor_name-$tor_soft status
 
 
 
