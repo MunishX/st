@@ -342,7 +342,6 @@ systemctl status  lighttpd.service
 fi
 
 
-
 echo "Done!!!!!"
 
 #bash $admin_bin_loc/$software_name start
