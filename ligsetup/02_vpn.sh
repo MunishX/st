@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## GET IP
+IPADDR=$(ip a s eth0 |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
 
 yum -y update
 yum -y install git zip unzip curl nano sudo wget
@@ -48,8 +50,8 @@ echo "${OUTPUT}"
 
 echo ""
 echo ""
-
-echo -e "VISIT https://IP/ and Setup VPN. Then Press ENTER KEY : \c "
+echo " TIPS : Select text to 'Copy' Text! "
+echo -e "VISIT https://$IPADDR/ and Setup VPN. Then Press ENTER KEY : \c "
 read TEMP_INPUT
 
 sudo sh -c 'echo "* hard nofile 64000" >> /etc/security/limits.conf'
