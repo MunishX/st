@@ -318,7 +318,7 @@ chown -R $uname:$admin_username $user_root
 #chown -R $uname:$admin_username $user_root
 
 chmod 777 $user_root
-#chmod 777 $user_root/$mydom/
+chmod 777 $user_root/$mydom/
 #cd $user_root/$mydom/
 #sudo find . -type f -exec chmod 664 {} \;
 #sudo find . -type d -exec chmod 775 {} \;
