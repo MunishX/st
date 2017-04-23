@@ -16,11 +16,11 @@ yum -y install lighttpd-fastcgi
 
 mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
-mkdir -p /home/lighttpd/logs/
+mkdir -p /home/lighttpd/
 
 mkdir -p /home/admin/ip/{html,error}
 
-chown -R lighttpd:lighttpd /home/lighttpd/logs
+chown -R lighttpd:lighttpd /home/lighttpd
 chmod -R 777 /home/lighttpd/
 chmod -R 777 /home/admin/ip/
 
