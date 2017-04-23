@@ -162,7 +162,7 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/add_user.sh -O /etc/addnewuser
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /etc/addnewuser
 chmod 777 /etc/addnewuser
 
 fi
