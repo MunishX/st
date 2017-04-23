@@ -28,6 +28,8 @@ chmod -R 777 /home/admin/ip/
 
 service lighttpd stop
 usermod -m -d /home/lighttpd/ lighttpd
+sudo usermod -a -G lighttpd lighttpd
+
 
 #sleep 5
 #umask 0002
