@@ -162,6 +162,9 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
+mkdir -p /home/admin/ip/{html,error}
+chmod -R 777 /home/admin/ip/
+
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /etc/addnewuser
 chmod 777 /etc/addnewuser
 
@@ -184,7 +187,7 @@ fi
 #########
 
 #mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
-mkdir -p $user_root/$mydom/{html,$php_add_head}
+mkdir -p $user_root/$mydom/{html,error,$php_add_head}
 mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
 #touch $user_root/html/status/php.php
 
@@ -287,8 +290,8 @@ unzip master
 #mv index.php up.php
 mv rapidleech-master test
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/man.php -O up.php
-mkdir -p $user_root/$mydom/html/admin/status/
-touch $user_root/$mydom/html/admin/status/php.php
+mkdir -p $user_root/$mydom/html/admin/
+touch $user_root/$mydom/html/admin/php.php
 fi
 
 
@@ -313,11 +316,11 @@ chmod -R 777 /etc/init.d/$software_name
 chown -R $uname:$admin_username $user_root
 #chown -R $uname:$admin_username $user_root
 
-chmod 777 $user_root
-chmod 777 $user_root/$mydom/
-cd $user_root/$mydom/
-sudo find . -type f -exec chmod 664 {} \;
-sudo find . -type d -exec chmod 775 {} \;
+#chmod 777 $user_root
+#chmod 777 $user_root/$mydom/
+#cd $user_root/$mydom/
+#sudo find . -type f -exec chmod 664 {} \;
+#sudo find . -type d -exec chmod 775 {} \;
 
 #chmod -R 777 $admin_bin_loc
 
@@ -329,7 +332,7 @@ sleep 5
 #export PATH="$admin_bin_loc/active:$PATH"
 #export PATH="$admin_bin_loc:$PATH"
 
-sleep 2
+#sleep 2
 
 if [ $restart_now = "y" ]; then
 systemctl restart  lighttpd.service
