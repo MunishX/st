@@ -63,9 +63,11 @@ echo "composer require fruitcakestudio/recaptcha" > autoload/note.txt
 echo "composer create-project kleiram/transmission-php --keep-vcs -s dev ftl" >> autoload/note.txt
 
 
+mkdir admin
+touch admin/php.php
+
 mkdir status
 cd status
-touch php.php
 
 wget https://raw.github.com/rlerdorf/opcache-status/master/opcache.php
 wget https://gist.github.com/ck-on/4959032/raw/0b871b345fd6cfcd6d2be030c1f33d1ad6a475cb/ocp.php
