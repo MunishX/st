@@ -151,6 +151,7 @@ fi
 if [[ $uname = $admin_username ]]; then
 
 sudo usermod -a -G lighttpd $admin_username
+chown $admin_username:$admin_username /home
 
 echo "
  ## IP Vhost (default)
