@@ -56,7 +56,7 @@ unzip master
 #rm -rf LICENSE.html
 #mv index.php up.php
 mv rapidleech-master test
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/man.php -O up.php
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/man.php -O up.php
 
 mkdir autoload
 echo "composer require fruitcakestudio/recaptcha" > autoload/note.txt
