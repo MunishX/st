@@ -124,7 +124,7 @@ echo "$MAIN_IP $OUT_HOSTNAME $SERVER_HOST" >> /etc/hosts
 
 #######################
 
-### UMASK FIX FOR ROOT
+### UMASK FIX FOR ROOT ###
 echo ""
 echo "UMASK FIX ..."
 umask
@@ -132,6 +132,7 @@ umask 0002
 umask
 echo ""
 sleep 6
+#########################
 
 ##### Create Installer Folder
 rm -rf /tmp/lig_installer
