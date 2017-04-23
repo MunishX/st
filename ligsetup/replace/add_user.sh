@@ -1,5 +1,11 @@
 #!/bin/bash
 
+umask
+umask 0002
+umask
+
+sleep 6
+
 ####### INPUT VARIABLES
 
 User_Name=$1
