@@ -25,7 +25,7 @@ rm -rf rar*
 ########
 ## UMASK
 echo ""
-echo "Updating UMASK ..."
+echo " Fixing UMASK for all user..."
 sleep 3
 sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
 
