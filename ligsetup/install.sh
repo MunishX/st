@@ -10,12 +10,14 @@
 
 ###### IP Check
 MAIN_IP="$(hostname -I)"
+# Remove blank space
+MAIN_IP=${MAIN_IP//[[:blank:]]/}
 
 echo ""
 echo ""
 
    while [[ $IP_CORRECT = "" ]]; do # to be replaced with regex       
-       read -p "(1/9) SERVER MAIN IP is ${MAIN_IP} (y/n) : " IP_CORRECT
+       read -p "(1/9) SERVER MAIN IP is '${MAIN_IP}' (y/n) : " IP_CORRECT
        #$MAIN_IP
     done
 
