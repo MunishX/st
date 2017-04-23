@@ -53,12 +53,15 @@ echo ""
 Admin_User=admin 
 ADMIN_HTML=html
 
-### UMASK FIX FOR ROOT
+### UMASK FIX FOR ROOT ###
+echo ""
+echo "UMASK FIX ..."
 umask
 umask 0002
 umask
+echo ""
 sleep 6
-#####################
+#########################
 
 rm -rf /tmp/add_user_script
 mkdir -p /tmp/add_user_script
