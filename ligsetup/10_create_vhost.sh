@@ -156,7 +156,7 @@ echo "
  \$HTTP[\"host\"] == \"$main_ip\" {
     server.document-root = \"/home/admin/ip/html\" 
     server.name = \"$main_ip\"
-    accesslog.filename = \"home/logs/log-ip-access.txt\" 
+    accesslog.filename = \"/home/lighttpd/log-ip-access.txt\" 
     server.errorfile-prefix = \"/home/admin/ip/error/\"
 }
   " > /etc/lighttpd/enabled/1ip.conf
@@ -194,7 +194,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
  
  \$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$user_root/$mydom/html\" 
-    accesslog.filename = \"home/logs/log-$mydom-access.txt\" 
+    accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
    
    #auth.debug = 2
@@ -310,6 +310,7 @@ chmod -R 777 /etc/init.d/$software_name
 #chmod -R 777 $user_root/$mydom/$php_add_head/
 ###################################################### chown -R $uname:$uname $user_root
 chown -R $uname:$admin_username $user_root
+#chown -R $uname:$admin_username $user_root
 
 chmod 777 $user_root
 chmod 777 $user_root/$mydom/
@@ -320,7 +321,7 @@ sudo find . -type d -exec chmod 775 {} \;
 #chmod -R 777 $admin_bin_loc
 
 #chown -R $admin_username:$uname $user_root/logs
-#chown -R lighttpd:$uname $user_root/logs
+chown -R lighttpd:$admin_username /home/lighttpd
 
 sleep 5
 
