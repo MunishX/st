@@ -106,7 +106,7 @@ ADMIN_HTML=html
 #------------------------------------------------------------------------------------
 
 #### SETUP HOSTNAME AND HOST FILE
-
+hostname $SERVER_HOST.$SERVER_DOMAIN
 hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
 
 OUT_HOSTNAME="$(hostname)"
