@@ -3,7 +3,8 @@
 ### install lighttpd
 
 service httpd stop
-service httpd disable 
+chkconfig httpd off
+#service httpd disable 
 #yum -y remove httpd
 
 
