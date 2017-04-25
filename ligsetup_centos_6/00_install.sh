@@ -8,9 +8,10 @@
 #------------------------------------------------------------------------------------
 # Vars AND Inputs 
 #------------------------------------------------------------------------------------
+NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
 
 ###### IP Check
-IPADDR=$(ip a s eth0 |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
+IPADDR=$(ip a s $NETWORK_INTERFACE_NAME |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
 #or
 MAIN_IP="$(hostname -I)"
 # Remove blank space
