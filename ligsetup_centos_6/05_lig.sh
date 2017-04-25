@@ -2,8 +2,8 @@
 
 ### install lighttpd
 
-systemctl stop httpd.service
-systemctl disable httpd.service
+service httpd stop
+service httpd disable 
 #yum -y remove httpd
 
 
