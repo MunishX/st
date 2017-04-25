@@ -27,9 +27,9 @@ yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-dev
 #systemctl start mysql
 #systemctl enable mysql
 
-service mariadb start 
-chkconfig mariadb on
-service mariadb status 
+service mysql start 
+chkconfig mysql on
+service mysql status 
 
 # service mysql start
 # chkconfig mysql on
@@ -42,8 +42,9 @@ sed -i 's,^.*<policy domain="coder" rights="none" pattern="HTTPS".*, <!--- <poli
 sed -i 's,^.*<policy domain="coder" rights="none" pattern="URL".*, ---> <policy domain="coder" rights="none" pattern="URL" />,' /etc/ImageMagick/policy.xml
 ###
 
-service mariadb restart 
-service mariadb status
+service mysql restart 
+service mysql status 
+
 
 netstat -tap | grep mysql
 
