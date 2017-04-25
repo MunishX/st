@@ -72,7 +72,7 @@ cd /tmp/add_user_script
 #------------------------------------------------------------------------------------
 #restart_no=y
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/10_create_vhost.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/10_create_vhost.sh
 chmod 777 10_create_vhost.sh
 ./10_create_vhost.sh $User_Name $User_Pass $mydom $Admin_User $Restart_Lig
 
@@ -96,7 +96,7 @@ sleep 10
 if [[ $Install_Torrent = "y" ]]; then
 
 old_user_true=y
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/12_tmm.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/12_tmm.sh
 chmod 777 12_tmm.sh 
 ./12_tmm.sh $User_Name $User_Pass $Torrent_Port $mydom $Admin_User $old_user_true
 
