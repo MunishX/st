@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-# yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh && ./00_install.sh
-# yum -y install wget nano && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
+# yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/00_install.sh && chmod 777 00_install.sh && ./00_install.sh
+# yum -y install wget nano && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
 
 
 #------------------------------------------------------------------------------------
