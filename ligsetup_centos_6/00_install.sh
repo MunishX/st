@@ -149,7 +149,7 @@ sleep 10
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/01_req.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/01_req.sh
 chmod 777 01_req.sh
 ./01_req.sh
 
@@ -164,7 +164,7 @@ sleep 10
 #------------------------------------------------------------------------------------
 if [[ $Install_VPN = "y" ]]; then
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/02_vpn.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/02_vpn.sh
 chmod 777 02_vpn.sh
 ./02_vpn.sh
 
@@ -189,7 +189,7 @@ sleep 10
 # UPDATE SSH
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/03_ssh.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/03_ssh.sh
 chmod 777 03_ssh.sh
 ./03_ssh.sh $SSH_PORT
 
@@ -203,7 +203,7 @@ sleep 10
 # UPDATE TIME
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/04_time.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/04_time.sh
 chmod 777 04_time.sh
 ./04_time.sh
 
@@ -218,7 +218,7 @@ sleep 10
 # Install Lighttpd
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/05_lig.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/05_lig.sh
 chmod 777 05_lig.sh
 ./05_lig.sh
 
@@ -232,7 +232,7 @@ sleep 10
 # Install php
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/06_php.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/06_php.sh
 chmod 777 06_php.sh
 ./06_php.sh
 
@@ -246,7 +246,7 @@ sleep 10
 # Install db
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/07_db.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/07_db.sh
 chmod 777 07_db.sh
 ./07_db.sh
 
@@ -260,7 +260,7 @@ sleep 10
 # Install db pw up
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/08_dbpass.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/08_dbpass.sh
 chmod 777 08_dbpass.sh
 ./08_dbpass.sh $DB_PASS
 
@@ -274,7 +274,7 @@ sleep 10
 # Install REPLACE
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/09_replace.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/09_replace.sh
 chmod 777 09_replace.sh
 ./09_replace.sh
 
@@ -295,7 +295,7 @@ restart_no=n
 #chmod 777 ligconf.sh
 #./ligconf.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/10_create_vhost.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/10_create_vhost.sh
 chmod 777 10_create_vhost.sh
 ./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
 
@@ -314,7 +314,7 @@ sleep 10
 # Software Install
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/11_soft.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/11_soft.sh
 chmod 777 11_soft.sh
 ./11_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
 
@@ -333,7 +333,7 @@ sleep 10
 if [[ $Install_Torrent = "y" ]]; then
 
 old_user_true=y
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/12_tmm.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/12_tmm.sh
 chmod 777 12_tmm.sh 
 ./12_tmm.sh $ADMIN_USER $ADMIN_PASS $Torrent_Port $OUT_HOSTNAME $ADMIN_USER $old_user_true
 
@@ -358,7 +358,7 @@ sleep 10
 # Enable & RESTART ALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/13_restart.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/13_restart.sh
 chmod 777 13_restart.sh
 ./13_restart.sh $OUT_HOSTNAME $ADMIN_USER 
 
@@ -373,7 +373,7 @@ sleep 10
 # FIREWALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/14_firewall.sh
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/14_firewall.sh
 chmod 777 14_firewall.sh
 ./14_firewall.sh 
 
