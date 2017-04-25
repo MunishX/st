@@ -31,8 +31,9 @@ tor_name=tor
 
 
 
-systemctl start  lighttpd.service
-systemctl enable  lighttpd.service
+service lighttpd start
+chkconfig lighttpd on
+#systemctl enable  lighttpd.service
 
 #systemctl start php70-php-fpm 
 #systemctl enable php70-php-fpm
