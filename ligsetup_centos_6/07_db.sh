@@ -6,7 +6,7 @@ echo "
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
-baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.1.22/yum/centos7-amd64
+baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.1.22/yum/centos6-amd64
 gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
 gpgcheck=1
 " > /etc/yum.repos.d/mariadb.repo
@@ -27,9 +27,9 @@ yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-dev
 #systemctl start mysql
 #systemctl enable mysql
 
-systemctl start mariadb
-systemctl enable mariadb
-systemctl status mariadb
+service mariadb start 
+chkconfig mariadb on
+service mariadb status 
 
 # service mysql start
 # chkconfig mysql on
@@ -42,8 +42,8 @@ sed -i 's,^.*<policy domain="coder" rights="none" pattern="HTTPS".*, <!--- <poli
 sed -i 's,^.*<policy domain="coder" rights="none" pattern="URL".*, ---> <policy domain="coder" rights="none" pattern="URL" />,' /etc/ImageMagick/policy.xml
 ###
 
-systemctl restart mariadb
-systemctl status mariadb
+service mariadb restart 
+service mariadb status
 
 netstat -tap | grep mysql
 
