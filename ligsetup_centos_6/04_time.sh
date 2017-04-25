@@ -1,10 +1,15 @@
 #!/bin/bash
 
 ## TIME UTC 
+ls /usr/share/zoneinfo
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
- timedatectl  status
- timedatectl set-timezone UTC
- timedatectl  status
+#date -s '2017-04-02 20:43:30'
+
+ #timedatectl  status
+ #timedatectl set-timezone UTC
+ #timedatectl  status
  
 # date -s '2017-04-02 20:43:30'
 
@@ -14,21 +19,21 @@
 #systemctl enable ntpd
 
 ## for centos 7 time updator
-yum install -y chrony
-systemctl start chronyd
-systemctl enable chronyd
+#yum install -y chrony
+#systemctl start chronyd
+#systemctl enable chronyd
 
 ##
 #timedatectl set-local-rtc 0
 
-firewall-cmd --add-service=ntp --permanent 
-firewall-cmd --reload 
+#firewall-cmd --add-service=ntp --permanent 
+#firewall-cmd --reload 
 
 echo ""
 echo ""
-echo "Please Wait!    TIME  Sync in Process...";
+#echo "Please Wait!    TIME  Sync in Process...";
 echo ""
-sleep 15 
+#sleep 15 
 
-chronyc sources 
-timedatectl  status
+#chronyc sources 
+#timedatectl  status
