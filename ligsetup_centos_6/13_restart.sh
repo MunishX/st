@@ -47,7 +47,7 @@ sleep 5
 
 service lighttpd restart
 service memcached restart
-service mariadb restart
+service mysql restart
 
 service $tor_name-$tor_soft restart
 service $php_name-$php_soft restart
@@ -56,7 +56,7 @@ sleep 5
 
 service lighttpd status
 service memcached status
-service mariadb status
+service mysql status
 service $tor_name-$tor_soft status
 
 #systemctl status lighttpd.service
