@@ -165,13 +165,13 @@ sleep 10
 #------------------------------------------------------------------------------------
 if [[ $Install_VPN = "y" ]]; then
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/02_vpn.sh
-chmod 777 02_vpn.sh
-./02_vpn.sh
+#wget https://github.com/munishgaurav5/st/raw/master/ligsetup_centos_6/02_vpn.sh
+#chmod 777 02_vpn.sh
+#./02_vpn.sh
 
 echo ""
 echo ""
-echo "2) VPN COMPLETED!"
+echo "2) SKIPPING VPN!  --- VPN COMPLETED!"
 echo ""
 
 else
