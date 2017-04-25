@@ -2,9 +2,9 @@
 
 # add PHP 7 repo
 cd /tmp
-wget https://centos7.iuscommunity.org/ius-release.rpm
-wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-rpm -ivh ius-release.rpm remi-release-7.rpm
+wget https://centos6.iuscommunity.org/ius-release.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+rpm -ivh ius-release.rpm remi-release-6.rpm
 yum -y update
 
 ####
