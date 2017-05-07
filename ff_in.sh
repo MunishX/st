@@ -24,9 +24,15 @@ sudo yum -y install autoconf automake gcc gcc-c++ git libtool make nasm pkgconfi
 
 
 
-mkdir -p $PreFix_Dir/{src,bin,lib,include}
+mkdir -p $PreFix_Dir/{src,bin,lib,include,tmp}
 
+export TMPDIR=$PreFix_Dir/tmp
+export PATH="$PreFix_Dir/bin:$PATH"
+export C_INCLUDE_PATH="$PreFix_Dir/include:$C_INCLUDE_PATH"
+export LIBRARY_PATH="$PreFix_Dir/lib:$LIBRARY_PATH"
+export LD_LIBRARY_PATH="$PreFix_Dir/lib:$LD_LIBRARY_PATH"
 
+########
 
 cd /tmp
 yum -y update
@@ -250,6 +256,24 @@ export LD_LIBRARY_PATH="$PreFix_Dir/lib:$LD_LIBRARY_PATH"
 
 
 
+cd $PreFix_Dir/src
+
+echo "$PreFix_Dir/lib" >> /etc/ld.so.conf
+echo "$PreFix_Dir/local/lib" >> /etc/ld.so.conf
+echo "/root/lib" >> /etc/ld.so.conf
+echo "/root/local/lib" >> /etc/ld.so.conf
+
+ldconfig
+
+cd /tmp
+ffmpeg
+
+echo ""
+echo ""
+echo ""
+echo "################### FFMPEG INSTALL END ####################"
+echo ""
+echo ""
 
 
 
