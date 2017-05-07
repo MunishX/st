@@ -74,7 +74,7 @@ cd $PreFix_Dir/src
 curl -L -O http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 tar xzvf lame-3.99.5.tar.gz
 cd lame-3.99.5
-./configure --prefix="$PreFix_Dir" --bindir="$PreFix_Dir/bin"  --disable-shared --enable-nasm
+./configure --prefix="$PreFix_Dir" --bindir="$PreFix_Dir/bin"  --enable-nasm
 make
 make install
 make distclean
@@ -89,7 +89,7 @@ cd $PreFix_Dir/src
 curl -O http://downloads.xiph.org/releases/ogg/libogg-1.3.1.tar.gz
 tar xzvf libogg-1.3.1.tar.gz
 cd libogg-1.3.1
-./configure --prefix="$PreFix_Dir" --disable-shared
+./configure --prefix="$PreFix_Dir" 
 make
 make install
 make distclean
@@ -105,7 +105,7 @@ cd $PreFix_Dir/src
 curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.3.tar.gz
 tar xzvf libvorbis-1.3.3.tar.gz
 cd libvorbis-1.3.3
-./configure --prefix="$PreFix_Dir" --with-ogg="$PreFix_Dir" --disable-shared
+./configure --prefix="$PreFix_Dir" --with-ogg="$PreFix_Dir" 
 make
 make install
 make distclean
@@ -122,7 +122,7 @@ cd $PreFix_Dir/src
 wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz
 tar xzvf libtheora-1.1.1.tar.gz
 cd libtheora-1.1.1
-./configure --prefix="$PreFix_Dir" --disable-shared
+./configure --prefix="$PreFix_Dir" 
 make 
 make install
 
@@ -135,7 +135,7 @@ make install
 cd $PreFix_Dir/src
 git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
 cd libvpx
-./configure  --prefix="$PreFix_Dir" --disable-examples
+./configure  --prefix="$PreFix_Dir" --disable-examples --enable-pic
 make
 make install
 make clean
@@ -231,9 +231,10 @@ export PKG_CONFIG_PATH
 ./configure --prefix="$PreFix_Dir" --extra-cflags="-I$PreFix_Dir/include" --extra-ldflags="-L$PreFix_Dir/lib" --bindir="$PreFix_Dir/bin" \
  --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libmp3lame --enable-libopus --enable-libvorbis \
  --enable-libvpx --enable-libx264 \
- #--extra-libs="-ldl"  \
  --enable-libxvid --enable-libtheora --incdir=$PreFix_Dir/include  --enable-libfreetype  --enable-libx265 --libdir=$PreFix_Dir/lib \
  --enable-libass --pkg-config=pkg-config 
+ --enable-version3 --enable-pic --pkg-config-flags="--static" --enable-pthreads  --enable-avfilter
+ 
  
 make
 make install
@@ -264,6 +265,10 @@ echo "/root/lib" >> /etc/ld.so.conf
 echo "/root/local/lib" >> /etc/ld.so.conf
 
 ldconfig
+
+
+echo ""
+echo ""
 
 cd /tmp
 ffmpeg
