@@ -20,7 +20,7 @@ sleep 2
 
 cd /tmp
 yum -y update
-yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release
 yum -y install glibc gcc gcc-c++ autoconf automake libtool git make nasm pkgconfig SDL-devel a52dec a52dec-devel 
 yum -y install alsa-lib-devel faac faac-devel faad2 faad2-devel freetype-devel giflib gsm gsm-devel 
 yum -y install imlib2 imlib2-devel lame lame-devel libICE-devel libSM-devel libX11-devel libXau-devel 
@@ -111,20 +111,20 @@ make
 make install
 
 ###########################################################
-# faac 1.28
+# faac 1.28  //   FFMPEG NO MORE SUPPORT IT USE FDK_AAC INSTEAD
 # original: http://downloads.sourceforge.net/faac/faac-1.28.tar.gz
 ###########################################################
-cd /usr/src
-wget 'http://mirror.ryansanden.com/ffmpeg-9079e99d/faac-1.28.tar.gz'
-tar -xf faac-1.28.tar.gz
-cd faac-1.28
+#cd /usr/src
+#wget 'http://mirror.ryansanden.com/ffmpeg-9079e99d/faac-1.28.tar.gz'
+#tar -xf faac-1.28.tar.gz
+#cd faac-1.28
 
 # fix programming error
-sed -i '126d' ./common/mp4v2/mpeg4ip.h
+#sed -i '126d' ./common/mp4v2/mpeg4ip.h
 
-./configure --prefix=/usr
-make
-make install
+#./configure --prefix=/usr
+#make
+#make install
 
 ###########################################################
 # libx264 @ a01e33913655f983df7a4d64b0a4178abb1eb618
@@ -226,7 +226,7 @@ cd ffmpeg
 
 PKG_CONFIG_PATH="/usr/lib/pkgconfig" ./configure --prefix=/usr --libdir=/usr/lib \
 --bindir="/usr/bin" --pkg-config-flags="--static" \
---incdir=/usr/include --enable-libfaac --enable-libx264 --enable-libxvid --enable-avfilter \
+--incdir=/usr/include --enable-libx264 --enable-libxvid --enable-avfilter \
 --enable-nonfree --enable-gpl --enable-libmp3lame --enable-pthreads --enable-libvpx \
 --enable-libvorbis --disable-mmx --enable-shared --enable-libtheora \
 --enable-libfdk-aac --enable-libx265 --enable-libfreetype --enable-libopus \
