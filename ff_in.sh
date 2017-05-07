@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-
+## MG
 
 
 ###### VARS #####
@@ -227,7 +227,7 @@ cd $PreFix_Dir/src
 git clone --depth 1 git://source.ffmpeg.org/ffmpeg
 cd ffmpeg
 
-PKG_CONFIG_PATH="/usr/lib/pkgconfig" 
+PKG_CONFIG_PATH="$PreFix_Dir/lib/pkgconfig" 
 export PKG_CONFIG_PATH
 
 ./configure --prefix="$PreFix_Dir" --libdir="$PreFix_Dir/lib" \
