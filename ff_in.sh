@@ -135,7 +135,7 @@ make install
 cd $PreFix_Dir/src
 git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
 cd libvpx
-./configure  --prefix="$PreFix_Dir" --disable-examples --enable-pic
+./configure  --prefix="$PreFix_Dir" --enable-pic --enable-shared
 make
 make install
 make clean
@@ -149,7 +149,7 @@ make clean
 cd $PreFix_Dir/src
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
-./configure --prefix="$PreFix_Dir" --bindir="$PreFix_Dir/bin" --enable-static
+./configure --prefix="$PreFix_Dir" --bindir="$PreFix_Dir/bin" --enable-static --enable-shared
 make
 make install
 make distclean
@@ -179,7 +179,7 @@ cd $PreFix_Dir/src
 curl -O http://downloads.xiph.org/releases/opus/opus-1.0.3.tar.gz
 tar xzvf opus-1.0.3.tar.gz
 cd opus-1.0.3
-./configure --prefix="$PreFix_Dir" --disable-shared
+./configure --prefix="$PreFix_Dir" --enable-shared
 make
 make install
 make distclean
@@ -209,7 +209,7 @@ cd $PreFix_Dir/src
 git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
 cd fdk-aac
 autoreconf -fiv
-./configure --prefix="$PreFix_Dir" --disable-shared
+./configure --prefix="$PreFix_Dir" --enable-shared
 make
 make install
 make distclean
@@ -226,14 +226,28 @@ make distclean
 cd $PreFix_Dir/src
 git clone --depth 1 git://source.ffmpeg.org/ffmpeg
 cd ffmpeg
-PKG_CONFIG_PATH="$PreFix_Dir/lib/pkgconfig"
+
+PKG_CONFIG_PATH="/usr/lib/pkgconfig" 
 export PKG_CONFIG_PATH
-./configure --prefix="$PreFix_Dir" --extra-cflags="-I$PreFix_Dir/include" --extra-ldflags="-L$PreFix_Dir/lib" --bindir="$PreFix_Dir/bin" \
- --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libmp3lame --enable-libopus --enable-libvorbis \
- --enable-libvpx --enable-libx264 \
- --enable-libxvid --enable-libtheora --incdir=$PreFix_Dir/include  --enable-libfreetype  --enable-libx265 --libdir=$PreFix_Dir/lib \
- --enable-libass --pkg-config=pkg-config 
- --enable-version3 --enable-pic --pkg-config-flags="--static" --enable-pthreads  --enable-avfilter
+
+./configure --prefix="$PreFix_Dir" --libdir="$PreFix_Dir/lib" \
+--bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" \
+--incdir=$PreFix_Dir/include --enable-libx264 --enable-libxvid --enable-avfilter \
+--enable-nonfree --enable-gpl --enable-libmp3lame --enable-pthreads --enable-libvpx \
+--enable-libvorbis --disable-mmx --enable-shared --enable-libtheora \
+--enable-libfdk-aac --enable-libx265 --enable-libfreetype --enable-libopus \
+--pkg-config=pkg-config --enable-libass --enable-version3 --enable-pic \
+--extra-cflags="-I$PreFix_Dir/include" --extra-ldflags="-L$PreFix_Dir/lib"
+
+
+#PKG_CONFIG_PATH="$PreFix_Dir/lib/pkgconfig"
+#export PKG_CONFIG_PATH
+#./configure --prefix="$PreFix_Dir" --extra-cflags="-I$PreFix_Dir/include" --extra-ldflags="-L$PreFix_Dir/lib" --bindir="$PreFix_Dir/bin" \
+# --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libmp3lame --enable-libopus --enable-libvorbis \
+# --enable-libvpx --enable-libx264 \
+ #--enable-libxvid --enable-libtheora --incdir=$PreFix_Dir/include  --enable-libfreetype  --enable-libx265 --libdir=$PreFix_Dir/lib \
+ #--enable-libass --pkg-config=pkg-config 
+ #--enable-version3 --enable-pic --pkg-config-flags="--static" --enable-pthreads  --enable-avfilter
  
  
 make
