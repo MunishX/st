@@ -2,6 +2,7 @@
 
 ## MG New
 
+# cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && ./ff_installer.sh
 
 ###### VARS #####
 PreFix_Dir="/usr"
