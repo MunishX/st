@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#cd /tmp && yum install wget -y && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/01_req.sh && chmod 777 01_req.sh && ./01_req.sh 
+# cd /tmp && yum install wget -y && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/01_req.sh && chmod 777 01_req.sh && ./01_req.sh 
 
 ############## Req Install Start #############
 cd /tmp
