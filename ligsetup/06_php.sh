@@ -16,12 +16,19 @@ yum -y install php70-php-memcached php70-php-memcache php70-php-apcu* memcached
 yum -y install libevent libevent-devel
 yum -y update
 
+## PHP-PHALCON 
+curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
+yum -y install php70-php-phalcon
+
+## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/php70/php.ini
 echo "date.timezone = UTC" >> /etc/opt/remi/php70/php.ini
 
+## PHP70 to PHP link
 ln -s /usr/bin/php70 /usr/bin/php
 ln -s /opt/remi/php70/root/usr/sbin/php-fpm /usr/bin/php-fpm
 
+## SWITCH OFF EXPOSE PHP
 sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/php70/php.ini
 
 ####
