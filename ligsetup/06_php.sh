@@ -30,6 +30,7 @@ ln -s /opt/remi/php70/root/usr/sbin/php-fpm /usr/bin/php-fpm
 
 ## SWITCH OFF EXPOSE PHP
 sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/php70/php.ini
+sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/php70/php.ini
 
 ####
 
