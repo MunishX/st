@@ -40,13 +40,13 @@ WEBMAIL_HOST=$2
 WEBMAIL_DOMAIN=$3
 SQL_ROOT_PASS=$4
 
-if [ $SRV_MAIL_IP != "" ]; then
+if [[ $SRV_MAIL_IP != "" ]]; then
    IP_CORRECT="y"
 fi 
 
 ##### #####
 
-if [ $IP_CORRECT != "y" ]; then
+if [[ $IP_CORRECT != "y" ]]; then
 IP_CORRECT=   
 
 MAIN_IP="$(hostname -I)"
@@ -84,9 +84,9 @@ fi
 #######
 
 ##### #####
-   while [[ $SRV_MAIL_IP = "" ]]; do # to be replaced with regex
-        read -p "Main Server IP (e.g. 123.345.567.789): " SRV_MAIL_IP
-    done
+#   while [[ $SRV_MAIL_IP = "" ]]; do # to be replaced with regex
+#        read -p "Main Server IP (e.g. 123.345.567.789): " SRV_MAIL_IP
+#    done
     
    while [[ $WEBMAIL_HOST = "" ]]; do # to be replaced with regex
         read -p "WEBMAIL HOST (e.g. mail): " WEBMAIL_HOST
