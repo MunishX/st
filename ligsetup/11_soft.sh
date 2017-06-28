@@ -69,13 +69,14 @@ touch admin/php.php
 mkdir status
 cd status
 
-wget https://raw.github.com/rlerdorf/opcache-status/master/opcache.php
-wget https://gist.github.com/ck-on/4959032/raw/0b871b345fd6cfcd6d2be030c1f33d1ad6a475cb/ocp.php
-wget https://raw.github.com/amnuts/opcache-gui/master/index.php -O op.php
-wget https://raw.github.com/munishgaurav5/st/master/mem.zip -O mem.zip
+wget https://github.com/munishgaurav5/st/raw/master/opcache.php
+wget https://github.com/munishgaurav5/st/raw/master/ocp.php
+wget https://github.com/munishgaurav5/st/raw/master/op.php
+wget https://github.com/munishgaurav5/st/raw/master/mem.php
+
+wget https://raw.github.com/munishgaurav5/st/master/mem.zip
 unzip mem.zip
 rm -rf mem.zip
-wget https://raw.githubusercontent.com/kn007/memcache.php/master/memcache.php -O mem.php
 # /run/memcached/memcached.sock
 
 ############# PHPmyadmin  ##################
