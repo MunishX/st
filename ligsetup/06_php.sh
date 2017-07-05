@@ -16,9 +16,9 @@ yum -y install php70-php-memcached php70-php-memcache php70-php-apcu* memcached
 yum -y install libevent libevent-devel
 yum -y update
 
-## PHP-PHALCON 
+## PHP-PHALCON + PHP-MongoDB
 curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
-yum -y install php70-php-phalcon
+yum -y install php70-php-phalcon php70-php-pecl-mongodb
 
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/php70/php.ini
