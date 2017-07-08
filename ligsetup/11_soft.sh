@@ -87,10 +87,11 @@ rm -rf mem.zip
 # PHP 5.5 or > Required
 
 #wget https://files.phpmyadmin.net/phpMyAdmin/4.7.0/phpMyAdmin-4.7.0-all-languages.zip
-wget https://files.phpmyadmin.net/phpMyAdmin/4.7.1/phpMyAdmin-4.7.1-all-languages.zip
-unzip phpM*
-rm -rf phpM*.zip
-mv phpM* php
+#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.1/phpMyAdmin-4.7.1-all-languages.zip
+wget https://files.phpmyadmin.net/phpMyAdmin/4.7.2/phpMyAdmin-4.7.2-english.zip
+unzip phpMy*
+rm -rf phpMy*.zip
+mv phpMy* php
 
 cd php
 #cp config.sample.inc.php config.inc.php
