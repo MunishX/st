@@ -254,7 +254,7 @@ sed -i "s/^.*www-name.*/[$software_name]/" $user_root/$mydom/$php_add_head/$soft
 sed -i "s/^.*user-name.*/user = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
 #sed -i "s/^.*group-name.*/group = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
 sed -i "s/^.*group-name.*/group = $admin_username/" $user_root/$mydom/$php_add_head/$software_name.conf
-sed -i "s,^.*/run/$PHP_V-php-fpm.sock.*,listen = $user_root/$mydom/$php_add_head/$software_name.sock," $user_root/$mydom/$php_add_head/$software_name.conf
+sed -i "s,^.*/run/php-php-fpm.sock.*,listen = $user_root/$mydom/$php_add_head/$software_name.sock," $user_root/$mydom/$php_add_head/$software_name.conf
 sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
 sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$mydom/$php_add_head/$software_name.conf
 
