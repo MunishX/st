@@ -40,7 +40,7 @@ group = group-name
 ; Note: This value is mandatory.
 ;listen = 127.0.0.1:9000
 
-listen = /run/php70-php-fpm.sock
+listen = /run/php-php-fpm.sock
 pm.status_path = /admin/php.php
 
 ; Set listen(2) backlog.
