@@ -167,8 +167,8 @@ echo "
 mkdir -p /home/admin/ip/{html,error}
 chmod -R 777 /home/admin/ip/
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /etc/addnewuser
-chmod 777 /etc/addnewuser
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /usr/bin/addnewuser
+chmod 777 /usr/bin/addnewuser
 
 fi
 
