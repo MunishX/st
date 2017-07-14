@@ -262,8 +262,8 @@ sleep 5
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/intl -O /etc/init.d/$software_name
 ##sed -i "s/^.*php-fpm-bin.*/php_fpm_BIN=php-$uname/" $startup_root$uname
-sed -i "s,^.*/etc/opt/remi/$PHP_V/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," /etc/init.d/$software_name
-sed -i "s,^.*/etc/opt/remi/$PHP_V/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," /etc/init.d/$software_name
+sed -i "s,^.*/etc/opt/remi/php/php-fpm.d/www.conf.*,php_fpm_CONF=$user_root/$mydom/$php_add_head/$software_name.conf," /etc/init.d/$software_name
+sed -i "s,^.*/etc/opt/remi/php/php-fpm.d/php-fpm.pid.*,php_fpm_PID=$user_root/$mydom/$php_add_head/$software_name.pid," /etc/init.d/$software_name
 
 #/etc/init.d/
 
