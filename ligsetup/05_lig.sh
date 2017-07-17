@@ -36,6 +36,7 @@ sudo usermod -a -G lighttpd lighttpd
 ## Lighttpd Angel
 service lighttpd stop
 
+rm -rf /usr/lib/systemd/system/lighttpdo.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 mv  /usr/lib/systemd/system/lighttpd.service /usr/lib/systemd/system/lighttpdo.service
 mv /etc/systemd/system/multi-user.target.wants/lighttpd.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
