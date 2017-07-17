@@ -11,8 +11,7 @@ systemctl disable httpd.service
 yum -y install epel-release
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 yum -y update
-yum -y install lighttpd
-yum -y install lighttpd-fastcgi
+yum -y install lighttpd lighttpd-fastcgi
 
 mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
@@ -32,3 +31,20 @@ sudo usermod -a -G lighttpd lighttpd
 #umask 0002
 #umask
 # check errors at /var/log/lighttpd/error.log
+
+####################
+## Lighttpd Angel
+service lighttpd stop
+
+mv /etc/systemd/system/multi-user.target.wants/lighttpd.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
+wget -O https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligintl /etc/systemd/system/multi-user.target.wants/lighttpd.service
+chmod 777 /etc/systemd/system/multi-user.target.wants/lighttp*
+
+service lighttpd start
+service lighttpd status
+service lighttpd stop
+
+echo ""
+echo "Lighttpd Angel Configured.."
+echo ""
+#####################
