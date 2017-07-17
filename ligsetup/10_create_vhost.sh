@@ -327,8 +327,9 @@ sleep 5
 #sleep 2
 
 if [ $restart_now = "y" ]; then
-systemctl restart  lighttpd.service
-systemctl status  lighttpd.service
+#systemctl restart  lighttpd.service
+#systemctl status  lighttpd.service
+service lighttpd reload
 fi
 
 
