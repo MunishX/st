@@ -346,7 +346,7 @@ echo "Done!!!!!"
 
 
 systemctl daemon-reload
-service $software_name enable
+systemctl enable $software_name 
 service $software_name start
 service $software_name status
 
