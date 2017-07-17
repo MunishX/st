@@ -37,8 +37,10 @@ sudo usermod -a -G lighttpd lighttpd
 service lighttpd stop
 
 mv /etc/systemd/system/multi-user.target.wants/lighttpd.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
-wget -O https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligintl /etc/systemd/system/multi-user.target.wants/lighttpd.service
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
 chmod 777 /etc/systemd/system/multi-user.target.wants/lighttp*
+
+systemctl daemon-reload
 
 service lighttpd start
 service lighttpd status
