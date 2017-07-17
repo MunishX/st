@@ -51,8 +51,13 @@ echo "${OUTPUT}"
 echo ""
 echo ""
 echo " TIPS : Select text to 'Copy' Text! "
-echo -e "VISIT https://$IPADDR/ and Setup VPN. Then Press ENTER KEY : \c "
-read TEMP_INPUT
+echo -e "VISIT https://$IPADDR/ and Setup VPN. Then Press 'Y' to continue. : \c "
+TEMP_INPUT=''
+
+   while [[ $TEMP_INPUT = "" ]]; do # to be replaced with regex       
+       read -p "VISIT https://$IPADDR/ and Setup VPN. Then Press 'Y' to continue. :  " TEMP_INPUT
+       #$MAIN_IP
+    done
 
 sudo sh -c 'echo "* hard nofile 64000" >> /etc/security/limits.conf'
 sudo sh -c 'echo "* soft nofile 64000" >> /etc/security/limits.conf'
