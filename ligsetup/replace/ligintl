@@ -1,0 +1,12 @@
+[Unit]
+Description=Lighttpd Web Server
+After=syslog.target network-online.target
+
+[Service]
+PIDFile=/var/run/lighttpd.pid
+EnvironmentFile=-/etc/sysconfig/lighttpd
+ExecStart=/usr/sbin/lighttpd-angel -f /etc/lighttpd/lighttpd.conf -D
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
