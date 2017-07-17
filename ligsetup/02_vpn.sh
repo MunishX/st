@@ -51,7 +51,8 @@ echo "${OUTPUT}"
 echo ""
 echo ""
 echo " TIPS : Select text to 'Copy' Text! "
-echo -e "VISIT https://$IPADDR/ and Setup VPN. Then Press 'Y' to continue. : \c "
+echo ""
+#echo -e "VISIT https://$IPADDR/ and Setup VPN. Then Press 'Y' to continue. : \c "
 TEMP_INPUT=''
 
    while [[ $TEMP_INPUT = "" ]]; do # to be replaced with regex       
