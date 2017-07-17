@@ -347,7 +347,10 @@ echo "Done!!!!!"
 
 systemctl daemon-reload
 systemctl enable $software_name 
+
 service $software_name start
+service $software_name status
+service $software_name reload
 service $software_name status
 
 #chown -R admin:admin /var/opt/remi/php70
