@@ -103,7 +103,7 @@ source ~/.bash_profile
 # Install libvorbis
 cd $PreFix_Dir/ffmpeg_sources
 #curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
-curl -O https://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
+curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
 #tar xzvf libvorbis-1.3.4.tar.gz
 #cd libvorbis-1.3.4
 tar xzvf libvorbis-1.3.5.tar.gz
