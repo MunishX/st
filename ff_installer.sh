@@ -107,7 +107,7 @@ curl -O https://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
 #cd libvorbis-1.3.4
 tar xzvf libvorbis-1.3.5.tar.gz
 cd libvorbis-1.3.5
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg="$PreFix_Dir/ffmpeg_build" --disable-shared
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg="$PreFix_Dir/ffmpeg_build" --disable-shared
 make
 make install
 make distclean
