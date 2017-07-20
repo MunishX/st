@@ -89,7 +89,8 @@ source ~/.bash_profile
 
 # Install libogg
 cd $PreFix_Dir/ffmpeg_sources
-curl -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
+#curl -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
+curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.2.tar.gz
 tar xzvf libogg-1.3.2.tar.gz
 cd libogg-1.3.2
 ./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared
