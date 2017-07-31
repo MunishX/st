@@ -14,6 +14,9 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligcnf -O /
 #### FASTCGI CONFIG
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/fgicnf -O /etc/lighttpd/conf.d/fastcgi.conf
 
+#### CGI CONFIG
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/cgi -O /etc/lighttpd/conf.d/cgi.conf
+
 #### MODULES CONFIG
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/modcnf -O /etc/lighttpd/modules.conf
 
