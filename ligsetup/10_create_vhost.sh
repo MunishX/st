@@ -103,7 +103,7 @@ sleep 3
 ###########################################
 
 ###### EXTRA ADDING 
-
+server_stat=''
 #####################################################
 #####################################################
 
@@ -170,6 +170,12 @@ chmod -R 777 /home/admin/ip/
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /usr/bin/addnewuser
 chmod 777 /usr/bin/addnewuser
 
+server_stat='server.modules += ( "mod_status" )
+  status.status-url          = "/admin/server-status"
+  status.config-url          = "/admin/server-config"
+  status.statistics-url      = "/admin/server-statistics"
+  status.enable-sort         = "enable"'
+  
 fi
 
 #######
@@ -203,24 +209,15 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
     accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
    
-   #auth.debug = 2
-   #auth.backend = \"plain\"
-   #auth.backend.plain.userfile = \"/home/admin/.lighttpdpassword\"
-   #auth.require = ( \"/admin/\" =>
-   #  (
-   #   \"method\" => \"basic\",
-   #   \"realm\" => \"Password protected area\",
-   #   \"require\" => \"user=vivek\"
-   #  )
-   #)
+    $server_stat
 
     auth.backend = \"htpasswd\"
     auth.backend.htpasswd.userfile = \"$user_root/$mydom/.htpasswd\"
-    auth.require = ( \"/$admin_username/\" =>
+    auth.require = ( \"/admin/\" =>
       (
       \"method\"  => \"basic\",
       \"realm\"   => \"Admin Area!  Password Required!\",
-      \"require\" => \"user=$admin_username\"
+      \"require\" => \"user=admin\"
       )
     )
    
