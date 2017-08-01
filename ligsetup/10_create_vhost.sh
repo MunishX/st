@@ -170,11 +170,15 @@ chmod -R 777 /home/admin/ip/
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /usr/bin/addnewuser
 chmod 777 /usr/bin/addnewuser
 
-server_stat='server.modules += ( "mod_status" )
+server_stat='
+
+server.modules += ( "mod_status" )
   status.status-url          = "/admin/server-status"
   status.config-url          = "/admin/server-config"
   status.statistics-url      = "/admin/server-statistics"
-  status.enable-sort         = "enable"'
+  status.enable-sort         = "enable"
+  
+  '
   
 fi
 
@@ -209,7 +213,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
     accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
    # fastcgi.map-extensions = (".fpm" => ".php")
    
-    $server_stat
+$server_stat
 
     auth.backend = \"htpasswd\"
     auth.backend.htpasswd.userfile = \"$user_root/$mydom/.htpasswd\"
