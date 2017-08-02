@@ -1,16 +1,21 @@
 #!/bin/bash
 
-rm -rf /etc/lighttpd/lighttpd.old
-rm -rf /etc/lighttpd/modules.old
-rm -rf /etc/lighttpd/conf.d/fastcgi.old
-rm -rf /etc/lighttpd/conf.d/cgi.old
-rm -rf /etc/lighttpd/conf.d/access_log.old
+#rm -rf /etc/lighttpd/lighttpd.old
+#rm -rf /etc/lighttpd/modules.old
+#rm -rf /etc/lighttpd/conf.d/fastcgi.old
+#rm -rf /etc/lighttpd/conf.d/cgi.old
+#rm -rf /etc/lighttpd/conf.d/access_log.old
+#rm -rf /etc/lighttpd/conf.d/geoip.old
+
+rm -rf /etc/lighttpd/*.old
+rm -rf /etc/lighttpd/conf.d/*.old
 
 mv /etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.old
 mv /etc/lighttpd/modules.conf /etc/lighttpd/modules.old
 mv /etc/lighttpd/conf.d/fastcgi.conf /etc/lighttpd/conf.d/fastcgi.old
 mv /etc/lighttpd/conf.d/cgi.conf /etc/lighttpd/conf.d/cgi.old
 mv /etc/lighttpd/conf.d/access_log.conf /etc/lighttpd/conf.d/access_log.old
+mv /etc/lighttpd/conf.d/geoip.conf /etc/lighttpd/conf.d/geoip.old
 
 #### LIGHTTPD CONFIG
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligcnf -O /etc/lighttpd/lighttpd.conf
@@ -26,4 +31,7 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/cgi -O /etc
 
 #### ACCESS_LOG CONFIG
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/alog -O /etc/lighttpd/conf.d/access_log.conf
+
+#### GEO_IP CONFIG
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/gip -O /etc/lighttpd/conf.d/geoip.conf
 
