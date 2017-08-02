@@ -11,7 +11,7 @@ systemctl disable httpd.service
 yum -y install epel-release
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 yum -y update
-yum -y install lighttpd lighttpd-fastcgi
+yum -y install lighttpd lighttpd-fastcgi lighttpd-mod_geoip 
 
 mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
