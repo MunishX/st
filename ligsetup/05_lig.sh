@@ -15,7 +15,13 @@ yum -y install lighttpd lighttpd-fastcgi lighttpd-mod_geoip
 
 mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
-mkdir -p /home/lighttpd/tmp
+mkdir -p /home/lighttpd/{tmp,bin}
+
+wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -O /home/lighttpd/bin/GeoIP.dat.gz
+wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz -O /home/lighttpd/bin/GeoLiteCity.dat.gz
+
+gunzip /home/lighttpd/bin/GeoIP.dat.gz
+gunzip /home/lighttpd/bin/GeoLiteCity.dat.gz
 
 chown -R lighttpd:lighttpd /home/lighttpd
 chmod -R 777 /home/lighttpd
