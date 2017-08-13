@@ -227,7 +227,8 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
                        (
                           (
 			    \"socket\" => \"$user_root/$mydom/$php_add_head/$software_name.sock\",
-                            \"broken-scriptfilename\" => \"enable\" 
+                            \"broken-scriptfilename\" => \"enable\",
+			    \"allow-x-send-file\" => \"enable\"
                           )
                         )
                       )
