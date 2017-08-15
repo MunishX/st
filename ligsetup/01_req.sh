@@ -10,7 +10,7 @@ service iptables stop
 chkconfig iptables off
 
 yum -y update
-yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at ant iotop hdparm lsblk
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at ant iotop iftop hdparm lsblk
 
 yum -y update
 
