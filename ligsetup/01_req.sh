@@ -41,9 +41,11 @@ sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
 systemctl enable firewalld
 systemctl start firewalld
 systemctl status firewalld
+sudo firewall-cmd --list-all
 sleep 5
 systemctl restart firewalld
 systemctl status firewalld
+sudo firewall-cmd --list-all
 sleep 5
 
 #service firewalld start
