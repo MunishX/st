@@ -58,4 +58,8 @@ systemctl status mariadb
 
 netstat -tap | grep mysql
 
+## Not compulsary
+touch /var/lib/mysql/mysqld.log
+chown -R mysql:mysql /var/lib/mysql/mysqld.log
+chmod 700 /var/lib/mysql/mysqld.log
 #######
