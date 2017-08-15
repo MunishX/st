@@ -14,6 +14,9 @@ firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --permanent --zone=public --add-port=789/tcp  # Prutunel VPN
 firewall-cmd --reload
 
+## Add torrent leech range
+
+sudo firewall-cmd --list-all
 
 
 #systemctl mask firewalld
