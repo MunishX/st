@@ -226,6 +226,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
       )
     )
    
+   #     php file add-    header( "X-LIGHTTPD-send-file: " . $file_on_harddisk);
     fastcgi.server = ( \".php\" =>
                        (
                           (
