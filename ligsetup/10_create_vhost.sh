@@ -161,6 +161,7 @@ echo "
     server.name = \"$main_ip\"
     accesslog.filename = \"/home/lighttpd/log-ip-access.txt\" 
     server.errorfile-prefix = \"/home/admin/ip/error/\"
+    evasive.max-conns-per-ip = 3
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
@@ -209,6 +210,8 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
  \$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$user_root/$mydom/html\" 
     accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
+    evasive.max-conns-per-ip = 60
+    server.kbytes-per-second=71680
    # fastcgi.map-extensions = (".fpm" => ".php")
    
    #$server_stat
