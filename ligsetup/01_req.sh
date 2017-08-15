@@ -38,9 +38,17 @@ sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
 # yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/req.sh && chmod 777 req.sh && ./req.sh
 
 ## Start Firewalld
-service firewalld start
-service firewalld status
+systemctl enable firewalld
+systemctl start firewalld
+systemctl status firewalld
 sleep 5
-service firewalld restart
-service firewalld status
+systemctl restart firewalld
+systemctl status firewalld
 sleep 5
+
+#service firewalld start
+#service firewalld status
+#sleep 5
+#service firewalld restart
+#service firewalld status
+#sleep 5
