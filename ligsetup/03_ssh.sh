@@ -13,7 +13,7 @@ echo "Port $My_PORT" >> /etc/ssh/sshd_config
 service sshd restart
 
 
-firewall-cmd --permanent --zone=public --add-port=1997/tcp
+firewall-cmd --permanent --zone=public --add-port=$My_PORT/tcp
 sudo firewall-cmd --reload
 sudo firewall-cmd --list-all
 
