@@ -8,7 +8,7 @@ firewall-cmd --reload
 
 
 
-systemctl mask firewalld
-systemctl stop firewalld
-systemctl disable firewalld
+#systemctl mask firewalld
+#systemctl stop firewalld
+#systemctl disable firewalld
 
