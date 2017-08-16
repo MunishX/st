@@ -35,7 +35,7 @@ sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/p
 ####
 
 ### MEMCACHED CONFIG
-yum -y install memcached
+yum -y install memcached iftop
 
 echo '
 PORT="11211"
