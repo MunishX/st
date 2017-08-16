@@ -214,8 +214,8 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
     server.document-root = \"$user_root/$mydom/html\" 
     accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
     evasive.max-conns-per-ip = 200
-    server.kbytes-per-second=97280
-    connection.kbytes-per-second=51200
+    #server.kbytes-per-second=97280
+    #connection.kbytes-per-second=51200
    # fastcgi.map-extensions = (".fpm" => ".php")
    
    #$server_stat
