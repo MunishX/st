@@ -99,7 +99,7 @@ STOP_IT=0
 
 if [ -f "$software_path" ]
 then
-    echo 'Error! Username already available. Please change Username and try again.'
+    echo 'Error! It seems that Transmission is already installed for this user.. Exiting...!'
     STOP_IT=1
     exit 1
 else
