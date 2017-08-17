@@ -40,7 +40,7 @@ user_old=$6
 
 software_root=tor
 software_name=${software_root}-${uname}
-
+software_path="/usr/bin/"${software_name}
 ##########
 
 #### Check User Status
@@ -87,6 +87,23 @@ then
 else
 	echo "Selected Mode : Full Install + Add User "
    install_type="y"
+fi
+
+sleep 3
+
+
+###########
+
+#### check if already installed or not.
+STOP_IT=0
+
+if [ -f "$software_path" ]
+then
+    echo 'Error! Username already available. Please change Username and try again.'
+    STOP_IT=1
+    exit 1
+else
+   STOP_IT=0
 fi
 
 sleep 3
