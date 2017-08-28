@@ -248,7 +248,7 @@ echo ""
 
 # Configure email-services ###############################
 # set timezone
-sed -i "s/^;date.timezone =$/date.timezone = \"Europe\/Bucharest\"/" /etc/php.ini 
+#sed -i "s/^;date.timezone =$/date.timezone = \"Europe\/Bucharest\"/" /etc/php.ini 
 
 # enable @Boot_Services"
 systemctl enable postfix dovecot httpd mariadb amavisd clamd@amavisd spamassassin opendkim
