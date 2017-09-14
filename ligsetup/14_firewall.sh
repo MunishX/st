@@ -11,7 +11,9 @@
 
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
+#firewall-cmd --permanent --zone=public --add-service=mysql   # use only if mysql is required to be accessed by other hosts
 firewall-cmd --permanent --zone=public --add-port=789/tcp  # Prutunel VPN
+
 firewall-cmd --reload
 
 ## Add torrent leech range
