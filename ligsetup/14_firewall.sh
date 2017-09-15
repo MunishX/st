@@ -11,8 +11,14 @@
 
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
-#firewall-cmd --permanent --zone=public --add-service=mysql   # use only if mysql is required to be accessed by other hosts
+
 firewall-cmd --permanent --zone=public --add-port=789/tcp  # Prutunel VPN
+
+firewall-cmd --permanent --zone=public --add-port=49152-65535/udp  # transmission use these udp ports
+firewall-cmd --permanent --zone=public --add-port=49152-65535/tcp  # transmission use these udp ports
+#firewall-cmd --permanent --zone=public --add-port=9061/tcp  # For Transmission webui
+
+#firewall-cmd --permanent --zone=public --add-service=mysql   # use only if mysql is required to be accessed by other hosts
 
 firewall-cmd --reload
 
