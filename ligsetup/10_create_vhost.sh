@@ -202,7 +202,7 @@ fi
 
 #mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
 mkdir -p $user_root/$mydom/{html,error,$php_add_head}
-mkdir -p $user_root/$mydom/$php_add_head/{session,wsdlcache,opcache,log}
+mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache,log}
 #touch $user_root/html/status/php.php
 
 #chmod g+w $user_root
