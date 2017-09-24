@@ -12,14 +12,14 @@ yum -y update
 
 # PHP 7 Install
 yum -y install php71-php-bcmath php71-php-mysql php71-php-devel php71-php-fpm php71-php-gd php71-php-intl php71-php-imap php71-php-mbstring php71-php-mcrypt php71-php-mysqlnd php71-php-opcache php71-php-pdo php71-php-pear php71-php-soap php71-php-xml php71-php-xmlrpc
-yum -y install php71-php-pecl-uploadprogress php71-php-pecl-zip
+yum -y install php71-php-pecl-uploadprogress php71-php-pecl-zip 
 yum -y install php71-php-memcached php71-php-memcache php71-php-apcu* memcached
 yum -y install libevent libevent-devel
 yum -y update
 
 ## PHP-PHALCON + PHP-MongoDB
 curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
-yum -y install php71-php-phalcon php71-php-pecl-mongodb
+yum -y install php71-php-phalcon php71-php-pecl-mongodb php71-php-pecl-redis
 
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/php71/php.ini
