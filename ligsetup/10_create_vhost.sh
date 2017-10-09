@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#ini for each user: php.ini, in systemctl
+#/usr/local/php/sbin/php-fpm --fpm-config /etc/php/php-fpm.conf -c /etc/php/php.ini
+
 # UMASK NEW
 # sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
 
