@@ -37,13 +37,17 @@ systemctl enable  lighttpd.service
 #systemctl start php70-php-fpm 
 #systemctl enable php70-php-fpm
 
-systemctl enable memcached
 systemctl start memcached
+systemctl enable memcached
+
+systemctl start redis.service
+systemctl enable redis.service
 
 sleep 5
 
 systemctl restart lighttpd.service
 systemctl restart memcached
+systemctl restart redis
 systemctl restart mysql
 service $tor_name-$tor_soft restart
 service $php_name-$php_soft restart
@@ -53,6 +57,7 @@ sleep 5
 systemctl status lighttpd.service
 #systemctl status $php_soft
 systemctl status memcached
+systemctl status redis
 systemctl status mysql
 service $tor_name-$tor_soft status
 
