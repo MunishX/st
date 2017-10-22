@@ -21,7 +21,8 @@ sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo
 
 ### RAR
 cd /tmp
-wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
+#wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
+wget https://www.rarlab.com/rar/rarlinux-x64-5.5.0.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar
 make
