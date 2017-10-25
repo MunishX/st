@@ -140,9 +140,14 @@ source ~/.bash_profile
 
 # Install FFmpeg
 cd $PreFix_Dir/ffmpeg_sources
-curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-tar xjvf ffmpeg-snapshot.tar.bz2
-cd ffmpeg
+
+wget https://github.com/FFmpeg/FFmpeg/archive/n3.4.zip
+unzip n3.*.zip
+cd FFmpeg-n3.*
+
+#curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+#tar xjvf ffmpeg-snapshot.tar.bz2
+#cd ffmpeg
 PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265
 make
 make install
