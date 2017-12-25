@@ -49,6 +49,12 @@ systemctl status firewalld
 sudo firewall-cmd --list-all
 sleep 5
 
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
+firewall-cmd --list-all
+sleep 5
+
 #service firewalld start
 #service firewalld status
 #sleep 5
