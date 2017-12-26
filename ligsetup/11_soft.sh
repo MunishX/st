@@ -17,8 +17,8 @@ echo ""
        read -p "Enter Public_Html dir (html) : " ADMIN_PUBLIC_HTML
     done
 
-mkdir -p /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/
-cd /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/
+mkdir -p /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/host/
+cd /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/host/
 
 
 ################### AWSTATS INSTALL ########################
