@@ -298,7 +298,7 @@ restart_no=n
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/10_create_vhost.sh
 chmod 777 10_create_vhost.sh
-./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
+./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no y
 
 echo ""
 echo ""
