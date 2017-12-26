@@ -74,7 +74,7 @@ cd /tmp/add_user_script
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/10_create_vhost.sh
 chmod 777 10_create_vhost.sh
-./10_create_vhost.sh $User_Name $User_Pass $mydom $Admin_User $Restart_Lig
+./10_create_vhost.sh $User_Name $User_Pass $mydom $Admin_User $Restart_Lig n
 
 echo ""
 echo ""
