@@ -38,6 +38,11 @@ restart_now=$5
        read -p "Restart Lighttpd after Finish (y/n) : " restart_now
     done
 
+set_ip_host=$6
+   while [[ $set_ip_host = "" ]]; do # to be replaced with regex
+       read -p "Also set IP vhost (y/n) : " set_ip_host
+    done
+
 #main_ip_ok=$6
 #   while [[ $main_ip_ok = "" ]]; do # to be replaced with regex
 #       read -p "SERVER MAIN IP is ${main_ip} (y/n) : " main_ip_ok
@@ -151,7 +156,7 @@ if [[ $uname != $admin_username ]]; then
 sudo usermod -a -G $uname $admin_username
 fi
 
-if [[ $uname = $admin_username ]]; then
+if [[ $set_ip_host = 'y' ]]; then
 
 sudo usermod -a -G lighttpd $admin_username
 chown $admin_username:$admin_username /home
