@@ -225,7 +225,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache
 
     auth.backend = \"htpasswd\"
     auth.backend.htpasswd.userfile = \"$user_root/$mydom/.htpasswd\"
-    auth.require = ( \"/admin/\" =>
+    auth.require = ( \"/host/\" =>
       (
       \"method\"  => \"basic\",
       \"realm\"   => \"Admin Area!  Password Required!\",
@@ -282,10 +282,10 @@ chmod 777 /usr/lib/systemd/system/$software_name.service
 
 #/etc/init.d/
 
-mkdir -p $user_root/$mydom/html/admin
-cd $user_root/$mydom/html/admin
+mkdir -p $user_root/$mydom/html/host
+cd $user_root/$mydom/html/host
 
-if [[ $uname != $admin_username ]]; then
+#if [[ $uname != $admin_username ]]; then
 
 #wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
 wget https://github.com/Th3-822/rapidleech/archive/master.zip
@@ -297,9 +297,9 @@ unzip master
 #mv index.php up.php
 mv rapidleech-master test
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/man.php -O up.php
-mkdir -p $user_root/$mydom/html/admin/
-touch $user_root/$mydom/html/admin/php.php
-fi
+mkdir -p $user_root/$mydom/html/host/
+touch $user_root/$mydom/html/host/php.php
+#fi
 
 
  echo '
