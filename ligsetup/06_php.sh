@@ -2,6 +2,9 @@
 
 ## PHP 7.1
 # add PHP 7 repo
+
+PHP_V='php72'
+
 cd /tmp
 wget https://centos7.iuscommunity.org/ius-release.rpm
 wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
@@ -11,27 +14,27 @@ yum -y update
 ####
 
 # PHP 7 Install
-yum -y install php71-php-bcmath php71-php-mysql php71-php-devel php71-php-fpm php71-php-gd php71-php-intl php71-php-imap php71-php-mbstring php71-php-mcrypt php71-php-mysqlnd php71-php-opcache php71-php-pdo php71-php-pear php71-php-soap php71-php-xml php71-php-xmlrpc
-yum -y install php71-php-pecl-uploadprogress php71-php-pecl-zip 
-yum -y install php71-php-memcached php71-php-memcache php71-php-apcu*
+yum -y install ${PHP_V}-php-bcmath ${PHP_V}-php-mysql ${PHP_V}-php-devel ${PHP_V}-php-fpm ${PHP_V}-php-gd ${PHP_V}-php-intl ${PHP_V}-php-imap ${PHP_V}-php-mbstring ${PHP_V}-php-mcrypt ${PHP_V}-php-mysqlnd ${PHP_V}-php-opcache ${PHP_V}-php-pdo ${PHP_V}-php-pear ${PHP_V}-php-soap ${PHP_V}-php-xml ${PHP_V}-php-xmlrpc
+yum -y install ${PHP_V}-php-pecl-uploadprogress ${PHP_V}-php-pecl-zip 
+yum -y install ${PHP_V}-php-memcached ${PHP_V}-php-memcache ${PHP_V}-php-apcu*
 yum -y install libevent libevent-devel
 yum -y update
 
 ## PHP-PHALCON + PHP-MongoDB
 curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
-yum -y install php71-php-phalcon php71-php-pecl-mongodb php71-php-pecl-redis
+yum -y install ${PHP_V}-php-phalcon ${PHP_V}-php-pecl-mongodb ${PHP_V}-php-pecl-redis
 
 ## PHP FIX + DATE 
-echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/php71/php.ini
-echo "date.timezone = UTC" >> /etc/opt/remi/php71/php.ini
+echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
+echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
 
-## php71 to PHP link
-ln -s /usr/bin/php71 /usr/bin/php
-ln -s /opt/remi/php71/root/usr/sbin/php-fpm /usr/bin/php-fpm
+## php7x to PHP link
+ln -s /usr/bin/${PHP_V} /usr/bin/php
+ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
 
 ## SWITCH OFF EXPOSE PHP
-sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/php71/php.ini
-sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/php71/php.ini
+sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
+sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/${PHP_V}/php.ini
 
 ####
 
@@ -49,7 +52,7 @@ OPTIONS="localhost"
 #####
 
 #### OPCACHE CONFIG
-sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/php71/php.d/10-opcache.ini
-sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/php71/php.d/10-opcache.ini
+sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
+sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
 ####
 
