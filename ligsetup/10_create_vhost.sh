@@ -10,6 +10,8 @@
 #PHP_V='php70'
 #PHP_V='php71'
 PHP_V='php72'
+# PHP_V not required in this page
+
 ############################### ADDED START
 main_ip="$(hostname -I)"
 main_ip=${main_ip//[[:blank:]]/}
