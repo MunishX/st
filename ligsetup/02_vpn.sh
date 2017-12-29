@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ## GET IP
-IPADDR=$(ip a s eth0 |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
+#IPADDR=$(ip a s eth0 |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
+IPADDR="$(hostname -I)"
 
 yum -y update
 yum -y install git zip unzip curl nano sudo wget
