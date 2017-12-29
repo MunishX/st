@@ -7,7 +7,9 @@
 # sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
 
 #### PHP CONFIG
-PHP_V='php71'
+#PHP_V='php70'
+#PHP_V='php71'
+PHP_V='php72'
 ############################### ADDED START
 main_ip="$(hostname -I)"
 main_ip=${main_ip//[[:blank:]]/}
