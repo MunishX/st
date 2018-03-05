@@ -21,13 +21,28 @@
 #gpgcheck=1
 
 ##### add MariaDB 10.2 repo stable from mariadb
+#echo "
+#
+## MariaDB 10.2 CentOS repository list - created 2017-12-25 05:13 UTC
+## http://downloads.mariadb.org/mariadb/repositories/
+#[mariadb]
+#name = MariaDB
+#baseurl = http://yum.mariadb.org/10.2/centos7-amd64
+#gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+#gpgcheck=1
+#
+#" > /etc/yum.repos.d/mariadb.repo
+######
+
+##### add MariaDB 10.3.5 repo stable from mariadb
+# http://yum.mariadb.org/10.3.5/centos74-amd64/rpms/MariaDB-10.3.5-centos74-x86_64-server.rpm
 echo "
 
-# MariaDB 10.2 CentOS repository list - created 2017-12-25 05:13 UTC
+# MariaDB 10.3.5 CentOS repository list - created 2018-02-26 05:13 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/10.2/centos7-amd64
+baseurl = http://yum.mariadb.org/10.3.5/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 
