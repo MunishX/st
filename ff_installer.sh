@@ -2,7 +2,7 @@
 
 ## MG New
 
-# cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && ./ff_installer.sh
+# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && ./ff_installer.sh
 # cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && nohup ./ff_installer.sh > ff_log.txt &
 
 start_time=`date +%s`
