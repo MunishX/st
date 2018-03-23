@@ -5,6 +5,7 @@
 # cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && ./ff_installer.sh
 # cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && nohup ./ff_installer.sh > ff_log.txt &
 
+start_time=`date +%s`
 
 ###### VARS #####
 #PreFix_Dir="/usr"
@@ -172,6 +173,13 @@ hash -r
 make distclean
 source ~/.bash_profile
 
+
+end_time=`date +%s`
+run_time=$((end_time-start_time))
+
+echo ""
+echo "END"
+echo "-------------  Completed in $run_time seconds.  ($start_time to $end_time)  ---------------"
 echo ""
 echo ""
 echo "Testing..."
