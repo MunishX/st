@@ -50,7 +50,7 @@ source ~/.bash_profile
 cd $PreFix_Dir/ffmpeg_sources
 hg clone https://bitbucket.org/multicoreware/x265
 cd $PreFix_Dir/ffmpeg_sources/x265/build/linux
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" -DENABLE_SHARED:bool=off ../../source
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
 make
 make install
 make distclean
@@ -164,7 +164,7 @@ cd ffmpeg*/
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265
 make
 make install
 hash -r
