@@ -7,8 +7,8 @@
 
 
 ###### VARS #####
-#PreFix_Dir="/usr"
-PreFix_Dir="/usr/local"
+PreFix_Dir="/usr"
+#PreFix_Dir="/usr/local"
 #################
 
 # Remove any existing packages
