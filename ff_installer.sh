@@ -175,6 +175,8 @@ hash -r
 make distclean
 source ~/.bash_profile
 
+chmod 777 $PreFix_Dir/bin
+
 
 end_time=`date +%s`
 run_time=$((end_time-start_time))
