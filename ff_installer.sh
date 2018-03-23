@@ -79,9 +79,12 @@ source ~/.bash_profile
 
 # Install libopus
 cd $PreFix_Dir/ffmpeg_sources
-curl -O https://archive.mozilla.org/pub/opus/opus-1.1.5.tar.gz
-tar xzvf opus-1.1.5.tar.gz
-cd opus-1.1.5
+#curl -O https://archive.mozilla.org/pub/opus/opus-1.1.5.tar.gz
+#tar xzvf opus-1.1.5.tar.gz
+#cd opus-1.1.5
+curl -O https://archive.mozilla.org/pub/opus/opus-1.2.tar.gz
+tar xzvf opus-1.*.tar.gz
+cd opus-1.*/
 ./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared
 make
 make install
@@ -91,9 +94,12 @@ source ~/.bash_profile
 # Install libogg
 cd $PreFix_Dir/ffmpeg_sources
 #curl -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
-curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.2.tar.gz
-tar xzvf libogg-1.3.2.tar.gz
-cd libogg-1.3.2
+#curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.2.tar.gz
+#tar xzvf libogg-1.3.2.tar.gz
+#cd libogg-1.3.2
+curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.3.tar.gz
+tar xzvf libogg-1.*.tar.gz
+cd libogg-1.*/
 ./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared
 make
 make install
@@ -104,11 +110,14 @@ source ~/.bash_profile
 # Install libvorbis
 cd $PreFix_Dir/ffmpeg_sources
 #curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
-curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
+#curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
 #tar xzvf libvorbis-1.3.4.tar.gz
 #cd libvorbis-1.3.4
-tar xzvf libvorbis-1.3.5.tar.gz
-cd libvorbis-1.3.5
+#tar xzvf libvorbis-1.3.5.tar.gz
+#cd libvorbis-1.3.5
+curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.6.tar.gz
+tar xzvf libvorbis-1*.tar.gz
+cd libvorbis-1*/
 PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg="$PreFix_Dir/ffmpeg_build" --disable-shared
 make
 make install
@@ -132,8 +141,9 @@ yum -y install libtheora
 cd $PreFix_Dir/ffmpeg_sources
 git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
 cd libvpx
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-examples  --as=yasm
-PATH="$PreFix_Dir/bin:$PATH" make
+./configure --prefix="$PreFix_Dir/ffmpeg_build"  --as=yasm --enable-pic --disable-examples --disable-unit-tests
+#PATH="$PreFix_Dir/bin:$PATH" 
+make
 make install
 make distclean
 source ~/.bash_profile
@@ -142,9 +152,12 @@ source ~/.bash_profile
 # Install FFmpeg
 cd $PreFix_Dir/ffmpeg_sources
 
-wget https://github.com/FFmpeg/FFmpeg/archive/n3.4.zip
-unzip n3.*.zip
-cd FFmpeg-n3.*
+#wget https://github.com/FFmpeg/FFmpeg/archive/n3.4.zip
+#unzip n3.*.zip
+#cd FFmpeg-n3.*
+curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+tar xjvf ffmpeg-snapshot.tar.bz2
+cd ffmpeg*/
 
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
