@@ -171,3 +171,11 @@ hash -r
 
 make distclean
 source ~/.bash_profile
+
+echo ""
+echo ""
+echo "Testing..."
+echo ""
+ffmpeg
+echo ""
+
