@@ -10,7 +10,7 @@
 #PreFix_Dir="/usr"
 PreFix_Dir="/usr/local"
 
-PATH="$PreFix_Dir/bin:$PATH" 
+#PATH="$PreFix_Dir/bin:$PATH" 
 #################
 
 # Remove any existing packages
