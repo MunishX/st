@@ -50,7 +50,7 @@ source ~/.bash_profile
 cd $PreFix_Dir/ffmpeg_sources
 hg clone https://bitbucket.org/multicoreware/x265
 cd $PreFix_Dir/ffmpeg_sources/x265/build/linux
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" -DENABLE_SHARED:bool=off ../../source
 make
 make install
 make distclean
