@@ -61,6 +61,8 @@ source ~/.bash_profile
 cd $PreFix_Dir/ffmpeg_sources
 git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
 cd fdk-aac
+yum install libtool -y
+libtoolize
 autoreconf -fiv
 ./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared
 make
