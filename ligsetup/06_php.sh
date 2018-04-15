@@ -46,7 +46,7 @@ PORT="11211"
 USER="memcached"
 MAXCONN="1024"
 CACHESIZE="1024"
-OPTIONS="localhost"
+OPTIONS="-l 127.0.0.1"
 ' > /etc/sysconfig/memcached
 
 #####
