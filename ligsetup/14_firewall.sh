@@ -36,3 +36,9 @@ sysctl -w net.ipv4.icmp_echo_ignore_all=1
 
 #ping on
 #sysctl -w net.ipv4.icmp_echo_ignore_all=0
+
+##light config tests
+#lighttpd -p -f /etc/lighttpd/lighttpd.conf
+#lighttpd -t -f /etc/lighttpd/lighttpd.conf
+#lighttpd -tt -f /etc/lighttpd/lighttpd.conf
+
