@@ -207,7 +207,7 @@ server.network-backend = "writev"
 ##
 ## With SELinux enabled, this is denied by default and needs to be allowed
 ## by running the following once : setsebool -P httpd_setrlimit on  
-server.max-fds = 8048
+server.max-fds = 8192
 
 ##
 ## listen-backlog is the size of the listen() backlog queue requested when
