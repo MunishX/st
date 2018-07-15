@@ -20,9 +20,15 @@ yum -y install ${PHP_V}-php-memcached ${PHP_V}-php-memcache ${PHP_V}-php-apcu*
 yum -y install libevent libevent-devel
 yum -y update
 
-## PHP-PHALCON + PHP-MongoDB
-curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
-yum -y install ${PHP_V}-php-phalcon ${PHP_V}-php-pecl-mongodb ${PHP_V}-php-pecl-redis
+## PHP-PHALCON 
+#curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
+#yum -y install ${PHP_V}-php-phalcon 
+
+## PHP-MongoDB 
+#yum -y install ${PHP_V}-php-pecl-mongodb 
+
+## PHP-REDIS
+yum -y install ${PHP_V}-php-pecl-redis
 
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
@@ -34,6 +40,7 @@ ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
 
 ## SWITCH OFF EXPOSE PHP
 sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
+sed -i "s/^.*mail.add_x_header =.*/mail.add_x_header = Off/" /etc/opt/remi/${PHP_V}/php.ini
 sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/${PHP_V}/php.ini
 
 ####
