@@ -180,10 +180,13 @@ export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 #make install
 
 # Install transmission
+#wget https://github.com/transmission/transmission-releases/raw/master/transmission-2.92.tar.xz
+#tar xvf transmission-2.92.tar.xz
+#cd transmission-2.92
 cd /usr/local/src
-wget https://github.com/transmission/transmission-releases/raw/master/transmission-2.92.tar.xz
-tar xvf transmission-2.92.tar.xz
-cd transmission-2.92
+wget https://github.com/transmission/transmission-releases/raw/master/transmission-2.94.tar.xz
+tar xvf transmission-*.tar.xz
+cd transmission-*/
 ./configure --prefix=/usr
 make
 make install
