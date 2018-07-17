@@ -207,16 +207,16 @@ app_peer=${oppx}.${oppy}.${oppz}
 sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_VERSION "APP_VERSION_PLACEHOLDER"' libtransmission/session.h
 sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_NAME "APP_NAME_PLACEHOLDER"' libtransmission/session.h
 sed -i 's%^.*curl_easy_setopt (e, CURLOPT_USERAGENT.*%  curl_easy_setopt (e, CURLOPT_USERAGENT, FXXTL_NAME "/" FXXTL_VERSION);%' libtransmission/web.c
-sed -i 's%^.*set(TR_PEER_ID_PREFIX ".*%set(TR_PEER_ID_PREFIX "APP_PEER_PLACEHOLDER")%' CMakeLists.txt
+sed -i 's%^.*define PEERID_PREFIX.*%#define PEERID_PREFIX             "APP_PEER_PLACEHOLDER"%' libtransmission/version.h.in
 
-sed -i 's%^.*m4_define.*peer_id_prefix.*%_______PP_LINE______%' configure.ac
-pp_line="m4_define([peer_id_prefix],[APP_PEER_PLACEHOLDER])"
-sed -i "s/_______PP_LINE______/$pp_line/" configure.ac
+#sed -i 's%^.*m4_define.*peer_id_prefix.*%_______PP_LINE______%' configure.ac
+#pp_line="m4_define([peer_id_prefix],[APP_PEER_PLACEHOLDER])"
+#sed -i "s/_______PP_LINE______/$pp_line/" configure.ac
 
 sed -i "s/APP_NAME_PLACEHOLDER/$app_name/" libtransmission/session.h
 sed -i "s/APP_VERSION_PLACEHOLDER/$app_version/" libtransmission/session.h
-sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" CMakeLists.txt
-sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" configure.ac
+sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" libtransmission/version.h.in
+#sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" configure.ac
 ##############
 
 ./configure --prefix=/usr
