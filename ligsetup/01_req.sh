@@ -19,6 +19,8 @@ sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel mailx expect ima
 sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo iftop help2man
 
 ### RAR
+echo ""
+echo "Installing latest RAR..."
 cd /tmp
 #wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
 #wget https://www.rarlab.com/rar/rarlinux-x64-5.5.0.tar.gz
