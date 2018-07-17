@@ -187,6 +187,31 @@ cd /usr/local/src
 wget https://github.com/transmission/transmission-releases/raw/master/transmission-2.94.tar.xz
 tar xvf transmission-*.tar.xz
 cd transmission-*/
+
+nmmw=Fas
+nmmx=tTor
+nmmy=rentLe
+nmmz=ech
+mvvx=6
+mvvy=1
+mvvz=3
+
+app_name=${nmmw}${nmmx}${nmmy}${nmmz}
+app_version=${mvvx}.${mvvy}.${mvvz}
+
+#### EDIT ####
+sed '/#define TR_NAME "Transmission"/a #define FXXTL_VERSION "APP_VERSION_PLACEHOLDER"' libtransmission/session.h
+sed '/#define TR_NAME "Transmission"/a #define FXXTL_NAME "APP_NAME_PLACEHOLDER"' libtransmission/session.h
+sed -i 's%^.*set(TR_PEER_ID_PREFIX ".*%set(TR_PEER_ID_PREFIX "APP_PEER_PLACEHOLDER")%' CMakeLists.txt
+sed -i 's%^.*curl_easy_setopt (e, CURLOPT_USERAGENT.*%curl_easy_setopt (e, CURLOPT_USERAGENT, FXXTL_NAME "/" FXXTL_VERSION);%' libtransmission/web.c
+#sed -i 's%^.*curl_easy_setopt (e, CURLOPT_USERAGENT.*%curl_easy_setopt (e, CURLOPT_USERAGENT, FTL_NAME "/" SHORT_VERSION_STRING);%' configure.ac
+
+sed -i "s/APP_NAME_PLACEHOLDER/$app_name/" libtransmission/session.h
+sed -i "s/APP_VERSION_PLACEHOLDER/$app_version/" libtransmission/session.h
+sed -i "s/APP_PEER_PLACEHOLDER/$app_name/" CMakeLists.txt
+
+##############
+
 ./configure --prefix=/usr
 make
 make install
