@@ -209,14 +209,9 @@ sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_NAME "APP_NAME_PLACEHOLD
 sed -i 's%^.*curl_easy_setopt (e, CURLOPT_USERAGENT.*%  curl_easy_setopt (e, CURLOPT_USERAGENT, FXXTL_NAME "/" FXXTL_VERSION);%' libtransmission/web.c
 sed -i 's%^.*define PEERID_PREFIX.*%#define PEERID_PREFIX             "APP_PEER_PLACEHOLDER"%' libtransmission/version.h.in
 
-#sed -i 's%^.*m4_define.*peer_id_prefix.*%_______PP_LINE______%' configure.ac
-#pp_line="m4_define([peer_id_prefix],[APP_PEER_PLACEHOLDER])"
-#sed -i "s/_______PP_LINE______/$pp_line/" configure.ac
-
 sed -i "s/APP_NAME_PLACEHOLDER/$app_name/" libtransmission/session.h
 sed -i "s/APP_VERSION_PLACEHOLDER/$app_version/" libtransmission/session.h
 sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" libtransmission/version.h.in
-#sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" configure.ac
 ##############
 
 ./configure --prefix=/usr
@@ -229,7 +224,8 @@ make install
 
 # Set up init script for transmission-daemon
 cd /etc/init.d
-wget -O $software_name https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
+#wget -O $software_name https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
+wget -O $software_name https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/tm_int
 sed -i "s%TRANSMISSION_HOME=/home/transmission%TRANSMISSION_HOME=/home/$uname%" $software_name
 sed -i 's%DAEMON_USER="transmission"%DAEMON_USER="placeholder123"%' $software_name
 sed -i "s%placeholder123%$uname%" $software_name
