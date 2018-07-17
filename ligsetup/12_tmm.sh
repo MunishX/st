@@ -201,17 +201,21 @@ oppz=RR
 
 app_name=${nmmw}${nmmx}${nmmy}${nmmz}
 app_version=${mvvx}.${mvvy}.${mvvz}
-app_peer=${oppx}.${oppy}.${oppz}
+#app_peer=${oppx}.${oppy}.${oppz}
+app_peer=${nmmw}${nmmx}${nmmy}${nmmz}v${mvvx}.${mvvy}.${mvvz}
 
 #### EDIT ####
 sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_VERSION "APP_VERSION_PLACEHOLDER"' libtransmission/session.h
 sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_NAME "APP_NAME_PLACEHOLDER"' libtransmission/session.h
 sed -i 's%^.*curl_easy_setopt (e, CURLOPT_USERAGENT.*%  curl_easy_setopt (e, CURLOPT_USERAGENT, FXXTL_NAME "/" FXXTL_VERSION);%' libtransmission/web.c
 sed -i 's%^.*define PEERID_PREFIX.*%#define PEERID_PREFIX             "APP_PEER_PLACEHOLDER"%' libtransmission/version.h.in
+sed -i 's%^.*define MY_REALM.*%#define MY_REALM "APP_NAME_PLACEHOLDER/APP_VERSION_PLACEHOLDER"%' libtransmission/rpc-server.c
 
 sed -i "s/APP_NAME_PLACEHOLDER/$app_name/" libtransmission/session.h
 sed -i "s/APP_VERSION_PLACEHOLDER/$app_version/" libtransmission/session.h
 sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" libtransmission/version.h.in
+sed -i "s/APP_NAME_PLACEHOLDER/$app_name/" libtransmission/rpc-server.c
+sed -i "s/APP_VERSION_PLACEHOLDER/$app_version/" libtransmission/rpc-server.c
 ##############
 
 ./configure --prefix=/usr
