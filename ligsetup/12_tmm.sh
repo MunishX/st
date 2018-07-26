@@ -227,6 +227,10 @@ sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" libtransmission/version.h.in
 ##############
 
 ./configure --prefix=/usr
+
+sed -i 's%^.*define PEERID_PREFIX.*%#define PEERID_PREFIX             "APP_PEER_PLACEHOLDER"%' libtransmission/version.h
+sed -i "s/APP_PEER_PLACEHOLDER/$app_peer/" libtransmission/version.h
+
 make
 make install
 
