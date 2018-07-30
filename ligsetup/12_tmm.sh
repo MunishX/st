@@ -207,7 +207,11 @@ app_name=${nmmw}${nmmx}${nmmy}${nmmz}
 app_version=${mvvx}.${mvvy}.${mvvz}
 #app_peer=${oppx}.${oppy}.${oppz}
 #app_peer=${nmmw}${nmmx}${nmmy}${nmmz}v${mvvx}.${mvvy}.${mvvz}
-app_peer=--${oppy}${oppz}--
+
+app_peer=--${oppy}${oppz}0-
+
+## app_peer=--${oppy}${oppz}0- ## stable software name
+## app_peer=--${oppy}${oppz}-- ## beta peer name
 
 #### EDIT ####
 sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_VERSION "APP_VERSION_PLACEHOLDER"' libtransmission/session.h
