@@ -11,9 +11,10 @@
 NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
 
 ###### IP Check
-IPADDR=$(ip a s $NETWORK_INTERFACE_NAME |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
+#IPADDR=$(ip a s $NETWORK_INTERFACE_NAME |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
 #or
-MAIN_IP="$(hostname -I)"
+#MAIN_IP="$(hostname -I)"
+MAIN_IP=$(ip a | grep "scope global" | grep -Po '(?<=inet )[\d.]+' | tr '\n' ' ' | awk '{print $1}')
 # Remove blank space
 MAIN_IP=${MAIN_IP//[[:blank:]]/}
 
