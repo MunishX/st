@@ -13,8 +13,9 @@ PHP_V='php72'
 # PHP_V not required in this page
 
 ############################### ADDED START
-main_ip="$(hostname -I)"
-main_ip=${main_ip//[[:blank:]]/}
+#main_ip="$(hostname -I)"
+get_ip="$(ip a | grep "scope global" | grep -Po '(?<=inet )[\d.]+' | tr '\n' ' ' | awk '{print $1}')"
+get_ip=${get_ip//[[:blank:]]/}
 
 # Take input for username and password
 uname=$1
@@ -47,10 +48,12 @@ set_ip_host=$6
        read -p "Also set IP vhost (y/n) : " set_ip_host
     done
 
-#main_ip_ok=$6
-#   while [[ $main_ip_ok = "" ]]; do # to be replaced with regex
-#       read -p "SERVER MAIN IP is ${main_ip} (y/n) : " main_ip_ok
-#    done
+main_ip=$7
+   while [[ $main_ip = "" ]]; do # to be replaced with regex
+       read -p "SERVER MAIN IP is  ( ex ${get_ip} ) : " main_ip
+    done
+    
+main_ip=${main_ip//[[:blank:]]/}
     
 #read -p "Transmission username: " uname
 #read -p "$uname's Password: " passw
