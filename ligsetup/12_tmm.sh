@@ -208,10 +208,10 @@ app_version=${mvvx}.${mvvy}.${mvvz}
 #app_peer=${oppx}.${oppy}.${oppz}
 #app_peer=${nmmw}${nmmx}${nmmy}${nmmz}v${mvvx}.${mvvy}.${mvvz}
 
-app_peer=--${oppy}${oppz}0-
+app_peer=--${oppy}${oppz}--
 
-## app_peer=--${oppy}${oppz}0- ## stable software name
-## app_peer=--${oppy}${oppz}-- ## beta peer name
+## app_peer=--${oppy}${oppz}0- ## stable software name ## not working
+## app_peer=--${oppy}${oppz}-- ## beta peer name  ## not working
 
 #### EDIT ####
 sed -i '/#define TR_NAME "Transmission"/a #define FXXTL_VERSION "APP_VERSION_PLACEHOLDER"' libtransmission/session.h
@@ -310,6 +310,9 @@ mkdir -p /home/$uname/$mydom/html/safe/disk/
 chown -R $uname:$admin_uname /home/$uname/
 chmod -R 777 /home/$uname/$mydom/html/safe
 rm -rf /home/$uname/Download*
+
+## disable ipv6 in config by "bind-address-ipv6": "fe80::"
+## docker with openvpn at https://github.com/haugene/docker-transmission-openvpn
 
 
 # Yay!!!
