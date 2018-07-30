@@ -157,6 +157,7 @@ if [[ $install_type = "y" ]]; then
 
 # Install libevent
 cd /usr/local/src
+rm -rf libevent*
 wget https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 tar xzf libevent-2.1.8-stable.tar.gz
 cd libevent-2.1.8-stable
@@ -184,6 +185,7 @@ export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 #tar xvf transmission-2.92.tar.xz
 #cd transmission-2.92
 cd /usr/local/src
+rm -rf transmission
 wget https://github.com/transmission/transmission-releases/raw/master/transmission-2.94.tar.xz
 tar xvf transmission-*.tar.xz
 cd transmission-*/
