@@ -1,5 +1,9 @@
 #!/bin/bash
 
+###  Auto Post Script
+# https:// forum.transmissionbt.com /viewtopic.php?t=18255
+# https:// forum.synology.com /enu/viewtopic.php?t=136696
+
 #####################################################
 #####################################################
 
