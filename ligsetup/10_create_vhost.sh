@@ -48,12 +48,17 @@ set_ip_host=$6
        read -p "Also set IP vhost (y/n) : " set_ip_host
     done
 
-main_ip=$7
+if [[ $set_ip_host = "y" ]] || [[ $set_ip_host = "Y" ]]; then
+   main_ip=$7
    while [[ $main_ip = "" ]]; do # to be replaced with regex
        read -p "SERVER MAIN IP is  ( ex ${get_ip} ) : " main_ip
-    done
-    
-main_ip=${main_ip//[[:blank:]]/}
+   done
+   main_ip=${main_ip//[[:blank:]]/}
+else
+   echo "IP check Skipping... "
+   main_ip=blank
+fi
+
     
 #read -p "Transmission username: " uname
 #read -p "$uname's Password: " passw
