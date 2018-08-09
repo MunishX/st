@@ -54,6 +54,7 @@ if [[ $set_ip_host = "y" ]] || [[ $set_ip_host = "Y" ]]; then
        read -p "SERVER MAIN IP is  ( ex ${get_ip} ) : " main_ip
    done
    main_ip=${main_ip//[[:blank:]]/}
+   echo "Final Main IP is : $main_ip"
 else
    echo "IP check Skipping... "
    main_ip=blank
