@@ -99,7 +99,6 @@ chown -R vnstat:vnstat /var/lib/vnstat
 
 ## eth0 em1 venet0
 
-#wget http://s1.fastrapidleech.com/vnstat.zip
 
 ########
 wget https://raw.github.com/munishgaurav5/st/master/vn.zip -O vnstat.zip
