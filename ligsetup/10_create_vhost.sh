@@ -189,7 +189,7 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
-mkdir -p /home/admin/ip/{html,error}
+mkdir -p /home/admin/ip/{html,error,ssl}
 chmod -R 777 /home/admin/ip/
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /usr/bin/addnewuser
@@ -222,7 +222,7 @@ fi
 #########
 
 #mkdir -p $user_root/$mydom/{html,$php_add_head,logs}
-mkdir -p $user_root/$mydom/{html,error,$php_add_head}
+mkdir -p $user_root/$mydom/{html,error,ssl,$php_add_head}
 mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache,log}
 #touch $user_root/html/status/php.php
 
@@ -263,6 +263,23 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache
                       )
 
     server.errorfile-prefix = \"$user_root/$mydom/error/\"
+    
+url.rewrite-once = (
+\"^/host/status/cron/src/assets/(.*)\" => \"\",
+\"^/host/status/cron/src/(.*)\" => \"/host/status/cron/src/index.php\",
+\"^/account/?(.*)\" => \"\",
+\"^/admin/?(.*)\" => \"\",
+\"^/big/?(.*)\" => \"\",
+\"^/free/?(.*)\" => \"\",
+\"^/host/?(.*)\" => \"\",
+\"^/member/?(.*)\" => \"\",
+\"^/p/?(.*)\" => \"\",
+\"^/premium/?(.*)\" => \"\",
+\"^/test/?(.*)\" => \"\",
+\"^/torrentleech/?(.*)\" => \"\",
+\"^/vip/?(.*)\" => \"\",
+\"^/rar/?(.*)\" => \"\"
+)
 
 }
   " > /etc/lighttpd/enabled/$mydom.conf
