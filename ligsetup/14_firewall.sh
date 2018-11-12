@@ -7,7 +7,28 @@
 #service firewalld status
 #sleep 5
 
+#########################################
+#firewall-cmd --permanent --zone=public --add-port=25/tcp   # For MailServer
+#firewall-cmd --permanent --zone=public --add-port=110/tcp  # For MailServer
+#firewall-cmd --permanent --zone=public --add-port=143/tcp  # For MailServer
+#firewall-cmd --permanent --zone=public --add-port=465/tcp  # For MailServer
+#firewall-cmd --permanent --zone=public --add-port=587/tcp  # For MailServer
+#firewall-cmd --permanent --zone=public --add-port=993/tcp  # For MailServer
+#firewall-cmd --permanent --zone=public --add-port=995/tcp  # For MailServer
 
+#firewall-cmd --permanent --zone=public --add-service=http
+#firewall-cmd --permanent --zone=public --add-service=https
+#firewall-cmd --add-service=ntp --permanent 
+
+
+#firewall-cmd --permanent --zone=public --add-port=49152-65535/udp  # transmission use these udp ports
+#firewall-cmd --permanent --zone=public --add-port=49152-65535/tcp  # transmission use these udp ports
+#firewall-cmd --permanent --zone=public --add-port=9061/tcp  # For Transmission webui
+
+#firewall-cmd --reload 
+
+#firewall-cmd --permanent --zone=public --remove-port=10050/tcp
+################################################
 
 #firewall-cmd --permanent --zone=public --add-service=http
 #firewall-cmd --permanent --zone=public --add-service=https
