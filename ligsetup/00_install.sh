@@ -110,7 +110,9 @@ ADMIN_HTML=html
 
 hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
 
-OUT_HOSTNAME="$(hostname)"
+#OUT_HOSTNAME="$(hostname)"
+OUT_HOSTNAME=$SERVER_HOST.$SERVER_DOMAIN
+
 echo ""
 while [[ $HOST_CORRECT = "" ]]; do # to be replaced with regex       
        read -p "(9/9) Hostname is ${OUT_HOSTNAME} (y/n) : " HOST_CORRECT
