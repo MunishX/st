@@ -144,8 +144,11 @@ yum -y install libtheora
 
 # Install libvpx
 cd $PreFix_Dir/ffmpeg_sources
-git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
-cd libvpx
+# git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
+wget -O libvpx_v1.7.0.zip https://github.com/webmproject/libvpx/archive/v1.7.0.zip
+unzip libvpx_v1.7.0.zip
+
+cd libvpx*/
 ./configure --prefix="$PreFix_Dir/ffmpeg_build"  --as=yasm --enable-pic --disable-examples --disable-unit-tests
 #PATH="$PreFix_Dir/bin:$PATH" 
 make
