@@ -9,6 +9,10 @@
 # ./ff_installer.sh > ffout.txt 2>&1 &
 # watch -n 2 tail -n 30 ffout.txt
 
+
+
+#ref https://github.com/ka che rga/ffm peg-inst all/blob/master/bu ild-ffm peg
+
 start_time=`date +%s`
 
 ###### VARS #####
