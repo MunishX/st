@@ -116,35 +116,6 @@ make distclean
 source ~/.bash_profile
 #yum -y install libogg
 
-# Install libvorbis
-cd $PreFix_Dir/ffmpeg_sources
-#curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
-#curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
-#tar xzvf libvorbis-1.3.4.tar.gz
-#cd libvorbis-1.3.4
-#tar xzvf libvorbis-1.3.5.tar.gz
-#cd libvorbis-1.3.5
-curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.6.tar.gz
-tar xzvf libvorbis-1*.tar.gz
-cd libvorbis-1*/
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg="$PreFix_Dir/ffmpeg_build" --enable-static --disable-shared --disable-oggtest
-make
-make install
-make distclean
-source ~/.bash_profile
-#yum -y install libvorbis
-
-# Install libtheora
-# cd ~/ffmpeg_sources
-# wget http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz
-# tar xzvf libtheora-1.1.1.tar.gz
-# cd libtheora-1.1.1
-# ./configure --disable-shared
-# make
-# make install
-# make distclean
-# source ~/.bash_profile
-yum -y install libtheora
 
 # Install libvpx
 cd $PreFix_Dir/ffmpeg_sources
@@ -245,6 +216,36 @@ source ~/.bash_profile
 
 #####################################################
 
+# Install libvorbis
+cd $PreFix_Dir/ffmpeg_sources
+#curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
+#curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
+#tar xzvf libvorbis-1.3.4.tar.gz
+#cd libvorbis-1.3.4
+#tar xzvf libvorbis-1.3.5.tar.gz
+#cd libvorbis-1.3.5
+curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.6.tar.gz
+tar xzvf libvorbis-1*.tar.gz
+cd libvorbis-1*/
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --enable-static --disable-shared --disable-oggtest
+make
+make install
+make distclean
+source ~/.bash_profile
+#yum -y install libvorbis
+
+# Install libtheora
+ # https://ftp.osuosl.org/pub/xiph/releases/theora/
+ cd ~/ffmpeg_sources
+ wget https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.zip
+ unzip libtheora-1.1.1.zip
+ cd libtheora-1.1.1
+ ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --with-vorbis-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-vorbis-includes="$PreFix_Dir/ffmpeg_build/include/" --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
+ make
+ make install
+ make distclean
+ source ~/.bash_profile
+#yum -y install libtheora
 
 
 # Install FFmpeg
