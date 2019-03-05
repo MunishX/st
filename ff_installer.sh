@@ -24,7 +24,7 @@ PreFix_Dir="/usr/local"
 
 # Remove any existing packages
 #yum -y erase ffmpeg x264 x264-devel
-yum -y install yum-utils openssl-devel
+yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 
 # Install the dependencies
 yum-config-manager --add-repo http://www.nasm.us/nasm.repo
