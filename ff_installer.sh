@@ -143,7 +143,7 @@ wget -O librtmp.zip https://github.com/pexip/librtmp/archive/master.zip
 unzip librtmp.zip
 cd librtmp-master
 ./autogen.sh
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --enable-static
+./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -172,7 +172,7 @@ cd $PreFix_Dir/ffmpeg_sources
 wget -O openjpeg-v2.3.0.zip https://github.com/uclouvain/openjpeg/archive/v2.3.0.zip
 unzip openjpeg-v2.3.0.zip
 cd openjpeg-2.3.0
-cmake -DCMAKE_INSTALL_PREFIX:PATH="/usr/local/ffmpeg_build" .
+cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" .
 make
 make install
 make distclean
@@ -184,7 +184,7 @@ cd $PreFix_Dir/ffmpeg_sources
 wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz
 tar xzvf opencore-amr-0.1.5.tar.gz
 cd opencore-amr-0.1.5
-./configure --prefix="/usr/local/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -197,26 +197,13 @@ cd $PreFix_Dir/ffmpeg_sources
 wget https://downloads.xvid.com/downloads/xvidcore-1.3.5.zip
 unzip xvidcore-1.3.5.zip
 cd xvidcore/build/generic/
-./configure --prefix="/usr/local/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
 make
 make install
 make distclean
 source ~/.bash_profile
 
 
-#FreeType2
-cd $PreFix_Dir/ffmpeg_sources
-# http://download.savannah.gnu.org/releases/freetype/
-wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
-
-tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
-
-./configure --prefix="/usr/local/ffmpeg_build" --enable-freetype-config --disable-static
-
-make
-make install
-make distclean
-source ~/.bash_profile
 
 #####################################################
 
@@ -250,6 +237,21 @@ source ~/.bash_profile
  make distclean
  source ~/.bash_profile
 #yum -y install libtheora
+
+
+#FreeType2
+cd $PreFix_Dir/ffmpeg_sources
+# http://download.savannah.gnu.org/releases/freetype/
+wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
+
+tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
+
+./configure --prefix="$PreFix_Dir/ffmpeg_build" --libdir="$PreFix_Dir/ffmpeg_build/lib"  --enable-freetype-config --enable-static
+
+make
+make install
+make distclean
+source ~/.bash_profile
 
 
 # Install FFmpeg
