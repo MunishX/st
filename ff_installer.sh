@@ -149,6 +149,9 @@ make install
 make distclean
 source ~/.bash_profile
 
+LD_LIBRARY_PATH=/usr/local/lib:/usr/local/ffmpeg_build/lib && export LD_LIBRARY_PATH
+
+
 # Install VID.STAB
 #https://github.com/georgmartius/vid.stab/
 cd $PreFix_Dir/ffmpeg_sources
@@ -245,7 +248,7 @@ cd $PreFix_Dir/ffmpeg_sources
 wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
 
 tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
-
+cd freetype-2.9.1
 ./configure --prefix="$PreFix_Dir/ffmpeg_build" --libdir="$PreFix_Dir/ffmpeg_build/lib"  --enable-freetype-config --enable-static
 
 make
