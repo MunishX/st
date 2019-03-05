@@ -20,7 +20,7 @@ PreFix_Dir="/usr/local"
 
 # Remove any existing packages
 #yum -y erase ffmpeg x264 x264-devel
-yum -y install yum-utils
+yum -y install yum-utils openssl-devel
 
 # Install the dependencies
 yum-config-manager --add-repo http://www.nasm.us/nasm.repo
@@ -161,6 +161,92 @@ make distclean
 source ~/.bash_profile
 #yum -y install libvpx
 
+######################## New #########################
+# Install librtmp
+cd $PreFix_Dir/ffmpeg_sources
+wget -O librtmp.zip https://github.com/pexip/librtmp/archive/master.zip
+unzip librtmp.zip
+cd librtmp-master
+./autogen.sh
+./configure --prefix="$PreFix_Dir/ffmpeg_build" --enable-static
+make
+make install
+make distclean
+source ~/.bash_profile
+
+# Install VID.STAB
+#https://github.com/georgmartius/vid.stab/
+cd $PreFix_Dir/ffmpeg_sources
+wget -O vid_stab.zip https://github.com/georgmartius/vid.stab/archive/master.zip
+unzip vid_stab.zip
+
+cd vid.stab-master
+cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
+make
+make install
+make distclean
+source ~/.bash_profile
+
+mv $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/* $PreFix_Dir/ffmpeg_build/lib/pkgconfig/
+rm -rf $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/
+mv $PreFix_Dir/ffmpeg_build/lib64/* $PreFix_Dir/ffmpeg_build/lib/
+rm -rf $PreFix_Dir/ffmpeg_build/lib64/
+
+#Install Openjpeg
+cd $PreFix_Dir/ffmpeg_sources
+wget -O openjpeg-v2.3.0.zip https://github.com/uclouvain/openjpeg/archive/v2.3.0.zip
+unzip openjpeg-v2.3.0.zip
+cd openjpeg-2.3.0
+cmake -DCMAKE_INSTALL_PREFIX:PATH="/usr/local/ffmpeg_build" .
+make
+make install
+make distclean
+source ~/.bash_profile
+
+#Install Opencore arm
+cd $PreFix_Dir/ffmpeg_sources
+# https://sourceforge.net/projects/opencore-amr/files/
+wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz
+tar xzvf opencore-amr-0.1.5.tar.gz
+cd opencore-amr-0.1.5
+./configure --prefix="/usr/local/ffmpeg_build" --disable-shared --enable-static
+make
+make install
+make distclean
+source ~/.bash_profile
+
+
+# XvidCore
+cd $PreFix_Dir/ffmpeg_sources
+# https://labs.xvid.com/source/
+wget https://downloads.xvid.com/downloads/xvidcore-1.3.5.zip
+unzip xvidcore-1.3.5.zip
+cd xvidcore/build/generic/
+./configure --prefix="/usr/local/ffmpeg_build" --disable-shared --enable-static
+make
+make install
+make distclean
+source ~/.bash_profile
+
+
+#FreeType2
+cd $PreFix_Dir/ffmpeg_sources
+# http://download.savannah.gnu.org/releases/freetype/
+wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
+
+tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
+
+./configure --prefix="/usr/local/ffmpeg_build" --enable-freetype-config --disable-static
+
+make
+make install
+make distclean
+source ~/.bash_profile
+
+#####################################################
+
+
+
 # Install FFmpeg
 cd $PreFix_Dir/ffmpeg_sources
 
@@ -174,7 +260,7 @@ cd ffmpeg*/
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-librtmp --enable-libvidstab --enable-libopenjpeg --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-version3
 make
 make install
 hash -r
