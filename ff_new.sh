@@ -21,8 +21,12 @@ start_time=`date +%s`
 #PreFix_Dir="/usr/local/ffmpeg_build"
 
 PreFix_Dir="/usr/local"
-Lib_Dir="/usr/local/lib"
-Bin_Dir="/usr/local/bin"
+
+FF_Source="$PreFix_Dir/ffmpeg_sources"
+FF_Build="$PreFix_Dir/ffmpeg_build"
+
+Lib_Dir="$PreFix_Dir/lib"
+Bin_Dir="$PreFix_Dir/bin"
 Include_Dir="/usr/local/include"
 
 #PATH="$PreFix_Dir/bin:$PATH" 
