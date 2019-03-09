@@ -16,8 +16,13 @@
 start_time=`date +%s`
 
 ###### VARS #####
-#PreFix_Dir="/usr"
+#PreFix_Dir="/usr/local"
+
+#PreFix_Dir="/usr/local/ffmpeg_build"
+
 PreFix_Dir="/usr/local"
+Lib_Dir="/usr/local/lib"
+Bin_Dir="/usr/local/bin"
 
 #PATH="$PreFix_Dir/bin:$PATH" 
 #################
@@ -39,7 +44,7 @@ cd $PreFix_Dir/ffmpeg_sources
 curl -O http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 tar xzvf yasm-1.3.0.tar.gz
 cd yasm-1.3.0
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin"
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -49,7 +54,8 @@ source ~/.bash_profile
 cd $PreFix_Dir/ffmpeg_sources
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" --enable-static
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" 
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -72,7 +78,7 @@ cd fdk-aac
 yum install libtool -y
 libtoolize
 autoreconf -fiv
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -84,7 +90,7 @@ cd $PreFix_Dir/ffmpeg_sources
 curl -L -O http://download.videolan.org/pub/contrib/lame/lame-3.99.5.tar.gz
 tar xzvf lame-3.99.5.tar.gz
 cd lame-3.99.5
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" --enable-nasm --disable-shared --enable-static
+./configure --enable-nasm --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static 
 make
 make install
 make distclean
@@ -98,7 +104,7 @@ cd $PreFix_Dir/ffmpeg_sources
 curl -O https://archive.mozilla.org/pub/opus/opus-1.2.tar.gz
 tar xzvf opus-1.*.tar.gz
 cd opus-1.*/
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -113,7 +119,7 @@ cd $PreFix_Dir/ffmpeg_sources
 curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.3.tar.gz
 tar xzvf libogg-1.*.tar.gz
 cd libogg-1.*/
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -128,7 +134,7 @@ wget -O libvpx_v1.7.0.zip https://github.com/webmproject/libvpx/archive/v1.7.0.z
 unzip libvpx_v1.7.0.zip
 
 cd libvpx*/
-./configure --prefix="$PreFix_Dir/ffmpeg_build"  --as=yasm --enable-pic --disable-examples --disable-unit-tests --disable-shared
+./configure  --as=yasm --enable-pic --disable-examples --disable-unit-tests --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 #PATH="$PreFix_Dir/bin:$PATH" 
 make
 make install
@@ -194,7 +200,7 @@ cd $PreFix_Dir/ffmpeg_sources
 wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz
 tar xzvf opencore-amr-0.1.5.tar.gz
 cd opencore-amr-0.1.5
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -207,7 +213,7 @@ cd $PreFix_Dir/ffmpeg_sources
 wget https://downloads.xvid.com/downloads/xvidcore-1.3.5.zip
 unzip xvidcore-1.3.5.zip
 cd xvidcore/build/generic/
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -228,7 +234,8 @@ cd $PreFix_Dir/ffmpeg_sources
 curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.6.tar.gz
 tar xzvf libvorbis-1*.tar.gz
 cd libvorbis-1*/
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --enable-static --disable-shared --disable-oggtest
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" 
+./configure --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --disable-oggtest --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -241,7 +248,7 @@ source ~/.bash_profile
  wget https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.zip
  unzip libtheora-1.1.1.zip
  cd libtheora-1.1.1
- ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --with-vorbis-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-vorbis-includes="$PreFix_Dir/ffmpeg_build/include/" --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
+ ./configure  --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --with-vorbis-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-vorbis-includes="$PreFix_Dir/ffmpeg_build/include/" --disable-oggtest --disable-vorbistest --disable-examples --disable-asm --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
  make
  make install
  make distclean
@@ -256,7 +263,7 @@ wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
 
 tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
 cd freetype-2.9.1
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --libdir="$PreFix_Dir/ffmpeg_build/lib"  --enable-freetype-config --enable-static
+./configure   --enable-freetype-config --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static
 
 make
 make install
@@ -277,7 +284,8 @@ cd ffmpeg*/
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopenjpeg --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3 --enable-librtmp 
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" 
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static --extra-libs=-lpthread  --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopenjpeg --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3 --enable-librtmp 
 make
 make install
 hash -r
