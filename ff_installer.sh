@@ -31,8 +31,8 @@ yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
 
 # Make a directory for FFmpeg sources
-rm -rf $PreFix_Dir/ffmpeg_sources
-mkdir -p $PreFix_Dir/ffmpeg_sources
+rm -rf $PreFix_Dir/ffmpeg*
+mkdir -p $PreFix_Dir/{ffmpeg_sources,ffmpeg_build}
 
 # Install Yasm
 cd $PreFix_Dir/ffmpeg_sources
