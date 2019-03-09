@@ -23,6 +23,7 @@ start_time=`date +%s`
 PreFix_Dir="/usr/local"
 Lib_Dir="/usr/local/lib"
 Bin_Dir="/usr/local/bin"
+Include_Dir="/usr/local/include"
 
 #PATH="$PreFix_Dir/bin:$PATH" 
 #################
@@ -159,7 +160,7 @@ cd $PreFix_Dir/ffmpeg_sources
 
 git clone --depth 1 http://git.ffmpeg.org/rtmpdump.git librtmp
 cd librtmp
-make -j 1 SYS=posix prefix="/usr/local/ffmpeg_build" CRYPTO=OPENSSL SHARED= XCFLAGS="-I/usr/local/ffmpeg_build/include" XLDFLAGS="-L/usr/local/ffmpeg_build/lib" install
+make -j 1 SYS=posix prefix="$PreFix_Dir" CRYPTO=OPENSSL SHARED= XCFLAGS="-I$Include_Dir" XLDFLAGS="-L$Lib_Dir" install
 
 
 # Install VID.STAB
