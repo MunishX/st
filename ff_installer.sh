@@ -137,19 +137,19 @@ source ~/.bash_profile
 #yum -y install libvpx
 
 ######################## New #########################
-# Install librtmp
-cd $PreFix_Dir/ffmpeg_sources
-wget -O librtmp.zip https://github.com/pexip/librtmp/archive/master.zip
-unzip librtmp.zip
-cd librtmp-master
-./autogen.sh
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
-make
-make install
-make distclean
-source ~/.bash_profile
+## Install librtmp
+#cd $PreFix_Dir/ffmpeg_sources
+#wget -O librtmp.zip https://github.com/pexip/librtmp/archive/master.zip
+#unzip librtmp.zip
+#cd librtmp-master
+#./autogen.sh
+#./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+#make
+#make install
+#make distclean
+#source ~/.bash_profile
 
-LD_LIBRARY_PATH=/usr/local/lib:/usr/local/ffmpeg_build/lib && export LD_LIBRARY_PATH
+#LD_LIBRARY_PATH=/usr/local/lib:/usr/local/ffmpeg_build/lib && export LD_LIBRARY_PATH
 
 
 # Install VID.STAB
@@ -270,7 +270,7 @@ cd ffmpeg*/
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-librtmp --enable-libvidstab --enable-libopenjpeg --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopenjpeg --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3
 make
 make install
 hash -r
