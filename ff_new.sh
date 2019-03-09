@@ -191,19 +191,19 @@ source ~/.bash_profile
 #mv $PreFix_Dir/ffmpeg_build/lib64/* $PreFix_Dir/ffmpeg_build/lib/
 #rm -rf $PreFix_Dir/ffmpeg_build/lib64/
 
-#Install Openjpeg
-cd $FF_Source
-wget -O openjpeg-v2.3.0.zip https://github.com/uclouvain/openjpeg/archive/v2.3.0.zip
-unzip openjpeg-v2.3.0.zip
-cd openjpeg-2.3.0
-mkdir build
-cd build
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir" -DCMAKE_BINARY_DIR="$Bin_Dir" -DLIB_INSTALL_DIR="$Lib_Dir" -DENABLE_SHARED:bool=off -PKG_CONFIG_PATH="$Pkg_Dir"
+##Install Openjpeg
+#cd $FF_Source
+#wget -O openjpeg-v2.3.0.zip https://github.com/uclouvain/openjpeg/archive/v2.3.0.zip
+#unzip openjpeg-v2.3.0.zip
+#cd openjpeg-2.3.0
+#mkdir build
+#cd build
+#cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir" -DCMAKE_BINARY_DIR="$Bin_Dir" -DLIB_INSTALL_DIR="$Lib_Dir" -DENABLE_SHARED:bool=off -PKG_CONFIG_PATH="$Pkg_Dir"
 #cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
-make
-make install
-make distclean
-source ~/.bash_profile
+#make
+#make install
+#make distclean
+#source ~/.bash_profile
 
 #Install Opencore arm
 cd $FF_Source
@@ -295,8 +295,9 @@ cd ffmpeg*/
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
+#--enable-libopenjpeg 
 PKG_CONFIG_PATH="$Pkg_Dir" 
-./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static --extra-libs=-lpthread  --extra-cflags="-I$Include_Dir" --extra-ldflags="-L$Lib_Dir -ldl" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopenjpeg --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3 --enable-librtmp 
+./configure --prefix="$PreFix_Dir" --bindir="$Bin_Dir" --libdir="$Lib_Dir" --disable-shared --enable-static --extra-libs=-lpthread  --extra-cflags="-I$Include_Dir" --extra-ldflags="-L$Lib_Dir -ldl" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3 --enable-librtmp 
 make
 make install
 hash -r
