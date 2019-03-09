@@ -175,7 +175,7 @@ cd $PreFix_Dir/ffmpeg_sources
 wget -O openjpeg-v2.3.0.zip https://github.com/uclouvain/openjpeg/archive/v2.3.0.zip
 unzip openjpeg-v2.3.0.zip
 cd openjpeg-2.3.0
-cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" .
+cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
 make
 make install
 make distclean
