@@ -2,12 +2,12 @@
 
 ## MG New
 
-# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && ./ff_installer.sh
-# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh && nohup ./ff_installer.sh > ff_log.txt &
+# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_new.sh && chmod 777 ff_new.sh && ./ff_new.sh
+# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_new.sh && chmod 777 ff_new.sh && nohup ./ff_new.sh > ff_log.txt &
 
-# cd /tmp && yum install wget -y && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_installer.sh && chmod 777 ff_installer.sh 
-# ./ff_installer.sh > ffout.txt 2>&1 &
-# watch -n 2 tail -n 30 ffout.txt
+# cd /tmp && yum install wget -y && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_new.sh && chmod 777 ff_new.sh 
+# ./ff_new.sh > ffnew.txt 2>&1 &
+# watch -n 2 tail -n 30 ffnew.txt
 
 
 
@@ -31,8 +31,8 @@ yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
 
 # Make a directory for FFmpeg sources
-rm -rf $PreFix_Dir/ffmpeg_sources
-mkdir -p $PreFix_Dir/ffmpeg_sources
+rm -rf $PreFix_Dir/ffmpeg*
+mkdir -p $PreFix_Dir/{ffmpeg_sources,ffmpeg_build}
 
 # Install Yasm
 cd $PreFix_Dir/ffmpeg_sources
