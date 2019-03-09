@@ -196,7 +196,7 @@ unzip openjpeg-v2.3.0.zip
 cd openjpeg-2.3.0
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PreFix_Dir" -DCMAKE_BINARY_DIR="$Bin_Dir" -DLIB_INSTALL_DIR="$Lib_Dir" -DENABLE_SHARED:bool=off -PKG_CONFIG_PATH="$Pkg_Dir"
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir" -DCMAKE_BINARY_DIR="$Bin_Dir" -DLIB_INSTALL_DIR="$Lib_Dir" -DENABLE_SHARED:bool=off -PKG_CONFIG_PATH="$Pkg_Dir"
 #cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
 make
 make install
