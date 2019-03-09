@@ -26,11 +26,13 @@ FF_Source="$Root_Dir/ffmpeg_sources"
 FF_Build="$Root_Dir/ffmpeg_build"
 PreFix_Dir="$FF_Build"
 
-Lib_Dir="$Root_Dir/lib"
-Bin_Dir="$Root_Dir/bin"
+Lib_Dir="$FF_Build/lib"
+Bin_Dir="$FF_Build/bin"
 
 Include_Dir="$PreFix_Dir/include"
 Pkg_Dir="$PreFix_Dir/pkg"
+Root_Bin="$Root_Dir/bin"
+
 #PATH="$PreFix_Dir/bin:$PATH" 
 #################
 
