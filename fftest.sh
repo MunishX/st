@@ -285,69 +285,74 @@ make install_base
 
 #######
 
-
-
-echo "*** Building libsoxr ***"
-cd $BUILD_DIR/soxr-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-PATH="$BIN_DIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DBUILD_SHARED_LIBS:bool=off -DWITH_OPENMP:bool=off -DBUILD_TESTS:bool=off
+installing soxr
+PATH="$BIN_DIR:$PATH"
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DBUILD_SHARED_LIBS:bool=off -DWITH_OPENMP:bool=off -DBUILD_TESTS:bool=off
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libvidstab ***"
-cd $BUILD_DIR/vid.stab-release-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing vid
+PATH="$BIN_DIR:$PATH"
 sed -i "s/vidstab SHARED/vidstab STATIC/" ./CMakeLists.txt
-PATH="$BIN_DIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR"
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR"
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building openjpeg ***"
-cd $BUILD_DIR/openjpeg-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-PATH="$BIN_DIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DBUILD_SHARED_LIBS:bool=off
+
+installing openjpeg
+PATH="$BIN_DIR:$PATH"
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DBUILD_SHARED_LIBS:bool=off
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building zimg ***"
-cd $BUILD_DIR/zimg-release-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing zimg
 ./autogen.sh
 ./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libwebp ***"
-cd $BUILD_DIR/libwebp*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing libwebp
 ./autogen.sh
 ./configure --prefix=$TARGET_DIR --disable-shared
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libvorbis ***"
-cd $BUILD_DIR/vorbis*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing vorbis
 ./autogen.sh
 ./configure --prefix=$TARGET_DIR --disable-shared
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libogg ***"
-cd $BUILD_DIR/ogg*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing libogg
 ./autogen.sh
 ./configure --prefix=$TARGET_DIR --disable-shared
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libspeex ***"
-cd $BUILD_DIR/speex*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing speex
 ./autogen.sh
 ./configure --prefix=$TARGET_DIR --disable-shared
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
+
+
+######################
 
 # FFMpeg
 echo "*** Building FFmpeg ***"
