@@ -45,7 +45,8 @@ download(){
   #durl="$1_url"
   #ext=".$2"
   #extract=" $3 "
-  x_url="$1_url"
+  x_tmp="${1}_url"
+  eval x_url=( \${$x_tmp})  
   start_log "downloading $1"
   cd $BUILD_DIR
   wget -O "${1}.${2}" "${x_url}"
