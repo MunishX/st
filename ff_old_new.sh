@@ -12,7 +12,7 @@ FF_Build="$Root_Dir/ffmpeg_build"
 PreFix_Dir="$FF_Build"
 
 #BUILD_DIR=$FF_Source
-TARGET_DIR=$FF_Build
+#TARGET_DIR=$FF_Build
 BIN_DIR="$FF_Build/bin"
 
 start_log(){
@@ -32,15 +32,9 @@ cmd_log(){
 }
 
 create_dir(){
-  #echo "removing and creating dirs $1 $2 $3"
-  #rm -rf  $1 $2 $3
-  #mkdir -p $1 $2 $3
   start_log "creating initial dir"
-  #cmd_log "rm -rf \"$BUILD_DIR\" \"$TARGET_DIR\" \"$BIN_DIR\""
-  #rm -rf "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
-  #mkdir -p "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
-  rm -rf "$FF_Source"  "$TARGET_DIR" "$BIN_DIR"
-  mkdir -p "$FF_Source"  "$TARGET_DIR" "$BIN_DIR"
+  rm -rf "$FF_Source"  "$FF_Build" "$BIN_DIR"
+  mkdir -p "$FF_Source"  "$FF_Build" "$BIN_DIR"
   end_log
 }
 
@@ -195,7 +189,7 @@ download "ffmpeg" $ext $extract
 ##################################################################################3
 
 installing yasm
-./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
+./configure --prefix=$FF_Build --bindir=$BIN_DIR
 make -j $jval
 make install
 make distclean
@@ -203,7 +197,7 @@ source ~/.bash_profile
 
 
 installing nasm
-./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
+./configure --prefix=$FF_Build --bindir=$BIN_DIR
 make -j $jval
 make install
 make distclean
@@ -211,7 +205,7 @@ source ~/.bash_profile
 
 installing openssl
 PATH="$BIN_DIR:$PATH" 
-./config --prefix=$TARGET_DIR
+./config --prefix=$FF_Build
 #PATH="$BIN_DIR:$PATH" 
 make -j $jval
 make install
@@ -221,7 +215,7 @@ source ~/.bash_profile
 
 installing zlib
 PATH="$BIN_DIR:$PATH" 
-./configure --prefix=$TARGET_DIR
+./configure --prefix=$FF_Build
 make -j $jval
 make install
 make distclean
@@ -230,7 +224,7 @@ source ~/.bash_profile
 
 installing x264
 PATH="$BIN_DIR:$PATH" 
-./configure --prefix=$TARGET_DIR --enable-static --disable-shared --disable-opencl --enable-pic
+./configure --prefix=$FF_Build --enable-static --disable-shared --disable-opencl --enable-pic
 make -j $jval
 make install
 make distclean
@@ -241,7 +235,7 @@ installing x265
 cd build/linux
 find . -mindepth 1 ! -name 'make-Makefiles.bash' -and ! -name 'multilib.sh' -exec rm -r {} +
 PATH="$BIN_DIR:$PATH" 
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DENABLE_SHARED:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DENABLE_CLI:BOOL=OFF ../../source
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DENABLE_SHARED:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DENABLE_CLI:BOOL=OFF ../../source
 sed -i 's/-lgcc_s/-lgcc_eh/g' x265.pc
 make -j $jval
 make install
@@ -251,7 +245,7 @@ source ~/.bash_profile
 
 installing fdk
 autoreconf -fiv
-./configure --prefix=$TARGET_DIR --disable-shared 
+./configure --prefix=$FF_Build --disable-shared 
 make -j $jval
 make install
 make distclean
@@ -260,14 +254,14 @@ source ~/.bash_profile
 ########
 
 installing harfbuzz
-./configure --prefix=$TARGET_DIR --disable-shared --enable-static
+./configure --prefix=$FF_Build --disable-shared --enable-static
 make -j $jval
 make install
 make distclean
 source ~/.bash_profile
 
 installing fribidi
-./configure --prefix=$TARGET_DIR --disable-shared --enable-static --disable-docs
+./configure --prefix=$FF_Build --disable-shared --enable-static --disable-docs
 make -j $jval
 make install
 make distclean
@@ -275,14 +269,14 @@ source ~/.bash_profile
 
 installing libass
 ./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
 source ~/.bash_profile
 
 installing lame
-./configure --prefix=$TARGET_DIR --enable-nasm --with-pic --disable-shared
+./configure --prefix=$FF_Build --enable-nasm --with-pic --disable-shared
 make -j $jval
 make install
 make distclean
@@ -290,7 +284,7 @@ source ~/.bash_profile
 
 
 installing opus
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -298,7 +292,7 @@ source ~/.bash_profile
 
 installing libvpx
 PATH="$BIN_DIR:$PATH"
-./configure --prefix=$TARGET_DIR --disable-examples --disable-unit-tests --enable-pic
+./configure --prefix=$FF_Build --disable-examples --disable-unit-tests --enable-pic
 make -j $jval
 make install
 make distclean
@@ -316,7 +310,7 @@ make install_base
 
 installing soxr
 PATH="$BIN_DIR:$PATH"
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DBUILD_SHARED_LIBS:bool=off -DWITH_OPENMP:bool=off -DBUILD_TESTS:bool=off
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DBUILD_SHARED_LIBS:bool=off -DWITH_OPENMP:bool=off -DBUILD_TESTS:bool=off
 make -j $jval
 make install
 make distclean
@@ -325,7 +319,7 @@ source ~/.bash_profile
 installing vid
 PATH="$BIN_DIR:$PATH"
 sed -i "s/vidstab SHARED/vidstab STATIC/" ./CMakeLists.txt
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR"
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build"
 make -j $jval
 make install
 make distclean
@@ -334,7 +328,7 @@ source ~/.bash_profile
 
 installing openjpeg
 PATH="$BIN_DIR:$PATH"
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DBUILD_SHARED_LIBS:bool=off
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DBUILD_SHARED_LIBS:bool=off
 make -j $jval
 make install
 make distclean
@@ -342,7 +336,7 @@ source ~/.bash_profile
 
 installing zimg
 ./autogen.sh
-./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+./configure --enable-static  --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -350,7 +344,7 @@ source ~/.bash_profile
 
 installing libwebp
 ./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -358,7 +352,7 @@ source ~/.bash_profile
 
 installing vorbis
 ./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -367,7 +361,7 @@ source ~/.bash_profile
 ######################################################
 
 installing libtheora
-./configure --enable-static  --prefix=$TARGET_DIR --with-ogg=$TARGET_DIR --disable-shared
+./configure --enable-static  --prefix=$FF_Build --with-ogg=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -375,7 +369,7 @@ source ~/.bash_profile
 
 installing xvidcore
 cd build/generic/
-./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+./configure --enable-static  --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -383,14 +377,14 @@ source ~/.bash_profile
 
 
 installing opencore
-./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+./configure --enable-static  --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
 source ~/.bash_profile
 
 installing freetype
-./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+./configure --enable-static  --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -402,7 +396,7 @@ source ~/.bash_profile
 
 installing libogg
 ./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -410,7 +404,7 @@ source ~/.bash_profile
 
 installing speex
 ./autogen.sh
-./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$FF_Build --disable-shared
 make -j $jval
 make install
 make distclean
@@ -421,22 +415,13 @@ source ~/.bash_profile
 
 installing ffmpeg
 PATH="$BIN_DIR:$PATH"
-PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
+PKG_CONFIG_PATH="$FF_Build/lib/pkgconfig"
 ./configure \
 
-#  --prefix="$TARGET_DIR" \
-#  --pkg-config-flags="--static" \
-#  --extra-cflags="-I$TARGET_DIR/include" \
-#  --extra-ldflags="-L$TARGET_DIR/lib" \
-#  --extra-libs="-lpthread -lm -lz" \
-#  --extra-ldexeflags="-static" \
-#  --bindir="$BIN_DIR" \
-  
-
-  --prefix="$TARGET_DIR" \
+  --prefix="$FF_Build" \
   --pkg-config-flags="--static" \  #
-  --extra-cflags="-I$TARGET_DIR/include  -static" \
-  --extra-ldflags="-L$TARGET_DIR/lib  -static" \
+  --extra-cflags="-I$FF_Build/include  -static" \
+  --extra-ldflags="-L$FF_Build/lib  -static" \
   --extra-libs="-lpthread -lm -lz" \
   --extra-ldexeflags="-static" \   #
   --bindir="$BIN_DIR" \
