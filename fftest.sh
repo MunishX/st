@@ -4,6 +4,7 @@
   echo "############## FFMPEG INSTALLATION STARTING #################"
   echo ""
 
+
 Root_Dir="/usr/local"
 FF_Source="$Root_Dir/ffmpeg_sources"
 FF_Build="$Root_Dir/ffmpeg_build"
@@ -92,6 +93,12 @@ ogg_url="https://github.com/xiph/ogg/releases/download/v1.3.3/libogg-1.3.3.tar.g
 speex_url="https://github.com/xiph/speex/archive/Speex-1.2.0.tar.gz"
 ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
+
+
+yum -y install zip unzip nano wget curl git yum-utils openssl-devel
+#yum-config-manager --add-repo http://www.nasm.us/nasm.repo
+#yum install -y nasm 
+yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 
 create_dir "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
 
