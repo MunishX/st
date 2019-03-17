@@ -5,13 +5,12 @@
   echo ""
 
 
-Root_Dir="/usr/local"
-FF_Source="$Root_Dir/ffmpeg_sources"
-FF_Build="$Root_Dir/ffmpeg_build"
+FF_Source="/usr/local/ffmpeg_sources"
+FF_Build="/usr/local/ffmpeg_build"
+BIN_DIR="$FF_Build/bin"
 
 PreFix_Dir="$FF_Build"
 
-BIN_DIR="$FF_Build/bin"
 
 start_log(){
   echo ""
