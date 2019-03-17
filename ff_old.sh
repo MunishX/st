@@ -24,6 +24,7 @@ PreFix_Dir="/usr/local"
 
 # Remove any existing packages
 #yum -y erase ffmpeg x264 x264-devel
+yum groupinstall "Development Tools"
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 
 # Install the dependencies
