@@ -11,8 +11,6 @@ FF_Build="$Root_Dir/ffmpeg_build"
 
 PreFix_Dir="$FF_Build"
 
-#BUILD_DIR=$FF_Source
-#TARGET_DIR=$FF_Build
 BIN_DIR="$FF_Build/bin"
 
 start_log(){
@@ -301,7 +299,7 @@ source ~/.bash_profile
 installing rtmpdump
 cd librtmp
 sed -i "/INC=.*/d" ./Makefile # Remove INC if present from previous run.
-sed -i "s/prefix=.*/prefix=${TARGET_DIR_SED}\nINC=-I\$(prefix)\/include/" ./Makefile
+sed -i "s/prefix=.*/prefix=${FF_Build}\nINC=-I\$(prefix)\/include/" ./Makefile
 sed -i "s/SHARED=.*/SHARED=no/" ./Makefile
 make install_base
 
