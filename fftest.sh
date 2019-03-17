@@ -69,10 +69,10 @@ openssl_url="https://github.com/openssl/openssl/archive/OpenSSL_1_1_1b.tar.gz"
 zlib_url="https://github.com/madler/zlib/archive/v1.2.11.tar.gz"
 x264_url="http://download.videolan.org/pub/videolan/x264/snapshots/last_x264.tar.bz2"
 x265_url="https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz"
-fakaac_url="https://github.com/mstorsjo/fdk-aac/archive/v2.0.0.tar.gz"
+fdk_url="https://github.com/mstorsjo/fdk-aac/archive/v2.0.0.tar.gz"
 harfbuzz_url="https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2"
 fribidi_url="https://github.com/fribidi/fribidi/releases/download/v1.0.5/fribidi-1.0.5.tar.bz2"
-ass_url="https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.gz"
+libass_url="https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.gz"
 lame_url="http://download.videolan.org/pub/contrib/lame/lame-3.100.tar.gz"
 # http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 
@@ -83,7 +83,7 @@ rtmpdump_url="https://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz"
 soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
 # https://excellmedia.dl.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
 
-vidstab_url="https://github.com/georgmartius/vid.stab/archive/v1.1.0.tar.gz"
+vid_url="https://github.com/georgmartius/vid.stab/archive/v1.1.0.tar.gz"
 zimg_url="https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz"
 openjpeg_url="https://github.com/uclouvain/openjpeg/releases/download/v2.3.0/openjpeg-v2.3.0-linux-x86_64.tar.gz"
 webp_url="https://github.com/webmproject/libwebp/archive/v1.0.2.tar.gz"
@@ -117,7 +117,7 @@ download "x264" $ext $extract
 ext=".tar.gz"
 extract="xzvf"
 download "x265" $ext $extract
-download "fakaac" $ext $extract
+download "fdk" $ext $extract
 
 ext=".tar.bz2"
 extract="xjvf"
@@ -126,7 +126,7 @@ download "fribidi" $ext $extract
 
 ext=".tar.gz"
 extract="xzvf"
-download "ass" $ext $extract
+download "libass" $ext $extract
 download "lame" $ext $extract
 download "opus" $ext $extract
 download "vpx" $ext $extract
@@ -138,7 +138,7 @@ download "soxr" $ext $extract
 
 ext=".tar.gz"
 extract="xzvf"
-download "vidstab" $ext $extract
+download "vid" $ext $extract
 download "zimg" $ext $extract
 download "openjpeg" $ext $extract
 download "webp" $ext $extract
