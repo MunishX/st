@@ -356,14 +356,28 @@ source ~/.bash_profile
 
 installing ffmpeg
 PATH="$BIN_DIR:$PATH"
-PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig" ./configure \
+PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
+./configure \
+
+#  --prefix="$TARGET_DIR" \
+#  --pkg-config-flags="--static" \
+#  --extra-cflags="-I$TARGET_DIR/include" \
+#  --extra-ldflags="-L$TARGET_DIR/lib" \
+#  --extra-libs="-lpthread -lm -lz" \
+#  --extra-ldexeflags="-static" \
+#  --bindir="$BIN_DIR" \
+  
+
   --prefix="$TARGET_DIR" \
-  --pkg-config-flags="--static" \
-  --extra-cflags="-I$TARGET_DIR/include" \
-  --extra-ldflags="-L$TARGET_DIR/lib" \
+#  --pkg-config-flags="--static" \
+  --extra-cflags="-I$TARGET_DIR/include  -static" \
+  --extra-ldflags="-L$TARGET_DIR/lib  -static" \
   --extra-libs="-lpthread -lm -lz" \
-  --extra-ldexeflags="-static" \
+#  --extra-ldexeflags="-static" \
   --bindir="$BIN_DIR" \
+  --enable-static \
+  --enable-cross-compile \
+ 
   --enable-pic \
   --enable-ffplay \
   --enable-fontconfig \
