@@ -364,7 +364,7 @@ source ~/.bash_profile
 ######################################################
 
 installing libtheora
-./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+./configure --enable-static  --prefix=$TARGET_DIR --with-ogg=$TARGET_DIR --disable-shared
 make -j $jval
 make install
 make distclean
