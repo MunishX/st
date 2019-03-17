@@ -46,7 +46,7 @@ cd $FF_SOURCE
 curl -O http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 tar xzvf yasm-1.3.0.tar.gz
 cd yasm-1.3.0
-./configure --prefix="$FF_BUILD" --bindir="$PreFix_Dir/bin"
+./configure --prefix="$FF_BUILD" --bindir="$FF_BIN"
 make
 make install
 make distclean
@@ -56,7 +56,7 @@ source ~/.bash_profile
 cd $FF_SOURCE
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
-PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --prefix="$FF_BUILD" --bindir="$PreFix_Dir/bin" --enable-static
+PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --prefix="$FF_BUILD" --bindir="$FF_BIN" --enable-static
 make
 make install
 make distclean
@@ -91,7 +91,7 @@ cd $FF_SOURCE
 curl -L -O http://download.videolan.org/pub/contrib/lame/lame-3.99.5.tar.gz
 tar xzvf lame-3.99.5.tar.gz
 cd lame-3.99.5
-./configure --prefix="$FF_BUILD" --bindir="$PreFix_Dir/bin" --enable-nasm --disable-shared --enable-static
+./configure --prefix="$FF_BUILD" --bindir="$FF_BIN" --enable-nasm --disable-shared --enable-static
 make
 make install
 make distclean
@@ -167,7 +167,7 @@ source ~/.bash_profile
  wget https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.zip
  unzip libtheora-1.1.1.zip
  cd libtheora-1.1.1
- ./configure --prefix="$FF_BUILD" --with-ogg-libraries="$FF_BUILD/lib" --with-ogg-includes="$FF_BUILD/include/" --with-vorbis-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-vorbis-includes="$FF_BUILD/include/" --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
+ ./configure --prefix="$FF_BUILD" --with-ogg-libraries="$FF_BUILD/lib" --with-ogg-includes="$FF_BUILD/include/" --with-vorbis-libraries="$FF_BUILD/lib" --with-vorbis-includes="$FF_BUILD/include/" --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
  make
  make install
  make distclean
@@ -182,7 +182,7 @@ wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
 
 tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
 cd freetype-2.9.1
-./configure --prefix="$FF_BUILD" --libdir="$PreFix_Dir/ffmpeg_build/lib"  --enable-freetype-config --enable-static
+./configure --prefix="$FF_BUILD" --libdir="$FF_BUILD/lib"  --enable-freetype-config --enable-static
 
 make
 make install
@@ -204,7 +204,7 @@ cd ffmpeg*/
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
 #PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3
-PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$FF_BUILD" --extra-cflags="-I$FF_BUILD/include" --extra-ldflags="-L$FF_BUILD/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libtheora --enable-version3
+PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$FF_BUILD" --extra-cflags="-I$FF_BUILD/include" --extra-ldflags="-L$FF_BUILD/lib -ldl" --bindir="$FF_BIN" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libtheora --enable-version3
 make
 make install
 hash -r
@@ -212,7 +212,7 @@ hash -r
 make distclean
 source ~/.bash_profile
 
-chmod 777 $PreFix_Dir/bin
+chmod 777 $FF_BIN
 
 
 end_time=`date +%s`
