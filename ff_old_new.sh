@@ -99,9 +99,10 @@ ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 yum groupinstall "Development Tools"
+yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
+
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
-yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 
 # rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 # yum -y update
@@ -219,7 +220,8 @@ source ~/.bash_profile
 
 installing x264
 PATH="$BIN_DIR:$PATH" 
-./configure --prefix=$FF_Build --enable-static --disable-shared --disable-opencl --enable-pic
+./configure --prefix=$FF_Build --bindir=$BIN_DIR  --disable-opencl --enable-static --disable-shared
+# 
 make -j $jval
 make install
 make distclean
@@ -231,7 +233,7 @@ cd build/linux
 find . -mindepth 1 ! -name 'make-Makefiles.bash' -and ! -name 'multilib.sh' -exec rm -r {} +
 PATH="$BIN_DIR:$PATH" 
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DENABLE_SHARED:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DENABLE_CLI:BOOL=OFF ../../source
-sed -i 's/-lgcc_s/-lgcc_eh/g' x265.pc
+#sed -i 's/-lgcc_s/-lgcc_eh/g' x265.pc
 make -j $jval
 make install
 make distclean
@@ -239,8 +241,10 @@ source ~/.bash_profile
 
 
 installing fdk
+yum install libtool -y
+libtoolize
 autoreconf -fiv
-./configure --prefix=$FF_Build --disable-shared 
+./configure --prefix=$FF_Build --disable-shared --enable-static
 make -j $jval
 make install
 make distclean
@@ -248,106 +252,39 @@ source ~/.bash_profile
 
 ########
 
-installing harfbuzz
+
+
+installing lame
+./configure --prefix=$FF_Build --enable-nasm  --disable-shared --enable-static
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
+
+
+installing libogg
+./autogen.sh
 ./configure --prefix=$FF_Build --disable-shared --enable-static
 make -j $jval
 make install
 make distclean
 source ~/.bash_profile
 
-installing fribidi
-./configure --prefix=$FF_Build --disable-shared --enable-static --disable-docs
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing libass
-./autogen.sh
-./configure --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing lame
-./configure --prefix=$FF_Build --enable-nasm --with-pic --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing opus
-./configure --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
 
 installing libvpx
 PATH="$BIN_DIR:$PATH"
-./configure --prefix=$FF_Build --disable-examples --disable-unit-tests --enable-pic
+./configure --prefix=$FF_Build --as=yasm --disable-examples --disable-unit-tests --disable-shared --enable-pic
 make -j $jval
 make install
 make distclean
 source ~/.bash_profile
-
-installing rtmpdump
-cd librtmp
-sed -i "/INC=.*/d" ./Makefile # Remove INC if present from previous run.
-sed -i "s/prefix=.*/prefix=${FF_Build}\nINC=-I\$(prefix)\/include/" ./Makefile
-sed -i "s/SHARED=.*/SHARED=no/" ./Makefile
-make install_base
 
 
 #######
 
-installing soxr
-PATH="$BIN_DIR:$PATH"
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DBUILD_SHARED_LIBS:bool=off -DWITH_OPENMP:bool=off -DBUILD_TESTS:bool=off
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing vid
-PATH="$BIN_DIR:$PATH"
-sed -i "s/vidstab SHARED/vidstab STATIC/" ./CMakeLists.txt
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build"
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing openjpeg
-PATH="$BIN_DIR:$PATH"
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DBUILD_SHARED_LIBS:bool=off
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing zimg
-./autogen.sh
-./configure --enable-static  --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing libwebp
-./autogen.sh
-./configure --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
 installing vorbis
 ./autogen.sh
-./configure --prefix=$FF_Build --disable-shared
+./configure --prefix=$FF_Build --with-ogg=$FF_Build --enable-static --disable-shared --disable-oggtest
 make -j $jval
 make install
 make distclean
@@ -356,30 +293,15 @@ source ~/.bash_profile
 ######################################################
 
 installing libtheora
-./configure --enable-static  --prefix=$FF_Build --with-ogg=$FF_Build --disable-shared
+./configure --enable-static  --prefix=$FF_Build --with-ogg=$FF_Build --with-vorbis=$FF_Build --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
 make -j $jval
 make install
 make distclean
 source ~/.bash_profile
 
-installing xvidcore
-cd build/generic/
-./configure --enable-static  --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing opencore
-./configure --enable-static  --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
 
 installing freetype
-./configure --enable-static  --prefix=$FF_Build --disable-shared
+./configure   --prefix=$FF_Build --libdir="$FF_Build/lib" --enable-freetype-config --enable-static
 make -j $jval
 make install
 make distclean
@@ -389,21 +311,6 @@ source ~/.bash_profile
 
 ######################################################
 
-installing libogg
-./autogen.sh
-./configure --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing speex
-./autogen.sh
-./configure --prefix=$FF_Build --disable-shared
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
 
 
 ######################
@@ -415,45 +322,45 @@ PKG_CONFIG_PATH="$FF_Build/lib/pkgconfig"
 
   --prefix="$FF_Build" \
   --pkg-config-flags="--static" \  #
-  --extra-cflags="-I$FF_Build/include  -static" \
-  --extra-ldflags="-L$FF_Build/lib  -static" \
-  --extra-libs="-lpthread -lm -lz" \
+  --extra-cflags="-I$FF_Build/include" \
+  --extra-ldflags="-L$FF_Build/lib  -ldl" \
+  --extra-libs="-lpthread" \
   --extra-ldexeflags="-static" \   #
   --bindir="$BIN_DIR" \
   --enable-static \
   --enable-cross-compile \
  
-  --enable-pic \
-  --enable-ffplay \
-  --enable-fontconfig \
-  --enable-frei0r \
+  #--enable-pic \
+  #--enable-ffplay \
+  #--enable-fontconfig \
+  #--enable-frei0r \
   --enable-gpl \
   --enable-version3 \
   --enable-filters \
-  --enable-libass \
-  --enable-libfribidi \
+  #--enable-libass \
+  #--enable-libfribidi \
   --enable-libfdk-aac \
   --enable-libfreetype \
   --enable-libmp3lame \
-  --enable-libopencore-amrnb \
-  --enable-libopencore-amrwb \
-  --enable-libopenjpeg \
+  #--enable-libopencore-amrnb \
+  #--enable-libopencore-amrwb \
+  #--enable-libopenjpeg \
   --enable-libopus \
-  --enable-librtmp \
-  --enable-libsoxr \
-  --enable-libspeex \
+  #--enable-librtmp \
+  #--enable-libsoxr \
+  #--enable-libspeex \
   --enable-libtheora \
-  --enable-libvidstab \
-  --enable-libvo-amrwbenc \
+  #--enable-libvidstab \
+  #--enable-libvo-amrwbenc \
   --enable-libvorbis \
   --enable-libvpx \
-  --enable-libwebp \
+  #--enable-libwebp \
   --enable-libx264 \
   --enable-libx265 \
-  --enable-libxvid \
-  --enable-libzimg \
+  #--enable-libxvid \
+  #--enable-libzimg \
   --enable-nonfree \
-  --enable-openssl
+  #--enable-openssl
 
 make -j $jval
 make install
