@@ -56,8 +56,8 @@ download(){
 
 installing(){
   start_log "Installing $1"
-  cd "$BUILD_DIR"
-  cd "$1*"
+  cd $BUILD_DIR
+  cd $1*
 }
 echo "#### FFmpeg static build ####"
 
@@ -172,27 +172,25 @@ make install
 make distclean
 source ~/.bash_profile
 
-    [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-    [ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
-    make -j $jval
-    make install
-fi
 
-if [ $is_x86 -eq 1 ]; then
-    echo "*** Building nasm ***"
-    cd $BUILD_DIR/nasm*
-    [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-    [ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
-    make -j $jval
-    make install
-fi
-
-echo "*** Building OpenSSL ***"
-cd $BUILD_DIR/openssl*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-PATH="$BIN_DIR:$PATH" ./config --prefix=$TARGET_DIR
-PATH="$BIN_DIR:$PATH" make -j $jval
+installing nasm
+./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
+make -j $jval
 make install
+make distclean
+source ~/.bash_profile
+
+installing openssl
+PATH="$BIN_DIR:$PATH" 
+./config --prefix=$TARGET_DIR
+#PATH="$BIN_DIR:$PATH" 
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
+
+
+
 
 echo "*** Building zlib ***"
 cd $BUILD_DIR/zlib*
