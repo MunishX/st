@@ -13,7 +13,7 @@ PreFix_Dir="$FF_Build"
 
 BUILD_DIR=$FF_Source
 TARGET_DIR=$FF_Build
-BIN_DIR="$Root_Dir/ffbin"
+BIN_DIR="$FF_Build/bin"
 
 start_log(){
   echo ""
@@ -403,53 +403,3 @@ source ~/.bash_profile
 hash -r
 
 ffmpeg
-####################################################
-# FFMpeg
-echo "*** Building FFmpeg ***"
-cd $BUILD_DIR/ffmpeg*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-
-[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" \
-PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig" ./configure \
-  --prefix="$TARGET_DIR" \
-  --pkg-config-flags="--static" \
-  --extra-cflags="-I$TARGET_DIR/include" \
-  --extra-ldflags="-L$TARGET_DIR/lib" \
-  --extra-libs="-lpthread -lm -lz" \
-  --extra-ldexeflags="-static" \
-  --bindir="$BIN_DIR" \
-  --enable-pic \
-  --enable-ffplay \
-  --enable-fontconfig \
-  --enable-frei0r \
-  --enable-gpl \
-  --enable-version3 \
-  --enable-libass \
-  --enable-libfribidi \
-  --enable-libfdk-aac \
-  --enable-libfreetype \
-  --enable-libmp3lame \
-  --enable-libopencore-amrnb \
-  --enable-libopencore-amrwb \
-  --enable-libopenjpeg \
-  --enable-libopus \
-  --enable-librtmp \
-  --enable-libsoxr \
-  --enable-libspeex \
-  --enable-libtheora \
-  --enable-libvidstab \
-  --enable-libvo-amrwbenc \
-  --enable-libvorbis \
-  --enable-libvpx \
-  --enable-libwebp \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-libxvid \
-  --enable-libzimg \
-  --enable-nonfree \
-  --enable-openssl
-
-PATH="$BIN_DIR:$PATH" make -j $jval
-make install
-make distclean
-hash -r
