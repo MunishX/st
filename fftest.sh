@@ -54,7 +54,11 @@ download(){
   end_log
 }
 
-
+installing(){
+  start_log "Installing $1"
+  cd "$BUILD_DIR"
+  cd "$1*"
+}
 echo "#### FFmpeg static build ####"
 
 
@@ -158,27 +162,16 @@ extract="xjvf"
 download "ffmpeg" $ext $extract
 
 
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
-wget -O yasm${ext} $nasm${url}
 
+##################################################################################3
 
+installing yasm
+./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
 
-tar xzvf yasm.tar.gz
-
-
-if [ $is_x86 -eq 1 ]; then
-    echo "*** Building yasm ***"
-    cd $BUILD_DIR/yasm*
     [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
     [ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --bindir=$BIN_DIR
     make -j $jval
