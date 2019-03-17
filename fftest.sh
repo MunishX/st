@@ -252,7 +252,7 @@ make install
 make distclean
 source ~/.bash_profile
 
-installing mp3lame
+installing lame
 ./configure --prefix=$TARGET_DIR --enable-nasm --disable-shared
 make -j $jval
 make install
@@ -275,7 +275,7 @@ make install
 make distclean
 source ~/.bash_profile
 
-installing librtmp
+installing rtmpdump
 cd librtmp
 sed -i "/INC=.*/d" ./Makefile # Remove INC if present from previous run.
 sed -i "s/prefix=.*/prefix=${TARGET_DIR_SED}\nINC=-I\$(prefix)\/include/" ./Makefile
