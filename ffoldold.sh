@@ -18,8 +18,10 @@ start_time=`date +%s`
 ###### VARS #####
 #PreFix_Dir="/usr"
 PreFix_Dir="/usr/local"
+
 FF_SOURCE="/usr/local/ffmpeg_sources"
 FF_BUILD="/usr/local/ffmpeg_build"
+FF_BIN="/usr/local/ffmpeg_build/bin"
 
 #PATH="$PreFix_Dir/bin:$PATH" 
 #################
@@ -44,7 +46,7 @@ cd $FF_SOURCE
 curl -O http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 tar xzvf yasm-1.3.0.tar.gz
 cd yasm-1.3.0
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin"
+./configure --prefix="$FF_BUILD" --bindir="$PreFix_Dir/bin"
 make
 make install
 make distclean
@@ -54,7 +56,7 @@ source ~/.bash_profile
 cd $FF_SOURCE
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" --enable-static
+PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --prefix="$FF_BUILD" --bindir="$PreFix_Dir/bin" --enable-static
 make
 make install
 make distclean
@@ -63,8 +65,8 @@ source ~/.bash_profile
 # Install x265
 cd $FF_SOURCE
 hg clone https://bitbucket.org/multicoreware/x265
-cd $PreFix_Dir/ffmpeg_sources/x265/build/linux
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
+cd $FF_BUILD/x265/build/linux
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_BUILD" -DENABLE_SHARED:bool=off ../../source
 make
 make install
 make distclean
@@ -77,7 +79,7 @@ cd fdk-aac
 yum install libtool -y
 libtoolize
 autoreconf -fiv
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$FF_BUILD" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -89,7 +91,7 @@ cd $FF_SOURCE
 curl -L -O http://download.videolan.org/pub/contrib/lame/lame-3.99.5.tar.gz
 tar xzvf lame-3.99.5.tar.gz
 cd lame-3.99.5
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" --enable-nasm --disable-shared --enable-static
+./configure --prefix="$FF_BUILD" --bindir="$PreFix_Dir/bin" --enable-nasm --disable-shared --enable-static
 make
 make install
 make distclean
@@ -103,7 +105,7 @@ cd $FF_SOURCE
 curl -O https://archive.mozilla.org/pub/opus/opus-1.2.tar.gz
 tar xzvf opus-1.*.tar.gz
 cd opus-1.*/
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared
+./configure --prefix="$FF_BUILD" --disable-shared
 make
 make install
 make distclean
@@ -118,7 +120,7 @@ cd $FF_SOURCE
 curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.3.tar.gz
 tar xzvf libogg-1.*.tar.gz
 cd libogg-1.*/
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+./configure --prefix="$FF_BUILD" --disable-shared --enable-static
 make
 make install
 make distclean
@@ -133,7 +135,7 @@ wget -O libvpx_v1.7.0.zip https://github.com/webmproject/libvpx/archive/v1.7.0.z
 unzip libvpx_v1.7.0.zip
 
 cd libvpx*/
-./configure --prefix="$PreFix_Dir/ffmpeg_build"  --as=yasm --enable-pic --disable-examples --disable-unit-tests --disable-shared
+./configure --prefix="$FF_BUILD"  --as=yasm --enable-pic --disable-examples --disable-unit-tests --disable-shared
 #PATH="$PreFix_Dir/bin:$PATH" 
 make
 make install
@@ -152,7 +154,7 @@ cd $FF_SOURCE
 curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.6.tar.gz
 tar xzvf libvorbis-1*.tar.gz
 cd libvorbis-1*/
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --enable-static --disable-shared --disable-oggtest
+PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --prefix="$FF_BUILD" --with-ogg-libraries="$FF_BUILD/lib" --with-ogg-includes="$FF_BUILD/include/" --enable-static --disable-shared --disable-oggtest
 make
 make install
 make distclean
@@ -165,7 +167,7 @@ source ~/.bash_profile
  wget https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.zip
  unzip libtheora-1.1.1.zip
  cd libtheora-1.1.1
- ./configure --prefix="$PreFix_Dir/ffmpeg_build" --with-ogg-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-ogg-includes="$PreFix_Dir/ffmpeg_build/include/" --with-vorbis-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-vorbis-includes="$PreFix_Dir/ffmpeg_build/include/" --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
+ ./configure --prefix="$FF_BUILD" --with-ogg-libraries="$FF_BUILD/lib" --with-ogg-includes="$FF_BUILD/include/" --with-vorbis-libraries="$PreFix_Dir/ffmpeg_build/lib" --with-vorbis-includes="$FF_BUILD/include/" --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
  make
  make install
  make distclean
@@ -180,7 +182,7 @@ wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
 
 tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
 cd freetype-2.9.1
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --libdir="$PreFix_Dir/ffmpeg_build/lib"  --enable-freetype-config --enable-static
+./configure --prefix="$FF_BUILD" --libdir="$PreFix_Dir/ffmpeg_build/lib"  --enable-freetype-config --enable-static
 
 make
 make install
@@ -202,7 +204,7 @@ cd ffmpeg*/
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
 #PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libtheora --enable-version3
+PKG_CONFIG_PATH="$FF_BUILD/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$FF_BUILD" --extra-cflags="-I$FF_BUILD/include" --extra-ldflags="-L$FF_BUILD/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libtheora --enable-version3
 make
 make install
 hash -r
