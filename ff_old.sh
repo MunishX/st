@@ -154,21 +154,21 @@ source ~/.bash_profile
 
 # Install VID.STAB
 #https://github.com/georgmartius/vid.stab/
-cd $PreFix_Dir/ffmpeg_sources
-wget -O vid_stab.zip https://github.com/georgmartius/vid.stab/archive/master.zip
-unzip vid_stab.zip
+#cd $PreFix_Dir/ffmpeg_sources
+#wget -O vid_stab.zip https://github.com/georgmartius/vid.stab/archive/master.zip
+#unzip vid_stab.zip
 
-cd vid.stab-master
-cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
-make
-make install
-make distclean
-source ~/.bash_profile
+#cd vid.stab-master
+#cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
+#make
+#make install
+#make distclean
+#source ~/.bash_profile
 
-mv $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/* $PreFix_Dir/ffmpeg_build/lib/pkgconfig/
-rm -rf $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/
-mv $PreFix_Dir/ffmpeg_build/lib64/* $PreFix_Dir/ffmpeg_build/lib/
-rm -rf $PreFix_Dir/ffmpeg_build/lib64/
+#mv $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/* $PreFix_Dir/ffmpeg_build/lib/pkgconfig/
+#rm -rf $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/
+#mv $PreFix_Dir/ffmpeg_build/lib64/* $PreFix_Dir/ffmpeg_build/lib/
+#rm -rf $PreFix_Dir/ffmpeg_build/lib64/
 
 ##Install Openjpeg
 #cd $PreFix_Dir/ffmpeg_sources
@@ -182,29 +182,29 @@ rm -rf $PreFix_Dir/ffmpeg_build/lib64/
 #source ~/.bash_profile
 
 #Install Opencore arm
-cd $PreFix_Dir/ffmpeg_sources
+#cd $PreFix_Dir/ffmpeg_sources
 # https://sourceforge.net/projects/opencore-amr/files/
-wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz
-tar xzvf opencore-amr-0.1.5.tar.gz
-cd opencore-amr-0.1.5
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
-make
-make install
-make distclean
-source ~/.bash_profile
+#wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz
+#tar xzvf opencore-amr-0.1.5.tar.gz
+#cd opencore-amr-0.1.5
+#./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+#make
+#make install
+#make distclean
+#source ~/.bash_profile
 
 
 # XvidCore
-cd $PreFix_Dir/ffmpeg_sources
+#cd $PreFix_Dir/ffmpeg_sources
 # https://labs.xvid.com/source/
-wget https://downloads.xvid.com/downloads/xvidcore-1.3.5.zip
-unzip xvidcore-1.3.5.zip
-cd xvidcore/build/generic/
-./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
-make
-make install
-make distclean
-source ~/.bash_profile
+#wget https://downloads.xvid.com/downloads/xvidcore-1.3.5.zip
+#unzip xvidcore-1.3.5.zip
+#cd xvidcore/build/generic/
+#./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
+#make
+#make install
+#make distclean
+#source ~/.bash_profile
 
 
 
@@ -270,7 +270,8 @@ cd ffmpeg*/
 #curl -O http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 #tar xjvf ffmpeg-snapshot.tar.bz2
 #cd ffmpeg
-PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3
+#PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libvidstab --enable-libopencore_amrwb --enable-libopencore_amrnb  --enable-libxvid --enable-libtheora --enable-version3
+PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --extra-libs=-lpthread --prefix="$PreFix_Dir/ffmpeg_build" --extra-cflags="-I$PreFix_Dir/ffmpeg_build/include" --extra-ldflags="-L$PreFix_Dir/ffmpeg_build/lib -ldl" --bindir="$PreFix_Dir/bin" --pkg-config-flags="--static" --enable-gpl --enable-nonfree --enable-libfdk_aac --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-filters --enable-libtheora --enable-version3
 make
 make install
 hash -r
