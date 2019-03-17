@@ -84,6 +84,7 @@ lame_url="http://download.videolan.org/pub/contrib/lame/lame-3.100.tar.gz"
 opus_url="https://github.com/xiph/opus/archive/v1.3.tar.gz"
 libvpx_url="https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz"
 
+
 rtmpdump_url="https://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz"
 soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
 # https://excellmedia.dl.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
@@ -93,6 +94,12 @@ zimg_url="https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz"
 openjpeg_url="https://github.com/uclouvain/openjpeg/archive/v2.3.0.tar.gz"
 libwebp_url="https://github.com/webmproject/libwebp/archive/v1.0.2.tar.gz"
 vorbis_url="https://github.com/xiph/vorbis/archive/v1.3.6.tar.gz"
+####################
+libtheora_url="https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.tar.gz"
+xvidcore_url="https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz"
+opencore_url="http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz"
+freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.10.0.tar.gz"
+###################
 libogg_url="https://github.com/xiph/ogg/releases/download/v1.3.3/libogg-1.3.3.tar.gz"
 speex_url="https://github.com/xiph/speex/archive/Speex-1.2.0.tar.gz"
 ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
@@ -103,6 +110,19 @@ yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
+
+# rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+# yum -y update
+# yum install glibc gcc gcc-c++ autoconf automake libtool git make nasm pkgconfig -y
+# yum install SDL-devel a52dec a52dec-devel alsa-lib-devel faac faac-devel faad2 faad2-devel -y
+# yum install freetype-devel giflib gsm gsm-devel imlib2 imlib2-devel lame lame-devel libICE-devel libSM-devel libX11-devel -y
+# yum install libXau-devel libXdmcp-devel libXext-devel libXrandr-devel libXrender-devel libXt-devel -y
+# yum install libogg libvorbis vorbis-tools mesa-libGL-devel mesa-libGLU-devel xorg-x11-proto-devel zlib-devel -y
+# yum install libtheora theora-tools -y
+# yum install ncurses-devel -y
+# yum install libdc1394 libdc1394-devel -y
+# yum install amrnb-devel amrwb-devel opencore-amr-devel -y
+
 
 create_dir "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
 
@@ -154,6 +174,12 @@ download "zimg" $ext $extract
 download "openjpeg" $ext $extract
 download "libwebp" $ext $extract
 download "vorbis" $ext $extract
+##########
+download "libtheora" $ext $extract
+download "xvidcore" $ext $extract
+download "opencore" $ext $extract
+download "freetype" $ext $extract
+##########
 download "libogg" $ext $extract
 download "speex" $ext $extract
 
@@ -335,6 +361,42 @@ make install
 make distclean
 source ~/.bash_profile
 
+######################################################
+
+installing libtheora
+./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
+
+installing xvidcore
+cd build/generic/
+./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
+
+
+installing opencore
+./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
+
+installing freetype
+./configure --enable-static  --prefix=$TARGET_DIR --disable-shared
+make -j $jval
+make install
+make distclean
+source ~/.bash_profile
+
+
+
+######################################################
+
 installing libogg
 ./autogen.sh
 ./configure --prefix=$TARGET_DIR --disable-shared
@@ -384,6 +446,7 @@ PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
   --enable-frei0r \
   --enable-gpl \
   --enable-version3 \
+  --enable-filters \
   --enable-libass \
   --enable-libfribidi \
   --enable-libfdk-aac \
