@@ -11,7 +11,7 @@ FF_Build="$Root_Dir/ffmpeg_build"
 
 PreFix_Dir="$FF_Build"
 
-BUILD_DIR=$FF_Source
+#BUILD_DIR=$FF_Source
 TARGET_DIR=$FF_Build
 BIN_DIR="$FF_Build/bin"
 
@@ -37,8 +37,10 @@ create_dir(){
   #mkdir -p $1 $2 $3
   start_log "creating initial dir"
   #cmd_log "rm -rf \"$BUILD_DIR\" \"$TARGET_DIR\" \"$BIN_DIR\""
-  rm -rf "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
-  mkdir -p "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+  #rm -rf "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+  #mkdir -p "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+  rm -rf "$FF_Source"  "$TARGET_DIR" "$BIN_DIR"
+  mkdir -p "$FF_Source"  "$TARGET_DIR" "$BIN_DIR"
   end_log
 }
 
@@ -56,7 +58,8 @@ download(){
 
 installing(){
   start_log "Installing $1"
-  cd $BUILD_DIR
+  #cd $BUILD_DIR
+  cd $FF_Source
   cd $1*
 }
 echo "#### FFmpeg static build ####"
@@ -125,10 +128,10 @@ yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool 
 # yum install amrnb-devel amrwb-devel opencore-amr-devel -y
 
 
-create_dir "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+create_dir
 
 #this is our working directory
-cd $BUILD_DIR
+cd $FF_Source
 
 #tar.gz
 #tar xzvf yasm${ext}
