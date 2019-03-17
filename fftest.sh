@@ -230,61 +230,62 @@ source ~/.bash_profile
 
 ########
 
-echo "*** Building harfbuzz ***"
-cd $BUILD_DIR/harfbuzz-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing harfbuzz
 ./configure --prefix=$TARGET_DIR --disable-shared --enable-static
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building fribidi ***"
-cd $BUILD_DIR/fribidi-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing fribidi
 ./configure --prefix=$TARGET_DIR --disable-shared --enable-static --disable-docs
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libass ***"
-cd $BUILD_DIR/libass-*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+installing libass
 ./autogen.sh
 ./configure --prefix=$TARGET_DIR --disable-shared
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building mp3lame ***"
-cd $BUILD_DIR/lame*
-# The lame build script does not recognize aarch64, so need to set it manually
-uname -a | grep -q 'aarch64' && lame_build_target="--build=arm-linux" || lame_build_target=''
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --enable-nasm --disable-shared $lame_build_target
-make
+installing mp3lame
+./configure --prefix=$TARGET_DIR --enable-nasm --disable-shared
+make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building opus ***"
-cd $BUILD_DIR/opus*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --disable-shared
-make
+
+installing opus
+./configure --prefix=$TARGET_DIR --disable-shared
+make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building libvpx ***"
-cd $BUILD_DIR/libvpx*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --disable-examples --disable-unit-tests --enable-pic
-PATH="$BIN_DIR:$PATH" make -j $jval
+installing libvpx
+PATH="$BIN_DIR:$PATH"
+./configure --prefix=$TARGET_DIR --disable-examples --disable-unit-tests --enable-pic
+make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building librtmp ***"
-cd $BUILD_DIR/rtmpdump-*
+installing librtmp
 cd librtmp
-[ $rebuild -eq 1 ] && make distclean || true
-
-# there's no configure, we have to edit Makefile directly
 sed -i "/INC=.*/d" ./Makefile # Remove INC if present from previous run.
 sed -i "s/prefix=.*/prefix=${TARGET_DIR_SED}\nINC=-I\$(prefix)\/include/" ./Makefile
 sed -i "s/SHARED=.*/SHARED=no/" ./Makefile
 make install_base
+
+
+#######
+
+
 
 echo "*** Building libsoxr ***"
 cd $BUILD_DIR/soxr-*
