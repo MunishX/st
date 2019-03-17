@@ -49,7 +49,7 @@ download(){
   x_name="${1}${2}"
   eval x_url=( \${$x_tmp}) 
   
-  cd $BUILD_DIR
+  cd $FF_Source
   start_log "downloading $1"
   wget -O "${x_name}" "${x_url}"
   tar ${3} "${x_name}" 
@@ -58,7 +58,6 @@ download(){
 
 installing(){
   start_log "Installing $1"
-  #cd $BUILD_DIR
   cd $FF_Source
   cd $1*
 }
