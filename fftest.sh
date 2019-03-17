@@ -279,7 +279,7 @@ make distclean
 source ~/.bash_profile
 
 installing lame
-./configure --prefix=$TARGET_DIR --enable-nasm --disable-shared
+./configure --prefix=$TARGET_DIR --enable-nasm --with-pic --disable-shared
 make -j $jval
 make install
 make distclean
