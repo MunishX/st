@@ -78,7 +78,7 @@ lame_url="http://download.videolan.org/pub/contrib/lame/lame-3.100.tar.gz"
 # http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 
 opus_url="https://github.com/xiph/opus/archive/v1.3.tar.gz"
-vpx_url="https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz"
+libvpx_url="https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz"
 
 rtmpdump_url="https://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz"
 soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
@@ -87,9 +87,9 @@ soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
 vid_url="https://github.com/georgmartius/vid.stab/archive/v1.1.0.tar.gz"
 zimg_url="https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz"
 openjpeg_url="https://github.com/uclouvain/openjpeg/releases/download/v2.3.0/openjpeg-v2.3.0-linux-x86_64.tar.gz"
-webp_url="https://github.com/webmproject/libwebp/archive/v1.0.2.tar.gz"
+libwebp_url="https://github.com/webmproject/libwebp/archive/v1.0.2.tar.gz"
 vorbis_url="https://github.com/xiph/vorbis/archive/v1.3.6.tar.gz"
-ogg_url="https://github.com/xiph/ogg/releases/download/v1.3.3/libogg-1.3.3.tar.gz"
+libogg_url="https://github.com/xiph/ogg/releases/download/v1.3.3/libogg-1.3.3.tar.gz"
 speex_url="https://github.com/xiph/speex/archive/Speex-1.2.0.tar.gz"
 ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
@@ -136,7 +136,7 @@ extract="xzvf"
 download "libass" $ext $extract
 download "lame" $ext $extract
 download "opus" $ext $extract
-download "vpx" $ext $extract
+download "libvpx" $ext $extract
 download "rtmpdump" $ext $extract
 
 ext=".tar.xz"
@@ -148,9 +148,9 @@ extract="xzvf"
 download "vid" $ext $extract
 download "zimg" $ext $extract
 download "openjpeg" $ext $extract
-download "webp" $ext $extract
+download "libwebp" $ext $extract
 download "vorbis" $ext $extract
-download "ogg" $ext $extract
+download "libogg" $ext $extract
 download "speex" $ext $extract
 
 ext=".tar.bz2"
