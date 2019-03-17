@@ -18,6 +18,8 @@ start_time=`date +%s`
 ###### VARS #####
 #PreFix_Dir="/usr"
 PreFix_Dir="/usr/local"
+FF_SOURCE="/usr/local/ffmpeg_sources"
+FF_BUILD="/usr/local/ffmpeg_build"
 
 #PATH="$PreFix_Dir/bin:$PATH" 
 #################
@@ -32,11 +34,13 @@ yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
 
 # Make a directory for FFmpeg sources
-rm -rf $PreFix_Dir/ffmpeg*
-mkdir -p $PreFix_Dir/{ffmpeg_sources,ffmpeg_build}
+rm -rf $FF_SOURCE
+rm -rf $FF_BUILD
+mkdir -p $FF_SOURCE
+mkdir -p $FF_BUILD
 
 # Install Yasm
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 curl -O http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 tar xzvf yasm-1.3.0.tar.gz
 cd yasm-1.3.0
@@ -47,7 +51,7 @@ make distclean
 source ~/.bash_profile
 
 # Install x264
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
 PKG_CONFIG_PATH="$PreFix_Dir/ffmpeg_build/lib/pkgconfig" ./configure --prefix="$PreFix_Dir/ffmpeg_build" --bindir="$PreFix_Dir/bin" --enable-static
@@ -57,7 +61,7 @@ make distclean
 source ~/.bash_profile
 
 # Install x265
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 hg clone https://bitbucket.org/multicoreware/x265
 cd $PreFix_Dir/ffmpeg_sources/x265/build/linux
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$PreFix_Dir/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
@@ -67,7 +71,7 @@ make distclean
 source ~/.bash_profile
 
 # Install libfdk_aac
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
 cd fdk-aac
 yum install libtool -y
@@ -80,7 +84,7 @@ make distclean
 source ~/.bash_profile
 
 # Install libmp3lame
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 #curl -L -O http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 curl -L -O http://download.videolan.org/pub/contrib/lame/lame-3.99.5.tar.gz
 tar xzvf lame-3.99.5.tar.gz
@@ -92,7 +96,7 @@ make distclean
 source ~/.bash_profile
 
 # Install libopus
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 #curl -O https://archive.mozilla.org/pub/opus/opus-1.1.5.tar.gz
 #tar xzvf opus-1.1.5.tar.gz
 #cd opus-1.1.5
@@ -106,7 +110,7 @@ make distclean
 source ~/.bash_profile
 
 # Install libogg
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 #curl -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
 #curl -O http://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.2.tar.gz
 #tar xzvf libogg-1.3.2.tar.gz
@@ -123,7 +127,7 @@ source ~/.bash_profile
 
 
 # Install libvpx
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 # git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
 wget -O libvpx_v1.7.0.zip https://github.com/webmproject/libvpx/archive/v1.7.0.zip
 unzip libvpx_v1.7.0.zip
@@ -137,82 +141,8 @@ make distclean
 source ~/.bash_profile
 #yum -y install libvpx
 
-######################## New #########################
-## Install librtmp
-#cd $PreFix_Dir/ffmpeg_sources
-#wget -O librtmp.zip https://github.com/pexip/librtmp/archive/master.zip
-#unzip librtmp.zip
-#cd librtmp-master
-#./autogen.sh
-#./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
-#make
-#make install
-#make distclean
-#source ~/.bash_profile
-
-#LD_LIBRARY_PATH=/usr/local/lib:/usr/local/ffmpeg_build/lib && export LD_LIBRARY_PATH
-
-
-# Install VID.STAB
-#https://github.com/georgmartius/vid.stab/
-#cd $PreFix_Dir/ffmpeg_sources
-#wget -O vid_stab.zip https://github.com/georgmartius/vid.stab/archive/master.zip
-#unzip vid_stab.zip
-
-#cd vid.stab-master
-#cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
-#make
-#make install
-#make distclean
-#source ~/.bash_profile
-
-#mv $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/* $PreFix_Dir/ffmpeg_build/lib/pkgconfig/
-#rm -rf $PreFix_Dir/ffmpeg_build/lib64/pkgconfig/
-#mv $PreFix_Dir/ffmpeg_build/lib64/* $PreFix_Dir/ffmpeg_build/lib/
-#rm -rf $PreFix_Dir/ffmpeg_build/lib64/
-
-##Install Openjpeg
-#cd $PreFix_Dir/ffmpeg_sources
-#wget -O openjpeg-v2.3.0.zip https://github.com/uclouvain/openjpeg/archive/v2.3.0.zip
-#unzip openjpeg-v2.3.0.zip
-#cd openjpeg-2.3.0
-#cmake -DCMAKE_INSTALL_PREFIX:PATH="$PreFix_Dir/ffmpeg_build" -DBUILD_SHARED_LIBS:bool=off .
-#make
-#make install
-#make distclean
-#source ~/.bash_profile
-
-#Install Opencore arm
-#cd $PreFix_Dir/ffmpeg_sources
-# https://sourceforge.net/projects/opencore-amr/files/
-#wget http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz
-#tar xzvf opencore-amr-0.1.5.tar.gz
-#cd opencore-amr-0.1.5
-#./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
-#make
-#make install
-#make distclean
-#source ~/.bash_profile
-
-
-# XvidCore
-#cd $PreFix_Dir/ffmpeg_sources
-# https://labs.xvid.com/source/
-#wget https://downloads.xvid.com/downloads/xvidcore-1.3.5.zip
-#unzip xvidcore-1.3.5.zip
-#cd xvidcore/build/generic/
-#./configure --prefix="$PreFix_Dir/ffmpeg_build" --disable-shared --enable-static
-#make
-#make install
-#make distclean
-#source ~/.bash_profile
-
-
-
-#####################################################
-
 # Install libvorbis
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 #curl -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
 #curl -O http://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.5.tar.gz
 #tar xzvf libvorbis-1.3.4.tar.gz
@@ -231,7 +161,7 @@ source ~/.bash_profile
 
 # Install libtheora
  # https://ftp.osuosl.org/pub/xiph/releases/theora/
- cd ~/ffmpeg_sources
+ cd $FF_SOURCE
  wget https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.zip
  unzip libtheora-1.1.1.zip
  cd libtheora-1.1.1
@@ -244,7 +174,7 @@ source ~/.bash_profile
 
 
 #FreeType2
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 # http://download.savannah.gnu.org/releases/freetype/
 wget http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2
 
@@ -259,7 +189,7 @@ source ~/.bash_profile
 
 
 # Install FFmpeg
-cd $PreFix_Dir/ffmpeg_sources
+cd $FF_SOURCE
 
 #wget https://github.com/FFmpeg/FFmpeg/archive/n3.4.zip
 #unzip n3.*.zip
