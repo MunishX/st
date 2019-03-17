@@ -47,9 +47,10 @@ download(){
   #durl="$1_url"
   #ext=".$2"
   #extract=" $3 "
+  x_url="$1_url"
   start_log "downloading $1"
   cd $BUILD_DIR
-  wget -O "${1}.${2}" "${${1}_url}"
+  wget -O "${1}.${2}" "${x_url}"
   tar ${3} "${1}.${2}" 
 }
 
@@ -68,7 +69,7 @@ openssl_url="https://github.com/openssl/openssl/archive/OpenSSL_1_1_1b.tar.gz"
 
 zlib_url="https://github.com/madler/zlib/archive/v1.2.11.tar.gz"
 x264_url="http://download.videolan.org/pub/videolan/x264/snapshots/last_x264.tar.bz2"
-x265_url="https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz
+x265_url="https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz"
 fakaac_url="https://github.com/mstorsjo/fdk-aac/archive/v2.0.0.tar.gz"
 harfbuzz_url="https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2"
 fribidi_url="https://github.com/fribidi/fribidi/releases/download/v1.0.5/fribidi-1.0.5.tar.bz2"
