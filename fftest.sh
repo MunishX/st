@@ -90,7 +90,7 @@ soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
 
 vid_url="https://github.com/georgmartius/vid.stab/archive/v1.1.0.tar.gz"
 zimg_url="https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz"
-openjpeg_url="https://github.com/uclouvain/openjpeg/releases/download/v2.3.0/openjpeg-v2.3.0-linux-x86_64.tar.gz"
+openjpeg_url="https://github.com/uclouvain/openjpeg/archive/v2.3.0.tar.gz"
 libwebp_url="https://github.com/webmproject/libwebp/archive/v1.0.2.tar.gz"
 vorbis_url="https://github.com/xiph/vorbis/archive/v1.3.6.tar.gz"
 libogg_url="https://github.com/xiph/ogg/releases/download/v1.3.3/libogg-1.3.3.tar.gz"
