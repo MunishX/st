@@ -130,8 +130,8 @@ ext=".tar.gz"
 extract="xzvf"
 download "yasm" $ext $extract
 download "nasm" $ext $extract
-download "openssl" $ext $extract
-download "zlib" $ext $extract
+#download "openssl" $ext $extract
+#download "zlib" $ext $extract
 
 
 ext=".tar.bz2"
@@ -143,38 +143,38 @@ extract="xzvf"
 download "x265" $ext $extract
 download "fdk" $ext $extract
 
-ext=".tar.bz2"
-extract="xjvf"
-download "harfbuzz" $ext $extract
-download "fribidi" $ext $extract
+#ext=".tar.bz2"
+#extract="xjvf"
+#download "harfbuzz" $ext $extract
+#download "fribidi" $ext $extract
 
 ext=".tar.gz"
 extract="xzvf"
-download "libass" $ext $extract
+#download "libass" $ext $extract
 download "lame" $ext $extract
-download "opus" $ext $extract
+#download "opus" $ext $extract
 download "libvpx" $ext $extract
-download "rtmpdump" $ext $extract
+#download "rtmpdump" $ext $extract
 
 ext=".tar.xz"
 extract="xvf"
-download "soxr" $ext $extract
+#download "soxr" $ext $extract
 
 ext=".tar.gz"
 extract="xzvf"
-download "vid" $ext $extract
-download "zimg" $ext $extract
-download "openjpeg" $ext $extract
-download "libwebp" $ext $extract
+#download "vid" $ext $extract
+#download "zimg" $ext $extract
+#download "openjpeg" $ext $extract
+#download "libwebp" $ext $extract
 download "vorbis" $ext $extract
 ##########
 download "libtheora" $ext $extract
-download "xvidcore" $ext $extract
-download "opencore" $ext $extract
+#download "xvidcore" $ext $extract
+#download "opencore" $ext $extract
 download "freetype" $ext $extract
 ##########
 download "libogg" $ext $extract
-download "speex" $ext $extract
+#download "speex" $ext $extract
 
 ext=".tar.bz2"
 extract="xjvf"
