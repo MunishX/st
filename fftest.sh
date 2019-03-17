@@ -107,6 +107,7 @@ ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
 
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
+yum groupinstall "Development Tools"
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
@@ -431,11 +432,11 @@ PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
   
 
   --prefix="$TARGET_DIR" \
-#  --pkg-config-flags="--static" \
+  --pkg-config-flags="--static" \  #
   --extra-cflags="-I$TARGET_DIR/include  -static" \
   --extra-ldflags="-L$TARGET_DIR/lib  -static" \
   --extra-libs="-lpthread -lm -lz" \
-#  --extra-ldexeflags="-static" \
+  --extra-ldexeflags="-static" \   #
   --bindir="$BIN_DIR" \
   --enable-static \
   --enable-cross-compile \
