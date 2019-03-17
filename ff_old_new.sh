@@ -9,8 +9,6 @@ FF_Source="/usr/local/ffmpeg_sources"
 FF_Build="/usr/local/ffmpeg_build"
 BIN_DIR="$FF_Build/bin"
 
-PreFix_Dir="$FF_Build"
-
 
 start_log(){
   echo ""
