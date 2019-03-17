@@ -190,38 +190,45 @@ make distclean
 source ~/.bash_profile
 
 
-
-
-echo "*** Building zlib ***"
-cd $BUILD_DIR/zlib*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR
-PATH="$BIN_DIR:$PATH" make -j $jval
+installing zlib
+PATH="$BIN_DIR:$PATH" 
+./configure --prefix=$TARGET_DIR
+make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building x264 ***"
-cd $BUILD_DIR/x264*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
-[ ! -f config.status ] && PATH="$BIN_DIR:$PATH" ./configure --prefix=$TARGET_DIR --enable-static --disable-shared --disable-opencl --enable-pic
-PATH="$BIN_DIR:$PATH" make -j $jval
+
+installing x264
+PATH="$BIN_DIR:$PATH" 
+./configure --prefix=$TARGET_DIR --enable-static --disable-shared --disable-opencl --enable-pic
+make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building x265 ***"
-cd $BUILD_DIR/x265*
+
+installing x265
 cd build/linux
-[ $rebuild -eq 1 ] && find . -mindepth 1 ! -name 'make-Makefiles.bash' -and ! -name 'multilib.sh' -exec rm -r {} +
-PATH="$BIN_DIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DENABLE_SHARED:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DENABLE_CLI:BOOL=OFF ../../source
+find . -mindepth 1 ! -name 'make-Makefiles.bash' -and ! -name 'multilib.sh' -exec rm -r {} +
+PATH="$BIN_DIR:$PATH" 
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$TARGET_DIR" -DENABLE_SHARED:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DENABLE_CLI:BOOL=OFF ../../source
 sed -i 's/-lgcc_s/-lgcc_eh/g' x265.pc
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
 
-echo "*** Building fdk-aac ***"
-cd $BUILD_DIR/fdk-aac*
-[ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
+
+installing fdk
 autoreconf -fiv
-[ ! -f config.status ] && ./configure --prefix=$TARGET_DIR --disable-shared
+./configure --prefix=$TARGET_DIR --disable-shared 
 make -j $jval
 make install
+make distclean
+source ~/.bash_profile
+
+########
 
 echo "*** Building harfbuzz ***"
 cd $BUILD_DIR/harfbuzz-*
