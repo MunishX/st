@@ -35,11 +35,9 @@ create_dir(){
   #rm -rf  $1 $2 $3
   #mkdir -p $1 $2 $3
   start_log "creating initial dir"
-  cmd_log "rm -rf \"$BUILD_DIR\" \"$TARGET_DIR\" \"$BIN_DIR\""
-  
+  #cmd_log "rm -rf \"$BUILD_DIR\" \"$TARGET_DIR\" \"$BIN_DIR\""
   rm -rf "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
   mkdir -p "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
-  
   end_log
 }
 
@@ -52,6 +50,7 @@ download(){
   cd $BUILD_DIR
   wget -O "${1}.${2}" "${x_url}"
   tar ${3} "${1}.${2}" 
+  end_log
 }
 
 
