@@ -42,15 +42,14 @@ create_dir(){
 }
 
 download(){
-  #durl="$1_url"
-  #ext=".$2"
-  #extract=" $3 "
   x_tmp="${1}_url"
-  eval x_url=( \${$x_tmp})  
-  start_log "downloading $1"
+  x_name="${1}${2}"
+  eval x_url=( \${$x_tmp}) 
+  
   cd $BUILD_DIR
-  wget -O "${1}.${2}" "${x_url}"
-  tar ${3} "${1}.${2}" 
+  start_log "downloading $1"
+  wget -O "${x_name}" "${x_url}"
+  tar ${3} "${x_name}" 
   end_log
 }
 
@@ -79,6 +78,7 @@ lame_url="http://download.videolan.org/pub/contrib/lame/lame-3.100.tar.gz"
 
 opus_url="https://github.com/xiph/opus/archive/v1.3.tar.gz"
 vpx_url="https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz"
+
 rtmpdump_url="https://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz"
 soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
 # https://excellmedia.dl.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
@@ -104,37 +104,52 @@ cd $BUILD_DIR
 
 ext=".tar.gz"
 extract="xzvf"
-
 download "yasm" $ext $extract
 download "nasm" $ext $extract
 download "openssl" $ext $extract
 download "zlib" $ext $extract
 
 
-wget -O yasm${ext} $yasm${url}
-wget -O nasm${ext} $nasm${url}
-wget -O openssl${ext} $openssl${url}
-wget -O zlib${ext} $zlib${url}
-
 ext=".tar.bz2"
-wget -O x264${ext} $x264${url}
+extract="xjvf"
+download "x264" $ext $extract
 
 ext=".tar.gz"
-wget -O x265${ext} $x265${url}
-wget -O fakaac${ext} $fakaac${url}
+extract="xzvf"
+download "x265" $ext $extract
+download "fakaac" $ext $extract
 
 ext=".tar.bz2"
-wget -O harfbuzz${ext} $harfbuzz${url}
-wget -O fribidi${ext} $fribidi${url}
+extract="xjvf"
+download "harfbuzz" $ext $extract
+download "fribidi" $ext $extract
 
 ext=".tar.gz"
-wget -O ass${ext} $ass${url}
-wget -O lame${ext} $lame${url}
-wget -O opus${ext} $opus${url}
-wget -O vpx${ext} $vpx${url}
+extract="xzvf"
+download "ass" $ext $extract
+download "lame" $ext $extract
+download "opus" $ext $extract
+download "vpx" $ext $extract
+download "rtmpdump" $ext $extract
 
-ext=".tgz"
-wget -O rtmpdump${ext} $rtmpdump${url}
+ext=".tar.xz"
+extract="xvf"
+download "soxr" $ext $extract
+
+ext=".tar.gz"
+extract="xzvf"
+download "vidstab" $ext $extract
+download "zimg" $ext $extract
+download "openjpeg" $ext $extract
+download "webp" $ext $extract
+download "vorbis" $ext $extract
+download "ogg" $ext $extract
+download "speex" $ext $extract
+
+ext=".tar.bz2"
+extract="xjvf"
+download "ffmpeg" $ext $extract
+
 
 wget -O yasm${ext} $nasm${url}
 wget -O yasm${ext} $nasm${url}
