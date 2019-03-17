@@ -1,5 +1,9 @@
 #!/bin/sh
 
+  echo ""
+  echo "############## FFMPEG INSTALLATION STARTING #################"
+  echo ""
+
 Root_Dir="/usr/local"
 FF_Source="$Root_Dir/ffmpeg_sources"
 FF_Build="$Root_Dir/ffmpeg_build"
@@ -10,24 +14,45 @@ BUILD_DIR=$FF_Source
 TARGET_DIR=$FF_Build
 BIN_DIR="$Root_Dir/ffbin"
 
-mkdir -p "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+start_log(){
+  echo ""
+  echo ""
+  echo "=============== $1 ==============="
+  echo ""
+}
+end_log(){
+  echo ""
+  echo ">>>>>>>>>>>>>>> SUCCESS <<<<<<<<<<<<<<<"
+  echo ""
+  echo ""
+}
+cmd_log(){
+  echo "\$ $1"
+}
 
 create_dir(){
-  echo "removing and creating dirs $1 $2 $3"
-  rm -rf  $1 $2 $3
-  mkdir -p $1 $2 $3
+  #echo "removing and creating dirs $1 $2 $3"
+  #rm -rf  $1 $2 $3
+  #mkdir -p $1 $2 $3
+  start_log "creating initial dir"
+  cmd_log "rm -rf \"$BUILD_DIR\" \"$TARGET_DIR\" \"$BIN_DIR\""
+  
+  rm -rf "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+  mkdir -p "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+  
+  end_log
 }
-
 
 download(){
-  filename="$1"
-  if [ ! -z "$2" ];then
-    filename="$2"
-  fi
-  ../download.pl "$DOWNLOAD_DIR" "$1" "$filename" "$3" "$4"
-  #disable uncompress
-  REPLACE="$rebuild" CACHE_DIR="$DOWNLOAD_DIR" ../fetchurl "http://cache/$filename"
+  #durl="$1_url"
+  #ext=".$2"
+  #extract=" $3 "
+  start_log "downloading $1"
+  cd $BUILD_DIR
+  wget -O "${1}.${2}" "${${1}_url}"
+  tar ${3} "${1}.${2}" 
 }
+
 
 echo "#### FFmpeg static build ####"
 
@@ -67,15 +92,24 @@ speex_url="https://github.com/xiph/speex/archive/Speex-1.2.0.tar.gz"
 ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
 
+create_dir "$BUILD_DIR" "$TARGET_DIR" "$BIN_DIR"
+
 #this is our working directory
 cd $BUILD_DIR
 
 #tar.gz
 #tar xzvf yasm${ext}
 
-url="_url"
 
 ext=".tar.gz"
+extract="xzvf"
+
+download "yasm" $ext $extract
+download "nasm" $ext $extract
+download "openssl" $ext $extract
+download "zlib" $ext $extract
+
+
 wget -O yasm${ext} $yasm${url}
 wget -O nasm${ext} $nasm${url}
 wget -O openssl${ext} $openssl${url}
