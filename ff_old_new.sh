@@ -100,6 +100,7 @@ ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 yum groupinstall "Development Tools"
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
+yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
@@ -116,6 +117,8 @@ yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool 
 # yum install libdc1394 libdc1394-devel -y
 # yum install amrnb-devel amrwb-devel opencore-amr-devel -y
 
+
+export PATH="$BIN_DIR:$PATH" 
 
 create_dir
 
@@ -200,7 +203,6 @@ make distclean
 source ~/.bash_profile
 
 installing openssl
-PATH="$BIN_DIR:$PATH" 
 ./config --prefix=$FF_Build
 #PATH="$BIN_DIR:$PATH" 
 make -j $jval
