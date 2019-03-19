@@ -46,6 +46,9 @@ mkdir -p ${FFMPEG_HOME}/bin
 
 export PATH=$PATH:${FFMPEG_HOME}/build:${FFMPEG_HOME}/build/lib:${FFMPEG_HOME}/build/include:${FFMPEG_HOME}/bin
 
+#source ~/.profile 
+source ~/.bashrc
+
 ##############
 ### FFMPEG ###
 ##############
@@ -82,12 +85,12 @@ rm -rf freetype*
 wget $freetype_url
 tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
 cd freetype-2.9.1
-./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --enable-freetype-config --enable-static
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --enable-freetype-config --enable-static
 make
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfreetype "
-
+########------------######## --bindir="${FFMPEG_HOME}/bin"
 
 echo
 echo -e "\e[93mCompiling fontconfig...\e[39m"
@@ -210,10 +213,11 @@ echo
 cd ${FFMPEG_HOME}/src
 hg clone https://bitbucket.org/multicoreware/x265
 cd ${FFMPEG_HOME}/src/x265/build/linux
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off ../../source
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" ../../source
 make -j ${FFMPEG_CPU_COUNT}
 make install
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
+########------------######## --bindir="${FFMPEG_HOME}/bin"
 
 echo
 echo -e "\e[93mCompiling libfdk-aac...\e[39m"
@@ -370,13 +374,13 @@ echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/uclouvain/openjpeg.git
 cd openjpeg
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" 
 make -j ${FFMPEG_CPU_COUNT}
 make install
 rm -f -R "${FFMPEG_HOME}/build/lib/openjpeg-2.1"
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopenjpeg"
-
+########------------######## --bindir="${FFMPEG_HOME}/bin"
 
 
 echo
@@ -386,11 +390,12 @@ cd ${FFMPEG_HOME}/src
 git clone https://github.com/TimothyGu/libilbc.git
 cd libilbc
 sed 's/lib64/lib/g' -i CMakeLists.txt
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=/lib
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" 
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libilbc"
+########------------######## --bindir="${FFMPEG_HOME}/bin"
 
 
 
@@ -400,9 +405,9 @@ echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 http://git.ffmpeg.org/rtmpdump.git librtmp
 cd librtmp
-make -j ${FFMPEG_CPU_COUNT} SYS=posix prefix="${FFMPEG_HOME}/build" CRYPTO=OPENSSL SHARED= XCFLAGS="-I${FFMPEG_HOME}/build/include" XLDFLAGS="-L${FFMPEG_HOME}/build/lib" install
+make -j ${FFMPEG_CPU_COUNT} SYS=posix prefix="${FFMPEG_HOME}/build" CRYPTO=OPENSSL SHARED= XCFLAGS="-I${FFMPEG_HOME}/build/include" XLDFLAGS="-L${FFMPEG_HOME}/build/lib" bindir="${FFMPEG_HOME}/bin" install
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librtmp"
-
+########------------######## --bindir="${FFMPEG_HOME}/bin" -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" 
 
 
 
@@ -537,6 +542,7 @@ make install
 make distclean
 hash -r
 
+source ~/.bashrc
 
 
 
@@ -578,8 +584,11 @@ make install
 make distclean
 
 
+source ~/.bashrc
+
 ffmpeg
 which ffmpeg
 
+source ~/.bashrc
 
 
