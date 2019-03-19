@@ -197,7 +197,7 @@ cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
 cd ffmpeg
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"
-./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lnettle -lhogweed -lgmp -lncurses' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
+./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
