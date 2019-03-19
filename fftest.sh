@@ -435,7 +435,7 @@ PKG_CONFIG_PATH="$TARGET_DIR/lib/pkgconfig"
   --pkg-config-flags="--static" \  #
   --extra-cflags="-I$TARGET_DIR/include  -static" \
   --extra-ldflags="-L$TARGET_DIR/lib  -static" \
-  --extra-libs="-lpthread -lm -lz" \
+  --extra-libs="-lpthread" \
   --extra-ldexeflags="-static" \   #
   --bindir="$BIN_DIR" \
   --enable-static \
