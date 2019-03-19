@@ -140,20 +140,20 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
 
-echo
-echo -e "\e[93mCompiling libcaca...\e[39m"
-echo
-cd ${FFMPEG_HOME}/src
-rm -rf v0.99.beta19.tar.gz libcaca
-wget https://github.com/cacalabs/libcaca/archive/v0.99.beta19.tar.gz
-tar xzvf v0.99.beta19.tar.gz
-cd libcaca*
-./bootstrap
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
+#echo
+#echo -e "\e[93mCompiling libcaca...\e[39m"
+#echo
+#cd ${FFMPEG_HOME}/src
+#rm -rf v0.99.beta19.tar.gz libcaca
+#wget https://github.com/cacalabs/libcaca/archive/v0.99.beta19.tar.gz
+#tar xzvf v0.99.beta19.tar.gz
+#cd libcaca*
+#./bootstrap
+#./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
 
 
 
@@ -539,7 +539,47 @@ hash -r
 
 
 
+
+#################
+
+echo
+echo -e "\e[93mCompiling zenlib...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone https://github.com/MediaArea/ZenLib zenlib
+cd zenlib/Project/CMake
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DLIB_INSTALL_DIR="${FFMPEG_HOME}/build/lib" -DBUILD_SHARED_LIBS=0
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+
+echo
+echo -e "\e[93mCompiling mediainfolib...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone https://github.com/MediaArea/MediaInfoLib mediainfolib
+cd mediainfolib/Project/CMake
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DLIB_INSTALL_DIR="${FFMPEG_HOME}/build/lib" -DBUILD_SHARED_LIBS=0
+make -j ${FFMPEG_CPU_COUNT}
+make install
+sed -i 's|libzen|libcurl librtmp libzen|' "${FFMPEG_HOME}/build/lib/pkgconfig/libmediainfo.pc"
+make distclean
+
+echo
+echo -e "\e[93mCompiling mediainfo...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone https://github.com/MediaArea/MediaInfo mediainfo
+cd mediainfo/Project/GNU/CLI
+./autogen.sh
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin"
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+
+
 ffmpeg
 which ffmpeg
+
 
 
