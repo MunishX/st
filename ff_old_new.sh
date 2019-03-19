@@ -13,6 +13,9 @@ FFMPEG_HOME=/usr/local/src/ffmpeg
 ## Initialization ##
 ####################
 
+yum-config-manager --add-repo http://www.nasm.us/nasm.repo
+yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
+
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
@@ -157,10 +160,11 @@ echo
 echo -e "\e[93mCompiling libx264...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-git clone --depth 1 https://git.videolan.org/git/x264.git
+#git clone --depth 1 https://git.videolan.org/git/x264.git
+git clone --depth 1 git://git.videolan.org/x264
 cd x264
-git checkout origin/stable
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
+#git checkout origin/stable
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --enable-static
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
@@ -420,8 +424,7 @@ cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git
 git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
 cd ffmpeg
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"
-./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
