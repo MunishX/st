@@ -107,7 +107,7 @@ ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
 
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
-yum groupinstall "Development Tools"
+yum -y groupinstall "Development Tools"
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
