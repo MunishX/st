@@ -1,6 +1,16 @@
 #!/bin/sh
 # TODO: Verify to link statically some dependencies usually not available in a default instllation of RHEL/CentOS (ex.: libxcb)
 
+## MG New
+
+# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_old_new.sh && chmod 777 ff_old_new.sh && ./ff_old_new.sh
+# cd /tmp && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_old_new.sh && chmod 777 ff_old_new.sh && nohup ./ff_old_new.sh > ff_log.txt &
+
+# cd /tmp && yum install wget -y && rm -rf ff_* && wget https://github.com/munishgaurav5/st/raw/master/ff_old_new.sh && chmod 777 ff_old_new.sh 
+# ./ff_old_new.sh > ffnew.txt 2>&1 &
+# watch -n 2 tail -n 30 ffnew.txt
+
+
 ###################
 ## Configuration ##
 ###################
