@@ -59,19 +59,19 @@ make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 
-echo
-echo -e "\e[93mCompiling fontconfig...\e[39m"
-echo
-cd ${FFMPEG_HOME}/src
-curl -L -O http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.94.tar.gz
-tar xzvf fontconfig-2.11.94.tar.gz
-rm -f fontconfig-2.11.94.tar.gz
-cd fontconfig-2.11.94
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-libxml2
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig"
+#echo
+#echo -e "\e[93mCompiling fontconfig...\e[39m"
+#echo
+#cd ${FFMPEG_HOME}/src
+#curl -L -O http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.94.tar.gz
+#tar xzvf fontconfig-2.11.94.tar.gz
+#rm -f fontconfig-2.11.94.tar.gz
+#cd fontconfig-2.11.94
+#./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-libxml2
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig"
 
 
 
