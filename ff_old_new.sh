@@ -73,18 +73,20 @@ make install
 make distclean
 
 #echo
-#echo -e "\e[93mCompiling fontconfig...\e[39m"
+#echo -e "\e[93mCompiling freetype2...\e[39m"
 #echo
+#freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2"
 #cd ${FFMPEG_HOME}/src
-#curl -L -O http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.94.tar.gz
-#tar xzvf fontconfig-2.11.94.tar.gz
-#rm -f fontconfig-2.11.94.tar.gz
-#cd fontconfig-2.11.94
-#./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-libxml2
-#make -j ${FFMPEG_CPU_COUNT}
+#rm -rf freetype*
+#wget $freetype_url
+#tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
+#cd freetype-2.9.1
+#./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --enable-freetype-config --enable-static
+#make
 #make install
 #make distclean
 #FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig"
+
 
 ############## fontconfig
 
