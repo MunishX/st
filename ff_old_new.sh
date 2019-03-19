@@ -47,303 +47,163 @@ export PATH=$PATH:${FFMPEG_HOME}/build:${FFMPEG_HOME}/build/lib:${FFMPEG_HOME}/b
 
 
 
-#cd $FF_Source
-#curl -O http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
-#tar xzvf yasm-1.3.0.tar.gz
-#cd yasm-1.3.0
-
-yasm_url="http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz"
-nasm_url="https://www.nasm.us/pub/nasm/releasebuilds/2.14/nasm-2.14.tar.gz"
-openssl_url="https://github.com/openssl/openssl/archive/OpenSSL_1_1_1b.tar.gz"
-
-zlib_url="https://github.com/madler/zlib/archive/v1.2.11.tar.gz"
-x264_url="http://download.videolan.org/pub/videolan/x264/snapshots/last_x264.tar.bz2"
-x265_url="https://bitbucket.org/multicoreware/x265/downloads/x265_3.0.tar.gz"
-fdk_url="https://github.com/mstorsjo/fdk-aac/archive/v2.0.0.tar.gz"
-harfbuzz_url="https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2"
-fribidi_url="https://github.com/fribidi/fribidi/releases/download/v1.0.5/fribidi-1.0.5.tar.bz2"
-libass_url="https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.gz"
-lame_url="http://download.videolan.org/pub/contrib/lame/lame-3.100.tar.gz"
-# http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
-
-opus_url="https://github.com/xiph/opus/archive/v1.3.tar.gz"
-libvpx_url="https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz"
-
-
-rtmpdump_url="https://rtmpdump.mplayerhq.hu/download/rtmpdump-2.3.tgz"
-soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
-# https://excellmedia.dl.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
-
-vid_url="https://github.com/georgmartius/vid.stab/archive/v1.1.0.tar.gz"
-zimg_url="https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz"
-openjpeg_url="https://github.com/uclouvain/openjpeg/archive/v2.3.0.tar.gz"
-libwebp_url="https://github.com/webmproject/libwebp/archive/v1.0.2.tar.gz"
-vorbis_url="https://github.com/xiph/vorbis/archive/v1.3.6.tar.gz"
-####################
-libtheora_url="https://ftp.osuosl.org/pub/xiph/releases/theora/libtheora-1.1.1.tar.gz"
-xvidcore_url="https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz"
-opencore_url="http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.5.tar.gz"
-freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.10.0.tar.gz"
-###################
-libogg_url="https://github.com/xiph/ogg/releases/download/v1.3.3/libogg-1.3.3.tar.gz"
-speex_url="https://github.com/xiph/speex/archive/Speex-1.2.0.tar.gz"
-ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
-
-
-
-
-
-export PATH="$BIN_DIR:$PATH" 
-
-create_dir
-
-#this is our working directory
-cd $FF_Source
-
-#tar.gz
-#tar xzvf yasm${ext}
-
-
-ext=".tar.gz"
-extract="xzvf"
-download "yasm" $ext $extract
-download "nasm" $ext $extract
-#download "openssl" $ext $extract
-#download "zlib" $ext $extract
-
-
-ext=".tar.bz2"
-extract="xjvf"
-download "x264" $ext $extract
-
-ext=".tar.gz"
-extract="xzvf"
-download "x265" $ext $extract
-download "fdk" $ext $extract
-
-#ext=".tar.bz2"
-#extract="xjvf"
-#download "harfbuzz" $ext $extract
-#download "fribidi" $ext $extract
-
-ext=".tar.gz"
-extract="xzvf"
-#download "libass" $ext $extract
-download "lame" $ext $extract
-#download "opus" $ext $extract
-download "libvpx" $ext $extract
-#download "rtmpdump" $ext $extract
-
-ext=".tar.xz"
-extract="xvf"
-#download "soxr" $ext $extract
-
-ext=".tar.gz"
-extract="xzvf"
-#download "vid" $ext $extract
-#download "zimg" $ext $extract
-#download "openjpeg" $ext $extract
-#download "libwebp" $ext $extract
-download "vorbis" $ext $extract
-##########
-download "libtheora" $ext $extract
-#download "xvidcore" $ext $extract
-#download "opencore" $ext $extract
-download "freetype" $ext $extract
-##########
-download "libogg" $ext $extract
-#download "speex" $ext $extract
-
-ext=".tar.bz2"
-extract="xjvf"
-download "ffmpeg" $ext $extract
-
-
-
-##################################################################################3
-
-installing yasm
-./configure --prefix=$FF_Build --bindir=$BIN_DIR
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing nasm
-./configure --prefix=$FF_Build --bindir=$BIN_DIR
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-installing openssl
-./config --prefix=$FF_Build
-#PATH="$BIN_DIR:$PATH" 
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing zlib
-PATH="$BIN_DIR:$PATH" 
-./configure --prefix=$FF_Build
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing x264
-PATH="$BIN_DIR:$PATH" 
-./configure --prefix=$FF_Build --bindir=$BIN_DIR  --disable-opencl --enable-static --disable-shared
-# 
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing x265
-cd build/linux
-find . -mindepth 1 ! -name 'make-Makefiles.bash' -and ! -name 'multilib.sh' -exec rm -r {} +
-PATH="$BIN_DIR:$PATH" 
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$FF_Build" -DENABLE_SHARED:BOOL=OFF -DSTATIC_LINK_CRT:BOOL=ON -DENABLE_CLI:BOOL=OFF ../../source
-#sed -i 's/-lgcc_s/-lgcc_eh/g' x265.pc
-make -j $jval
-make install
-make distclean
-source ~/.bash_profile
-
-
-installing fdk
-yum install libtool -y
-libtoolize
+echo
+echo -e "\e[93mCompiling YASM...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone --depth 1 https://github.com/yasm/yasm.git
+cd yasm
 autoreconf -fiv
-./configure --prefix=$FF_Build --disable-shared --enable-static
-make -j $jval
+./configure --prefix="$HOME/ffmpeg-nonfree/build" --bindir="${FFMPEG_HOME}/bin"
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
 
-########
-
-
-
-installing lame
-./configure --prefix=$FF_Build --enable-nasm  --disable-shared --enable-static
-make -j $jval
+echo
+echo -e "\e[93mCompiling fontconfig...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+curl -L -O http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.11.94.tar.gz
+tar xzvf fontconfig-2.11.94.tar.gz
+rm -f fontconfig-2.11.94.tar.gz
+cd fontconfig-2.11.94
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-libxml2
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig"
 
 
-installing libogg
-./autogen.sh
-./configure --prefix=$FF_Build --disable-shared --enable-static
-make -j $jval
+
+echo
+echo -e "\e[93mCompiling libx264...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone --depth 1 https://git.videolan.org/git/x264.git
+cd x264
+git checkout origin/stable
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx264"
 
+echo
+echo -e "\e[93mCompiling libx265...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+hg clone https://bitbucket.org/multicoreware/x265
+cd ${FFMPEG_HOME}/src/x265/build/linux
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off ../../source
+make -j ${FFMPEG_CPU_COUNT}
+make install
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
 
-installing libvpx
-PATH="$BIN_DIR:$PATH"
-./configure --prefix=$FF_Build --as=yasm --disable-examples --disable-unit-tests --disable-shared --enable-pic
-make -j $jval
+echo
+echo -e "\e[93mCompiling libfdk-aac...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+#git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
+git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
+cd fdk-aac
+autoreconf -fiv
+./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfdk-aac"
 
-
-#######
-
-installing vorbis
-./autogen.sh
-./configure --prefix=$FF_Build --with-ogg=$FF_Build --enable-static --disable-shared --disable-oggtest
-make -j $jval
+echo
+echo -e "\e[93mCompiling libmp3lame...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+curl -L -O http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
+tar xzvf lame-3.99.5.tar.gz
+rm -f lame-3.99.5.tar.gz
+cd lame-3.99.5
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-nasm
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libmp3lame"
 
-######################################################
 
-installing libtheora
-./configure --enable-static  --prefix=$FF_Build --with-ogg=$FF_Build --with-vorbis=$FF_Build --enable-static --disable-shared --disable-oggtest --disable-vorbistest --disable-examples --disable-asm
-make -j $jval
+echo
+echo -e "\e[93mCompiling libogg...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+curl -L -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
+tar xzvf libogg-1.3.2.tar.gz
+rm -f libogg-1.3.2.tar.gz
+cd libogg-1.3.2
+./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
 
-
-installing freetype
-./configure   --prefix=$FF_Build --libdir="$FF_Build/lib" --enable-freetype-config --enable-static
-make -j $jval
+echo
+echo -e "\e[93mCompiling libvorbis...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+curl -L -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
+tar xzvf libvorbis-1.3.4.tar.gz
+rm -f libvorbis-1.3.4.tar.gz
+cd libvorbis-1.3.4
+LDFLAGS="-L${FFMPEG_HOME}/build/lib" CPPFLAGS="-I${FFMPEG_HOME}/build/include" ./configure --prefix="${FFMPEG_HOME}/build" --with-ogg="${FFMPEG_HOME}/build" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvorbis"
 
 
 
-######################################################
+echo
+echo -e "\e[93mCompiling libvpx...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
+cd libvpx
+./configure --prefix="${FFMPEG_HOME}/build" --disable-examples  --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make clean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvpx"
 
 
-
-######################
-
-installing ffmpeg
-PATH="$BIN_DIR:$PATH"
-PKG_CONFIG_PATH="$FF_Build/lib/pkgconfig"
-./configure \
-
-  --prefix="$FF_Build" \
-  --pkg-config-flags="--static" \  #
-  --extra-cflags="-I$FF_Build/include" \
-  --extra-ldflags="-L$FF_Build/lib  -ldl" \
-  --extra-libs="-lpthread" \
-  --extra-ldexeflags="-static" \   #
-  --bindir="$BIN_DIR" \
-  --enable-static \
-  --enable-cross-compile \
- 
-  #--enable-pic \
-  #--enable-ffplay \
-  #--enable-fontconfig \
-  #--enable-frei0r \
-  --enable-gpl \
-  --enable-version3 \
-  --enable-filters \
-  #--enable-libass \
-  #--enable-libfribidi \
-  --enable-libfdk-aac \
-  --enable-libfreetype \
-  --enable-libmp3lame \
-  #--enable-libopencore-amrnb \
-  #--enable-libopencore-amrwb \
-  #--enable-libopenjpeg \
-  --enable-libopus \
-  #--enable-librtmp \
-  #--enable-libsoxr \
-  #--enable-libspeex \
-  --enable-libtheora \
-  #--enable-libvidstab \
-  #--enable-libvo-amrwbenc \
-  --enable-libvorbis \
-  --enable-libvpx \
-  #--enable-libwebp \
-  --enable-libx264 \
-  --enable-libx265 \
-  #--enable-libxvid \
-  #--enable-libzimg \
-  --enable-nonfree \
-  #--enable-openssl
-
-make -j $jval
+echo
+echo -e "\e[93mCompiling libtheora...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+curl -L -O http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz
+tar xzvf libtheora-1.1.1.tar.gz
+rm -f libtheora-1.1.1.tar.gz
+cd libtheora-1.1.1
+./configure --prefix="${FFMPEG_HOME}/build" --disable-oggtest --with-ogg-includes="${FFMPEG_HOME}/build/include" --with-ogg-libraries="${FFMPEG_HOME}/build/lib" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-source ~/.bash_profile
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libtheora"
 
+
+
+
+
+
+echo
+echo -e "\e[93mCompiling ffmpeg...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+#git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git
+git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
+cd ffmpeg
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"
+./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lnettle -lhogweed -lgmp -lncurses' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
 hash -r
 
+
+
 ffmpeg
+
