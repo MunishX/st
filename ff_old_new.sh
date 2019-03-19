@@ -16,7 +16,7 @@ FFMPEG_HOME=/usr/local/src/ffmpeg
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 
 yum -y install zip unzip nano wget curl git yum-utils openssl-devel
-yum groupinstall "Development Tools"
+yum -y groupinstall "Development Tools"
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 
