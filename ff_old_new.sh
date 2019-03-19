@@ -39,6 +39,7 @@ yum -y install fontconfig fontconfig-devel
 # yum install libdc1394 libdc1394-devel -y
 # yum install amrnb-devel amrwb-devel opencore-amr-devel -y
 
+rm -rf ${FFMPEG_HOME}
 mkdir -p ${FFMPEG_HOME}/src
 mkdir -p ${FFMPEG_HOME}/build
 mkdir -p ${FFMPEG_HOME}/bin
