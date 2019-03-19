@@ -139,19 +139,18 @@ make install
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
-echo
-echo -e "\e[93mCompiling libcaca...\e[39m"
-echo
-cd ${FFMPEG_HOME}/src
-git clone https://github.com/cacalabs/libcaca.git
-cd libcaca
-git checkout v0.99.beta19
-./bootstrap
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
+#echo
+#echo -e "\e[93mCompiling libcaca...\e[39m"
+#echo
+#cd ${FFMPEG_HOME}/src
+#git clone --depth=1 https://github.com/cacalabs/libcaca.git
+#cd libcaca
+#./bootstrap
+#./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
 
 
 
