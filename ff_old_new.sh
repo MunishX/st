@@ -406,7 +406,8 @@ echo
 echo -e "\e[93mCompiling librubberband...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-git clone https://github.com/lachs0r/rubberband.git
+git clone https://github.com/breakfastquay/rubberband.git
+#git clone https://github.com/lachs0r/rubberband.git
 cd rubberband
 make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
