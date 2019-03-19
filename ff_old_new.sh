@@ -1,56 +1,50 @@
 #!/bin/sh
+# TODO: Verify to link statically some dependencies usually not available in a default instllation of RHEL/CentOS (ex.: libxcb)
 
-  echo ""
-  echo "############## FFMPEG INSTALLATION STARTING #################"
-  echo ""
+###################
+## Configuration ##
+###################
 
+FFMPEG_CPU_COUNT=$(nproc)
+FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl --enable-libfreetype"
+FFMPEG_HOME=/usr/local/src/ffmpeg
 
-FF_Source="/usr/local/ffmpeg_sources"
-FF_Build="/usr/local/ffmpeg_build"
-BIN_DIR="$FF_Build/bin"
+####################
+## Initialization ##
+####################
 
+yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 
-start_log(){
-  echo ""
-  echo ""
-  echo "=============== $1 ==============="
-  echo ""
-}
-end_log(){
-  echo ""
-  echo ">>>>>>>>>>>>>>> SUCCESS <<<<<<<<<<<<<<<"
-  echo ""
-  echo ""
-}
-cmd_log(){
-  echo "\$ $1"
-}
+yum -y install zip unzip nano wget curl git yum-utils openssl-devel
+yum groupinstall "Development Tools"
+yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
+yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 
-create_dir(){
-  start_log "creating initial dir"
-  rm -rf "$FF_Source"  "$FF_Build" "$BIN_DIR"
-  mkdir -p "$FF_Source"  "$FF_Build" "$BIN_DIR"
-  end_log
-}
+#yum-config-manager --add-repo http://www.nasm.us/nasm.repo
+#yum install -y nasm 
 
-download(){
-  x_tmp="${1}_url"
-  x_name="${1}${2}"
-  eval x_url=( \${$x_tmp}) 
-  
-  cd $FF_Source
-  start_log "downloading $1"
-  wget -O "${x_name}" "${x_url}"
-  tar ${3} "${x_name}" 
-  end_log
-}
+# rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+# yum -y update
+# yum install glibc gcc gcc-c++ autoconf automake libtool git make nasm pkgconfig -y
+# yum install SDL-devel a52dec a52dec-devel alsa-lib-devel faac faac-devel faad2 faad2-devel -y
+# yum install freetype-devel giflib gsm gsm-devel imlib2 imlib2-devel lame lame-devel libICE-devel libSM-devel libX11-devel -y
+# yum install libXau-devel libXdmcp-devel libXext-devel libXrandr-devel libXrender-devel libXt-devel -y
+# yum install libogg libvorbis vorbis-tools mesa-libGL-devel mesa-libGLU-devel xorg-x11-proto-devel zlib-devel -y
+# yum install libtheora theora-tools -y
+# yum install ncurses-devel -y
+# yum install libdc1394 libdc1394-devel -y
+# yum install amrnb-devel amrwb-devel opencore-amr-devel -y
 
-installing(){
-  start_log "Installing $1"
-  cd $FF_Source
-  cd $1*
-}
-echo "#### FFmpeg static build ####"
+mkdir -p ${FFMPEG_HOME}/src
+mkdir -p ${FFMPEG_HOME}/build
+mkdir -p ${FFMPEG_HOME}/bin
+
+export PATH=$PATH:${FFMPEG_HOME}/build:${FFMPEG_HOME}/build/lib:${FFMPEG_HOME}/build/include:${FFMPEG_HOME}/bin
+
+##############
+### FFMPEG ###
+##############
+
 
 
 #cd $FF_Source
@@ -97,25 +91,6 @@ ffmpeg_url="http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2"
 
 
 
-yum -y install zip unzip nano wget curl git yum-utils openssl-devel
-yum groupinstall "Development Tools"
-yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
-yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
-
-#yum-config-manager --add-repo http://www.nasm.us/nasm.repo
-#yum install -y nasm 
-
-# rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
-# yum -y update
-# yum install glibc gcc gcc-c++ autoconf automake libtool git make nasm pkgconfig -y
-# yum install SDL-devel a52dec a52dec-devel alsa-lib-devel faac faac-devel faad2 faad2-devel -y
-# yum install freetype-devel giflib gsm gsm-devel imlib2 imlib2-devel lame lame-devel libICE-devel libSM-devel libX11-devel -y
-# yum install libXau-devel libXdmcp-devel libXext-devel libXrandr-devel libXrender-devel libXt-devel -y
-# yum install libogg libvorbis vorbis-tools mesa-libGL-devel mesa-libGLU-devel xorg-x11-proto-devel zlib-devel -y
-# yum install libtheora theora-tools -y
-# yum install ncurses-devel -y
-# yum install libdc1394 libdc1394-devel -y
-# yum install amrnb-devel amrwb-devel opencore-amr-devel -y
 
 
 export PATH="$BIN_DIR:$PATH" 
