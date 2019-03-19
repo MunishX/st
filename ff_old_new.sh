@@ -73,7 +73,7 @@ make install
 make distclean
 
 echo
-echo -e "\e[93mCompiling freetype2...\e[39m"
+echo -e "\e[93mCompiling freetype...\e[39m"
 echo
 freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2"
 cd ${FFMPEG_HOME}/src
@@ -86,6 +86,23 @@ make
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfreetype "
+
+
+echo
+echo -e "\e[93mCompiling fontconfig...\e[39m"
+echo
+font_url="https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.gz"
+cd ${FFMPEG_HOME}/src
+rm -rf fontconfig*
+wget $font_url
+tar xzvf fontconfig-2.13.1.tar.gz
+cd fontconfig*
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-libxml2
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
+
 
 
 ############## fontconfig
@@ -108,14 +125,16 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfribidi"
 echo
 echo -e "\e[93mCompiling libass...\e[39m"
 echo
+libass_url="https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.gz"
 cd ${FFMPEG_HOME}/src
-git clone https://github.com/libass/libass.git
-cd libass
+rm -rf libass*
+wget $libass_url
+tar xzvf libass-0.14.0.tar.gz
+cd libass*
 ./autogen.sh
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
 make -j ${FFMPEG_CPU_COUNT}
 make install
-make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
@@ -383,17 +402,29 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librtmp"
 
 
 
+
 echo
 echo -e "\e[93mCompiling libsoxr...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-git clone http://git.code.sf.net/p/soxr/code soxr
-cd soxr
+rm -rf soxr*
+soxr_url="https://sourceforge.net/projects/soxr/files/soxr-0.1.3-Source.tar.xz"
+wget $soxr_url
+tar xvf soxr-0.1.3-Source.tar.xz
+cd soxr*/
+
+#mkdir build
+#cd build
+#cmake .. -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DHAVE_WORDS_BIGENDIAN_EXITCODE=0 -DBUILD_SHARED_LIBS:bool=off -DBUILD_TESTS:BOOL=OFF -DWITH_OPENMP:BOOL=OFF -DUNIX:BOOL=on -Wno-dev
+
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DWITH_OPENMP=off -DWITH_LSR_BINDINGS=off -DBUILD_SHARED_LIBS=0 -DBUILD_EXAMPLES=0 -DBUILD_TESTS=0
+
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsoxr"
+
+
 
 
 ####################### frei0r
@@ -404,8 +435,10 @@ echo
 echo -e "\e[93mCompiling libvidstab...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-git clone https://github.com/georgmartius/vid.stab.git vidstab
-cd vidstab
+rm -rf vidstab*
+wget https://github.com/georgmartius/vid.stab/archive/v1.1.0.tar.gz
+tar xzvf  v1.1.0.tar.gz
+cd vid.stab*
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0
 make -j ${FFMPEG_CPU_COUNT}
 make install
@@ -413,21 +446,79 @@ make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvidstab"
 
 
+##################### rubber band
 
-echo
-echo -e "\e[93mCompiling librubberband...\e[39m"
-echo
-cd ${FFMPEG_HOME}/src
-git clone https://github.com/breakfastquay/rubberband.git
-#git clone https://github.com/lachs0r/rubberband.git
-cd rubberband
-make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
+#libsamplerate_url="http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz"
+#cd ${FFMPEG_HOME}/src
+#rm -rf libsamplerate*
+#wget $libsamplerate_url
+#tar xzvf libsamplerate-0.1.9.tar.gz
+#cd libsamplerate*
+#./configure --prefix="${FFMPEG_HOME}/build"  --disable-shared --enable-static
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+
+
+#libsendfile_url="http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz"
+#cd ${FFMPEG_HOME}/src
+#rm -rf libsndfile*
+#wget $libsendfile_url
+#tar xzvf libsndfile-1.0.28.tar.gz
+#cd libsndfile*
+#./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+#####--disable-sqlite --disable-external-libs --disable-full-suite
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+
+
+
+#fftw_url="http://www.fftw.org/fftw-3.3.8.tar.gz"
+#cd ${FFMPEG_HOME}/src
+#rm -rf fftw*
+#wget $fftw_url
+#tar xzvf fftw-3.3.8.tar.gz
+#cd fftw*/
+#./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+
+#vamp_url="https://github.com/c4dm/vamp-plugin-sdk/archive/vamp-plugin-sdk-v2.8.tar.gz"
+#cd ${FFMPEG_HOME}/src
+#rm -rf vamp*
+#wget $vamp_url
+#tar xzvf vamp-plugin-sdk-v2.8.tar.gz
+#cd vamp-*/
+#PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+
+
+
+#echo
+#echo -e "\e[93mCompiling librubberband...\e[39m"
+#echo
+#cd ${FFMPEG_HOME}/src
+#rm -rf rubberband*
+#wget  https://breakfastquay.com/files/releases/rubberband-1.8.2.tar.bz2
+#tar xjvf rubberband-1.8.2.tar.bz2
+#cd rubberband*/
+#PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build"  --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+
+#make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
+#sed -i.bak 's/-lrubberband.*$/-lrubberband -lfftw3 -lsamplerate -lstdc++/' $PKG_CONFIG_PATH/rubberband.pc
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
+
 
 # Full "--enable" list, just in case
 # FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl --enable-libfreetype --enable-fontconfig --enable-libfribidi --enable-libass --enable-libcaca --enable-libvo-amrwbenc --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libtwolame --enable-libopus --enable-libvorbis --enable-libspeex --enable-libvpx --enable-libxvid --enable-libtheora --enable-libwebp --enable-libopenjpeg --enable-libilbc --enable-librtmp --enable-libsoxr --enable-frei0r --enable-filter=frei0r --enable-libvidstab --enable-librubberband"
 
-
+#####################################
 
 
 echo
@@ -437,7 +528,7 @@ cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git
 git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
 cd ffmpeg
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
@@ -446,4 +537,6 @@ hash -r
 
 
 ffmpeg
+which ffmpeg
+
 
