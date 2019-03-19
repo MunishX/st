@@ -22,6 +22,7 @@ yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 yum -y groupinstall "Development Tools"
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
+yum -y install fontconfig fontconfig-devel
 
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
@@ -48,6 +49,15 @@ export PATH=$PATH:${FFMPEG_HOME}/build:${FFMPEG_HOME}/build/lib:${FFMPEG_HOME}/b
 ### FFMPEG ###
 ##############
 
+cd /tmp
+rm -rf cmake*
+wget https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz
+tar zxvf cmake-3.*
+cd cmake-3.*/
+./bootstrap --prefix=/usr/local
+make -j$(nproc)
+make install
+cmake --version
 
 
 echo
