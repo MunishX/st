@@ -223,11 +223,11 @@ echo
 cd ${FFMPEG_HOME}/src
 hg clone https://bitbucket.org/multicoreware/x265
 cd ${FFMPEG_HOME}/src/x265/build/linux
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" ../../source
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin" ../../source
 make -j ${FFMPEG_CPU_COUNT}
 make install
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
-########------------######## --bindir="${FFMPEG_HOME}/bin"
+########------------######## --bindir="${FFMPEG_HOME}/bin"  INSTALL_BIN_DIR 
 
 echo
 echo -e "\e[93mCompiling libfdk-aac...\e[39m"
@@ -384,7 +384,7 @@ echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/uclouvain/openjpeg.git
 cd openjpeg
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" 
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin"  -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin" 
 make -j ${FFMPEG_CPU_COUNT}
 make install
 rm -f -R "${FFMPEG_HOME}/build/lib/openjpeg-2.1"
@@ -400,7 +400,7 @@ cd ${FFMPEG_HOME}/src
 git clone https://github.com/TimothyGu/libilbc.git
 cd libilbc
 sed 's/lib64/lib/g' -i CMakeLists.txt
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" 
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin"  -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin" 
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
