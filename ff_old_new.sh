@@ -32,7 +32,7 @@ yum -y install zip unzip nano wget curl git yum-utils openssl-devel
 yum -y groupinstall "Development Tools"
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
-yum -y install fontconfig fontconfig-devel
+yum -y install fontconfig fontconfig-devel zlib-devel
 
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
@@ -117,6 +117,20 @@ make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
 
+
+echo
+echo -e "\e[93mCompiling zlib...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O zlib.tar.gz https://github.com/madler/zlib/archive/v1.2.11.tar.gz
+tar xzvf zlib.tar.gz
+rm -f zlib.tar.gz
+cd zlib*/
+./configure --prefix="${FFMPEG_HOME}/build" --static
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-zlib"
 
 
 ############## fontconfig
@@ -242,6 +256,22 @@ make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfdk-aac"
+
+
+echo
+echo -e "\e[93mCompiling harfbuzz...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O harfbuzz-2.3.1.tar.bz2 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2
+tar xjvf harfbuzz-2.3.1.tar.bz2
+cd harfbuzz*/
+./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+
+
+
 
 echo
 echo -e "\e[93mCompiling libmp3lame...\e[39m"
