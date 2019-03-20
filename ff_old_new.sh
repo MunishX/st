@@ -511,6 +511,24 @@ make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvidstab"
 
 
+
+echo
+echo -e "\e[93mCompiling zimg...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+rm -rf zimg* release-2.8.tar.gz
+wget -O zimg.tar.gz https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz
+tar xzvf  zimg.tar.gz
+cd zimg*
+./autogen.sh
+./configure --prefix="${FFMPEG_HOME}/build"  --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libzimg"
+
+
+
 ##################### rubber band
 
 #libsamplerate_url="http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz"
