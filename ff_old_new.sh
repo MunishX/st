@@ -272,6 +272,21 @@ make distclean
 
 
 
+echo
+echo -e "\e[93mCompiling frei0r...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O frei0r.tar.gz https://github.com/dyne/frei0r/archive/v1.6.1.tar.gz
+tar xzvf frei0r.tar.gz
+rm -f frei0r.tar.gz
+cd frei0r*/
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DCMAKE_BUILD_TYPE=Release -DWITHOUT_OPENCV=ON -DWITHOUT_GAVL=ON
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-frei0r --enable-filter=frei0r"
+
+
 
 echo
 echo -e "\e[93mCompiling libmp3lame...\e[39m"
@@ -533,14 +548,14 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libzimg"
 
 
 
-echo
-echo -e "\e[93mCompiling librubberband...\e[39m"
-echo
-cd ${FFMPEG_HOME}/src
-git clone https://github.com/lachs0r/rubberband.git
-cd rubberband/
-make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
+#echo
+#echo -e "\e[93mCompiling librubberband...\e[39m"
+#echo
+#cd ${FFMPEG_HOME}/src
+#git clone https://github.com/lachs0r/rubberband.git
+#cd rubberband/
+#make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
 
 
 #libsamplerate_url="http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz"
