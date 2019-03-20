@@ -531,6 +531,18 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libzimg"
 
 ##################### rubber band
 
+
+
+echo
+echo -e "\e[93mCompiling librubberband...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+git clone https://github.com/lachs0r/rubberband.git
+cd rubberband/
+make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
+
+
 #libsamplerate_url="http://www.mega-nerd.com/SRC/libsamplerate-0.1.9.tar.gz"
 #cd ${FFMPEG_HOME}/src
 #rm -rf libsamplerate*
