@@ -18,9 +18,14 @@ sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/you
 sudo chmod a+rx /usr/local/bin/youtube-dl
 echo "YT-DL Install Complete"
 echo ""
+echo ""
+echo "--- DONE ---"
+
+echo ""
+echo ""
 
 
-#chmod 777 /usr/local/bin/*
+chmod 777 /usr/local/bin/*
 
 echo ""
 echo "Phantomjs Version : "
@@ -28,5 +33,6 @@ phantomjs -v
 echo ""
 echo "Youtube-dl Version : "
 youtube-dl -U
+echo ""
+echo ""
 
-echo "--- DONE ---"
