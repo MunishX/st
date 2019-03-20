@@ -276,6 +276,23 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libtwolame"
 ######################################## libopus to be added
 
 echo
+echo -e "\e[93mCompiling libopus...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O opus.tar.gz https://github.com/xiph/opus/archive/v1.3.tar.gz
+tar xzvf opus.tar.gz
+rm -f opus.tar.gz
+cd opus*/
+autoreconf -fiv
+./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopus"
+
+
+
+echo
 echo -e "\e[93mCompiling libogg...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
