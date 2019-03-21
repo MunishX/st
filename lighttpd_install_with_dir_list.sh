@@ -19,6 +19,7 @@ systemctl enable  lighttpd.service
 systemctl start  lighttpd.service
 systemctl status  lighttpd.service
 
+rm -rf /var/www/lighttpd/*
 chown -R lighttpd:lighttpd /var/www/lighttpd
 
 
