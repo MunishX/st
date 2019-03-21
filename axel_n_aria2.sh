@@ -24,6 +24,9 @@ make PREFIX=/usr/local
 
 
 
+echo ""
+echo "############ FINISHED ################"
+echo ""
 
 axel -V
 aria2c -v
