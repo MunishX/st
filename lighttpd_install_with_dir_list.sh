@@ -39,7 +39,7 @@ sysctl -w net.ipv4.icmp_echo_ignore_all=1
 echo ""
 echo "############ FINISHED ################"
 echo ""
-echo "USER =  lighttpd "
+echo "USER =  lighttpd - chown -R lighttpd:lighttpd /var/www/lighttpd/*"
 echo "HTML_DIR =  /var/www/lighttpd "
 echo ""
 
