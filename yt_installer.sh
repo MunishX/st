@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-yum -y install wget curl nano bzip2 zip unzip
+yum -y install wget curl nano bzip2 zip unzip fontconfig
 
 ## PH-JS
 cd /tmp
