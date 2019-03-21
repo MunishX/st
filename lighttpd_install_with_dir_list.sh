@@ -21,8 +21,26 @@ systemctl status  lighttpd.service
 
 chown -R lighttpd:lighttpd /var/www/lighttpd
 
+
+
+################################################
+
+#firewall-cmd --permanent --zone=public --remove-port=10050/tcp
+#firewall-cmd --permanent --zone=public --add-service=https
+#firewall-cmd --permanent --zone=public --add-port=789/tcp  # Prutunel VPN
+
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload
+firewall-cmd --list-all
+
+sysctl -w net.ipv4.icmp_echo_ignore_all=1
+
+#################################################
 echo ""
+echo "############ FINISHED ################"
 echo ""
 echo "USER =  lighttpd "
 echo "HTML_DIR =  /var/www/lighttpd "
+echo ""
+
 
