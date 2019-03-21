@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 
+yum -y install wget curl nano bzip2 zip unzip
+
 ## PH-JS
 cd /tmp
 rm -rf /usr/local/bin/phantomjs
