@@ -11,6 +11,7 @@ My_PORT=$1
 
 echo "
 
+" >> /etc/ssh/sshd_config
 echo "Port $My_PORT" >> /etc/ssh/sshd_config
 service sshd restart
 
