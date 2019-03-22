@@ -9,6 +9,8 @@ My_PORT=$1
 
 ############## SSH POrt Change #############
 
+echo "
+
 echo "Port $My_PORT" >> /etc/ssh/sshd_config
 service sshd restart
 
