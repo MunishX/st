@@ -17,7 +17,8 @@
 
 FFMPEG_CPU_COUNT=$(nproc)
 FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
-FFMPEG_HOME=/usr/local/src/ffmpeg
+#FFMPEG_HOME=/usr/local/src/ffmpeg
+FFMPEG_HOME=/usr/local
 
 ####################
 ## Initialization ##
@@ -81,7 +82,7 @@ cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://github.com/yasm/yasm.git
 cd yasm
 autoreconf -fiv
-./configure --prefix="$HOME/ffmpeg-nonfree/build" --bindir="${FFMPEG_HOME}/bin"
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin"
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
