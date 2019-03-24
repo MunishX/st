@@ -1,9 +1,7 @@
 #!/bin/bash
 
-## PHP 7.2
-# add PHP 7 repo
+## PHP 7.2 zts
 
-PHP_V='php72'
 
 cd /tmp
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -77,4 +75,27 @@ zts-php -i | grep -i thread
 # /usr/bin/php-fpm
 
 # /usr/sbin/php-fpm
+
+
+#############################################
+
+mkdir -p /home/admin/php-zts/
+software_name="php-zts"
+uname="admin"
+admin_username="admin"
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/www -O /home/admin/php-zts/php-zts.conf
+sed -i "s,^.*/run/php-fpm-pool.pid.*,pid = /home/admin/php-zts/php-zts.pid," /home/admin/php-zts/php-zts.conf
+sed -i "s/^.*www-name.*/[$software_name]/" /home/admin/php-zts/php-zts.conf
+sed -i "s/^.*user-name.*/user = $uname/" /home/admin/php-zts/php-zts.conf
+sed -i "s/^.*group-name.*/group = $admin_username/" /home/admin/php-zts/php-zts.conf
+sed -i "s,^.*/run/php-php-fpm.sock.*,listen = /home/admin/php-zts/php-zts.sock," /home/admin/php-zts/php-zts.conf
+sed -i "s/^.*listen-u-name.*/listen.acl_users = $uname/" /home/admin/php-zts/php-zts.conf
+sed -i "s,/user-php-root/,/home/admin/php-zts/,g" /home/admin/php-zts/php-zts.conf
+
+sleep 5
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/phpintl -O /usr/lib/systemd/system/$software_name.service
+sed -i "s,^.*php_config_file.conf.*,ExecStart=/usr/bin/php-fpm --fpm-config=$user_root/$mydom/$php_add_head/$software_name.conf --nodaemonize," /usr/lib/systemd/system/$software_name.service
+chmod 777 /usr/lib/systemd/system/$software_name.service
 
