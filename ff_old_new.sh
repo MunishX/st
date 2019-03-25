@@ -11,6 +11,19 @@
 # watch -n 2 tail -n 30 ffnew.txt
 
 
+
+###################
+## Configuration ##
+###################
+
+FFMPEG_CPU_COUNT=$(nproc)
+FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
+#FFMPEG_HOME=/usr/local/src/ffmpeg
+FFMPEG_HOME=/usr/local
+
+
+
+
 rm -rf ${FFMPEG_HOME}
 mkdir -p ${FFMPEG_HOME}/src
 mkdir -p ${FFMPEG_HOME}/build
@@ -21,15 +34,6 @@ export PATH=$PATH:${FFMPEG_HOME}/build:${FFMPEG_HOME}/build/lib:${FFMPEG_HOME}/b
 #source ~/.profile 
 source ~/.bashrc
 
-
-###################
-## Configuration ##
-###################
-
-FFMPEG_CPU_COUNT=$(nproc)
-FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
-#FFMPEG_HOME=/usr/local/src/ffmpeg
-FFMPEG_HOME=/usr/local
 
 ####################
 ## Initialization ##
@@ -639,6 +643,23 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
 
 # --enable-libxml2
 # --enable-iconv
+
+
+echo
+echo -e "\e[93mCompiling libxml2...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+rm -rf v2.9.9.zip* libxml2*
+wget -O libxml2.zip https://github.com/GNOME/libxml2/archive/v2.9.9.zip
+unzip libxml2.zip
+cd libxml2*/
+./autogen.sh
+./configure --prefix="${FFMPEG_HOME}/build"  --bindir="${FFMPEG_HOME}/bin"  --enable-static --disable-shared --without-readline --without-python
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+
+
 
 echo
 echo -e "\e[93mCompiling libbluray...\e[39m"
