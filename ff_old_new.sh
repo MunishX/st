@@ -682,10 +682,10 @@ echo
 echo -e "\e[93mCompiling ffmpeg...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-#git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
-rm -rf ffmpeg*
-wget -O ffmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
-unzip ffmpeg.zip
+#git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git FFmpeg
+rm -rf FFmpeg*
+wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
+unzip FFmpeg.zip
 cd FFmpeg*/
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
