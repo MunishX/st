@@ -662,13 +662,17 @@ rm -rf /tmp/exiftool*
 
 yum -y install epel-release
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
-
 yum -y install mkvtoolnix
+
 #
 # mkvpropedit "foo.mkv" -e info -s title="This Is The Title"
 
-#To remove all tags:
-#mkvpropedit "input.mkv" --tags all:
+# Will remove all global and non-global tags.
+# mkvpropedit "input.mkv" --tags all:
+# https://mkvtoolnix.download/doc/mkvpropedit.html
+
+yum -y install easytag*
+
 
 #FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
 #FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfreetype "
