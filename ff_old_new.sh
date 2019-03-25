@@ -651,6 +651,9 @@ source ~/.bashrc
 
 #################
 
+yum -y install epel-release
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
 cd /tmp
 rm -rf exiftool*
 wget -O exiftool.zip https://github.com/exiftool/exiftool/archive/11.32.zip
@@ -660,18 +663,23 @@ cd exiftool*
 mv exiftool lib /usr/local/bin/
 rm -rf /tmp/exiftool*
 
-yum -y install epel-release
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+yum -y install easytag*
+# easytag -v
+
+cd /tmp
+yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64//id3v2-0.1.12-7.el7.nux.x86_64.rpm
+#id3v2 -v
+
+
 yum -y install mkvtoolnix
 
-#
+# mkvpropedit -v
 # mkvpropedit "foo.mkv" -e info -s title="This Is The Title"
 
 # Will remove all global and non-global tags.
 # mkvpropedit "input.mkv" --tags all:
 # https://mkvtoolnix.download/doc/mkvpropedit.html
 
-yum -y install easytag*
 
 
 #FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
