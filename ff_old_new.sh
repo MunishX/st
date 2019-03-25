@@ -651,6 +651,24 @@ source ~/.bashrc
 
 #################
 
+cd /tmp
+rm -rf exiftool*
+wget -O exiftool.zip https://github.com/exiftool/exiftool/archive/11.32.zip
+unzip exiftool.zip
+rm -rf exiftool.zip
+cd exiftool*
+mv exiftool lib /usr/local/bin/
+rm -rf /tmp/exiftool*
+
+cd /tmp
+rm -rf libav*
+wget https://libav.org/releases/libav-12.3.tar.gz
+tar -xvzf libav-12.3.tar.gz
+rm -rf libav-12.3.tar.gz
+cd libav*/
+
+#################
+
 echo
 echo -e "\e[93mCompiling zenlib...\e[39m"
 echo
