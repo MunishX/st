@@ -112,11 +112,11 @@ rm -rf fontconfig*
 wget $font_url
 tar xzvf fontconfig-2.13.1.tar.gz
 cd fontconfig*
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-libxml2
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-iconv --enable-libxml2
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig --enable-iconv "
 
 
 echo
@@ -134,7 +134,6 @@ make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-zlib"
 
 
-############## fontconfig
 
 echo
 echo -e "\e[93mCompiling libfribidi...\e[39m"
@@ -629,6 +628,30 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
 # Full "--enable" list, just in case
 # FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl --enable-libfreetype --enable-fontconfig --enable-libfribidi --enable-libass --enable-libcaca --enable-libvo-amrwbenc --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libtwolame --enable-libopus --enable-libvorbis --enable-libspeex --enable-libvpx --enable-libxvid --enable-libtheora --enable-libwebp --enable-libopenjpeg --enable-libilbc --enable-librtmp --enable-libsoxr --enable-frei0r --enable-filter=frei0r --enable-libvidstab --enable-librubberband"
 
+
+#git clone https://code.videolan.org/videolan/libbluray.git
+#http://ftp.videolan.org/pub/videolan/libbluray/1.1.0/libbluray-1.1.0.tar.bz2
+
+#yum -y install http://mirror.centos.org/centos/7/os/x86_64/Packages/libbluray-0.2.3-5.el7.x86_64.rpm
+# --enable-libbluray
+
+# --enable-libxml2
+# --enable-iconv
+
+echo
+echo -e "\e[93mCompiling libbluray...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+rm -rf libbluray*
+wget  http://ftp.videolan.org/pub/videolan/libbluray/1.1.0/libbluray-1.1.0.tar.bz2
+tar xjvf libbluray-1.1.0.tar.bz2
+cd libbluray*/
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build"  --bindir="${FFMPEG_HOME}/bin" --enable-static --disable-shared --disable-doxygen-doc --disable-doxygen-dot --disable-doxygen-html --disable-doxygen-ps --disable-doxygen-pdf --disable-doxygen-man --disable-doxygen-rtf --disable-doxygen-xml --disable-doxygen-chm --disable-doxygen-chi --disable-examples --disable-bdjava --disable-bdjava-jar 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libbluray"
+
 #####################################
 
 
@@ -636,9 +659,11 @@ echo
 echo -e "\e[93mCompiling ffmpeg...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-#git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git
-git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
-cd ffmpeg
+#git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git ffmpeg
+rm -rf ffmpeg*
+wget -O ffmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
+unzip ffmpeg.zip
+cd ffmpeg*/
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
