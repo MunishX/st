@@ -660,13 +660,49 @@ cd exiftool*
 mv exiftool lib /usr/local/bin/
 rm -rf /tmp/exiftool*
 
+
+FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfreetype "
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-zlib"
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfribidi"
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvo-amrwbenc"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopencore-amrnb --enable-libopencore-amrwb"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx264"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfdk-aac"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-frei0r --enable-filter=frei0r"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libmp3lame"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libtwolame"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopus"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvorbis"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libspeex"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvpx"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxvid"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libtheora"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libwebp"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopenjpeg"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libilbc"
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librtmp"
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsoxr"
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvidstab"
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libzimg"
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
+
+
 cd /tmp
 rm -rf libav*
 wget https://libav.org/releases/libav-12.3.tar.gz
 tar -xvzf libav-12.3.tar.gz
 rm -rf libav-12.3.tar.gz
 cd libav*/
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz -ldl' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" --arch=x86_64 ${FFMPEG_ENABLE}
+make
+make install
 
+# ./configure --help
+# https://gist.github.com/Brainiarc7/95c9338a737aa36d9bb2931bed379219
 #################
 
 echo
