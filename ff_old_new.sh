@@ -645,6 +645,23 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
 # --enable-iconv
 
 
+
+echo
+echo -e "\e[93mCompiling Snappy...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+rm -rf snappy*
+wget -O snappy.zip https://github.com/google/snappy/archive/1.1.7.zip
+unzip snappy.zip
+cd snappy*/
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DBUILD_SHARED_LIBS=OFF -DSNAPPY_BUILD_TESTS=OFF
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsnappy"
+
+
+
 echo
 echo -e "\e[93mCompiling libxml2...\e[39m"
 echo
