@@ -665,7 +665,7 @@ cd ${FFMPEG_HOME}/src
 rm -rf ffmpeg*
 wget -O ffmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
 unzip ffmpeg.zip
-cd ffmpeg*/
+cd FFmpeg*/
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
