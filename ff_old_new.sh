@@ -749,5 +749,5 @@ which ffmpeg
 source ~/.bashrc
 
 # mediainfo -f --Output=JSON input.mkv
-# ffprobe -v quiet -print_format json -show_format -show_streams  input.mkv
-
+# ffprobe -v quiet -print_format json -show_format -show_streams input.mkv
+# ffprobe -v quiet -print_format json -show_format -show_streams -show_chapters input.mkv
