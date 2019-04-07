@@ -189,7 +189,7 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
-mkdir -p /home/admin/ip/{html,error,ssl}
+mkdir -p /home/admin/ip/{html,error,ssl,bin}
 chmod -R 777 /home/admin/ip/
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/add_user.sh -O /usr/bin/addnewuser
