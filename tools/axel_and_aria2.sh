@@ -35,3 +35,7 @@ echo ""
 
 axel -V
 aria2c -v
+
+echo ""
+echo "#### DONE ####"
+echo ""
