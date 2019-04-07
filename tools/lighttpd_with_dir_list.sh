@@ -43,5 +43,5 @@ echo ""
 echo "USER =  lighttpd - chown -R lighttpd:lighttpd /var/www/lighttpd/*"
 echo "HTML_DIR =  /var/www/lighttpd "
 echo ""
-
-
+echo " #### DONE #### "
+echo ""
