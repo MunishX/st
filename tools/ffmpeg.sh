@@ -242,9 +242,46 @@ echo -e "\e[93mCompiling libx265...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
 hg clone https://bitbucket.org/multicoreware/x265
-cd ${FFMPEG_HOME}/src/x265/build/linux
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off ../../source
-make -j ${FFMPEG_CPU_COUNT}
+
+#cd ${FFMPEG_HOME}/src/x265/build/linux
+#cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off ../../source
+#make -j ${FFMPEG_CPU_COUNT}
+
+cd x265/
+mkdir {build-8,build-10,build-12}
+
+  cd build-12
+  cmake ../source \
+    -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}" \
+    -DHIGH_BIT_DEPTH='TRUE' \
+    -DMAIN12='TRUE' \
+    -DEXPORT_C_API='FALSE' \
+    -DENABLE_CLI='FALSE' \
+    -DENABLE_SHARED='FALSE'
+  make -j ${FFMPEG_CPU_COUNT}
+  
+  cd ../build-10
+  cmake ../source \
+    -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}" \
+    -DHIGH_BIT_DEPTH='TRUE' \
+    -DEXPORT_C_API='FALSE' \
+    -DENABLE_CLI='FALSE' \
+    -DENABLE_SHARED='FALSE'
+  make -j ${FFMPEG_CPU_COUNT}
+
+  cd ../build-8
+  ln -s ../build-10/libx265.a libx265_main10.a
+  ln -s ../build-12/libx265.a libx265_main12.a
+  cmake ../source \
+    -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}" \
+    -DENABLE_SHARED:bool=off \
+    -DENABLE_HDR10_PLUS='TRUE' \
+    -DEXTRA_LIB='x265_main10.a;x265_main12.a' \
+    -DEXTRA_LINK_FLAGS='-L .' \
+    -DLINKED_10BIT='TRUE' \
+    -DLINKED_12BIT='TRUE'
+  make -j ${FFMPEG_CPU_COUNT}
+
 make install
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
 ########------------######## --bindir="${FFMPEG_HOME}/bin"   -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin"  
