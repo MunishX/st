@@ -3,6 +3,8 @@
 
 yum -y install wget unzip
 
+rm -rf /usr/local/bin/cpulimit
+
 cd /tmp
 rm -rf cpulimit*
 wget -O cpulimit.zip https://github.com/opsengine/cpulimit/archive/v0.2.zip
