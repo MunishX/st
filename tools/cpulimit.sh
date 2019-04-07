@@ -1,7 +1,7 @@
 #!/bin/bash
 # cpulimit install
 
-yum -y install zip unzip
+yum -y install wget unzip
 
 cd /tmp
 rm -rf cpulimit*
