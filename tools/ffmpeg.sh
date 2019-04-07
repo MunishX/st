@@ -282,6 +282,7 @@ mkdir {build-8,build-10,build-12}
     -DLINKED_12BIT='TRUE'
   make -j ${FFMPEG_CPU_COUNT}
 
+# make DESTDIR="${pkgdir}" install
 make install
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
 ########------------######## --bindir="${FFMPEG_HOME}/bin"   -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin"  
