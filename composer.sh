@@ -12,6 +12,7 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 mkdir -p /home/admin/bin/
 php composer-setup.php --install-dir=/home/admin/bin --filename=composer
 
+chown -R admin:admin /home/admin/bin/*
 chmod 777 /home/admin/bin/*
 
 echo ""
