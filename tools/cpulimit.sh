@@ -16,6 +16,6 @@ rm -rf cpulimit*
 cpulimit -v
 
 echo ""
-echo "#### FINISH ####"
+echo "#### CPULimit DONE ####"
 echo ""
 
