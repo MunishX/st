@@ -251,28 +251,28 @@ cd x265/
 mkdir {build-8,build-10,build-12}
 
   cd build-12
-  cmake ../source \
+  PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" ../source \
     -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" \
     -DHIGH_BIT_DEPTH='TRUE' \
     -DMAIN12='TRUE' \
     -DEXPORT_C_API='FALSE' \
     -DENABLE_CLI='FALSE' \
-    -DENABLE_SHARED='FALSE'
+    -DENABLE_SHARED:bool=off
   make -j ${FFMPEG_CPU_COUNT}
   
   cd ../build-10
-  cmake ../source \
+  PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" ../source \
     -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" \
     -DHIGH_BIT_DEPTH='TRUE' \
     -DEXPORT_C_API='FALSE' \
     -DENABLE_CLI='FALSE' \
-    -DENABLE_SHARED='FALSE'
+    -DENABLE_SHARED:bool=off
   make -j ${FFMPEG_CPU_COUNT}
 
   cd ../build-8
   ln -s ../build-10/libx265.a libx265_main10.a
   ln -s ../build-12/libx265.a libx265_main12.a
-  cmake ../source \
+  PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" ../source \
     -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" \
     -DENABLE_SHARED:bool=off \
     -DENABLE_HDR10_PLUS='TRUE' \
