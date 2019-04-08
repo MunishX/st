@@ -880,6 +880,7 @@ make distclean
 source ~/.bashrc
 
 ffmpeg
+ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
 which ffmpeg
 
 source ~/.bashrc
