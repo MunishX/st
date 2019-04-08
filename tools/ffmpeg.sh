@@ -281,11 +281,23 @@ mkdir {build-8,build-10,build-12}
     -DLINKED_10BIT='TRUE' \
     -DLINKED_12BIT='TRUE'
   make -j ${FFMPEG_CPU_COUNT}
+  mv libx265.a libx265_main8.a
+
+ar -M <<EOF
+CREATE libx265.a
+ADDLIB libx265_main8.a
+ADDLIB libx265_main10.a
+ADDLIB libx265_main12.a
+SAVE
+END
+EOF
 
 # make DESTDIR="${pkgdir}" install
 make install
+make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
 ########------------######## --bindir="${FFMPEG_HOME}/bin"   -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin"  
+
 
 echo
 echo -e "\e[93mCompiling libfdk-aac...\e[39m"
