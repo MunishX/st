@@ -17,7 +17,7 @@
 ###################
 
 FFMPEG_CPU_COUNT=$(nproc)
-FFMPEG_ENABLE="--enable-gpl --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
+FFMPEG_ENABLE="--enable-gpl --enable-pic --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
 #FFMPEG_HOME=/usr/local/src/ffmpeg
 FFMPEG_HOME=/usr/local
 
