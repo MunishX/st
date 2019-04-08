@@ -16,6 +16,7 @@ cd /tmp
 rm -rf composer*
 chown -R admin:admin /home/admin/bin
 chmod 777 /home/admin/bin/*
+chmod 777 /usr/local/bin/*
 composer -v
 
 echo ""
