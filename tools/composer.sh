@@ -14,7 +14,7 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php composer-setup.php --install-dir=/home/admin/bin --filename=composer
 cd /tmp
 rm -rf composer*
-chown -R admin:admin /home/admin/bin/*
+chown -R admin:admin /home/admin/bin
 chmod 777 /home/admin/bin/*
 composer -v
 
