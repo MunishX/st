@@ -17,7 +17,7 @@
 ###################
 
 FFMPEG_CPU_COUNT=$(nproc)
-FFMPEG_ENABLE="--enable-gpl --enable-pic --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl "
+FFMPEG_ENABLE="--enable-gpl --enable-pic --enable-version3 --enable-nonfree --enable-runtime-cpudetect --enable-gray --enable-openssl --enable-iconv "
 #FFMPEG_HOME=/usr/local/src/ffmpeg
 FFMPEG_HOME=/usr/local
 
@@ -122,7 +122,7 @@ cd fontconfig*
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig --enable-iconv "
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
 
 
 echo
@@ -725,7 +725,7 @@ cd libxml2*/
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxml2 "
 
 
 echo
