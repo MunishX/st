@@ -11,11 +11,11 @@ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Insta
 
 mkdir -p /home/admin/bin/
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-php composer-setup.php --install-dir=/home/admin/bin --filename=composer
+#php composer-setup.php --install-dir=/home/admin/bin --filename=composer
 cd /tmp
 rm -rf composer*
-chown -R admin:admin /home/admin/bin
-chmod 777 /home/admin/bin/*
+#chown -R admin:admin /home/admin/bin
+#chmod 777 /home/admin/bin/*
 chmod 777 /usr/local/bin/*
 composer -v
 
