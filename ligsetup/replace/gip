@@ -16,9 +16,9 @@ server.modules += ( "mod_geoip" )
 ## mod_geoip will determine the database type automatically so if you
 ## enter GeoCity databse path it will load GeoCity Env.
 ##
-#geoip.db-filename = "/usr/share/GeoIP/GeoIP.dat"
+geoip.db-filename = "/usr/share/GeoIP/GeoIP.dat"
 #geoip.db-filename = "/home/lighttpd/bin/GeoIP.dat"
-geoip.db-filename = "/home/lighttpd/bin/GeoLiteCity.dat"
+#geoip.db-filename = "/home/lighttpd/bin/GeoLiteCity.dat"
 
 ##
 ## If enabled, mod_geoip will load the database binary file to memory
