@@ -3,7 +3,7 @@
 ## PHP 7.3
 # add PHP 7 repo
 
-PHP_V='php73'
+PHP_V='php72'
 
 cd /tmp
 wget https://centos7.iuscommunity.org/ius-release.rpm
