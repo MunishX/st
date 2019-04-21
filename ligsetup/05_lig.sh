@@ -22,10 +22,10 @@ mkdir -p /home/lighttpd/{tmp,bin}
 #gunzip /home/lighttpd/bin/GeoIP.dat.gz
 #gunzip /home/lighttpd/bin/GeoLiteCity.dat.gz
 
-cd /home/lighttpd/bin/
-wget https://github.com/munishgaurav5/st/raw/master/GIP.rar
-unrar x GIP.rar
-rm -rf GIP.rar
+#cd /home/lighttpd/bin/
+#wget https://github.com/munishgaurav5/st/raw/master/GIP.rar
+#unrar x GIP.rar
+#rm -rf GIP.rar
 
 
 chown -R lighttpd:lighttpd /home/lighttpd
