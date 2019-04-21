@@ -17,11 +17,16 @@ mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
 mkdir -p /home/lighttpd/{tmp,bin}
 
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -O /home/lighttpd/bin/GeoIP.dat.gz
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz -O /home/lighttpd/bin/GeoLiteCity.dat.gz
+#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -O /home/lighttpd/bin/GeoIP.dat.gz
+#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz -O /home/lighttpd/bin/GeoLiteCity.dat.gz
+#gunzip /home/lighttpd/bin/GeoIP.dat.gz
+#gunzip /home/lighttpd/bin/GeoLiteCity.dat.gz
 
-gunzip /home/lighttpd/bin/GeoIP.dat.gz
-gunzip /home/lighttpd/bin/GeoLiteCity.dat.gz
+cd /home/lighttpd/bin/
+wget https://github.com/munishgaurav5/st/raw/master/GIP.rar
+unrar x GIP.rar
+rm -rf GIP.rar
+
 
 chown -R lighttpd:lighttpd /home/lighttpd
 chmod -R 777 /home/lighttpd
