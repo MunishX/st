@@ -4,9 +4,11 @@
 # yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh && ./00_install.sh
 # yum -y install wget nano && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
 
-# cd /tmp && yum install wget -y && rm -rf 00_install* && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh 
-# nohup ./00_install.sh > install.log.txt 2>&1 &
-# watch -n 2 tail -n 30 install.log.txt
+## cd /tmp && yum install wget -y && rm -rf 00_install* && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh && nohup ./00_install.sh 
+
+## cd /tmp && yum install wget -y && rm -rf 00_install* && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/00_install.sh && chmod 777 00_install.sh 
+## nohup ./00_install.sh > install.log.txt 2>&1 &
+## watch -n 2 tail -n 30 install.log.txt
 
 
 #------------------------------------------------------------------------------------
