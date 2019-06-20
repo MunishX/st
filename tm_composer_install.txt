@@ -1,2 +1,5 @@
+update line
+"kriswallsmith/buzz": ">=0.9 <=0.16.1",
+
 composer create-project kleiram/transmission-php --keep-vcs -s dev tor
 composer create-project stil/curl-easy curl_easy
