@@ -9,3 +9,25 @@ composer install
 
 composer create-project kleiram/transmission-php --keep-vcs -s dev tor
 composer create-project stil/curl-easy curl_easy
+
+============
+Phntmjs php
+composer.json
+{
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    },
+ "config": {
+        "bin-dir": "bin"
+    },
+    "require": {
+        "jonnyw/php-phantomjs": "4.*"
+    }
+}
+
+==========
