@@ -762,6 +762,7 @@ make distclean
 hash -r
 
 source ~/.bashrc
+#. ~/.bash_profile
 
 ########  Install qt-faststart
 echo
@@ -771,8 +772,6 @@ cd ${FFMPEG_HOME}/src
 cd FFmpeg*/tools/
 make qt-faststart
 cp qt-faststart /usr/local/bin/
-ldconfig
-source ~/.bashrc
 ldconfig
 
 #################
