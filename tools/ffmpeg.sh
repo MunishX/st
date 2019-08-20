@@ -763,7 +763,17 @@ hash -r
 
 source ~/.bashrc
 
-
+########  Install qt-faststart
+echo
+echo -e "\e[93mCompiling qt-faststart...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+cd FFmpeg*/tools/
+make qt-faststart
+cp qt-faststart /usr/local/bin/
+ldconfig
+source ~/.bashrc
+ldconfig
 
 #################
 
