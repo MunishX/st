@@ -96,12 +96,14 @@ make distclean
 echo
 echo -e "\e[93mCompiling freetype...\e[39m"
 echo
-freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2"
+#freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2"
+freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz"
 cd ${FFMPEG_HOME}/src
 rm -rf freetype*
 wget $freetype_url
-tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
-cd freetype-2.9.1
+#tar -xf freetype-2.9.1.tar.bz2 freetype-2.9.1
+tar xzvf freetype-2.10.1.tar.gz
+cd freetype-*/
 ./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --enable-freetype-config --enable-static
 make
 make install
@@ -112,11 +114,12 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfreetype "
 echo
 echo -e "\e[93mCompiling fontconfig...\e[39m"
 echo
-font_url="https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.gz"
+#font_url="https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.gz"
+font_url="https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.92.tar.gz"
 cd ${FFMPEG_HOME}/src
 rm -rf fontconfig*
 wget $font_url
-tar xzvf fontconfig-2.13.1.tar.gz
+tar xzvf fontconfig-2.13.92.tar.gz
 cd fontconfig*
 ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --enable-iconv --enable-libxml2
 make -j ${FFMPEG_CPU_COUNT}
@@ -320,8 +323,12 @@ echo
 echo -e "\e[93mCompiling harfbuzz...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-wget -O harfbuzz-2.3.1.tar.bz2 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2
-tar xjvf harfbuzz-2.3.1.tar.bz2
+#wget -O harfbuzz-2.3.1.tar.bz2 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2
+#tar xjvf harfbuzz-2.3.1.tar.bz2
+
+wget -O harfbuzz.tar.bz2 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.6.0.tar.xz
+tar -xf harfbuzz-2.3.1.tar.bz2
+
 cd harfbuzz*/
 ./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
 make -j ${FFMPEG_CPU_COUNT}
@@ -382,7 +389,7 @@ echo
 echo -e "\e[93mCompiling libopus...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-wget -O opus.tar.gz https://github.com/xiph/opus/archive/v1.3.tar.gz
+wget -O opus.tar.gz https://github.com/xiph/opus/archive/v1.3.1.tar.gz
 tar xzvf opus.tar.gz
 rm -f opus.tar.gz
 cd opus*/
@@ -399,10 +406,16 @@ echo
 echo -e "\e[93mCompiling libogg...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-curl -L -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
-tar xzvf libogg-1.3.2.tar.gz
-rm -f libogg-1.3.2.tar.gz
-cd libogg-1.3.2
+#curl -L -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
+#tar xzvf libogg-1.3.2.tar.gz
+#rm -f libogg-1.3.2.tar.gz
+#cd libogg-1.3.2
+
+wget -O libogg.tar.gz https://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.3.tar.gz
+tar xzvf libogg.tar.gz
+rm -f libogg.tar.gz
+cd libogg*/
+
 ./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
 make -j ${FFMPEG_CPU_COUNT}
 make install
@@ -412,10 +425,16 @@ echo
 echo -e "\e[93mCompiling libvorbis...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-curl -L -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
-tar xzvf libvorbis-1.3.4.tar.gz
-rm -f libvorbis-1.3.4.tar.gz
-cd libvorbis-1.3.4
+#curl -L -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
+#tar xzvf libvorbis-1.3.4.tar.gz
+#rm -f libvorbis-1.3.4.tar.gz
+#cd libvorbis-1.3.4
+
+wget -O libvorbis.tar.gz  https://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.6.tar.gz
+tar xzvf libvorbis.tar.gz
+rm -f libvorbis.tar.gz
+cd libvorbis*
+
 LDFLAGS="-L${FFMPEG_HOME}/build/lib" CPPFLAGS="-I${FFMPEG_HOME}/build/include" ./configure --prefix="${FFMPEG_HOME}/build" --with-ogg="${FFMPEG_HOME}/build" --disable-shared --enable-static
 make -j ${FFMPEG_CPU_COUNT}
 make install
@@ -457,10 +476,16 @@ echo
 echo -e "\e[93mCompiling libxvid...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-curl -L -O http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz 
-tar xvfz xvidcore-1.3.2.tar.gz
-rm -f xvidcore-1.3.2.tar.gz
+#curl -L -O http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz 
+#tar xvfz xvidcore-1.3.2.tar.gz
+#rm -f xvidcore-1.3.2.tar.gz
+#cd xvidcore/build/generic
+
+wget -O xvidcore.tar.gz https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz
+tar xvfz xvidcore.tar.gz
+rm -f xvidcore.tar.gz
 cd xvidcore/build/generic
+
 ./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
 make -j ${FFMPEG_CPU_COUNT}
 make install
@@ -590,7 +615,8 @@ echo -e "\e[93mCompiling zimg...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf zimg* release-2.8.tar.gz
-wget -O zimg.tar.gz https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz
+#wget -O zimg.tar.gz https://github.com/sekrit-twc/zimg/archive/release-2.8.tar.gz
+wget -O zimg.tar.gz https://github.com/sekrit-twc/zimg/archive/release-2.9.2.tar.gz
 tar xzvf  zimg.tar.gz
 cd zimg*
 ./autogen.sh
