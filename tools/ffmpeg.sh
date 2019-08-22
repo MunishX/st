@@ -72,7 +72,8 @@ yum -y install fontconfig fontconfig-devel zlib-devel
 
 cd /tmp
 rm -rf cmake*
-wget https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz
+#wget https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz
+wget https://cmake.org/files/v3.15/cmake-3.15.0.tar.gz
 tar zxvf cmake-3.*
 cd cmake-3.*/
 ./bootstrap --prefix=/usr/local
