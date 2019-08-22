@@ -296,6 +296,8 @@ EOF
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx265"
+
+cp ${FFMPEG_HOME}/build/bin/x265 ${FFMPEG_HOME}/bin/
 ########------------######## --bindir="${FFMPEG_HOME}/bin"   -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin"  
 
 
@@ -752,9 +754,15 @@ cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git FFmpeg
 rm -rf FFmpeg*
 #wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
-wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.3.zip
+#wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.3.zip
+wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.2.zip
 unzip FFmpeg.zip
 cd FFmpeg*/
+
+#### EDIT ####
+sed -i 's%^.*define LIBAVFORMAT_IDENT.*%#define LIBAVFORMAT_IDENT             "FastVideoEncoder.com"%' libavformat/version.h
+##############
+
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
@@ -781,7 +789,7 @@ rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 
 cd /tmp
 rm -rf exiftool*
-wget -O exiftool.zip https://github.com/exiftool/exiftool/archive/11.32.zip
+wget -O exiftool.zip https://github.com/exiftool/exiftool/archive/11.63.zip
 unzip exiftool.zip
 rm -rf exiftool.zip
 cd exiftool*
@@ -886,7 +894,6 @@ make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 
-
 source ~/.bashrc
 
 ffmpeg
@@ -894,6 +901,8 @@ ffmpeg -h encoder=libx265 2>/dev/null | grep pixel
 which ffmpeg
 
 source ~/.bashrc
+
+chmod 777 ${FFMPEG_HOME}/bin/*
 
 # mediainfo -f --Output=JSON input.mkv
 # ffprobe -v quiet -print_format json -show_format -show_streams input.mkv
