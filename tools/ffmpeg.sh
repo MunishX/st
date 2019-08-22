@@ -4,7 +4,7 @@
 ## MG New
 
 # cd /tmp && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg.sh && chmod 777 ffmpeg.sh && ./ffmpeg.sh
-# cd /tmp && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg.sh && chmod 777 ffmpeg.sh && nohup ./ffmpeg.sh > ffmpeg.log.txt &
+
 
 # cd /tmp && yum install wget -y && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg.sh && chmod 777 ffmpeg.sh 
 # nohup ./ffmpeg.sh > ffmpeg.log.txt 2>&1 &
