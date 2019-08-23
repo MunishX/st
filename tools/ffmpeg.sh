@@ -228,6 +228,21 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopencore-amrnb --enable-libopencore-
 
 
 echo
+echo -e "\e[93mCompiling libaom ...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+mkdir libaom
+cd libaom
+git clone https://aomedia.googlesource.com/aom 
+cmake ./aom 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libaom"
+
+
+
+echo
 echo -e "\e[93mCompiling libx264...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
