@@ -181,10 +181,9 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 #echo -e "\e[93mCompiling libcaca...\e[39m"
 #echo
 #cd ${FFMPEG_HOME}/src
-#rm -rf v0.99.beta19.tar.gz libcaca
-#wget https://github.com/cacalabs/libcaca/archive/v0.99.beta19.tar.gz
-#tar xzvf v0.99.beta19.tar.gz
-#cd libcaca*
+#rm -rf libcaca*
+#git clone --depth=1 git://github.com/cacalabs/libcaca
+#cd libcaca
 #./bootstrap
 #./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
 #make -j ${FFMPEG_CPU_COUNT}
