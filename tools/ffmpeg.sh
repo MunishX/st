@@ -231,14 +231,22 @@ echo
 echo -e "\e[93mCompiling libaom ...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-mkdir libaom
-cd libaom
+
 git clone https://aomedia.googlesource.com/aom 
-cmake ./aom 
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
+mkdir aom_build
+cd aom_build
+#which cmake3 && PROG=cmake3 || PROG=cmake
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED=off -DENABLE_NASM=on ../aom
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libaom"
+
+#mkdir libaom
+#cd libaom
+#git clone https://aomedia.googlesource.com/aom 
+#cmake ./aom 
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libaom"
 
 
 
