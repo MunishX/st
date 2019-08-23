@@ -239,8 +239,7 @@ cd ..
 
 mkdir aom_build
 cd aom_build
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DENABLE_NASM=on ../aom
-
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DENABLE_NASM=on  -DCMAKE_INSTALL_LIBDIR="lib" -DCMAKE_INSTALL_BINDIR="${FFMPEG_HOME}/bin"  ../aom
 #mkdir libaom
 #cd libaom
 #git clone https://aomedia.googlesource.com/aom 
