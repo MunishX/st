@@ -840,7 +840,7 @@ yum -y install http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages
 #/usr/bin/id3cp
 #/usr/bin/id3info
 #/usr/bin/id3tag
-#id3tag -v
+#id3tag -h
 
 #https://centos.pkgs.org/7/nux-dextop-x86_64/id3v2-0.1.12-7.el7.nux.x86_64.rpm.html
 cd /tmp
@@ -849,8 +849,8 @@ yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64//id3v2-0.1.12-7.e
 #id3v2 -v
 
 #https://centos.pkgs.org/7/nux-dextop-x86_64/kid3-3.4.5-2.el7.nux.x86_64.rpm.html
-cd /tmp
-yum install http://li.nux.ro/download/nux/dextop/el7/x86_64//kid3-3.4.5-2.el7.nux.x86_64.rpm
+#cd /tmp
+#yum install http://li.nux.ro/download/nux/dextop/el7/x86_64//kid3-3.4.5-2.el7.nux.x86_64.rpm
 #/usr/bin/kid3
 #kid3 -v
 
@@ -864,13 +864,13 @@ cd exiftool*
 mv exiftool lib /usr/local/bin/
 rm -rf /tmp/exiftool*
 
-
-yum -y install easytag*
-# easytag -v
+# need GUI
+#yum -y install easytag*
+# easytag -v 
 
 
 yum -y install mkvtoolnix
-# mkvpropedit -v
+# mkvpropedit -h
 # mkvpropedit "foo.mkv" -e info -s title="This Is The Title"
 
 # Will remove all global and non-global tags.
