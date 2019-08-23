@@ -477,15 +477,15 @@ echo
 echo -e "\e[93mCompiling libxvid...\e[39m"
 echo
 cd ${FFMPEG_HOME}/src
-#curl -L -O http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz 
-#tar xvfz xvidcore-1.3.2.tar.gz
-#rm -f xvidcore-1.3.2.tar.gz
-#cd xvidcore/build/generic
-
-wget -O xvidcore.tar.gz https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz
-tar xvfz xvidcore.tar.gz
-rm -f xvidcore.tar.gz
+curl -L -O http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz 
+tar xvfz xvidcore-1.3.2.tar.gz
+rm -f xvidcore-1.3.2.tar.gz
 cd xvidcore/build/generic
+
+#wget -O xvidcore.tar.gz https://downloads.xvid.com/downloads/xvidcore-1.3.5.tar.gz
+#tar xvfz xvidcore.tar.gz
+#rm -f xvidcore.tar.gz
+#cd xvidcore/build/generic
 
 ./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
 make -j ${FFMPEG_CPU_COUNT}
@@ -787,7 +787,26 @@ unzip FFmpeg.zip
 cd FFmpeg*/
 
 #### EDIT ####
-sed -i 's%^.*define LIBAVFORMAT_IDENT.*%#define LIBAVFORMAT_IDENT             "FastVideoEncoder.com"%' libavformat/version.h
+
+nmmw=Fas
+nmmx=tVid
+nmmy=eoEnc
+nmmz=oder
+
+mvvx=6
+mvvy=1
+mvvz=3
+
+cmmx=".c"
+cmmy="om"
+
+app_name=${nmmw}${nmmx}${nmmy}${nmmz}
+app_version=${mvvx}.${mvvy}.${mvvz}
+app_full_name="${app_name} v${app_version} (By ${app_name}${cmmx}${cmmy})"
+
+sed -i 's%^.*define LIBAVFORMAT_IDENT.*%#define LIBAVFORMAT_IDENT             "XXX_EN_CODER"%' libavformat/version.h
+sed -i "s/XXX_EN_CODER/$app_full_name/" libavformat/version.h
+
 ##############
 
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
