@@ -67,6 +67,21 @@ yum -y install fontconfig fontconfig-devel zlib-devel
 
 
 ##############
+### Colour ###
+##############
+if test -t 1 && which tput >/dev/null 2>&1; then
+    ncolors=$(tput colors)
+    if test -n "$ncolors" && test $ncolors -ge 8; then
+        msg_color=$(tput setaf 3)$(tput bold)
+        error_color=$(tput setaf 1)$(tput bold)
+        reset_color=$(tput sgr0)
+    fi
+    ncols=$(tput cols)
+fi
+
+
+
+##############
 ### FFMPEG ###
 ##############
 
@@ -83,7 +98,7 @@ cmake --version
 
 
 echo
-echo -e "\e[93mCompiling YASM...\e[39m"
+echo -e "$msg_colorCompiling YASM...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://github.com/yasm/yasm.git
@@ -95,7 +110,7 @@ make install
 make distclean
 
 echo
-echo -e "\e[93mCompiling freetype...\e[39m"
+echo -e "$msg_colorCompiling freetype...$reset_color"
 echo
 #freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2"
 freetype_url="http://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz"
@@ -113,7 +128,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfreetype "
 ########------------######## --bindir="${FFMPEG_HOME}/bin"
 
 echo
-echo -e "\e[93mCompiling fontconfig...\e[39m"
+echo -e "$msg_colorCompiling fontconfig...$reset_color"
 echo
 #font_url="https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.gz"
 font_url="https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.92.tar.gz"
@@ -130,7 +145,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
 
 
 echo
-echo -e "\e[93mCompiling zlib...\e[39m"
+echo -e "$msg_colorCompiling zlib...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 wget -O zlib.tar.gz https://github.com/madler/zlib/archive/v1.2.11.tar.gz
@@ -146,7 +161,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-zlib"
 
 
 echo
-echo -e "\e[93mCompiling libfribidi...\e[39m"
+echo -e "$msg_colorCompiling libfribidi...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O https://github.com/fribidi/fribidi/releases/download/v1.0.5/fribidi-1.0.5.tar.bz2
@@ -161,7 +176,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfribidi"
 
 
 echo
-echo -e "\e[93mCompiling libass...\e[39m"
+echo -e "$msg_colorCompiling libass...$reset_color"
 echo
 libass_url="https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.gz"
 cd ${FFMPEG_HOME}/src
@@ -178,7 +193,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
 #echo
-#echo -e "\e[93mCompiling libcaca...\e[39m"
+#echo -e "$msg_colorCompiling libcaca...$reset_color"
 #echo
 #cd ${FFMPEG_HOME}/src
 #rm -rf libcaca*
@@ -194,7 +209,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
 echo
-echo -e "\e[93mCompiling libvo-amrwbenc...\e[39m"
+echo -e "$msg_colorCompiling libvo-amrwbenc...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.sourceforge.net/opencore-amr/vo-amrwbenc/vo-amrwbenc-0.1.3.tar.gz
@@ -210,7 +225,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvo-amrwbenc"
 
 
 echo
-echo -e "\e[93mCompiling libopencore...\e[39m"
+echo -e "$msg_colorCompiling libopencore...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.sourceforge.net/opencore-amr/opencore-amr-0.1.3.tar.gz
@@ -227,23 +242,16 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopencore-amrnb --enable-libopencore-
 
 
 echo
-echo -e "\e[93mCompiling libaom ...\e[39m"
+echo -e "$msg_colorCompiling libaom ...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
-
 git clone https://aomedia.googlesource.com/aom 
 cd aom
 sed 's/lib64/lib/g' -i CMakeLists.txt
 cd ..
-
 mkdir aom_build
 cd aom_build
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DBUILD_SHARED_LIBS=0 -DENABLE_SHARED=off -DCMAKE_BUILD_TYPE=Release -DENABLE_NASM=on  -DCMAKE_INSTALL_LIBDIR="lib" -DCMAKE_INSTALL_BINDIR="${FFMPEG_HOME}/bin"  ../aom
-#mkdir libaom
-#cd libaom
-#git clone https://aomedia.googlesource.com/aom 
-#cmake ./aom 
-
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
@@ -252,7 +260,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libaom"
 
 
 echo
-echo -e "\e[93mCompiling libx264...\e[39m"
+echo -e "$msg_colorCompiling libx264...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://git.videolan.org/git/x264.git
@@ -266,7 +274,7 @@ make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx264"
 
 echo
-echo -e "\e[93mCompiling libx265...\e[39m"
+echo -e "\e[93mCompiling libx265...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 hg clone https://bitbucket.org/multicoreware/x265
@@ -333,7 +341,7 @@ cp ${FFMPEG_HOME}/build/bin/x265 ${FFMPEG_HOME}/bin/
 
 
 echo
-echo -e "\e[93mCompiling xavs2 encoder ...\e[39m"
+echo -e "$msg_colorCompiling xavs2 encoder ...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
@@ -351,7 +359,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxavs2"
 
 
 echo
-echo -e "\e[93mCompiling davs2 decoder ...\e[39m"
+echo -e "$msg_colorCompiling davs2 decoder ...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
@@ -371,7 +379,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libdavs2"
 
 
 echo
-echo -e "\e[93mCompiling libfdk-aac...\e[39m"
+echo -e "$msg_colorCompiling libfdk-aac...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
@@ -386,7 +394,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfdk-aac"
 
 
 echo
-echo -e "\e[93mCompiling harfbuzz...\e[39m"
+echo -e "$msg_colorCompiling harfbuzz...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #wget -O harfbuzz-2.3.1.tar.bz2 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2
@@ -404,7 +412,7 @@ make distclean
 
 
 echo
-echo -e "\e[93mCompiling frei0r...\e[39m"
+echo -e "$msg_colorCompiling frei0r...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 wget -O frei0r.tar.gz https://github.com/dyne/frei0r/archive/v1.6.1.tar.gz
@@ -420,7 +428,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-frei0r --enable-filter=frei0r"
 
 
 echo
-echo -e "\e[93mCompiling libmp3lame...\e[39m"
+echo -e "$msg_colorCompiling libmp3lame...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
@@ -436,7 +444,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libmp3lame"
 
 
 echo
-echo -e "\e[93mCompiling libtwolame...\e[39m"
+echo -e "$msg_colorCompiling libtwolame...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.sourceforge.net/twolame/twolame-0.3.13.tar.gz
@@ -452,7 +460,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libtwolame"
 ######################################## libopus to be added
 
 echo
-echo -e "\e[93mCompiling libopus...\e[39m"
+echo -e "$msg_colorCompiling libopus...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 wget -O opus.tar.gz https://github.com/xiph/opus/archive/v1.3.1.tar.gz
@@ -469,7 +477,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopus"
 
 
 echo
-echo -e "\e[93mCompiling libogg...\e[39m"
+echo -e "$msg_colorCompiling libogg...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #curl -L -O http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
@@ -488,7 +496,7 @@ make install
 make distclean
 
 echo
-echo -e "\e[93mCompiling libvorbis...\e[39m"
+echo -e "$msg_colorCompiling libvorbis...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #curl -L -O http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz
@@ -509,7 +517,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvorbis"
 
 
 echo
-echo -e "\e[93mCompiling libspeex...\e[39m"
+echo -e "$msg_colorCompiling libspeex...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.xiph.org/releases/speex/speex-1.2rc2.tar.gz
@@ -525,7 +533,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libspeex"
 
 
 echo
-echo -e "\e[93mCompiling libvpx...\e[39m"
+echo -e "$msg_colorCompiling libvpx...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
@@ -539,7 +547,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvpx"
 
 
 echo
-echo -e "\e[93mCompiling libxvid...\e[39m"
+echo -e "$msg_colorCompiling libxvid...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.gz 
@@ -560,7 +568,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxvid"
 
 
 echo
-echo -e "\e[93mCompiling libtheora...\e[39m"
+echo -e "$msg_colorCompiling libtheora...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 curl -L -O http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz
@@ -575,7 +583,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libtheora"
 
 
 echo
-echo -e "\e[93mCompiling libwebp...\e[39m"
+echo -e "$msg_colorCompiling libwebp...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://chromium.googlesource.com/webm/libwebp.git
@@ -590,7 +598,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libwebp"
 
 
 echo
-echo -e "\e[93mCompiling libopenjpeg...\e[39m"
+echo -e "$msg_colorCompiling libopenjpeg...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/uclouvain/openjpeg.git
@@ -605,7 +613,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libopenjpeg"
 
 
 echo
-echo -e "\e[93mCompiling libilbc...\e[39m"
+echo -e "$msg_colorCompiling libilbc...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/TimothyGu/libilbc.git
@@ -621,7 +629,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libilbc"
 
 
 echo
-echo -e "\e[93mCompiling librtmp...\e[39m"
+echo -e "$msg_colorCompiling librtmp...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 http://git.ffmpeg.org/rtmpdump.git librtmp
@@ -633,7 +641,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librtmp"
 
 
 echo
-echo -e "\e[93mCompiling libsoxr...\e[39m"
+echo -e "$msg_colorCompiling libsoxr...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf soxr*
@@ -661,7 +669,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsoxr"
 
 
 echo
-echo -e "\e[93mCompiling libvidstab...\e[39m"
+echo -e "$msg_colorCompiling libvidstab...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf vidstab*
@@ -677,7 +685,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvidstab"
 
 
 echo
-echo -e "\e[93mCompiling zimg...\e[39m"
+echo -e "$msg_colorCompiling zimg...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf zimg* release-2.8.tar.gz
@@ -699,7 +707,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libzimg"
 
 
 echo
-echo -e "\e[93mCompiling librubberband...\e[39m"
+echo -e "$msg_colorCompiling librubberband...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/lachs0r/rubberband.git
@@ -759,7 +767,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
 
 
 #echo
-#echo -e "\e[93mCompiling librubberband...\e[39m"
+#echo -e "$msg_colorCompiling librubberband...$reset_color"
 #echo
 #cd ${FFMPEG_HOME}/src
 #rm -rf rubberband*
@@ -791,7 +799,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-librubberband"
 
 
 echo
-echo -e "\e[93mCompiling Snappy...\e[39m"
+echo -e "$msg_colorCompiling Snappy...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf snappy*
@@ -807,7 +815,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsnappy"
 
 
 echo
-echo -e "\e[93mCompiling libxml2...\e[39m"
+echo -e "$msg_colorCompiling libxml2...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf v2.9.9.zip* libxml2*
@@ -823,7 +831,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxml2 "
 
 
 echo
-echo -e "\e[93mCompiling libbluray...\e[39m"
+echo -e "$msg_colorCompiling libbluray...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf libbluray*
@@ -840,7 +848,7 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libbluray"
 
 
 echo
-echo -e "\e[93mCompiling ffmpeg...\e[39m"
+echo -e "$msg_colorCompiling ffmpeg...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git FFmpeg
@@ -885,7 +893,7 @@ source ~/.bashrc
 
 ########  Install qt-faststart
 echo
-echo -e "\e[93mCompiling qt-faststart...\e[39m"
+echo -e "$msg_colorCompiling qt-faststart...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 cd FFmpeg*/tools/
@@ -989,7 +997,7 @@ yum -y install mkvtoolnix
 #################
 
 echo
-echo -e "\e[93mCompiling zenlib...\e[39m"
+echo -e "$msg_colorCompiling zenlib...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/MediaArea/ZenLib zenlib
@@ -1000,7 +1008,7 @@ make install
 make distclean
 
 echo
-echo -e "\e[93mCompiling mediainfolib...\e[39m"
+echo -e "$msg_colorCompiling mediainfolib...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/MediaArea/MediaInfoLib mediainfolib
@@ -1012,7 +1020,7 @@ sed -i 's|libzen|libcurl librtmp libzen|' "${FFMPEG_HOME}/build/lib/pkgconfig/li
 make distclean
 
 echo
-echo -e "\e[93mCompiling mediainfo...\e[39m"
+echo -e "$msg_colorCompiling mediainfo...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone https://github.com/MediaArea/MediaInfo mediainfo
