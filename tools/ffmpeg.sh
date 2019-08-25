@@ -329,6 +329,47 @@ cp ${FFMPEG_HOME}/build/bin/x265 ${FFMPEG_HOME}/bin/
 ########------------######## --bindir="${FFMPEG_HOME}/bin"   -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin"  
 
 
+##########################  New Chinese encoder #################
+
+
+echo
+echo -e "\e[93mCompiling xavs2 encoder ...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+#git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
+#git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
+wget -O xavs2.zip https://github.com/pkuvcl/xavs2/archive/1.3.zip
+unzip xavs2.zip
+cd xavs2*/build/linux
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --enable-pic  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxavs2"
+
+
+
+
+echo
+echo -e "\e[93mCompiling davs2 decoder ...\e[39m"
+echo
+cd ${FFMPEG_HOME}/src
+#git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
+#git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
+wget -O davs2.zip https://github.com/pkuvcl/davs2/archive/1.6.zip 
+unzip davs2.zip
+cd davs2*/build/linux/
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --enable-pic  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libdavs2"
+
+
+
+#################################################################
+
+
 echo
 echo -e "\e[93mCompiling libfdk-aac...\e[39m"
 echo
