@@ -81,6 +81,17 @@ fi
 
 
 
+cd /tmp
+rm -rf cmake*
+#wget https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz
+wget https://cmake.org/files/v3.15/cmake-3.15.0.tar.gz
+tar zxvf cmake-3.*
+cd cmake-3.*/
+./bootstrap --prefix=/usr/local
+make -j$(nproc)
+make install
+cmake --version
+
 
 ##############
 ### FFMPEG ###
@@ -163,7 +174,7 @@ echo -e "$msg_colorCompiling libsrt ...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DCMAKE_BINARY_DIR="${FFMPEG_HOME}/bin" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
