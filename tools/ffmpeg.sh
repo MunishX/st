@@ -337,7 +337,26 @@ cp ${FFMPEG_HOME}/build/bin/x265 ${FFMPEG_HOME}/bin/
 ########------------######## --bindir="${FFMPEG_HOME}/bin"   -DCMAKE_LIBRARY_OUTPUT_DIRECTORY="${FFMPEG_HOME}/bin" -DINSTALL_BIN_DIR="${FFMPEG_HOME}/bin"  
 
 
-##########################  New Chinese encoder #################
+##########################  Chinese encoder #################
+
+
+echo
+echo -e "$msg_colorCompiling xavs ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+#git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
+#git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
+wget -O xavs.zip https://github.com/munishgaurav5/st/raw/master/tools/ff/xavs.zip
+unzip xavs.zip
+rm -rf xavs.zip
+cd xavs/
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --enable-pic  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-asm --enable-libxavs"
+
+
 
 
 echo
@@ -376,6 +395,23 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libdavs2"
 
 
 #################################################################
+
+
+##
+echo
+echo -e "$msg_colorCompiling wavpack ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O wavepack.zip https://github.com/dbry/WavPack/archive/5.1.0.zip 
+unzip wavepack.zip
+cd WavPack*
+autoreconf -f -i
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --disable-apps  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libwavpack"
+
 
 
 echo
@@ -843,6 +879,22 @@ make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libbluray"
+
+
+echo
+echo -e "$msg_colorCompiling zeromq ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O zeromq.tar.gz https://github.com/zeromq/libzmq/releases/download/v4.2.2/zeromq-4.2.2.tar.gz 
+tar xvzf zeromq.tar.gz 
+cd zeromq*/
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin"  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+ldconfig
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-network --enable-protocol=tcp --enable-demuxer=rtsp --enable-libzmq"
+
 
 #####################################
 
