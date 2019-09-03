@@ -215,6 +215,7 @@ rm -rf libcaca*
 wget -O libcaca.zip https://github.com/munishgaurav5/st/raw/master/tools/ff/libcaca.zip
 unzip libcaca.zip
 cd libcaca*/
+chmod -R 777 *
 ./bootstrap
 ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
 make -j ${FFMPEG_CPU_COUNT}
