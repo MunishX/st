@@ -24,7 +24,7 @@ FFMPEG_HOME=/usr/local
 
 
 rm -rf ${FFMPEG_HOME}/{build,doc,share,src}
-rm -rf ${FFMPEG_HOME}/bin/{ccmake,cpack,cwebp,exiftool,ffprobe,fribidi,lib,rtmpdump,x264,xmlcatalog,yasm,cmake,ctest,dwebp,ffmpeg,freetype-config,lame,mediainfo,vsyasm,xml2-config,xmllint,ytasm}
+rm -rf ${FFMPEG_HOME}/bin/{cwebp,exiftool,ffprobe,fribidi,lib,rtmpdump,x264,xmlcatalog,yasm,ctest,dwebp,ffmpeg,freetype-config,lame,mediainfo,vsyasm,xml2-config,xmllint,ytasm}
 mkdir -p ${FFMPEG_HOME}/src
 mkdir -p ${FFMPEG_HOME}/build
 mkdir -p ${FFMPEG_HOME}/bin
