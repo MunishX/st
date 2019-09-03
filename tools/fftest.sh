@@ -210,16 +210,16 @@ make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libwavpack"
 
 
-echo
-echo -e "$msg_colorCompiling libsrt ...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsrt"
+#echo
+#echo -e "$msg_colorCompiling libsrt ...$reset_color"
+#echo
+#cd ${FFMPEG_HOME}/src
+#git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
+#PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
+#make -j ${FFMPEG_CPU_COUNT}
+#make install
+#make distclean
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsrt"
 
 
 #################################################################
