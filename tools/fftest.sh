@@ -152,20 +152,6 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
 
 
 
-echo
-echo -e "$msg_colorCompiling libx264...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-#git clone --depth 1 https://git.videolan.org/git/x264.git
-git clone --depth 1 git://git.videolan.org/x264
-cd x264
-#git checkout origin/stable
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --enable-static
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx264"
-
 
 ##########################  New Chinese encoder #################
 
@@ -211,7 +197,7 @@ echo -e "$msg_colorCompiling libsrt ...$reset_color"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
-cmake -DCMAKE_INSTALL_PREFIX="$HOME/ffmpeg_build" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
+cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
@@ -236,20 +222,6 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libwavpack"
 
 #################################################################
 
-
-echo
-echo -e "$msg_colorCompiling libfdk-aac...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-#git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
-git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
-cd fdk-aac
-autoreconf -fiv
-./configure --prefix="${FFMPEG_HOME}/build" --disable-shared --enable-static
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfdk-aac"
 
 
 #####################################
@@ -299,14 +271,4 @@ hash -r
 source ~/.bashrc
 #. ~/.bash_profile
 
-########  Install qt-faststart
-echo
-echo -e "$msg_colorCompiling qt-faststart...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-cd FFmpeg*/tools/
-make qt-faststart
-cp qt-faststart /usr/local/bin/
-ldconfig
 
-#################
