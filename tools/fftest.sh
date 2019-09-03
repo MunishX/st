@@ -132,52 +132,6 @@ make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-fontconfig "
 
 
-echo
-echo -e "$msg_colorCompiling zlib...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-wget -O zlib.tar.gz https://github.com/madler/zlib/archive/v1.2.11.tar.gz
-tar xzvf zlib.tar.gz
-rm -f zlib.tar.gz
-cd zlib*/
-./configure --prefix="${FFMPEG_HOME}/build" --static
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-zlib"
-
-
-
-echo
-echo -e "$msg_colorCompiling libfribidi...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-curl -L -O https://github.com/fribidi/fribidi/releases/download/v1.0.5/fribidi-1.0.5.tar.bz2
-tar xjvf fribidi-1.0.5.tar.bz2
-rm -f fribidi-1.0.5.tar.bz2
-cd fribidi-1.0.5
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libfribidi"
-
-
-echo
-echo -e "$msg_colorCompiling libass...$reset_color"
-echo
-libass_url="https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.gz"
-cd ${FFMPEG_HOME}/src
-rm -rf libass*
-wget $libass_url
-tar xzvf libass-0.14.0.tar.gz
-cd libass*
-./autogen.sh
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
-make -j ${FFMPEG_CPU_COUNT}
-make install
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
-
 
 
 #echo
@@ -194,21 +148,6 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 #make distclean
 #FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
 
-
-
-echo
-echo -e "$msg_colorCompiling libvo-amrwbenc...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-curl -L -O http://downloads.sourceforge.net/opencore-amr/vo-amrwbenc/vo-amrwbenc-0.1.3.tar.gz
-tar xzvf vo-amrwbenc-0.1.3.tar.gz
-rm -f vo-amrwbenc-0.1.3.tar.gz
-cd vo-amrwbenc-0.1.3
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libvo-amrwbenc"
 
 
 
@@ -249,35 +188,49 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-asm --enable-libxavs"
 
 
 
+
+
+
+echo
+echo -e "$msg_colorCompiling zeromq ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
 wget -O zeromq.tar.gz https://github.com/zeromq/libzmq/releases/download/v4.2.2/zeromq-4.2.2.tar.gz 
 tar xvzf zeromq.tar.gz 
 cd zeromq*/
-./configure 
-make install 
-ldconfig
---enable-network --enable-protocol=tcp --enable-demuxer=rtsp --enable-libzmq
-
-cd ~/ffmpeg_sources
-sudo git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
-sudo cmake -DCMAKE_INSTALL_PREFIX="$HOME/ffmpeg_build" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
-sudo make
-sudo make install
---enable-libsrt
-
-echo
-echo -e "$msg_colorCompiling davs2 decoder ...$reset_color"
-echo
-cd ${FFMPEG_HOME}/src
-#git clone --depth 1 git://git.code.sf.net/p/opencore-amr/fdk-aac
-#git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
-wget -O davs2.zip https://github.com/pkuvcl/davs2/archive/1.6.zip 
-unzip davs2.zip
-cd davs2*/build/linux/
-./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --enable-pic  --disable-shared --enable-static 
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin"  --disable-shared --enable-static 
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
-FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libdavs2"
+ldconfig
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-network --enable-protocol=tcp --enable-demuxer=rtsp --enable-libzmq"
+
+
+echo
+echo -e "$msg_colorCompiling libsrt ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
+cmake -DCMAKE_INSTALL_PREFIX="$HOME/ffmpeg_build" -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsrt"
+
+##
+echo
+echo -e "$msg_colorCompiling wavpack ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+wget -O wavepack.zip https://github.com/dbry/WavPack/archive/5.1.0.zip 
+unzip wavepack.zip
+cd WavPack*
+autoreconf -f -i
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --disable-apps  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libwavpack"
 
 
 
