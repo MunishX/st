@@ -49,6 +49,7 @@ yum -y groupinstall "Development Tools"
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 yum -y install fontconfig fontconfig-devel zlib-devel
+yum -y install texi2html texinfo
 
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
@@ -92,9 +93,22 @@ wget https://cmake.org/files/v3.15/cmake-3.15.0.tar.gz
 tar zxvf cmake-3.*
 cd cmake-3.*/
 ./bootstrap --prefix=/usr/local
-make -j$(nproc)
+make -j ${FFMPEG_CPU_COUNT}
 make install
+make distclean
 cmake --version
+
+
+cd /tmp
+rm -rf automake*
+wget -O automake.tar.gz http://git.savannah.gnu.org/cgit/automake.git/snapshot/automake-1.16.1.tar.gz
+tar zxvf automake.tar.gz
+cd automake*/
+./bootstrap --prefix=/usr/local
+./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.16.1
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
 
 
 echo
@@ -198,7 +212,7 @@ echo -e "${msg_color}Compiling libcaca...${reset_color}"
 echo
 cd ${FFMPEG_HOME}/src
 rm -rf libcaca*
-wget -O libcaca.zip https://github.com/cacalabs/libcaca/archive/v0.99.beta19.zip
+wget -O libcaca.zip https://github.com/munishgaurav5/st/raw/master/tools/ff/libcaca.zip
 unzip libcaca.zip
 cd libcaca*/
 ./bootstrap
