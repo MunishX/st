@@ -192,19 +192,34 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
 
-#echo
-#echo -e "$msg_colorCompiling libcaca...$reset_color"
-#echo
-#cd ${FFMPEG_HOME}/src
-#rm -rf libcaca*
-#git clone --depth=1 git://github.com/cacalabs/libcaca
-#cd libcaca
-#./bootstrap
-#./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
-#make -j ${FFMPEG_CPU_COUNT}
-#make install
-#make distclean
-#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
+
+echo
+echo -e "$msg_colorCompiling libcaca...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+rm -rf libcaca*
+wget -O libcaca.zip https://github.com/cacalabs/libcaca/archive/v0.99.beta19.zip
+unzip libcaca.zip
+cd libcaca*/
+./bootstrap
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
+
+
+
+echo
+echo -e "$msg_colorCompiling libsrt ...$reset_color"
+echo
+cd ${FFMPEG_HOME}/src
+git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DCMAKE_BINARY_DIR="${FFMPEG_HOME}/bin" -DCMAKE_INSTALL_BINDIR="${FFMPEG_HOME}/bin"  -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libsrt"
 
 
 
