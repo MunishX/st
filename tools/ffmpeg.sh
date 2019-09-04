@@ -206,6 +206,21 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libass"
 
 
 
+echo
+echo -e "${msg_color}Compiling ncurses...${reset_color}"
+echo
+cd ${FFMPEG_HOME}/src
+rm -rf ncurse*
+wget -O ncurses.tar.gz https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
+tar xzf ncurses.tar.gz
+cd ncurses*/
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin"  --disable-shared --enable-static 
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+#FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libcaca"
+ls -la /opt/ncurses
+
 
 echo
 echo -e "${msg_color}Compiling libcaca...${reset_color}"
@@ -217,7 +232,7 @@ unzip libcaca.zip
 cd libcaca*/
 chmod -R 777 *
 ./bootstrap
-./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-x11
+./configure --prefix="${FFMPEG_HOME}/build" --libdir="${FFMPEG_HOME}/build/lib"  --bindir="${FFMPEG_HOME}/bin" --mandir="${FFMPEG_HOME}/build/share/man" --infodir="${FFMPEG_HOME}/build/share/info" --disable-shared --enable-static --disable-doc  --disable-ruby --disable-csharp --disable-java --disable-python --disable-cxx --enable-ncurses --disable-slang --disable-imlib2 --disable-x11
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
