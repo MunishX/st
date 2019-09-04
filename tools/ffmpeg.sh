@@ -230,7 +230,7 @@ echo -e "${msg_color}Compiling libsrt ...${reset_color}"
 echo
 cd ${FFMPEG_HOME}/src
 git clone --depth 1 https://github.com/Haivision/srt.git && sudo mkdir srt/build && cd srt/build
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib" -DCMAKE_BINARY_DIR="${FFMPEG_HOME}/bin" -DCMAKE_INSTALL_BINDIR="${FFMPEG_HOME}/bin"  -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig"  cmake -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DCMAKE_INSTALL_LIBDIR="${FFMPEG_HOME}/build/lib"  -DCMAKE_INSTALL_INCLUDEDIR="${FFMPEG_HOME}/build/include" -DCMAKE_BINARY_DIR="${FFMPEG_HOME}/bin" -DCMAKE_INSTALL_BINDIR="${FFMPEG_HOME}/bin"  -DENABLE_C_DEPS=ON -DENABLE_SHARED=OFF -DENABLE_STATIC=ON ..
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
