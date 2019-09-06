@@ -30,6 +30,9 @@ yum -y update
 ## PHP-REDIS
 yum -y install ${PHP_V}-php-pecl-redis
 
+## PHP-ZMQ
+yum -y install ${PHP_V}-php-pecl-zmq
+
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
 echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
