@@ -49,7 +49,7 @@ yum -y groupinstall "Development Tools"
 yum -y install autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ libtool make mercurial pkgconfig zlib-devel
 yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig curl-devel openssl-devel ncurses-devel p11-kit-devel zlib-devel
 yum -y install fontconfig fontconfig-devel zlib-devel
-yum -y install texi2html texinfo
+yum -y install texi2html texinfo zeromq 
 
 #yum-config-manager --add-repo http://www.nasm.us/nasm.repo
 #yum install -y nasm 
