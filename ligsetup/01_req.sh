@@ -10,7 +10,7 @@ service iptables stop
 chkconfig iptables off
 
 yum -y update
-yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at ant iotop hdparm lsblk
+yum -y install nano wget curl awk net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at ant iotop hdparm lsblk
 
 yum -y update
 
@@ -24,9 +24,10 @@ echo "Installing latest RAR..."
 cd /tmp
 #wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
 #wget https://www.rarlab.com/rar/rarlinux-x64-5.5.0.tar.gz
-wget https://www.rarlab.com/rar/rarlinux-x64-5.6.0.tar.gz
+#wget https://www.rarlab.com/rar/rarlinux-x64-5.6.0.tar.gz
+wget https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
-cd rar
+cd rar*/
 make
 cd ..
 rm -rf rar*
