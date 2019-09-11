@@ -40,6 +40,11 @@ yum -y install ${PHP_V}-php-pecl-zmq
 ## PHP-LibEvent (PHP-libev)
 yum -y install ${PHP_V}-php-pecl-event
 
+
+## PHP-swoole (swoole/swoole-src)
+yum -y install ${PHP_V}-php-pecl-swoole
+
+
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
 echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
