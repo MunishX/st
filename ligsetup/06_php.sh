@@ -14,10 +14,14 @@ yum -y update
 ####
 
 # PHP 7 Install
+yum -y install epel-release
+
 yum -y install ${PHP_V}-php-bcmath ${PHP_V}-php-mysql ${PHP_V}-php-devel ${PHP_V}-php-fpm ${PHP_V}-php-gd ${PHP_V}-php-intl ${PHP_V}-php-imap ${PHP_V}-php-mbstring ${PHP_V}-php-mcrypt ${PHP_V}-php-mysqlnd ${PHP_V}-php-opcache ${PHP_V}-php-pdo ${PHP_V}-php-pear ${PHP_V}-php-soap ${PHP_V}-php-xml ${PHP_V}-php-xmlrpc
 yum -y install ${PHP_V}-php-pecl-uploadprogress ${PHP_V}-php-pecl-zip 
-yum -y install ${PHP_V}-php-memcached ${PHP_V}-php-memcache ${PHP_V}-php-apcu*
-yum -y install libevent libevent-devel
+
+yum -y install ${PHP_V}-php-memcached ${PHP_V}-php-memcache ${PHP_V}-php-apcu* 
+yum -y install zeromq zeromq-devel libevent libevent-devel 
+
 yum -y update
 
 ## PHP-PHALCON 
@@ -32,6 +36,9 @@ yum -y install ${PHP_V}-php-pecl-redis
 
 ## PHP-ZMQ
 yum -y install ${PHP_V}-php-pecl-zmq
+
+## PHP-LibEvent (PHP-libev)
+yum -y install ${PHP_V}-php-pecl-event
 
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
