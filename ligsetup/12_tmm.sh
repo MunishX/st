@@ -194,14 +194,23 @@ wget https://github.com/transmission/transmission-releases/raw/master/transmissi
 tar xvf transmission-*.tar.xz
 cd transmission-*/
 
-nmmw=Fas
-nmmx=tTor
-nmmy=rentLe
-nmmz=ech
+#nmmw=Fas
+#nmmx=tTor
+#nmmy=rentLe
+#nmmz=ech
 
-mvvx=6
-mvvy=1
-mvvz=3
+#mvvx=6
+#mvvy=1
+#mvvz=3
+
+nmmw=uT
+nmmx=or
+nmmy=re
+nmmz=nt
+
+mvvx=3
+mvvy=5
+mvvz=0
 
 oppy=FA
 oppz=ST
