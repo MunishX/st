@@ -210,7 +210,7 @@ nmmz=nt
 
 mvvx=3
 mvvy=5
-mvvz=0(111915293)(44294)
+mvvz="0(111915293)(44294)"
 
 oppy=FA
 oppz=ST
