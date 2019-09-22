@@ -217,7 +217,8 @@ oppz=ST
 
 
 app_name=${nmmw}${nmmx}${nmmy}${nmmz}
-app_version=${mvvx}.${mvvy}.${mvvz}
+#app_version=${mvvx}.${mvvy}.${mvvz}
+app_version=${mvvx}${mvvy}${mvvz}
 #app_peer=${oppx}.${oppy}.${oppz}
 #app_peer=${nmmw}${nmmx}${nmmy}${nmmz}v${mvvx}.${mvvy}.${mvvz}
 
