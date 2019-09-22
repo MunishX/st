@@ -118,7 +118,7 @@ sleep 3
 ########################## START INSTALL ##################################
 
 # Update system and install required packages
-yum -y update
+#yum -y update
 yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gettext openssl-devel perl-Time-HiRes wget
 
 if [ $user_old != "y" ]; then
