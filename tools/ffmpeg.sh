@@ -322,9 +322,9 @@ echo -e "\e[93mCompiling libx265...${reset_color}"
 echo
 cd ${FFMPEG_HOME}/src
 #hg clone https://bitbucket.org/multicoreware/x265
-#git clone https://github.com/videolan/x265.git
-wget -O x265.zip https://github.com/videolan/x265/archive/3.1.2.zip
-unzip x265.zip
+git clone https://github.com/videolan/x265.git
+#wget -O x265.zip https://github.com/videolan/x265/archive/3.1.2.zip
+#unzip x265.zip
 
 #cd ${FFMPEG_HOME}/src/x265/build/linux
 #cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${FFMPEG_HOME}/build" -DENABLE_SHARED:bool=off ../../source
