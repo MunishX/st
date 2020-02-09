@@ -308,7 +308,8 @@ echo -e "${msg_color}Compiling libx264...${reset_color}"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://git.videolan.org/git/x264.git
-git clone --depth 1 git://git.videolan.org/x264
+#git clone --depth 1 git://git.videolan.org/x264
+git clone https://code.videolan.org/videolan/x264.git
 cd x264
 #git checkout origin/stable
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --enable-static
