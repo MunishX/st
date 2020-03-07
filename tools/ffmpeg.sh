@@ -110,6 +110,22 @@ make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
 
+echo
+echo -e "${msg_color}Compiling NASM...${reset_color}"
+echo
+cd ${FFMPEG_HOME}/src
+#git clone --depth 1 https://github.com/yasm/yasm.git
+#cd yasm
+#autoreconf -fiv
+#./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin"
+wget http://www.nasm.us/pub/nasm/releasebuilds/2.14.02/nasm-2.14.02.tar.xz
+tar -xf nasm-2.14.02.tar.xz
+cd nasm-2.14.02
+./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin"
+make -j ${FFMPEG_CPU_COUNT}
+make install
+make distclean
+
 
 echo
 echo -e "${msg_color}Compiling YASM...${reset_color}"
