@@ -971,9 +971,14 @@ cd ${FFMPEG_HOME}/src
 rm -rf FFmpeg*
 #wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
 #wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.3.zip
-wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.2.zip
-unzip FFmpeg.zip
-cd FFmpeg*/
+
+#wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.2.zip
+#unzip FFmpeg.zip
+#cd FFmpeg*/
+
+wget https://www.ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+tar xjf ffmpeg-snapshot.tar.bz2
+cd ffmpeg*/
 
 #### EDIT ####
 
@@ -1012,7 +1017,8 @@ echo
 echo -e "${msg_color}Compiling qt-faststart...${reset_color}"
 echo
 cd ${FFMPEG_HOME}/src
-cd FFmpeg*/tools/
+#cd FFmpeg*/tools/
+cd ffmpeg*/tools/
 make qt-faststart
 cp qt-faststart /usr/local/bin/
 ldconfig
