@@ -968,7 +968,7 @@ echo -e "${msg_color}Compiling ffmpeg...${reset_color}"
 echo
 cd ${FFMPEG_HOME}/src
 #git clone --depth 1 https://github.com/FFmpeg/FFmpeg.git FFmpeg
-rm -rf FFmpeg*
+#rm -rf FFmpeg*
 #wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.2.zip
 #wget -O FFmpeg.zip https://github.com/FFmpeg/FFmpeg/archive/n4.1.3.zip
 
@@ -976,8 +976,9 @@ rm -rf FFmpeg*
 #unzip FFmpeg.zip
 #cd FFmpeg*/
 
-wget https://www.ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-tar xjf ffmpeg-snapshot.tar.bz2
+rm -rf ffmpeg*
+wget -O ffmpeg.tar.bz2 https://www.ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+tar xjf ffmpeg.tar.bz2
 cd ffmpeg*/
 
 #### EDIT ####
