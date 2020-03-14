@@ -3,12 +3,12 @@
 
 ## MG New
 
-# cd /tmp && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg.sh && chmod 777 ffmpeg.sh && ./ffmpeg.sh
+# cd /tmp && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg_gg_test.sh && chmod 777 ffmpeg_gg_test.sh && ./ffmpeg_gg_test.sh
 
 
-# cd /tmp && yum install wget -y && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg.sh && chmod 777 ffmpeg.sh 
-# nohup ./ffmpeg.sh > ffmpeg.log.txt 2>&1 &
-# watch -n 2 tail -n 30 ffmpeg.log.txt
+# cd /tmp && yum install wget -y && rm -rf ffmpeg* && wget https://github.com/munishgaurav5/st/raw/master/tools/ffmpeg_gg_test.sh && chmod 777 ffmpeg_gg_test.sh 
+# nohup ./ffmpeg_gg_test.sh > ffmpeg_test.log.txt 2>&1 &
+# watch -n 2 tail -n 30 ffmpeg_test.log.txt
 
 
 
