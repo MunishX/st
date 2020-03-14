@@ -191,7 +191,7 @@ git clone https://code.videolan.org/videolan/x264.git
 cd x264
 #git checkout origin/stable
 PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --bindir="${FFMPEG_HOME}/bin" --enable-static
-make -j ${FFMPEG_CPU_COUNT}
+make -j ${FFMPEG_CPU_COUNT} 
 make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libx264"
@@ -366,8 +366,20 @@ make install
 make distclean
 FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxml2 "
 
+####################################### GPU
 
+yum install -y "http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-10.2.89-1.x86_64.rpm"
+yum install -y cuda
 
+cd ${FFMPEG_HOME}/src
+wget -O nv-codec-headers.zip https://github.com/FFmpeg/nv-codec-headers/archive/master.zip
+unzip nv-codec-headers.zip
+cd nv-codec-headers*/
+make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" install-static
+make install
+#    patch --force -d "$DEST_DIR" -p1 < "$MYDIR/dynlink_cuda.h.patch" || :
+FFMPEG_ENABLE=" --enable-cuda --enable-cuda-sdk --enable-cuvid  --enable-libnpp  ${FFMPEG_ENABLE} --enable-nvenc "
+CUDA_DIR="/usr/local/cuda"
 
 #####################################
 
@@ -391,8 +403,8 @@ tar xjf ffmpeg.tar.bz2
 cd ffmpeg*/
 
 ##############
-
-PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include" --extra-ldflags="-L${FFMPEG_HOME}/build/lib" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
+export PATH="$CUDA_DIR/bin:$PATH" 
+PKG_CONFIG_PATH="${FFMPEG_HOME}/build/lib/pkgconfig" ./configure --prefix="${FFMPEG_HOME}/build" --extra-cflags="-I${FFMPEG_HOME}/build/include -I $CUDA_DIR/include/" --extra-ldflags="-L${FFMPEG_HOME}/build/lib -L $CUDA_DIR/lib64/" --extra-libs='-lpthread -lm -lz' --bindir="${FFMPEG_HOME}/bin" --pkg-config-flags="--static" ${FFMPEG_ENABLE}
 make -j ${FFMPEG_CPU_COUNT}
 make install
 make distclean
