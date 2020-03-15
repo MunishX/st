@@ -87,17 +87,6 @@ fi
 ##############
 
 
-cd /tmp
-rm -rf automake*
-wget -O automake.tar.gz http://git.savannah.gnu.org/cgit/automake.git/snapshot/automake-1.16.1.tar.gz
-tar zxvf automake.tar.gz
-cd automake*/
-./bootstrap --prefix=/usr/local
-./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.16.1
-make -j ${FFMPEG_CPU_COUNT}
-make install
-make distclean
-
 echo
 echo -e "${msg_color}Compiling NASM...${reset_color}"
 echo
