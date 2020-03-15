@@ -365,7 +365,7 @@ wget -O nv-codec-headers.zip https://github.com/FFmpeg/nv-codec-headers/archive/
 unzip nv-codec-headers.zip
 cd nv-codec-headers*/
 make -j ${FFMPEG_CPU_COUNT} PREFIX="${FFMPEG_HOME}/build" 
-make install
+make  PREFIX="${FFMPEG_HOME}/build" install
 #    patch --force -d "$DEST_DIR" -p1 < "$MYDIR/dynlink_cuda.h.patch" || :
 FFMPEG_ENABLE=" --enable-cuda --enable-cuda-sdk --enable-cuvid  --enable-libnpp  ${FFMPEG_ENABLE} --enable-nvenc "
 CUDA_DIR="/usr/local/cuda"
