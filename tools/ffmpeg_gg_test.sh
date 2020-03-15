@@ -357,8 +357,16 @@ FFMPEG_ENABLE="${FFMPEG_ENABLE} --enable-libxml2 "
 
 ####################################### GPU
 
-yum install -y "http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-10-2-10.2.89-1.x86_64.rpm"
-yum install -y cuda
+#yum install -y "http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-10-2-10.2.89-1.x86_64.rpm"
+#yum install -y cuda
+
+cd ${FFMPEG_HOME}/src
+wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
+sudo rpm -i cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
+sudo yum clean all
+sudo yum -y install nvidia-driver-latest-dkms cuda
+sudo yum -y install cuda-drivers
+
 
 cd ${FFMPEG_HOME}/src
 wget -O nv-codec-headers.zip https://github.com/FFmpeg/nv-codec-headers/archive/master.zip
