@@ -366,6 +366,7 @@ sudo rpm -i cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
 sudo yum clean all
 sudo yum -y install nvidia-driver-latest-dkms cuda
 sudo yum -y install cuda-drivers
+rm -rf cuda-repo-rhel7-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
 
 
 cd ${FFMPEG_HOME}/src
