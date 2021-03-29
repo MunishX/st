@@ -9,7 +9,7 @@ kid=$1
 
 key=$2
    while [[ $key = "" ]]; do # to be replaced with regex
-       read -p "$key's Password: " key
+       read -p "Enter KEY: " key
     done
 
 filename=$3
