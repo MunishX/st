@@ -2,22 +2,31 @@
 # This script download the init part of the video
 
 #inputs
-uname=$1
-   while [[ $uname = "" ]]; do # to be replaced with regex
-       read -p "VHost username: " uname
+kid=$1
+   while [[ $kid = "" ]]; do # to be replaced with regex
+       read -p "Enter KID: " kid
     done
 
-passw=$2
-   while [[ $passw = "" ]]; do # to be replaced with regex
-       read -p "$uname's Password: " passw
+key=$2
+   while [[ $key = "" ]]; do # to be replaced with regex
+       read -p "$key's Password: " key
     done
 
-mydom=$3
-   while [[ $mydom = "" ]]; do # to be replaced with regex
-       read -p "$uname's Domain: " mydom
+filename=$3
+   while [[ $filename = "" ]]; do # to be replaced with regex
+       read -p "Enter Final FileName: " filename
     done
 
+#######################################################
 
+#Audio inputs
+
+
+######################################################
+#Video inputs
+
+
+#######################################################
 
 
 # Create seg directory to store seg files
