@@ -1,5 +1,8 @@
 #!/bin/bash
 # This script download the init part of the video
+# wget -O mpddl https://github.com/munishgaurav5/st/raw/master/examodl.sh
+# chmod 777 mpddl
+# mv mpddl /usr/local/bin/
 
 #Inputs
 kid=$1
