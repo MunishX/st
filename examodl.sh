@@ -95,11 +95,11 @@ else
 fi
 
 echo -e "----------------------\n"
-echo -e "Combining into target"
+echo -e "Combining into target :- ../$mediatype_e.mp4"
 #read -p "target name: " target
 
 combine_command=`ls -vx seg-*.m4s`
-cat init.mp4 $combine_command > ./../$mediatype_e.mp4
+cat init.mp4 $combine_command > ../$mediatype_e.mp4
 
 echo -e "-----------------------------\n"
 echo -e "------------ DONE -----------\n"
