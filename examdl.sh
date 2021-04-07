@@ -69,6 +69,7 @@ then
 fi
 
     mkdir $mediatype
+    sleep 5
     cd $mediatype
 
 
