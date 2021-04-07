@@ -15,30 +15,35 @@ mediatype=$2
        read -p "Enter Media type (audio,video): " mediatype
     done
 
+phppwd=$3
+   while [[ $phppwd = "" ]]; do # to be replaced with regex
+       read -p "Enter PWD dir of PHP : " phppwd
+    done
+
 #######################################################
 
 #Audio inputs
-initurl=$3
+initurl=$4
    while [[ $initurl = "" ]]; do # to be replaced with regex
        read -p "Enter init url: " initurl
     done
 
-fronturl=$4
+fronturl=$5
    while [[ $fronturl = "" ]]; do # to be replaced with regex
        read -p "Enter fronturl: " fronturl
     done
 
-backurl=$5
+backurl=$6
    while [[ $backurl = "" ]]; do # to be replaced with regex
        read -p "Enter backurl: " backurl
     done
 
-startno=$6
+startno=$7
    while [[ $startno = "" ]]; do # to be replaced with regex
        read -p "Enter startno: " startno
     done
 
-endno=$7
+endno=$8
    while [[ $endno = "" ]]; do # to be replaced with regex
        read -p "Enter endno: " endno
     done
@@ -46,8 +51,8 @@ endno=$7
 
 #######################################################
 
-mkdir -p ./files/$kid/
-cd ./files/$kid/
+mkdir -p $phppwd/files/$kid/
+cd $phppwd/files/$kid/
 
 #######################################################
 
