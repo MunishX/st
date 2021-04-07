@@ -95,7 +95,7 @@ then
     echo "Skipping segs downloading."
 else
     for i in $(seq $startno $endno); do
-        wget -O seg-$i.m4s $fronturl$i$backurl
+        wget -O seg-$i.m4s --user-agent='Dalvik/2.1.0 (Linux; U; Android 10; RMX2151 Build/QP1A.190711.020)' $fronturl$i$backurl
     done
 fi
 
