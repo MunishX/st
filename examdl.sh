@@ -66,10 +66,11 @@ echo -e "-----------------------------\n"
 if [ -d "$mediatype" ]
 then
         rm -rf $mediatype/*
-else
+fi
+
     mkdir $mediatype
     cd $mediatype
-fi
+
 
 # Download the init segment
 echo -e "----------------------\n"
@@ -83,7 +84,7 @@ else
 fi
 
 echo -e "----------------------\n"
-echo -e "Now we download the segments, please provide the url in the form of front and back"
+echo -e "Now we downloading the segments, please wait... ($mediatype)"
 #read -p "link_front: " front
 #read -p "link_back: " back
 #read -p "start_num: " start_num
@@ -96,6 +97,7 @@ then
 else
     for i in $(seq $startno $endno); do
         wget -O seg-$i.m4s --user-agent='Dalvik/2.1.0 (Linux; U; Android 10; RMX2151 Build/QP1A.190711.020)' $fronturl$i$backurl
+        echo -e "\nPart No. $i : Downloaded."
     done
 fi
 
