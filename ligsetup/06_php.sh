@@ -2,7 +2,9 @@
 
 ## PHP 7.3
 # add PHP 7 repo
-# #  /opt/remi/php73/root/usr/bin/phpize phpize
+##  /opt/remi/php73/root/usr/bin/phpize phpize
+## /opt/remi/php73/root/usr/bin/phpize
+## ./configure --with-php-config=/opt/remi/php73/root/usr/bin/php-config
 
 PHP_V='php73'
 
