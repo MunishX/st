@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## PHP 7.2 zts
-
+#  /opt/remi/php73/root/usr/bin/phpize phpize
 
 cd /tmp
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
