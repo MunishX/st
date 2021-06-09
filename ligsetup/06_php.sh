@@ -55,6 +55,7 @@ echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
 ## php7x to PHP link
 ln -s /usr/bin/${PHP_V} /usr/bin/php
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
+ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/phpize
 
 ## SWITCH OFF EXPOSE PHP
 sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
