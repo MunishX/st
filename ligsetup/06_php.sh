@@ -12,7 +12,8 @@ cd /tmp
 #wget https://centos7.iuscommunity.org/ius-release.rpm
 wget https://repo.ius.io/ius-release-el7.rpm
 wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-rpm -ivh ius-release.rpm remi-release-7.rpm
+#rpm -ivh ius-release.rpm remi-release-7.rpm
+rpm -ivh ius-release-el7.rpm remi-release-7.rpm
 yum -y update
 
 ####
