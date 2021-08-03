@@ -7,9 +7,19 @@ systemctl disable httpd.service
 #yum -y remove httpd
 
 
+#epel install
 
-yum -y install epel-release
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+#yum -y install epel-release
+#rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
+cd /tmp
+yum -y remove epel-release
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+yum -y install epel-release-latest-7.noarch.rpm
+rpm --import /tmp/RPM-GPG-KEY-EPEL-7
+
+
 yum -y update
 yum -y install lighttpd lighttpd-fastcgi lighttpd-mod_geoip geoip
 
