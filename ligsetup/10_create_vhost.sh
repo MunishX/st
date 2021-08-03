@@ -9,7 +9,7 @@
 #### PHP CONFIG
 #PHP_V='php70'
 #PHP_V='php71'
-PHP_V='php72'
+PHP_V='php73'
 # PHP_V not required in this page
 
 ############################### ADDED START
