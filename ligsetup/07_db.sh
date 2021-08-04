@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# UPGRADE NOTE
+# After upgrading MariaDB run:
+# mysql_upgrade -u root -p
+
 
 ##### add MariaDB 10.3.5 repo stable from mariadb
 # http://yum.mariadb.org/10.3.5/centos74-amd64/rpms/MariaDB-10.3.5-centos74-x86_64-server.rpm
@@ -69,6 +73,7 @@ yum -y update
 
 yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
 yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
+
 
 #systemctl start mysql
 #systemctl enable mysql
