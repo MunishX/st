@@ -19,7 +19,7 @@ PHP_V='php73'
 
 #https://blog.remirepo.net/post/2019/12/03/Install-PHP-7.4-on-CentOS-RHEL-or-Fedora
 cd /tmp
-yum remove -y epel-release remi-release
+#yum remove -y epel-release remi-release
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
