@@ -22,13 +22,12 @@ sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo 
 echo ""
 echo "Installing latest RAR..."
 cd /tmp
-#wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
-#wget https://www.rarlab.com/rar/rarlinux-x64-5.5.0.tar.gz
-#wget https://www.rarlab.com/rar/rarlinux-x64-5.6.0.tar.gz
-wget https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
+#wget https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
+wget https://www.rarlab.com/rar/rarlinux-x64-6.0.2.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar*/
 make
+wget -O /etc/rarreg.key https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/rarreg.key
 cd ..
 rm -rf rar*
 
