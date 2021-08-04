@@ -95,9 +95,10 @@ rm -rf mem.zip
 #wget https://files.phpmyadmin.net/phpMyAdmin/4.7.8/phpMyAdmin-4.7.8-english.zip
 #wget https://files.phpmyadmin.net/phpMyAdmin/4.8.2/phpMyAdmin-4.8.2-english.zip
 #wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip
+#wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-english.zip
 
 #best , all ok
-wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-english.zip
+wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-english.zip
 #
 
 unzip phpMy*
@@ -153,6 +154,8 @@ vnstat -d
 ############## PHP COMPOSER #########################
 #cd /tmp
 # sudo -y apt-get install snmp
+
+export COMPOSER_ALLOW_SUPERUSER=1;
 
 curl -sS https://getcomposer.org/installer | php
 
