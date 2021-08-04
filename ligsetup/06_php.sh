@@ -6,6 +6,7 @@
 ## /opt/remi/php73/root/usr/bin/phpize
 ## ./configure --with-php-config=/opt/remi/php73/root/usr/bin/php-config
 
+## also update "PHP_V=" in create_vhosts.sh
 PHP_V='php73'
 
 #cd /tmp
