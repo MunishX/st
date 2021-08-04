@@ -13,7 +13,8 @@ systemctl disable httpd.service
 #rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 
 cd /tmp
-yum -y remove epel-release
+yum -y remove epel-release remi-release
+
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 yum -y install epel-release-latest-7.noarch.rpm
