@@ -33,13 +33,26 @@
 
 ##### add MariaDB mariadb-10.3.13 repo stable from mariadb
 # http://yum.mariadb.org/mariadb-10.3.13/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
+#echo "
+# MariaDB 10.3 CentOS repository list - created 2019-03-22 19:14 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+#[mariadb]
+#name = MariaDB
+#baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.3.13/yum/centos7-amd64
+#gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
+#gpgcheck=1
+#" > /etc/yum.repos.d/mariadb.repo
+#####
+
+##### add MariaDB mariadb-10.6.3 repo stable from mariadb
+# http://yum.mariadb.org/mariadb-10.6.3/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
 echo "
 
-# MariaDB 10.3 CentOS repository list - created 2019-03-22 19:14 UTC
+# MariaDB 10.6.3 CentOS repository list - created 2021
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
-baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.3.13/yum/centos7-amd64
+baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.6.3/yum/centos7-amd64/
 gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
 gpgcheck=1
 
