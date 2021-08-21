@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#tcptunnel --local-port=400 --remote-port=3389 --remote-host=88.198.69.240 --foralive
+
 #firewall-cmd --permanent --zone=public --add-port=789/tcp
 #firewall-cmd --add-forward-port=port=4444:proto=tcp:toport=3389:toaddr=IP_OF_RDP_SERVER --permanent
 #firewall-cmd --reload
