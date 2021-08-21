@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#firewall-cmd --permanent --zone=public --add-port=789/tcp
+#firewall-cmd --add-forward-port=port=4444:proto=tcp:toport=3389:toaddr=IP_OF_RDP_SERVER --permanent
+#firewall-cmd --reload
+
 #service firewalld start
 #service firewalld status
 #sleep 5
