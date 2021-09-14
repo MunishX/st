@@ -7,7 +7,7 @@
 ## ./configure --with-php-config=/opt/remi/php73/root/usr/bin/php-config
 
 ## also update "PHP_V=" in create_vhosts.sh
-PHP_V='php73'
+PHP_V='php74'
 
 #cd /tmp
 #wget https://centos7.iuscommunity.org/ius-release.rpm
