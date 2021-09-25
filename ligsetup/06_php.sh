@@ -62,7 +62,7 @@ yum -y install ${PHP_V}-php-pecl-event
 ## PHP-swoole (swoole/swoole-src)
 yum -y install ${PHP_V}-php-pecl-swoole
 
-## PHP-swoole (swoole/swoole-src)
+## PHP-ioncube-loader (ioncube-loader)
 yum -y install ${PHP_V}-php-ioncube-loader
 
 
