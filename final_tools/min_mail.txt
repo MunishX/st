@@ -7,8 +7,13 @@ nano /etc/postfix/main.cf
 > inet_protocols = ipv4
 save
 
-run command
+run imp command
 sudo postconf -e 'smtp_tls_security_level = may'
 sudo postconf -e 'smtpd_tls_security_level = may'
+
+run extra commands
+sudo postconf -e 'smtp_tls_note_starttls_offer = yes'
+sudo postconf -e 'smtpd_tls_loglevel = 1'
+sudo postconf -e 'smtpd_tls_received_header = yes'
 
 service postfix restart
