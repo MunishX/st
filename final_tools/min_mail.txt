@@ -1,0 +1,14 @@
+
+yum install -y postfix
+
+nano /etc/postfix/main.cf
+
+# Change inet_protocols value from inet_protocols = all to inet_protocols = ipv4
+> inet_protocols = ipv4
+save
+
+run command
+sudo postconf -e 'smtp_tls_security_level = may'
+sudo postconf -e 'smtpd_tls_security_level = may'
+
+service postfix restart
