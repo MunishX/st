@@ -1,11 +1,11 @@
 #######################################################################
 ##
-##  GeoIP Module 
+##  GeoIP2 Module 
 ## --------------- 
 ##
-## See http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModGeoip
+## See https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModMaxMindDB
 ##
-## mod_geoip is a module for fast ip/location lookups. It uses MaxMind
+## maxminddb is a module for fast ip/location lookups. It uses MaxMind
 ## GeoIP / GeoCity databases. If the ip was found in the database the
 ## module sets the appropriate environments variables to the request,
 ## thus making other modules/fcgi be informed.
