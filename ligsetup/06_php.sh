@@ -34,7 +34,7 @@ yum -y update
 # PHP 7 Install
 #yum -y install epel-release
 
-yum -y install ${PHP_V}-php-bcmath ${PHP_V}-php-mysql ${PHP_V}-php-devel ${PHP_V}-php-fpm ${PHP_V}-php-gd ${PHP_V}-php-intl ${PHP_V}-php-imap ${PHP_V}-php-mbstring ${PHP_V}-php-mcrypt ${PHP_V}-php-mysqlnd ${PHP_V}-php-opcache ${PHP_V}-php-pdo ${PHP_V}-php-pear ${PHP_V}-php-soap ${PHP_V}-php-xml ${PHP_V}-php-xmlrpc
+yum -y install ${PHP_V}-php-bcmath ${PHP_V}-php-mysql ${PHP_V}-php-devel ${PHP_V}-php-fpm ${PHP_V}-php-gd ${PHP_V}-php-intl ${PHP_V}-php-imap ${PHP_V}-php-mbstring ${PHP_V}-php-mcrypt ${PHP_V}-php-mysqlnd ${PHP_V}-php-opcache ${PHP_V}-php-pdo ${PHP_V}-php-pear ${PHP_V}-php-soap ${PHP_V}-php-xml ${PHP_V}-php-xmlrpc ${PHP_V}-php-gmp 
 yum -y install ${PHP_V}-php-pecl-uploadprogress ${PHP_V}-php-pecl-zip 
 
 yum -y install ${PHP_V}-php-memcached ${PHP_V}-php-memcache ${PHP_V}-php-apcu* 
