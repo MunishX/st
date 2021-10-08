@@ -3,6 +3,7 @@ Description=Lighttpd Web Server
 After=syslog.target network-online.target
 
 [Service]
+ExecStartPre=/usr/sbin/lighttpd -tt -f /etc/lighttpd/lighttpd.conf
 ExecStart=/usr/sbin/lighttpd-angel -D -f /etc/lighttpd/lighttpd.conf
 ExecReload=/bin/kill -HUP $MAINPID
 
