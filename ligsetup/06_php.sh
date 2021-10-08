@@ -1,10 +1,10 @@
 #!/bin/bash
 
-## PHP 7.3
+## PHP 7.4
 # add PHP 7 repo
-##  /opt/remi/php73/root/usr/bin/phpize phpize
-## /opt/remi/php73/root/usr/bin/phpize
-## ./configure --with-php-config=/opt/remi/php73/root/usr/bin/php-config
+##  /opt/remi/php74/root/usr/bin/phpize phpize
+## /opt/remi/php74/root/usr/bin/phpize
+## ./configure --with-php-config=/opt/remi/php74/root/usr/bin/php-config
 
 ## also update "PHP_V=" in create_vhosts.sh
 PHP_V='php74'
