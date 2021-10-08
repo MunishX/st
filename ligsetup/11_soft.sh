@@ -17,6 +17,24 @@ echo ""
        read -p "Enter Public_Html dir (html) : " ADMIN_PUBLIC_HTML
     done
 
+
+
+############# SQLITE3 ######################
+mv /usr/local/bin/sqlite3 /usr/local/bin/sqlite3_old
+
+cd /tmp
+wget https://www.sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
+tar -xf sqlite*.tar.gz
+cd sqlite*/
+CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1" ./configure
+make
+make install
+
+sqlite3 --version
+ 
+############################################
+
+
 mkdir -p /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/host/
 cd /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/host/
 
@@ -78,6 +96,9 @@ wget https://raw.github.com/munishgaurav5/st/master/mem.zip
 unzip mem.zip
 rm -rf mem.zip
 # /run/memcached/memcached.sock
+
+
+
 
 ############# PHPmyadmin  ##################
 
