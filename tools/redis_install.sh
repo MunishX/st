@@ -5,7 +5,7 @@
 
 redis_suffix=$1
 add_suffix=$1
-if [ $redis_suffix = "" ]; then
+if [ $redis_suffix == "" ]; then
    while [[ $add_suffix = "" ]]; do # to be replaced with regex
        read -p "Add Suffix to Redis (like: redis-suff) (y/n): " add_suffix
     done
