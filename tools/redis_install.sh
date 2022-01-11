@@ -47,8 +47,13 @@ unzip redis.zip
 rm -rf redis.zip
 cd redis-*/
 
-make PROG_SUFFIX=-btc
-make install PROG_SUFFIX=-btc
+if [[ $redis_suffix != "" ]]; then
+make PROG_SUFFIX=${redis_suffix}
+make install PROG_SUFFIX=${redis_suffix}
+else
+make 
+make install 
+fi
 
 # redis-server_btc
 # redis-benchmark_btc
