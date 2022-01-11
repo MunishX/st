@@ -1,6 +1,8 @@
 #!/bin/bash
 # redis custom install
 
+# cd /tmp && rm -rf redis_install.sh  && wget https://github.com/munishgaurav5/st/raw/master/tools/redis_install.sh && chmod 777 redis_install.sh  && ./redis_install.sh 
+
 redis_suffix=$1
 add_suffix=$1
 if [ $redis_suffix = "" ]; then
