@@ -33,6 +33,21 @@ redis_bind_public=$4
        read -p "Make Redis available on Public IP (y/n): " redis_bind_public
     done
 
+# DELETE
+#ls /etc/systemd/system/redis*
+#systemctl stop redis-fast
+#systemctl disable redis-fast
+
+#ls /var/lib/redis*
+#rm -rf /var/lib/redis-fast
+#ls /etc/redis*
+#rm -rf /etc/redis-fast
+#ls /etc/systemd/system/redis*
+#rm -rf /etc/systemd/system/redis-fast.service
+
+#ls /usr/local/bin/redis*
+#rm -rf /usr/local/bin/{redis*-fast}
+
 
 
 redis_link=https://github.com/redis/redis/archive/refs/tags/6.2.6.zip
