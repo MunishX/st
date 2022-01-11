@@ -290,7 +290,7 @@ supervised systemd
 # Note that on modern Linux systems "/run/redis.pid" is more conforming
 # and should be used instead.
 # pidfile /var/run/redis_6379.pid
-pidfile /var/run/redis_6379.pid
+pidfile /var/run/redis___sfx___.pid
 
 # Specify the server verbosity level.
 # This can be one of:
@@ -456,8 +456,8 @@ rdb-del-sync-files no
 #
 # Note that you must specify a directory here, not a file name.
 #dir ./
-#dir /var/lib/redis_fast
-dir ___dir___
+dir /var/lib/redis___sfx___
+
 ################################# REPLICATION #################################
 
 # Master-Replica replication. Use replicaof to make a Redis instance a copy of
