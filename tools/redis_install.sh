@@ -85,13 +85,18 @@ sed -i "s%___port___%${redis_port}%" /etc/redis${redis_suffix}/redis.conf
 
 cd /etc/systemd/system/
 wget -O redis${redis_suffix}.service https://github.com/munishgaurav5/st/raw/master/tools/files/rd.s
+
 #___sfx___
+sed -i "s%___sfx___%${redis_suffix}%" /etc/systemd/system/redis${redis_suffix}.service
+sed -i "s%___sfx___%${redis_suffix}%" /etc/systemd/system/redis${redis_suffix}.service
 sed -i "s%___sfx___%${redis_suffix}%" /etc/systemd/system/redis${redis_suffix}.service
 
 systemctl enable redis${redis_suffix}
 systemctl start redis${redis_suffix}
 sleep 3
 systemctl status redis${redis_suffix}
+
+systemctl daemon-reload
 
 redis-server${redis_suffix} -v
 
