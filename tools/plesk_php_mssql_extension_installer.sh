@@ -77,8 +77,8 @@ fi
 
 echo ""
 echo "Please add the below 2 lines to 'Additional configuration directives'  at bottom of PLESK PHP settings page ( https://92.205.24.229:8443/smb/web/php-settings/id/1 ) (below 2 lines).."
-echo "${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
-echo "${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
+echo "extension=${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
+echo "extension=${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
 echo ""
 echo ""
 
