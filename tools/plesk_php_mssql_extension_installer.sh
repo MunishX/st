@@ -4,6 +4,9 @@
 # command
 # chmod 777 plesk_php_mssql_extension_installer.sh && ./plesk_php_mssql_extension_installer.sh
 
+echo ""
+echo ""
+echo "==============================="
 echo "Plesk MSSQL Extension Installer"
 echo "==============================="
 echo ""
@@ -25,6 +28,25 @@ else
     exit
 fi
 
+file_pdo_start=php_pdo_sqlsrv_
+file_sql_start=php_sqlsrv_
+file_end=_nts.so
+
+arrV=(${php_v//./ })
+#echo ${arrV[1]}   
+
+
+if [ -f ${path_mod_start}${php_v}${path_mod_end}${file_sql_start}${arrV[0]}${arrV[1]}${file_end} ] 
+then
+    echo "MSSQL Extention for PHP ${php_v} already installed..."
+    exit
+else
+    #echo "Error: PHP ${php_v} installation not found...."
+    #exit
+    echo ""
+fi
+
+
 echo "Installing PHP ${php_v} MSSQL Extension.. Please Wait.." 
 url_link_start=https://github.com/microsoft/msphpsql/releases/download/v5.10.0-beta2/Ubuntu2004-
 url_link_end=.tar
@@ -35,13 +57,6 @@ wget -O php_ext_tar.tar ${url_link_start}${php_v}${url_link_end}
 tar xvf php_ext_tar.tar
 
 cd Ubuntu2004*/
-
-file_pdo_start=php_pdo_sqlsrv_
-file_sql_start=php_sqlsrv_
-file_end=_nts.so
-
-arrV=(${php_v//./ })
-#echo ${arrV[1]}     
 
 cp ${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}   ${path_mod_start}${php_v}${path_mod_end}
 cp ${file_sql_start}${arrV[0]}${arrV[1]}${file_end}   ${path_mod_start}${php_v}${path_mod_end}
