@@ -76,7 +76,9 @@ echo "PHP Extention Installed Successfully.."
 fi
 
 echo ""
-echo "Please add the below 2 lines to 'Additional configuration directives'  at bottom of PLESK PHP settings page ( https://92.205.24.229:8443/smb/web/php-settings/id/1 ) (below 2 lines).."
+echo "Please add the below 'extension=' lines to 'Additional configuration directives' available at bottom of PLESK PHP settings page..
+echo "Plesk PHP Setting page url: ( https://92.205.24.229:8443/smb/web/php-settings/id/1 ) (add below 2 lines).."
+echo ""
 echo "extension=${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
 echo "extension=${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
 echo ""
