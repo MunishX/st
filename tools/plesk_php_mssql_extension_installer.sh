@@ -22,7 +22,7 @@ path_mod_end=/lib/php/modules/
 
 if [ -d ${path_mod_start}${php_v}${path_mod_end} ] 
 then
-    echo "Installed PHP ${php_v} found.." 
+    echo "Plesk PHP ${php_v} Installtion found.." 
 else
     echo "Error: PHP ${php_v} installation not found...."
     exit
@@ -38,13 +38,15 @@ arrV=(${php_v//./ })
 
 if [ -f ${path_mod_start}${php_v}${path_mod_end}${file_sql_start}${arrV[0]}${arrV[1]}${file_end} ] 
 then
-    echo "MSSQL Extention for PHP ${php_v} already installed..."
-    exit
+    echo ""
+    echo "MSSQL Extention for PHP ${php_v} already installed... Skipping installation.."
+
 else
     #echo "Error: PHP ${php_v} installation not found...."
     #exit
     echo ""
-fi
+
+
 
 
 echo "Installing PHP ${php_v} MSSQL Extension.. Please Wait.." 
@@ -65,10 +67,14 @@ rm -rf Ubuntu2004* php_ext_tar.tar
 
 sleep 3
 
+
+
 echo ""
 echo "Done!!"
 echo ""
 echo "PHP Extention Installed Successfully.."
+fi
+
 echo ""
 echo "Please add the below 2 lines to 'Additional configuration directives'  at bottom of PLESK PHP settings page ( https://92.205.24.229:8443/smb/web/php-settings/id/1 ) (below 2 lines).."
 echo "${file_pdo_start}${arrV[0]}${arrV[1]}${file_end}"
