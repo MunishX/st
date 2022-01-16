@@ -97,9 +97,9 @@ sed -i "s%___port___%${redis_port}%" /etc/redis${redis_suffix}/redis.conf
   if [ $save_db != "y" ]; then
      sed -i "s%^.*save \"\"%save \"\"%" /etc/redis${redis_suffix}/redis.conf
   else
-     sed -i "s%^.*save 3600 1%save 3600 1%" /etc/keydb${keydb_suffix}/keydb.conf
-     sed -i "s%^.*save 300 100%save 300 100%" /etc/keydb${keydb_suffix}/keydb.conf
-     sed -i "s%^.*save 60 10000%save 60 10000%" /etc/keydb${keydb_suffix}/keydb.conf
+     sed -i "s%^.*save 3600 1%save 3600 1%" /etc/redis${redis_suffix}/redis.conf
+     sed -i "s%^.*save 300 100%save 300 100%" /etc/redis${redis_suffix}/redis.conf
+     sed -i "s%^.*save 60 10000%save 60 10000%" /etc/redis${redis_suffix}/redis.conf
   fi
 
   if [ $redis_bind_public != "n" ]; then
