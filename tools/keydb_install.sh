@@ -33,6 +33,12 @@ keydb_bind_public=$4
        read -p "Make KeyDB available on Public IP (y/n): " keydb_bind_public
     done
 
+#gcc 9 install
+#yum install -y centos-release-scl
+#yum install -y devtoolset-9
+
+#export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+
 # DELETE
 #ls /etc/systemd/system/redis*
 #systemctl stop redis-fast
