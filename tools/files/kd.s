@@ -5,7 +5,7 @@ Documentation=https://docs.keydb.dev, man:keydb-server(1)
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/keydb-server___sfx___ /etc/keydb___sfx___/keydb.conf
+ExecStart=/usr/local/bin/keydb-server___sfx___ /etc/keydb___sfx___/keydb.conf
 ExecStop=/bin/kill -s TERM $MAINPID
 PIDFile=/var/run/keydb___sfx___/keydb-server.pid
 TimeoutStopSec=0
