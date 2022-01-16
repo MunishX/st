@@ -75,25 +75,25 @@ fi
 # keydb-cli_btc
 
 groupadd keydb
-adduser --system -g keydb --no-create-home redis
+adduser --system -g keydb --no-create-home keydb
 
-mkdir -p /var/lib/keydb${redis_suffix}
-chown redis: /var/lib/keydb${redis_suffix}
-chmod 770 /var/lib/keydb${redis_suffix}
+mkdir -p /var/lib/keydb${keydb_suffix}
+chown keydb: /var/lib/keydb${keydb_suffix}
+chmod 770 /var/lib/keydb${keydb_suffix}
 
-mkdir -p /var/log/keydb${redis_suffix}
-chown redis: /var/log/keydb${redis_suffix}
-chmod 770 /var/log/keydb${redis_suffix}
+mkdir -p /var/log/keydb${keydb_suffix}
+chown keydb: /var/log/keydb${keydb_suffix}
+chmod 770 /var/log/keydb${keydb_suffix}
 
-mkdir -p /var/run/keydb${redis_suffix}
-chown redis: /var/run/keydb${redis_suffix}
-chmod 770 /var/run/keydb${redis_suffix}
+mkdir -p /var/run/keydb${keydb_suffix}
+chown keydb: /var/run/keydb${keydb_suffix}
+chmod 770 /var/run/keydb${keydb_suffix}
 
-mkdir -p /etc/keydb${redis_suffix}
-cd /etc/keydb${redis_suffix}/
+mkdir -p /etc/keydb${keydb_suffix}
+cd /etc/keydb${keydb_suffix}/
 wget -O keydb.conf https://github.com/munishgaurav5/st/raw/master/tools/files/kd.c
-sed -i "s%___sfx___%${keydb_suffix}%" /etc/redis${redis_suffix}/keydb.conf
-sed -i "s%___port___%${keydb_port}%" /etc/redis${redis_suffix}/keydb.conf
+sed -i "s%___sfx___%${keydb_suffix}%" /etc/keydb${keydb_suffix}/keydb.conf
+sed -i "s%___port___%${keydb_port}%" /etc/keydb${keydb_suffix}/keydb.conf
 
 # port ___port___
 # pid  ___sfx___
