@@ -55,6 +55,9 @@ keydb_link=https://github.com/EQ-Alpha/KeyDB/archive/refs/tags/v6.2.1.zip
 #keydb_port=6379
 #save_db=1
 
+sudo yum install libatomic -y 
+#sudo apt install libatomic1 -y
+
 cd /tmp
 rm -rf KeyDB-* keydb.zip
 wget -O keydb.zip ${keydb_link}
