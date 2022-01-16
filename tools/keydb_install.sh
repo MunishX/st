@@ -104,6 +104,10 @@ sed -i "s%___port___%${keydb_port}%" /etc/keydb${keydb_suffix}/keydb.conf
 
   if [ $save_db != "y" ]; then
      sed -i "s%^.*save \"\"%save \"\"%" /etc/keydb${keydb_suffix}/keydb.conf
+  else
+     sed -i "s%^.*save 3600 1%save 3600 1%" /etc/keydb${keydb_suffix}/keydb.conf
+     sed -i "s%^.*save 300 100%save 300 100%" /etc/keydb${keydb_suffix}/keydb.conf
+     sed -i "s%^.*save 60 10000%save 60 10000%" /etc/keydb${keydb_suffix}/keydb.conf
   fi
 
   if [ $keydb_bind_public != "n" ]; then
