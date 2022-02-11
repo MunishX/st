@@ -56,7 +56,9 @@ keydb_bind_public=$4
 
 
 
-keydb_link=https://github.com/EQ-Alpha/KeyDB/archive/refs/tags/v6.2.1.zip
+#keydb_link=https://github.com/EQ-Alpha/KeyDB/archive/refs/tags/v6.2.1.zip
+keydb_link=https://github.com/EQ-Alpha/KeyDB/archive/refs/tags/v6.2.2.zip
+
 #keydb_suffix=-btc
 #keydb_port=6379
 #save_db=1
@@ -124,19 +126,18 @@ sed -i "s%___port___%${keydb_port}%" /etc/keydb${keydb_suffix}/keydb.conf
   fi
   
 
-cd /etc/systemd/system/
-wget -O keydb${keydb_suffix}.service https://github.com/munishgaurav5/st/raw/master/tools/files/kd.s
+#cd /etc/systemd/system/
+#wget -O keydb${keydb_suffix}.service https://github.com/munishgaurav5/st/raw/master/tools/files/kd.s
 
-#___sfx___
-sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
-sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
-sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
+#sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
+#sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
+#sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
 
-systemctl enable keydb${keydb_suffix}
-systemctl start keydb${keydb_suffix}
-sleep 3
-systemctl status keydb${keydb_suffix}
+#systemctl enable keydb${keydb_suffix}
+#systemctl start keydb${keydb_suffix}
+#sleep 3
+#systemctl status keydb${keydb_suffix}
 
-systemctl daemon-reload
+#systemctl daemon-reload
 
-keydb-server${keydb_suffix} -v
+#keydb-server${keydb_suffix} -v
