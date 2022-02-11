@@ -3,6 +3,8 @@
 
 # cd /tmp && rm -rf keydb_install.sh  && wget https://github.com/munishgaurav5/st/raw/master/tools/keydb_install.sh && chmod 777 keydb_install.sh  && ./keydb_install.sh 
 
+#export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+
 keydb_suffix=$1
 add_suffix=$1
 if [[ $keydb_suffix == "" ]]; then
@@ -126,18 +128,18 @@ sed -i "s%___port___%${keydb_port}%" /etc/keydb${keydb_suffix}/keydb.conf
   fi
   
 
-#cd /etc/systemd/system/
-#wget -O keydb${keydb_suffix}.service https://github.com/munishgaurav5/st/raw/master/tools/files/kd.s
+cd /etc/systemd/system/
+wget -O keydb${keydb_suffix}.service https://github.com/munishgaurav5/st/raw/master/tools/files/kd.s
 
-#sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
-#sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
-#sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
+sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
+sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
+sed -i "s%___sfx___%${keydb_suffix}%" /etc/systemd/system/keydb${keydb_suffix}.service
 
-#systemctl enable keydb${keydb_suffix}
-#systemctl start keydb${keydb_suffix}
-#sleep 3
-#systemctl status keydb${keydb_suffix}
+systemctl enable keydb${keydb_suffix}
+systemctl start keydb${keydb_suffix}
+sleep 3
+systemctl status keydb${keydb_suffix}
 
-#systemctl daemon-reload
+systemctl daemon-reload
 
-#keydb-server${keydb_suffix} -v
+keydb-server${keydb_suffix} -v
