@@ -1,4 +1,4 @@
-# KeyDB v6.2.1 Latest This release of KeyDB is at parity with Redis 6.2.6
+# KeyDB v6.2.2 Latest This release of KeyDB is at parity with Redis 6.2.6
 # KeyDB configuration file example.
 #
 # Note that in order to read the configuration file, KeyDB must be
