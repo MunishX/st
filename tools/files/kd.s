@@ -37,4 +37,3 @@ ReadWriteDirectories=-/etc/keydb
 
 [Install]
 WantedBy=multi-user.target
-Alias=keydb.service
