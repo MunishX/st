@@ -41,20 +41,20 @@ keydb_bind_public=$4
 
 #export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
 
-# DELETE
-#ls /etc/systemd/system/redis*
-#systemctl stop redis-fast
-#systemctl disable redis-fast
+# DELETE KEYDB
+#ls /etc/systemd/system/keydb*
+#systemctl stop keydb-fast
+#systemctl disable keydb-fast
 
-#ls /var/lib/redis*
-#rm -rf /var/lib/redis-fast
-#ls /etc/redis*
-#rm -rf /etc/redis-fast
-#ls /etc/systemd/system/redis*
-#rm -rf /etc/systemd/system/redis-fast.service
+#ls /var/lib/keydb*
+#rm -rf /var/lib/keydb-fast
+#ls /etc/keydb*
+#rm -rf /etc/keydb-fast
+#ls /etc/systemd/system/keydb*
+#rm -rf /etc/systemd/system/keydb-fast.service
 
-#ls /usr/local/bin/redis*
-#rm -rf /usr/local/bin/{redis*-fast}
+#ls /usr/local/bin/keydb*
+#rm -rf /usr/local/bin/{keydb*-fast}
 
 
 
@@ -65,8 +65,20 @@ keydb_link=https://github.com/EQ-Alpha/KeyDB/archive/refs/tags/v6.2.2.zip
 #keydb_port=6379
 #save_db=1
 
-sudo yum install libatomic -y 
+#sudo yum install libatomic -y 
 #sudo apt install libatomic1 -y
+
+
+
+sudo yum install -y scl-utils centos-release-scl
+sudo yum install -y devtoolset-7 libuuid-devel
+sudo source scl_source enable devtoolset-7
+source scl_source enable devtoolset-7
+sudo yum install -y openssl openssl-devel curl-devel devtoolset-7-libatomic-devel tcl tcl-devel git wget epel-release
+sudo yum install -y tcltls libzstd
+
+
+
 
 cd /tmp
 rm -rf KeyDB-* keydb.zip
