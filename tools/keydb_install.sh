@@ -80,6 +80,9 @@ sudo yum install -y openssl openssl-devel curl-devel devtoolset-7-libatomic-deve
 sudo yum install -y tcltls libzstd
 
 
+#sudo apt update
+#sudo apt install nano wget curl 
+#sudo apt install build-essential nasm autotools-dev autoconf libjemalloc-dev tcl tcl-dev uuid-dev libcurl4-openssl-dev git
 
 
 cd /tmp
