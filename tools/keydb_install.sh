@@ -5,6 +5,9 @@
 
 # install info https://docs.keydb.dev/docs/build/
 
+#openssl 
+#https://www.openssl.org/source/openssl-1.1.0.tar.gz
+
 #export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
 
 keydb_suffix=$1
