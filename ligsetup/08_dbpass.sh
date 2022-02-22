@@ -60,9 +60,17 @@ yum -y install expect
 
 SECURE_MYSQL=$(expect -c "
 set timeout 3
-spawn mysql_secure_installation
+
+#spawn mysql_secure_installation
+spawn mariadb-secure-installation
+
 expect \"Enter current password for root (enter for none):\"
 send \"$CURRENT_MYSQL_PASSWORD\r\"
+
+#
+expect \"Switch to unix_socket authentication [Y/n]\"
+send \"n\r\"
+
 expect \"root password?\"
 send \"y\r\"
 expect \"New password:\"
