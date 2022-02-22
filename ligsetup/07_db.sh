@@ -5,44 +5,15 @@
 # mysql_upgrade -u root -p
 
 
-##### add MariaDB 10.3.5 repo stable from mariadb
-# http://yum.mariadb.org/10.3.5/centos74-amd64/rpms/MariaDB-10.3.5-centos74-x86_64-server.rpm
+
+##### add MariaDB mariadb-10.6.3 repo stable from mariadb
+# http://yum.mariadb.org/mariadb-10.6.3/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
 #echo "
-#
-# MariaDB 10.3.5 CentOS repository list - created 2018-02-26 05:13 UTC
+# MariaDB 10.6.3 CentOS repository list - created 2021
 # http://downloads.mariadb.org/mariadb/repositories/
 #[mariadb]
 #name = MariaDB
-#baseurl = http://yum.mariadb.org/10.3.5/centos7-amd64
-#gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-#gpgcheck=1
-#
-#" > /etc/yum.repos.d/mariadb.repo
-#####
-
-##### add MariaDB 10.3.8 repo stable from mariadb
-# http://yum.mariadb.org/10.3.5/centos74-amd64/rpms/MariaDB-10.3.5-centos74-x86_64-server.rpm
-#echo "
-
-# MariaDB 10.3 CentOS repository list - created 2018-07-15 19:14 UTC
-# http://downloads.mariadb.org/mariadb/repositories/
-#[mariadb]
-#name = MariaDB
-#baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.3.8/yum/centos7-amd64
-#gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
-#gpgcheck=1
-
-#" > /etc/yum.repos.d/mariadb.repo
-#####
-
-##### add MariaDB mariadb-10.3.13 repo stable from mariadb
-# http://yum.mariadb.org/mariadb-10.3.13/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
-#echo "
-# MariaDB 10.3 CentOS repository list - created 2019-03-22 19:14 UTC
-# http://downloads.mariadb.org/mariadb/repositories/
-#[mariadb]
-#name = MariaDB
-#baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.3.13/yum/centos7-amd64
+#baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.6.3/yum/centos7-amd64/
 #gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
 #gpgcheck=1
 #" > /etc/yum.repos.d/mariadb.repo
@@ -52,12 +23,12 @@
 # http://yum.mariadb.org/mariadb-10.6.3/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
 echo "
 
-# MariaDB 10.6.3 CentOS repository list - created 2021
-# http://downloads.mariadb.org/mariadb/repositories/
+# MariaDB 10.7 CentOS repository list - created 2022-02-22 16:26 UTC
+# https://mariadb.org/download/
 [mariadb]
 name = MariaDB
-baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.6.3/yum/centos7-amd64/
-gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
+baseurl = https://mirrors.xtom.nl/mariadb/yum/10.7/centos7-amd64
+gpgkey=https://mirrors.xtom.nl/mariadb/yum/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 
 " > /etc/yum.repos.d/mariadb.repo
