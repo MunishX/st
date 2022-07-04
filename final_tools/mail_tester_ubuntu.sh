@@ -2,7 +2,7 @@
 
 # for ubuntu or debian 
 
-# cd /tmp && sudo apt install wget -y && rm -rf /tmp/mail.sh && wget http://host.fastserver.me/tmp/mail.sh && chmod 777 mail.sh && bash /tmp/mail.sh
+# cd /tmp && sudo apt install wget -y && rm -rf /tmp/mail_tester_ubuntu.sh && wget http://host.fastserver.me/tmp/mail_tester_ubuntu.sh && chmod 777 mail_tester_ubuntu.sh && bash /tmp/mail_tester_ubuntu.sh
 
 sudo apt update -y
 sudo apt install -y nano wget curl sed openssl unzip zip  
