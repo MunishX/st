@@ -38,7 +38,8 @@ echo "Min Postfix Configured Successfully..."
 
 #Apache install
 
-sudo apt install -y apache2 libapache2-mod-php
+#sudo apt install -y apache2 libapache2-mod-php
+sudo apt install -y apache2 libapache2-mod-php7.4
 rm -rf /var/www/html/up.php /var/www/html/PHPMailer*
 sudo wget -O /var/www/html/up.php https://github.com/dulldusk/phpfm/raw/master/index.php
 
