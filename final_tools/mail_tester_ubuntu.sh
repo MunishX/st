@@ -1,6 +1,10 @@
 #!/bin/bash
 
+
 # for ubuntu or debian 
+
+## service file path
+## /etc/systemd/system/ in ubuntu system
 
 # cd /tmp && sudo apt install wget -y && rm -rf /tmp/mail_tester_ubuntu.sh && wget http://host.fastserver.me/tmp/mail_tester_ubuntu.sh && chmod 777 mail_tester_ubuntu.sh && bash /tmp/mail_tester_ubuntu.sh
 
