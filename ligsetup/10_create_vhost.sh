@@ -318,6 +318,7 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/phpintl -O 
 sed -i "s,^.*php_config_file.conf.*,ExecStart=/usr/bin/php-fpm --fpm-config=$user_root/$mydom/$php_add_head/$software_name.conf --nodaemonize," /usr/lib/systemd/system/$software_name.service
 chmod 777 /usr/lib/systemd/system/$software_name.service
 
+# /etc/systemd/system/ in ubuntu system
 #/etc/init.d/
 
 mkdir -p $user_root/$mydom/html/host
