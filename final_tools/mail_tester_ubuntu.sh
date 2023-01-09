@@ -39,6 +39,9 @@ sudo sed -i "s/^inet_protocols.*/inet_protocols = ipv4/" /etc/postfix/main.cf
 sudo postconf -e 'smtp_tls_security_level = may'
 sudo postconf -e 'smtpd_tls_security_level = may'
 
+sudo postconf -e 'smtp_host_lookup = native'
+sudo postconf -e 'lmtp_host_lookup = native'
+
 # postfix reload
 service postfix restart
 
