@@ -344,6 +344,9 @@ unzip master
 mv rapidleech-master test
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/man.php -O up.php
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/man2.php -O up2.php
+wget https://github.com/MunishX/st/raw/master/ligsetup_rocky9/replace/PHPMailer.zip
+unzip PHPMailer.zip
+rm -rf PHPMailer.zip
 mkdir -p $user_root/$mydom/html/host/
 touch $user_root/$mydom/html/host/php.php
 #fi
