@@ -23,8 +23,8 @@ sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo 
 echo ""
 echo "Installing latest RAR..."
 cd /tmp
-#wget https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
-wget https://www.rarlab.com/rar/rarlinux-x64-6.0.2.tar.gz
+#wget https://www.rarlab.com/rar/rarlinux-x64-6.0.2.tar.gz
+wget https://www.rarlab.com/rar/rarlinux-x64-624.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar*/
 make
