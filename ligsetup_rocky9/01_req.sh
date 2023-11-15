@@ -16,9 +16,11 @@ yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git su
 yum -y update
 
 sudo yum -y groupinstall "Development Tools"
-sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel mailx expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel libgcj gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel  GeoIP-devel gperftools-devel libicu libicu-devel aspell gmp-devel aspell-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant enchant-devel pam-devel git perl-ExtUtils perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils libc-client libc-client-devel numactl lsof pkgconfig gdbm-devel tk-devel bluez-libs-devel
-sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo iftop help2man
+sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel gperftools-devel libicu libicu-devel gmp-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant pam-devel git perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils numactl lsof pkgconfig tk-devel 
+#yum -y install mailx libgcj GeoIP-devel aspell aspell-devel enchant-devel perl-ExtUtils libc-client libc-client-devel gdbm-devel bluez-libs-devel
 
+sudo yum -y install unzip zip unrar rsync psmisc mediainfo iftop 
+#yum -y install rar syslog-ng-libdbi help2man
 ########## RAR #############
 echo ""
 echo "Installing latest RAR..."
@@ -28,7 +30,7 @@ wget https://www.rarlab.com/rar/rarlinux-x64-624.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar*/
 make
-wget -O /etc/rarreg.key https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/rarreg.key
+wget -O /etc/rarreg.key https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/rarreg.key
 cd ..
 rm -rf rar*
 
@@ -36,7 +38,8 @@ rm -rf rar*
 mv /usr/local/bin/sqlite3 /usr/local/bin/sqlite3_old
 
 cd /tmp
-wget https://www.sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
+#wget https://www.sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
+wget https://www.sqlite.org/2023/sqlite-autoconf-3440000.tar.gz
 tar -xf sqlite*.tar.gz
 cd sqlite*/
 CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1" ./configure
