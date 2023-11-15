@@ -67,6 +67,8 @@ yum -y install ${PHP_V}-php-pecl-event
 ## PHP-ioncube-loader (ioncube-loader)
 yum -y install ${PHP_V}-php-ioncube-loader
 
+## PHP-Trader extension
+yum -y install ${PHP_V}-php-pecl-trader
 
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
