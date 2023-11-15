@@ -54,9 +54,9 @@ service $php_name-$php_soft restart
 
 sleep 5
 
-systemctl status lighttpd.service
-#systemctl status $php_soft
-systemctl status memcached
-systemctl status redis
-systemctl status mysql
-service $tor_name-$tor_soft status
+systemctl status lighttpd.service --no-pager
+#systemctl status $php_soft --no-pager
+systemctl status memcached --no-pager
+systemctl status redis --no-pager
+systemctl status mysql --no-pager
+#service $tor_name-$tor_soft status
