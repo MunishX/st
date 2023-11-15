@@ -53,7 +53,7 @@ yum -y install MariaDB-client MariaDB-common MariaDB-devel MariaDB-server MariaD
 
 systemctl start mariadb
 systemctl enable mariadb
-systemctl status mariadb
+systemctl status mariadb --no-pager
 #systemctl stop mariadb
 
 # service mysql start
@@ -68,7 +68,7 @@ systemctl status mariadb
 ###
 
 systemctl restart mariadb
-systemctl status mariadb
+systemctl status mariadb --no-pager
 
 netstat -tap | grep mysql
 
