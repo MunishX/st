@@ -6,28 +6,28 @@
 
 
 
-##### add MariaDB mariadb-10.6.3 repo stable from mariadb
-# http://yum.mariadb.org/mariadb-10.6.3/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
+##### add MariaDB mariadb-10.7 repo stable from mariadb
+# http://yum.mariadb.org/mariadb-10.7/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
 #echo "
-# MariaDB 10.6.3 CentOS repository list - created 2021
-# http://downloads.mariadb.org/mariadb/repositories/
+# MariaDB 10.7 CentOS 7
+# https://mariadb.org/download/
 #[mariadb]
 #name = MariaDB
-#baseurl = http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.6.3/yum/centos7-amd64/
-#gpgkey=http://ftp.hosteurope.de/mirror/archive.mariadb.org/PublicKey
+#baseurl = https://mirrors.xtom.nl/mariadb/yum/10.7/centos7-amd64
+#gpgkey=https://mirrors.xtom.nl/mariadb/yum/RPM-GPG-KEY-MariaDB
 #gpgcheck=1
 #" > /etc/yum.repos.d/mariadb.repo
 #####
 
-##### add MariaDB mariadb-10.6.3 repo stable from mariadb
-# http://yum.mariadb.org/mariadb-10.6.3/centos74-amd64/rpms/MariaDB-mariadb-10.3.13-centos74-x86_64-server.rpm
+##### add MariaDB mariadb-11.2 repo stable from mariadb
+# http://yum.mariadb.org/mariadb-11.2/ Rocky 9
 echo "
 
-# MariaDB 10.7 CentOS repository list - created 2022-02-22 16:26 UTC
+# MariaDB 11.2 Rocky repository list - updated on 2023-11-15
 # https://mariadb.org/download/
 [mariadb]
 name = MariaDB
-baseurl = https://mirrors.xtom.nl/mariadb/yum/10.7/centos7-amd64
+baseurl = https://mirrors.xtom.nl/mariadb/yum/11.2/rhel9-amd64/
 gpgkey=https://mirrors.xtom.nl/mariadb/yum/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 
@@ -43,6 +43,7 @@ yum -y install epel-release wget telnet
 yum -y update
 
 yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
+yum -y install LibRaw
 yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
 
 
