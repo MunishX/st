@@ -103,7 +103,8 @@ rm -rf mem.zip
 
 #best , all ok
 #wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-english.zip
-wget https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.zip
+#wget https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.zip
+wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip
 #
 
 unzip phpMy*
@@ -134,7 +135,7 @@ sleep 2
 #vnstat -u -i eth0
 
 vnstat -i $NETWORK_INTERFACE_NAME
-vnstat -u -i $NETWORK_INTERFACE_NAME
+#vnstat -u -i $NETWORK_INTERFACE_NAME
 
 */5 * * * * /usr/bin/vnstat -u >/dev/null 2>&1
 chown -R vnstat:vnstat /var/lib/vnstat
@@ -151,8 +152,12 @@ if [ $NETWORK_INTERFACE_NAME != "eth0" ]; then
 sed -i "s/^.*eth0.*/ '$NETWORK_INTERFACE_NAME',/" stat/config.php
 fi
 
-service vnstat start
-chkconfig vnstat on
+#service vnstat start
+#chkconfig vnstat on
+
+systemctl start vnstat
+systemctl enable vnstat
+
 vnstat -d
 
 
