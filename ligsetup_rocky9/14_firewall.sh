@@ -68,3 +68,27 @@ sysctl -w net.ipv4.icmp_echo_ignore_all=1
 #lighttpd -p -f /etc/lighttpd/lighttpd.conf
 #lighttpd -t -f /etc/lighttpd/lighttpd.conf
 #lighttpd -tt -f /etc/lighttpd/lighttpd.conf
+
+### Postfix Setup
+yum install sudo sed postfix -y
+sudo sed -i "s/^inet_protocols.*/inet_protocols = ipv4/" /etc/postfix/main.cf
+sudo postconf -e 'smtp_tls_security_level = may'
+sudo postconf -e 'smtpd_tls_security_level = may'
+systemctl start postfix
+systemctl enable postfix
+systemctl status postfix --no-pager
+###
+
+echo ""
+echo " PostFix SETUP Configured Successfully..."
+echo ""
+echo ""
+echo "if need to change hostname, run: hostnamectl set-hostname test10.fastserver.me "
+echo "set A record"
+echo "set SPF record"
+echo "set reverse IP Host at Network"
+echo ""
+echo " Then visit http://[IP]/PHPMailer/src/test.php or http://test10.fastserver.me/PHPMailer/src/test.php"
+echo ""
+
+
