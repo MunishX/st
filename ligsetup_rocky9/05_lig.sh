@@ -79,7 +79,7 @@ systemctl daemon-reload
 #service lighttpd stop
 
 systemctl start lighttpd
-systemctl status lighttpd
+systemctl status lighttpd --no-pager
 systemctl stop lighttpd
 
 echo ""
