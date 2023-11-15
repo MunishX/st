@@ -1,0 +1,47 @@
+#######################################################################
+##
+##  GeoIP2 Module 
+## --------------- 
+##
+## See https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModMaxMindDB
+##
+## maxminddb is a module for fast ip/location lookups. It uses MaxMind
+## GeoIP / GeoCity databases. If the ip was found in the database the
+## module sets the appropriate environments variables to the request,
+## thus making other modules/fcgi be informed.
+##
+
+server.modules += ( "mod_maxminddb" )
+
+maxminddb.activate = "enable" 
+
+##
+## mod_geoip will determine the database type automatically so if you
+## enter GeoCity databse path it will load GeoCity Env.
+##
+
+#wget -O /home/lighttpd/bin/GeoIP2-City.mmdb http://www.szantolajos.hu/geoip/GeoLite2-City.mmdb
+
+maxminddb.db = "/home/lighttpd/bin/GeoIP2-City.mmdb"
+#maxminddb.db = "/path/to/the/GeoIP2/GeoIP2-City.mmdb"
+#maxminddb.db = "/path/to/the/GeoIP2/GeoLite2-City.mmdb"
+#maxminddb.db = "/path/to/the/GeoIP2/database.mmdb"
+
+#GeoLite2-City.mmdb
+#GeoLite2-Country.mmdb
+
+##
+## If enabled, mod_geoip will load the database binary file to memory
+## for very fast lookups. The only penalty is memory usage.
+##
+
+maxminddb.env = (
+         "GEOIP_COUNTRY_CODE"   => "country/iso_code",
+         "GEOIP_COUNTRY_NAME"   => "country/names/en",
+         "GEOIP_CITY_NAME"      => "city/names/en",
+         "GEOIP_CITY_LATITUDE"  => "location/latitude",
+         "GEOIP_CITY_LONGITUDE" => "location/longitude",
+)
+
+##
+#######################################################################
