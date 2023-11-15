@@ -9,7 +9,7 @@
 #### PHP CONFIG
 #PHP_V='php70'
 #PHP_V='php71'
-PHP_V='php74'
+#PHP_V='php74'
 # PHP_V not required in this page
 
 ############################### ADDED START
@@ -293,7 +293,8 @@ url.rewrite-once = (
  #echo "admin:pass" > /home/$admin_username/.lighttpdpassword
  #chmod 775 /home/$admin_username/.lighttpdpassword
  
- chown $admin_username:$admin_username /home/$admin_username/.htpasswd
+ #chown $admin_username:$admin_username /home/$admin_username/.htpasswd
+ chown $admin_username:$admin_username $user_root/$mydom/.htpasswd
  
 ###################
 
