@@ -72,16 +72,6 @@ wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligi
 #chmod 777 /etc/systemd/system/multi-user.target.wants/lighttp*
 chmod 777  /usr/lib/systemd/system/lighttpd*
 
-### Postfix Setup
-yum install sudo sed postfix -y
-sudo sed -i "s/^inet_protocols.*/inet_protocols = ipv4/" /etc/postfix/main.cf
-sudo postconf -e 'smtp_tls_security_level = may'
-sudo postconf -e 'smtpd_tls_security_level = may'
-systemctl start postfix
-systemctl enable postfix
-systemctl status postfix --no-pager
-###
-
 
 systemctl daemon-reload
 
