@@ -62,7 +62,7 @@ yum -y install ${PHP_V}-php-pecl-event
 
 
 ## PHP-swoole (swoole/swoole-src)
-yum -y install ${PHP_V}-php-pecl-swoole
+#yum -y install ${PHP_V}-php-pecl-swoole
 
 ## PHP-ioncube-loader (ioncube-loader)
 yum -y install ${PHP_V}-php-ioncube-loader
@@ -73,9 +73,11 @@ echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
 echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
 
 ## php7x to PHP link
+rm -rf /usr/bin/php /usr/bin/php-cgi /usr/bin/phpize /usr/bin/php-fpm
 ln -s /usr/bin/${PHP_V} /usr/bin/php
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
 ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/phpize
+ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/php-cgi
 
 ## SWITCH OFF EXPOSE PHP
 sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
