@@ -257,7 +257,7 @@ make install
 # Set up init script for transmission-daemon
 cd /etc/init.d
 #wget -O $software_name https://gist.githubusercontent.com/elijahpaul/b98f39011bce48c0750d/raw/0812b6d949b01922f7060f4d4d15dc5e70c5d5a5/transmission-daemon
-wget -O $software_name https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/tm_int
+wget -O $software_name https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/tm_int
 sed -i "s%TRANSMISSION_HOME=/home/transmission%TRANSMISSION_HOME=/home/$uname%" $software_name
 sed -i 's%DAEMON_USER="transmission"%DAEMON_USER="placeholder123"%' $software_name
 sed -i "s%placeholder123%$uname%" $software_name
