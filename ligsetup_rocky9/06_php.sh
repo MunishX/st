@@ -72,17 +72,19 @@ yum -y install ${PHP_V}-php-ioncube-loader
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
 echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
 
-## php7x to PHP link
+## SWITCH OFF EXPOSE PHP
+sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
+sed -i "s/^.*mail.add_x_header =.*/mail.add_x_header = Off/" /etc/opt/remi/${PHP_V}/php.ini
+sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/${PHP_V}/php.ini
+
+
+## php7x to PHP LINK to bin path (symLINK)
 rm -rf /usr/bin/php /usr/bin/php-cgi /usr/bin/phpize /usr/bin/php-fpm
 ln -s /usr/bin/${PHP_V} /usr/bin/php
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
 ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/phpize
 ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/php-cgi
 
-## SWITCH OFF EXPOSE PHP
-sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
-sed -i "s/^.*mail.add_x_header =.*/mail.add_x_header = Off/" /etc/opt/remi/${PHP_V}/php.ini
-sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/${PHP_V}/php.ini
 
 ####
 
