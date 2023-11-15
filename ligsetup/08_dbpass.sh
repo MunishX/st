@@ -68,7 +68,7 @@ expect \"Enter current password for root (enter for none):\"
 send \"$CURRENT_MYSQL_PASSWORD\r\"
 
 #
-expect \"Switch to unix_socket authentication [Y/n]\"
+expect \"Switch to unix_socket authentication\"
 send \"n\r\"
 
 expect \"root password?\"
