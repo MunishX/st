@@ -48,7 +48,8 @@ chmod -R 777 /home/lighttpd
 
 #usermod -m -d /home/lighttpd lighttpd
 
-service lighttpd stop
+systemctl stop lighttpd
+#service lighttpd stop
 usermod -m -d /home/lighttpd/ lighttpd
 sudo usermod -a -G lighttpd lighttpd
 
@@ -60,7 +61,8 @@ sudo usermod -a -G lighttpd lighttpd
 
 ####################
 ## Lighttpd Angel
-service lighttpd stop
+#service lighttpd stop
+systemctl stop lighttpd
 
 rm -rf /usr/lib/systemd/system/lighttpdo.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 mv  /usr/lib/systemd/system/lighttpd.service /usr/lib/systemd/system/lighttpdo.service
@@ -72,9 +74,13 @@ chmod 777  /usr/lib/systemd/system/lighttpd*
 
 systemctl daemon-reload
 
-service lighttpd start
-service lighttpd status
-service lighttpd stop
+#service lighttpd start
+#service lighttpd status
+#service lighttpd stop
+
+systemctl start lighttpd
+systemctl status lighttpd
+systemctl stop lighttpd
 
 echo ""
 echo "Lighttpd Angel Configured.."
