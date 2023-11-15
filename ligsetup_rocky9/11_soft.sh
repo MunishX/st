@@ -114,7 +114,7 @@ mv phpMy* php
 cd php
 #cp config.sample.inc.php config.inc.php
 
-echo "<?php \$cfg['blowfish_secret'] = 'ykuglihlufjtfjguhigkughkuhkuhkgyfjohbjbhfjthtvjyhguhlihhkygyjfgtfj'; ?>" > config.inc.php
+echo "<?php \$cfg['blowfish_secret'] = 'ykuglihlufjtfjguhigjbhuhlyjfgtfj'; ?>" > config.inc.php
 cd ..
 
 
