@@ -198,6 +198,12 @@ chmod -R 777 /home/admin/bin/
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/add_user.sh -O /usr/bin/addnewuser
 chmod 777 /usr/bin/addnewuser
 
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/10_create_vhost.sh -O /usr/bin/addnewuser_create_vhost
+chmod 777 /usr/bin/addnewuser_create_vhost
+
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/12_tmm.sh -O /usr/bin/addnewuser_tmm
+chmod 777 /usr/bin/addnewuser_tmm
+
 #server_stat='
 #server.modules += ( "mod_status" )
 #  status.status-url          = "/admin/server-status"
