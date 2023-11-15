@@ -47,7 +47,10 @@ make
 make install
 
 sqlite3 --version
- 
+
+cd ..
+rm -rf sqlite*
+
 ############################################
 
 ########
