@@ -13,16 +13,20 @@ systemctl disable httpd.service
 #rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 
 cd /tmp
-yum -y remove epel-release remi-release
+#yum -y remove epel-release remi-release
+rm -rf epel-release* RPM-GPG-KEY-EPEL*
 
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
-yum -y install epel-release-latest-7.noarch.rpm
-rpm --import /tmp/RPM-GPG-KEY-EPEL-7
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9
+yum -y install epel-release-latest-9.noarch.rpm
+rpm --import /tmp/RPM-GPG-KEY-EPEL-9
 
+# or
+# yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 
 yum -y update
-yum -y install lighttpd lighttpd-fastcgi lighttpd-mod_geoip geoip
+yum -y install lighttpd lighttpd-fastcgi 
+#yum -y install lighttpd-mod_geoip geoip
 
 mkdir -p /etc/lighttpd/enabled/
 #mkdir -p /home/lighttpd/{html,logs,bin}
@@ -61,8 +65,8 @@ service lighttpd stop
 rm -rf /usr/lib/systemd/system/lighttpdo.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 mv  /usr/lib/systemd/system/lighttpd.service /usr/lib/systemd/system/lighttpdo.service
 #mv /etc/systemd/system/multi-user.target.wants/lighttpd.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
-#wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup/replace/ligintl -O /usr/lib/systemd/system/lighttpd.service
+#wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
+wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligintl -O /usr/lib/systemd/system/lighttpd.service
 #chmod 777 /etc/systemd/system/multi-user.target.wants/lighttp*
 chmod 777  /usr/lib/systemd/system/lighttpd*
 
