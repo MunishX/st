@@ -82,7 +82,8 @@ sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/$
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/${PHP_V}-fpm
 ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/${PHP_V}-phpize
 
-## php7x to PHP LINK to bin path (symLINK)
+## php7x to PHP LINK to bin path (symLINK) (FIX)
+# PHP_V='php74'
 rm -rf /usr/bin/php /usr/bin/php-cgi /usr/bin/phpize /usr/bin/php-fpm
 ln -s /usr/bin/${PHP_V} /usr/bin/php
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
