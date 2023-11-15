@@ -19,15 +19,15 @@
 #" > /etc/yum.repos.d/mariadb.repo
 #####
 
-##### add MariaDB mariadb-11.2 repo stable from mariadb
-# http://yum.mariadb.org/mariadb-11.2/ Rocky 9
+##### add MariaDB mariadb-10.11 repo stable from mariadb
+# http://yum.mariadb.org/mariadb-10.11/ Rocky 9
 echo "
 
-# MariaDB 11.2 Rocky repository list - updated on 2023-11-15
+# MariaDB 10.11 Rocky repository list - updated on 2023-11-11
 # https://mariadb.org/download/
 [mariadb]
 name = MariaDB
-baseurl = https://mirrors.xtom.nl/mariadb/yum/11.2/rhel9-amd64/
+baseurl = https://mirrors.xtom.nl/mariadb/yum/10.11/rhel9-amd64/
 gpgkey=https://mirrors.xtom.nl/mariadb/yum/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 
@@ -42,9 +42,10 @@ cd /tmp
 yum -y install epel-release wget telnet 
 yum -y update
 
-yum -y install MariaDB-client MariaDB-common MariaDB-compat MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
-yum -y install LibRaw
-yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
+yum -y install MariaDB-client MariaDB-common MariaDB-devel MariaDB-server MariaDB-shared perl-DBD-MySQL
+#yum -y install MariaDB-compat # no longer available / required
+#yum -y install LibRaw
+#yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel 
 
 
 #systemctl start mysql
@@ -53,16 +54,17 @@ yum -y install ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-dev
 systemctl start mariadb
 systemctl enable mariadb
 systemctl status mariadb
+#systemctl stop mariadb
 
 # service mysql start
 # chkconfig mysql on
 
-sudo mv /etc/my.cnf /etc/my.cnf.bak
-sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
+#sudo mv /etc/my.cnf /etc/my.cnf.bak
+#sudo cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
 
 ### IMGMAGIX FIX
-sed -i 's,^.*<policy domain="coder" rights="none" pattern="HTTPS".*, <!--- <policy domain="coder" rights="none" pattern="HTTPS" />,' /etc/ImageMagick/policy.xml
-sed -i 's,^.*<policy domain="coder" rights="none" pattern="URL".*, ---> <policy domain="coder" rights="none" pattern="URL" />,' /etc/ImageMagick/policy.xml
+#sed -i 's,^.*<policy domain="coder" rights="none" pattern="HTTPS".*, <!--- <policy domain="coder" rights="none" pattern="HTTPS" />,' /etc/ImageMagick/policy.xml
+#sed -i 's,^.*<policy domain="coder" rights="none" pattern="URL".*, ---> <policy domain="coder" rights="none" pattern="URL" />,' /etc/ImageMagick/policy.xml
 ###
 
 systemctl restart mariadb
