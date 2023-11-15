@@ -79,6 +79,8 @@ sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
 sed -i "s/^.*mail.add_x_header =.*/mail.add_x_header = Off/" /etc/opt/remi/${PHP_V}/php.ini
 sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/${PHP_V}/php.ini
 
+ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/${PHP_V}-fpm
+ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/${PHP_V}-phpize
 
 ## php7x to PHP LINK to bin path (symLINK)
 rm -rf /usr/bin/php /usr/bin/php-cgi /usr/bin/phpize /usr/bin/php-fpm
