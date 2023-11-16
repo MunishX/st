@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# cd /tmp && rm -rf node.sh && wget -O node.sh https://github.com/MunishX/st/raw/master/tools/nodejs_npm_nvm_install.sh && chmod 777 node.sh && ./node.sh 
+
 cd /tmp
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 source ~/.bashrc
