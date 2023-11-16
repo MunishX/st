@@ -409,14 +409,16 @@ echo "Done!!!!!"
 systemctl daemon-reload
 systemctl enable $software_name 
 
-service $software_name start
-service $software_name status
+#service $software_name start
+#service $software_name status
+systemctl start $software_name
+systemctl status $software_name --no-pager
 sleep 5
-service $software_name reload
-service $software_name status
+systemctl reload $software_name
+systemctl status $software_name --no-pager
 sleep 5
-service $software_name restart
-service $software_name status
+systemctl restart $software_name
+systemctl status $software_name --no-pager
 
 #chown -R admin:admin /var/opt/remi/php70
 #####################
