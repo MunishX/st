@@ -122,6 +122,19 @@ cd ..
 ## HTOP
 yum -y install htop
 
+## ImageMagick 7
+yum -y groupinstall 'Development Tools'
+cd /tmp/
+rm -rf ImageMagick.tar.gz
+wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-21.tar.gz
+tar xvf ImageMagick.tar.gz
+cd ImageMagick*/
+./configure
+make
+make install
+ldconfig /usr/local/lib
+convert -v
+
 ############# vnSTAT Network Traffic  ############
 
 yum -y install vnstat
