@@ -130,7 +130,7 @@ wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/re
 tar xvf ImageMagick.tar.gz
 cd ImageMagick*/
 ./configure
-make
+make -j$(nproc)
 make install
 ldconfig /usr/local/lib
 convert -v
