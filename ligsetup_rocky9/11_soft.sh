@@ -119,6 +119,8 @@ cd ..
 
 
 ##########################################
+## HTOP
+yum -y install htop
 
 ############# vnSTAT Network Traffic  ############
 
