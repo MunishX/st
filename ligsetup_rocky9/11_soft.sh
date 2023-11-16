@@ -133,7 +133,7 @@ cd ImageMagick*/
 make -j$(nproc)
 make install
 ldconfig /usr/local/lib
-convert -v
+convert -version
 
 ############# vnSTAT Network Traffic  ############
 
