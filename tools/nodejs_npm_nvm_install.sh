@@ -20,3 +20,6 @@ node --version
 
 # nvm use 18
 # node --version
+
+# nvm alias default 20 // to keep this version active even after restart/reboot server
+
