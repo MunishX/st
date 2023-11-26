@@ -136,9 +136,10 @@ ldconfig /usr/local/lib
 convert -version
 
 ############# vnSTAT Network Traffic  ############
-
+sleep 2
 yum -y install vnstat
 #apt -y install vnstat
+yum -y update 
 
 NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
 
@@ -156,7 +157,8 @@ vnstat -i $NETWORK_INTERFACE_NAME
 chown -R vnstat:vnstat /var/lib/vnstat
 
 ########
-wget https://raw.github.com/munishgaurav5/st/master/vn.zip -O vnstat.zip
+#wget https://raw.github.com/munishgaurav5/st/master/vn.zip -O vnstat.zip
+wget https://github.com/MunishX/st/raw/master/ligsetup_rocky9/replace/vn.zip -O vnstat.zip
 ########
 
 unzip vnstat.zip
