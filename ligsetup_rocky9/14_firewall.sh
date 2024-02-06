@@ -69,7 +69,12 @@ sysctl -w net.ipv4.icmp_echo_ignore_all=1
 #lighttpd -t -f /etc/lighttpd/lighttpd.conf
 #lighttpd -tt -f /etc/lighttpd/lighttpd.conf
 
+yum update -y
+
 ### Postfix Setup
+echo "Postfix setup starting..."
+sleep 5 
+
 yum install sudo sed postfix -y
 sudo sed -i "s/^inet_protocols.*/inet_protocols = ipv4/" /etc/postfix/main.cf
 sudo postconf -e 'smtp_tls_security_level = may'
