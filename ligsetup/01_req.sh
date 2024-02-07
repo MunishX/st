@@ -12,6 +12,7 @@ chkconfig iptables off
 yum -y update
 yum -y install nano wget curl awk net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at ant iotop hdparm lsblk
 
+yum -y remove exim
 yum -y update
 
 sudo yum -y groupinstall "Development Tools"
