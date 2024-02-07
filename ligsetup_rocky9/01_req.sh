@@ -13,6 +13,7 @@ yum -y update
 yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git sudo make cmake sed at ant iotop hdparm 
 #yum -y install rar unrar lsblk awk GeoIP
 
+yum -y remove exim
 yum -y update
 
 sudo yum -y groupinstall "Development Tools"
