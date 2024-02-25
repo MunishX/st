@@ -202,6 +202,10 @@ alias.url += (
 
   " > /etc/lighttpd/enabled/1certbot.conf
 
+echo "#!/bin/sh
+cat \$RENEWED_LINEAGE/privkey.pem \$RENEWED_LINEAGE/cert.pem > \$RENEWED_LINEAGE/ssl.pem
+" > /home/lighttpd/renew-hook.sh
+
 mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/acme-challenge/
