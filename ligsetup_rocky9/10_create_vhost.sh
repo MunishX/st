@@ -189,6 +189,12 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
+
+# install certbot - auto mode for lighttpd
+echo "Setting up Certbot Auto HTTPS.."
+sudo dnf install epel-release -y
+sudo dnf install certbot -y
+
 echo "
  ## Certbot Cert-only acme-challenge (default)
 
