@@ -197,18 +197,25 @@ server.modules += (
 )
 
 alias.url += (
-    \"/.well-known/\" => \"/home/lighttpd/acme-challenge/\"
+    \"/.well-known/\" => \"/home/lighttpd/acme-challenge/.well-known/\"
 )
 
   " > /etc/lighttpd/enabled/1certbot.conf
 
-echo "#!/bin/sh
-cat \$RENEWED_LINEAGE/privkey.pem \$RENEWED_LINEAGE/cert.pem > \$RENEWED_LINEAGE/ssl.pem
-" > /home/lighttpd/renew-hook.sh
+echo '#!/bin/sh
+cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
+echo "ssl certs updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
+systemctl reload lighttpd
+' > /home/lighttpd/renew-hook.sh
+
+# sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain host.fastserver.me --email munishgaurav5@gmail.com --agree-tos --no-eff-email
+# sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain ${DOMAIN} --email ${EMAIL} --agree-tos --no-eff-email
+# 
 
 mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/acme-challenge/
+chown -R lighttpd:admin /home/lighttpd/renew-hook.sh
 
 mkdir -p /home/admin/ip/{html,error,ssl}
 chmod -R 777 /home/admin/ip/
