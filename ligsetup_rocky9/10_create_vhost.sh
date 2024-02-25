@@ -218,6 +218,9 @@ systemctl reload lighttpd
 # sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain ${DOMAIN} --email ${EMAIL} --agree-tos --no-eff-email
 # export RENEWED_LINEAGE=/etc/letsencrypt/live/host.fastserver.me && bash /home/lighttpd/renew-hook.sh
 
+# --pre-hook "service nginx stop" --post-hook "service nginx start"
+crontab -l | { cat; echo "0 0,12 * * *  certbot renew --deploy-hook /home/lighttpd/renew-hook.sh --quiet"; } | crontab -
+
 mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/acme-challenge/
