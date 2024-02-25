@@ -192,8 +192,8 @@ echo "
 
 # install certbot - auto mode for lighttpd
 echo "Setting up Certbot Auto HTTPS.."
-sudo dnf install epel-release -y
-sudo dnf install certbot -y
+sudo yum install epel-release -y
+sudo yum install certbot -y
 
 echo "
  ## Certbot Cert-only acme-challenge (default)
