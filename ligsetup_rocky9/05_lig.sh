@@ -88,11 +88,11 @@ echo ""
 echo "Lighttpd Angel Configured.."
 echo ""
 
-# install certbot - auto mode for lighttpd
-sudo dnf install epel-release -y
-sudo dnf install certbot -y
+## install certbot - auto mode for lighttpd
+#sudo dnf install epel-release -y
+#sudo dnf install certbot -y
 
-systemctl start certbot-renew.timer
+###systemctl start certbot-renew.timer
 # /usr/lib/systemd/system/certbot-renew.timer
 
 #####################
