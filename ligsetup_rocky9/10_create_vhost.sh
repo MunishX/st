@@ -189,6 +189,23 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
+echo "
+ ## Certbot Cert-only acme-challenge (default)
+
+server.modules += (
+    \"mod_alias\"
+)
+
+alias.url += (
+    \"/.well-known/\" => \"/home/lighttpd/acme-challenge/\"
+)
+
+  " > /etc/lighttpd/enabled/1certbot.conf
+
+mkdir -p /home/lighttpd/acme-challenge/
+chmod 777 /home/lighttpd/acme-challenge/
+chown -R lighttpd:admin /home/lighttpd/acme-challenge/
+
 mkdir -p /home/admin/ip/{html,error,ssl}
 chmod -R 777 /home/admin/ip/
 
