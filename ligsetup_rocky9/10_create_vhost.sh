@@ -210,7 +210,7 @@ systemctl reload lighttpd
 
 # sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain host.fastserver.me --email munishgaurav5@gmail.com --agree-tos --no-eff-email
 # sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain ${DOMAIN} --email ${EMAIL} --agree-tos --no-eff-email
-# 
+# export RENEWED_LINEAGE=/etc/letsencrypt/live/host.fastserver.me && bash /home/lighttpd/renew-hook.sh
 
 mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
