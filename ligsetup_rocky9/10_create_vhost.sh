@@ -28,28 +28,40 @@ passw=$2
        read -p "$uname's Password: " passw
     done
 
-mydom=$3
-   while [[ $mydom = "" ]]; do # to be replaced with regex
-       read -p "$uname's Domain: " mydom
+DOMAIN_SUB_PART=$3
+echo ""
+   while [[ $DOMAIN_SUB_PART = "" ]]; do # to be replaced with regex
+       read -p "Sub-Domain Part (ignore for www, ex:host) : " DOMAIN_SUB_PART
     done
 
-admin_username=$4
+DOMAIN_MAIN_PART=$4
+echo ""
+   while [[ $DOMAIN_MAIN_PART = "" ]]; do # to be replaced with regex
+       read -p "(4/9) Domain Name (domain.com): " DOMAIN_MAIN_PART
+    done
+
+#mydom=$3
+#   while [[ $mydom = "" ]]; do # to be replaced with regex
+#       read -p "$uname's Domain: " mydom
+#    done
+
+admin_username=$5
    while [[ $admin_username = "" ]]; do # to be replaced with regex
        read -p "ADMIN USERNAME: " admin_username
     done
 
-restart_now=$5
+restart_now=$6
    while [[ $restart_now = "" ]]; do # to be replaced with regex
        read -p "Restart Lighttpd after Finish (y/n) : " restart_now
     done
 
-set_ip_host=$6
+set_ip_host=$7
    while [[ $set_ip_host = "" ]]; do # to be replaced with regex
        read -p "Also set IP vhost (y/n) : " set_ip_host
     done
 
 if [[ $set_ip_host = "y" ]] || [[ $set_ip_host = "Y" ]]; then
-   main_ip=$7
+   main_ip=$8
    while [[ $main_ip = "" ]]; do # to be replaced with regex
        read -p "SERVER MAIN IP is  ( ex ${get_ip} ) : " main_ip
    done
@@ -58,6 +70,31 @@ if [[ $set_ip_host = "y" ]] || [[ $set_ip_host = "Y" ]]; then
 else
    echo "IP check Skipping... "
    main_ip=blank
+fi
+
+DOMAIN_SUB_PART=${DOMAIN_SUB_PART//[[:blank:]]/}
+DOMAIN_MAIN_PART=${DOMAIN_MAIN_PART//[[:blank:]]/}
+mydom=''
+mydom2=''
+mydomwww='www'
+
+if [[ $DOMAIN_SUB_PART = "" ]]; then
+mydom=${DOMAIN_MAIN_PART}
+mydom2=${mydomwww}.${DOMAIN_MAIN_PART}
+else
+mydom=${DOMAIN_SUB_PART}.${DOMAIN_MAIN_PART}
+mydom2=''
+fi
+
+Final_Confirm=$9
+echo ""
+   while [[ $Final_Confirm = "" ]]; do # to be replaced with regex
+       read -p "Please confirm domain name ${mydom} ${mydom2} (y/n): " Final_Confirm
+    done
+
+if [ $Final_Confirm != "y" ]; then 
+   echo "Aborting....!... Try Again!"
+   exit 1  
 fi
 
     
