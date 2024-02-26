@@ -50,7 +50,13 @@ admin_username=$5
        read -p "ADMIN USERNAME: " admin_username
     done
 
-Setup_IPV6=$6
+if [[ $4 = "" ]]; then 
+   Setup_IPV6='n'  
+else
+   Setup_IPV6=$6
+fi
+
+#Setup_IPV6=$6
    while [[ $Setup_IPV6 = "" ]]; do # to be replaced with regex
        read -p "Enable ipv6 for lighttpd (y/n): " Setup_IPV6
     done
@@ -60,7 +66,13 @@ restart_now=$7
        read -p "Reload Lighttpd after Finish (y/n) : " restart_now
     done
 
-set_ip_host=$8
+if [[ $4 = "" ]]; then 
+   set_ip_host='n'  
+else
+   set_ip_host=$8
+fi
+
+#set_ip_host=$8
    while [[ $set_ip_host = "" ]]; do # to be replaced with regex
        read -p "Also set IP vhost (y/n) : " set_ip_host
     done
@@ -94,7 +106,11 @@ mydom2=''
 mywwwdommatch='(www\\.)?'
 fi
 
-Final_Confirm=$4
+if [[ $4 = "" ]]; then 
+   Final_Confirm=''  
+else
+   Final_Confirm='y'
+fi
 echo ""
    while [[ $Final_Confirm = "" ]]; do # to be replaced with regex
        read -p "Please confirm domain name ${mydom} ${mydom2} (y/n): " Final_Confirm
