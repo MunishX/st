@@ -82,13 +82,16 @@ DOMAIN_MAIN_PART=${DOMAIN_MAIN_PART//[[:blank:]]/}
 mydom=''
 mydom2=''
 mydomwww='www'
+mywwwdommatch=''
 
 if [[ $DOMAIN_SUB_PART = "" ]]; then
 mydom=${DOMAIN_MAIN_PART}
 mydom2=${mydomwww}.${DOMAIN_MAIN_PART}
+mywwwdommatch=''
 else
 mydom=${DOMAIN_SUB_PART}.${DOMAIN_MAIN_PART}
 mydom2=''
+mywwwdommatch='(www\\.)?'
 fi
 
 Final_Confirm=$4
@@ -370,7 +373,8 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache
  #$HTTP["host"] =~ "^(www\.)?url.com$" {
  echo "
 
- \$HTTP[\"host\"] =~ \"^(www\\.)?$mydom\$\" {
+\$HTTP[\"host\"] =~ \"^${mywwwdommatch}${mydom}\$\" {
+ #\$HTTP[\"host\"] =~ \"^(www\\.)?$mydom\$\" {
  #\$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$user_root/$mydom/html\" 
     accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
