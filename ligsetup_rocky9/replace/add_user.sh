@@ -16,12 +16,19 @@ echo ""
        read -p "(2/6) $User_Name's Password (pass): " User_Pass
     done
 
-mydom=$3
-   while [[ $mydom = "" ]]; do # to be replaced with regex
-       read -p "(3/6) $User_Name's Domain: " mydom
+DOMAIN_SUB_PART=$3
+echo ""
+   while [[ $DOMAIN_SUB_PART = "" ]]; do # to be replaced with regex
+       read -p "Sub-Domain Part (ignore for www, ex:host) : " DOMAIN_SUB_PART
     done
 
-Install_Torrent=$4
+DOMAIN_MAIN_PART=$4
+echo ""
+   while [[ $DOMAIN_MAIN_PART = "" ]]; do # to be replaced with regex
+       read -p "Domain Name (domain.com): " DOMAIN_MAIN_PART
+    done
+
+Install_Torrent=$5
 echo ""
    while [[ $Install_Torrent = "" ]]; do # to be replaced with regex
        read -p "(4/6) INSTALL Torrent (y/n): " Install_Torrent
@@ -29,7 +36,7 @@ echo ""
 
 if [ $Install_Torrent = "y" ]; then
    
-   Torrent_Port=$5
+   Torrent_Port=$6
    echo ""
    while [[ $Torrent_Port = "" ]]; do # to be replaced with regex
        read -p "(5/6) Torrent Port (9091): " Torrent_Port
@@ -37,17 +44,12 @@ if [ $Install_Torrent = "y" ]; then
   
 fi
 
-Restart_Lig=$6
+Restart_Lig=$7
 echo ""
    while [[ $Restart_Lig = "" ]]; do # to be replaced with regex
        read -p "(6/6) Reload Lighttpd (y/n): " Restart_Lig
     done
 
-# Admin_User=$6
-# echo ""
-#   while [[ $Admin_User = "" ]]; do # to be replaced with regex
-#       read -p "(5/9) Admin Username: " Admin_User
-#   done
 
 
 Admin_User=admin 
@@ -74,8 +76,8 @@ cd /tmp/add_user_script
 
 #wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/10_create_vhost.sh
 #chmod 777 10_create_vhost.sh
-#./10_create_vhost.sh $User_Name $User_Pass $mydom $Admin_User $Restart_Lig n
-/usr/bin/addnewuser_create_vhost $User_Name $User_Pass $mydom $Admin_User $Restart_Lig n
+#./10_create_vhost.sh $User_Name $User_Pass $DOMAIN_SUB_PART $DOMAIN_MAIN_PART $Admin_User $Restart_Lig n n n
+/usr/bin/addnewuser_create_vhost $User_Name $User_Pass $DOMAIN_SUB_PART $DOMAIN_MAIN_PART $Admin_User $Restart_Lig n n n
 
 echo ""
 echo ""
@@ -99,8 +101,8 @@ if [[ $Install_Torrent = "y" ]]; then
 old_user_true=y
 #wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/12_tmm.sh
 #chmod 777 12_tmm.sh 
-#./12_tmm.sh $User_Name $User_Pass $Torrent_Port $mydom $Admin_User $old_user_true
-/usr/bin/addnewuser_tmm $User_Name $User_Pass $Torrent_Port $mydom $Admin_User $old_user_true
+#./12_tmm.sh $User_Name $User_Pass $Torrent_Port $DOMAIN_SUB_PART.$DOMAIN_MAIN_PART $Admin_User $old_user_true
+/usr/bin/addnewuser_tmm $User_Name $User_Pass $Torrent_Port $DOMAIN_SUB_PART.$DOMAIN_MAIN_PART $Admin_User $old_user_true
 
 echo ""
 echo ""
