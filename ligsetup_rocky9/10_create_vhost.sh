@@ -91,7 +91,7 @@ mydom=${DOMAIN_SUB_PART}.${DOMAIN_MAIN_PART}
 mydom2=''
 fi
 
-Final_Confirm=$9
+Final_Confirm=$4
 echo ""
    while [[ $Final_Confirm = "" ]]; do # to be replaced with regex
        read -p "Please confirm domain name ${mydom} ${mydom2} (y/n): " Final_Confirm
@@ -252,21 +252,6 @@ alias.url += (
 
 echo '
    server.modules += ( "mod_openssl" )
-##
-##   ssl.privkey = "/path/to/privkey.pem"
-##   ssl.pemfile = "/path/to/fullchain.pem"
-##   # ssl.pemfile should contain the sorted certificate chain, including
-##   # intermediate certificates, as provided by the certificate issuer.
-##   # If both privkey and cert are in same file, specify only ssl.pemfile.
-##
-##   # Check your cipher list with: openssl ciphers -v "..."
-##   # (use single quotes with: openssl ciphers -v "..."
-##   #  as your shell wont like ! in double quotes)
-##   #ssl.cipher-list            = "PROFILE=SYSTEM"
-##
-##   # (recommended to accept only TLSv1.2 and TLSv1.3)
-##   #ssl.openssl.ssl-conf-cmd = ("MinProtocol" => "TLSv1.2")  # default
-##
    $SERVER["socket"] == "*:443" {
      ssl.engine  = "enable"
      ssl.privkey= "/etc/letsencrypt/live/host.fastserver.me/privkey.pem"
@@ -278,6 +263,11 @@ echo '
      ssl.disable-client-renegotiation = "enable"
      setenv.add-response-header = ( "Strict-Transport-Security" => "max-age=31536000")
    }
+   
+' > /etc/lighttpd/enabled/1ssl_ipv4.conf
+if [[ $Setup_IPV6 = 'y' ]]; then
+echo '
+   server.modules += ( "mod_openssl" )
    $SERVER["socket"] == "[::]:443" {
      ssl.engine  = "enable"
      ssl.privkey= "/etc/letsencrypt/live/host.fastserver.me/privkey.pem"
@@ -290,13 +280,14 @@ echo '
      setenv.add-response-header = ( "Strict-Transport-Security" => "max-age=31536000")
    }
 
-' > /etc/lighttpd/enabled/1ssl.conf
-
+' > /etc/lighttpd/enabled/1ssl_ipv6.conf
+fi
 echo '#!/bin/sh
 #cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
-echo "ssl certs updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
+echo "CERTBOT SSL Certificate updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
 systemctl reload lighttpd
 ' > /home/lighttpd/renew-hook.sh
+
 
 # sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain host.fastserver.me --email munishgaurav5@gmail.com --agree-tos --no-eff-email
 # sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain ${DOMAIN} --email ${EMAIL} --agree-tos --no-eff-email
@@ -309,6 +300,8 @@ mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/renew-hook.sh
+
+
 
 mkdir -p /home/admin/ip/{html,error,ssl}
 chmod -R 777 /home/admin/ip/
@@ -358,10 +351,11 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache
 
 #chmod g+w $user_root
 
-
+ #$HTTP["host"] =~ "^(www\.)?url.com$" {
  echo "
- 
- \$HTTP[\"host\"] == \"$mydom\" {
+
+ \$HTTP[\"host\"] =~ \"^(www\\.)?$mydom\$\" {
+ #\$HTTP[\"host\"] == \"$mydom\" {
     server.document-root = \"$user_root/$mydom/html\" 
     accesslog.filename = \"/home/lighttpd/log-$mydom-access.txt\" 
  #   evasive.max-conns-per-ip = 200
@@ -424,7 +418,16 @@ url.rewrite-once = (
  
  #chown $admin_username:$admin_username /home/$admin_username/.htpasswd
  chown $admin_username:$admin_username $user_root/$mydom/.htpasswd
+
+# certbot auto ssl for website
  
+if [[ $mydom2 = "" ]]; then
+   echo "User $USERID already exists."   
+   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --email admin@${mydom} --agree-tos --no-eff-email
+else
+   echo "UserID : OK"
+   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --domain $mydom2 --email admin@${mydom} --agree-tos --no-eff-email
+fi
 ###################
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/www -O $user_root/$mydom/$php_add_head/$software_name.conf
