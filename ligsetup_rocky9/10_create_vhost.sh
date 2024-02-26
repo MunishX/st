@@ -232,10 +232,15 @@ echo "
   " > /etc/lighttpd/enabled/1ip.conf
 
 
-# install certbot - auto mode for lighttpd
+# CERTBOT install certbot - auto mode for lighttpd 
+
 echo "Setting up Certbot Auto HTTPS.."
 sudo yum install epel-release -y
 sudo yum install certbot -y
+
+sed -i 's/^ExecStart/#ExecStart/g' /usr/lib/systemd/system/certbot-renew.service
+echo 'ExecStart=/usr/bin/certbot renew --noninteractive --no-random-sleep-on-renew --deploy-hook "datetime > /tmp/last_certbot_check.txt, systemctl reload lighttpd, systemctl reload postfix” --quiet' >>  /usr/lib/systemd/system/certbot-renew.service
+systemctl start certbot-renew.timer
 
 echo "
  ## Certbot Cert-only acme-challenge (default)
@@ -282,11 +287,12 @@ echo '
 
 ' > /etc/lighttpd/enabled/1ssl_ipv6.conf
 fi
-echo '#!/bin/sh
-#cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
-echo "CERTBOT SSL Certificate updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
-systemctl reload lighttpd
-' > /home/lighttpd/renew-hook.sh
+
+#echo '#!/bin/sh
+##cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
+#echo "CERTBOT SSL Certificate updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
+#systemctl reload lighttpd
+#' > /home/lighttpd/renew-hook.sh
 
 
 # sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain host.fastserver.me --email munishgaurav5@gmail.com --agree-tos --no-eff-email
@@ -294,7 +300,15 @@ systemctl reload lighttpd
 # export RENEWED_LINEAGE=/etc/letsencrypt/live/host.fastserver.me && bash /home/lighttpd/renew-hook.sh
 
 # --pre-hook "service nginx stop" --post-hook "service nginx start"
-crontab -l | { cat; echo "0 0,12 * * *  certbot renew --deploy-hook /home/lighttpd/renew-hook.sh --quiet"; } | crontab -
+#crontab -l | { cat; echo "0 0,12 * * *  certbot renew --deploy-hook /home/lighttpd/renew-hook.sh --quiet"; } | crontab -
+
+# /usr/lib/systemd/system/certbot-renew.timer
+# /usr/lib/systemd/system/certbot-renew.service
+# systemctl start certbot-renew.timer
+# systemctl list-timers
+
+# #ExecStart=/usr/bin/certbot renew --noninteractive --no-random-sleep-on-renew $PRE_HOOK $POST_HOOK $RENEW_HOOK $DEPLOY_HOOK $CERTBOT_ARGS
+#ExecStart=/usr/bin/certbot renew --noninteractive --no-random-sleep-on-renew --deploy-hook "datetime > /tmp/last_certbot_check.txt, systemctl reload lighttpd, systemctl restart postfix” --quiet
 
 # nano /var/log/letsencrypt/letsencrypt.log
 
