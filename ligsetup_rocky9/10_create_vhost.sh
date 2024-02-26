@@ -57,7 +57,7 @@ Setup_IPV6=$6
 
 restart_now=$7
    while [[ $restart_now = "" ]]; do # to be replaced with regex
-       read -p "Restart Lighttpd after Finish (y/n) : " restart_now
+       read -p "Reload Lighttpd after Finish (y/n) : " restart_now
     done
 
 set_ip_host=$8
