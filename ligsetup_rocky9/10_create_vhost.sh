@@ -307,6 +307,27 @@ echo '
 ' > /etc/lighttpd/enabled/1ssl_ipv6.conf
 fi
 
+echo '
+server.modules += ("mod_setenv", "mod_redirect")
+$HTTP["scheme"] == "http" {
+$HTTP["remote-ip"] != "127.0.0.1" {
+$HTTP["remote-ip"] != "[::1]" {
+$HTTP["host"] != "88.99.211.15" {
+    # Follows https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade-Insecure-Requests
+    # Adding the header only works if mod_setenv is loaded before mod_redirect in lighttpd.conf!
+    # (See https://redmine.lighttpd.net/issues/1895)
+    setenv.add-response-header = ("Vary" => "Upgrade-Insecure-Requests")
+    $REQUEST_HEADER["Upgrade-Insecure-Requests"] == "1" {
+        url.redirect = ("" => "https://${url.authority}${url.path}${qsa}")
+        url.redirect-code = 308
+    }
+}
+}
+}
+}
+
+' > /etc/lighttpd/enabled/1http_to_https.conf
+
 #echo '#!/bin/sh
 ##cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
 #echo "CERTBOT SSL Certificate updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
