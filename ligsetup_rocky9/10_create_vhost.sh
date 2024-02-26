@@ -257,9 +257,13 @@ echo "Setting up Certbot Auto HTTPS.."
 sudo yum install epel-release -y
 sudo yum install certbot -y
 
-sed -i 's/^ExecStart/#ExecStart/g' /usr/lib/systemd/system/certbot-renew.service
-echo 'ExecStart=/usr/bin/certbot renew --noninteractive --no-random-sleep-on-renew --deploy-hook "datetime > /tmp/last_certbot_check.txt, systemctl reload lighttpd, systemctl reload postfix” --quiet' >>  /usr/lib/systemd/system/certbot-renew.service
+sed -i "s/^POST_HOOK.*/POST_HOOK=\"--post-hook 'systemctl reload lighttpd'\"/g" /etc/sysconfig/certbot
+
+systemctl daemon-reload
+systemctl enable certbot-renew.timer
 systemctl start certbot-renew.timer
+systemctl list-timers
+systemctl status certbot-renew.timer
 
 echo "
  ## Certbot Cert-only acme-challenge (default)
