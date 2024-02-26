@@ -37,7 +37,7 @@ echo ""
 DOMAIN_MAIN_PART=$4
 echo ""
    while [[ $DOMAIN_MAIN_PART = "" ]]; do # to be replaced with regex
-       read -p "(4/9) Domain Name (domain.com): " DOMAIN_MAIN_PART
+       read -p "Domain Name (domain.com): " DOMAIN_MAIN_PART
     done
 
 #mydom=$3
