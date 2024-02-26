@@ -208,8 +208,50 @@ alias.url += (
 
   " > /etc/lighttpd/enabled/1certbot.conf
 
+echo '
+   server.modules += ( "mod_openssl" )
+##
+##   ssl.privkey = "/path/to/privkey.pem"
+##   ssl.pemfile = "/path/to/fullchain.pem"
+##   # ssl.pemfile should contain the sorted certificate chain, including
+##   # intermediate certificates, as provided by the certificate issuer.
+##   # If both privkey and cert are in same file, specify only ssl.pemfile.
+##
+##   # Check your cipher list with: openssl ciphers -v "..."
+##   # (use single quotes with: openssl ciphers -v "..."
+##   #  as your shell wont like ! in double quotes)
+##   #ssl.cipher-list            = "PROFILE=SYSTEM"
+##
+##   # (recommended to accept only TLSv1.2 and TLSv1.3)
+##   #ssl.openssl.ssl-conf-cmd = ("MinProtocol" => "TLSv1.2")  # default
+##
+   $SERVER["socket"] == "*:443" {
+     ssl.engine  = "enable"
+     ssl.privkey= "/etc/letsencrypt/live/host.fastserver.me/privkey.pem"
+     ssl.pemfile= "/etc/letsencrypt/live/host.fastserver.me/fullchain.pem"
+     ssl.openssl.ssl-conf-cmd = ("MinProtocol" => "TLSv1.2") # (recommended to accept only TLSv1.2 and TLSv1.3)
+     ssl.cipher-list = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+#     ssl.ec-curve = "secp384r1"
+     ssl.honor-cipher-order = "disable"
+     ssl.disable-client-renegotiation = "enable"
+     setenv.add-response-header = ( "Strict-Transport-Security" => "max-age=31536000")
+   }
+   $SERVER["socket"] == "[::]:443" {
+     ssl.engine  = "enable"
+     ssl.privkey= "/etc/letsencrypt/live/host.fastserver.me/privkey.pem"
+     ssl.pemfile= "/etc/letsencrypt/live/host.fastserver.me/fullchain.pem"
+     ssl.openssl.ssl-conf-cmd = ("MinProtocol" => "TLSv1.2") # (recommended to accept only TLSv1.2 and TLSv1.3)
+     ssl.cipher-list = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+#     ssl.ec-curve = "secp384r1"
+     ssl.honor-cipher-order = "disable"
+     ssl.disable-client-renegotiation = "enable"
+     setenv.add-response-header = ( "Strict-Transport-Security" => "max-age=31536000")
+   }
+
+' > /etc/lighttpd/enabled/1ssl.conf
+
 echo '#!/bin/sh
-cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
+#cat $RENEWED_LINEAGE/privkey.pem $RENEWED_LINEAGE/cert.pem > $RENEWED_LINEAGE/ssl.pem
 echo "ssl certs updated for $RENEWED_LINEAGE and now re-loading lighttpd server..."
 systemctl reload lighttpd
 ' > /home/lighttpd/renew-hook.sh
@@ -284,7 +326,9 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache
     #server.kbytes-per-second=97280
     #connection.kbytes-per-second=51200
    # fastcgi.map-extensions = (".fpm" => ".php")
-   
+     ssl.privkey= \"/etc/letsencrypt/live/$mydom/privkey.pem\"
+     ssl.pemfile= \"/etc/letsencrypt/live/$mydom/fullchain.pem\"
+
    #$server_stat
 
     auth.backend = \"htpasswd\"
