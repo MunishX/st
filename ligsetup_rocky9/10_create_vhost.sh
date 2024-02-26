@@ -50,18 +50,23 @@ admin_username=$5
        read -p "ADMIN USERNAME: " admin_username
     done
 
-restart_now=$6
+Setup_IPV6=$6
+   while [[ $Setup_IPV6 = "" ]]; do # to be replaced with regex
+       read -p "Enable ipv6 for lighttpd (y/n): " Setup_IPV6
+    done
+
+restart_now=$7
    while [[ $restart_now = "" ]]; do # to be replaced with regex
        read -p "Restart Lighttpd after Finish (y/n) : " restart_now
     done
 
-set_ip_host=$7
+set_ip_host=$8
    while [[ $set_ip_host = "" ]]; do # to be replaced with regex
        read -p "Also set IP vhost (y/n) : " set_ip_host
     done
 
 if [[ $set_ip_host = "y" ]] || [[ $set_ip_host = "Y" ]]; then
-   main_ip=$8
+   main_ip=$9
    while [[ $main_ip = "" ]]; do # to be replaced with regex
        read -p "SERVER MAIN IP is  ( ex ${get_ip} ) : " main_ip
    done
