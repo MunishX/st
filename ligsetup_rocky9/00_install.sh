@@ -57,7 +57,7 @@ echo ""
 SERVER_HOST=$2
 echo ""
    while [[ $SERVER_HOST = "" ]]; do # to be replaced with regex
-       read -p "(3/9) Host Name (host): " SERVER_HOST
+       read -p "(3/9) Sub-Domain Part (ignore for www, ex:host) : " SERVER_HOST
     done
 
 SERVER_DOMAIN=$3
@@ -78,27 +78,29 @@ echo ""
        read -p "(6/9) SSH Port: " SSH_PORT
     done
 
-Install_VPN=$6
-echo ""
-   while [[ $Install_VPN = "" ]]; do # to be replaced with regex
-       read -p "(7/9) INSTALL VPN (y/n): " Install_VPN
-    done
 
-Install_Torrent=$7
+Install_Torrent=$6
 echo ""
    while [[ $Install_Torrent = "" ]]; do # to be replaced with regex
-       read -p "(8/9) INSTALL Torrent (y/n): " Install_Torrent
+       read -p "(7/9) INSTALL Torrent (y/n): " Install_Torrent
     done
 
 if [ $Install_Torrent = "y" ]; then
    
-   Torrent_Port=$8
+   Torrent_Port=$7
    echo ""
    while [[ $Torrent_Port = "" ]]; do # to be replaced with regex
        read -p "(8/9) Torrent Port (9091): " Torrent_Port
     done
   
 fi
+
+Setup_IPv6=$8
+echo ""
+   while [[ $Setup_IPv6 = "" ]]; do # to be replaced with regex
+       read -p "(9/9) Enable ipv6 for lighttpd (y/n): " Setup_IPv6
+    done
+
 
 ADMIN_USER=admin 
 ADMIN_HTML=html
@@ -162,30 +164,6 @@ echo ""
 echo ""
 echo "1) REQ COMPLETED!"
 echo ""
-sleep 10
-
-#------------------------------------------------------------------------------------
-# INSTALL VPN
-#------------------------------------------------------------------------------------
-if [[ $Install_VPN = "y" ]]; then
-
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/02_vpn.sh
-chmod 777 02_vpn.sh
-./02_vpn.sh
-
-echo ""
-echo ""
-echo "2) VPN COMPLETED!"
-echo ""
-
-else
-echo ""
-echo ""
-echo "2) SKIPPING VPN!"
-echo ""
-fi
-
-
 sleep 10
 
 
@@ -302,7 +280,7 @@ restart_no=n
 
 wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/10_create_vhost.sh
 chmod 777 10_create_vhost.sh
-./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no y $MAIN_IP
+./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $SERVER_HOST $SERVER_DOMAIN $ADMIN_USER $Setup_IPv6 $restart_no y $MAIN_IP
 
 echo ""
 echo ""
