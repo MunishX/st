@@ -315,7 +315,7 @@ fi
 mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/acme-challenge/
-chown -R lighttpd:admin /home/lighttpd/renew-hook.sh
+#chown -R lighttpd:admin /home/lighttpd/renew-hook.sh
 
 
 
