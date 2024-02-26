@@ -296,6 +296,8 @@ systemctl reload lighttpd
 # --pre-hook "service nginx stop" --post-hook "service nginx start"
 crontab -l | { cat; echo "0 0,12 * * *  certbot renew --deploy-hook /home/lighttpd/renew-hook.sh --quiet"; } | crontab -
 
+# nano /var/log/letsencrypt/letsencrypt.log
+
 mkdir -p /home/lighttpd/acme-challenge/
 chmod 777 /home/lighttpd/acme-challenge/
 chown -R lighttpd:admin /home/lighttpd/acme-challenge/
