@@ -402,7 +402,7 @@ include conf_dir + "/conf.d/mime.conf"
 ##
 ## directory listing configuration
 ##
-include conf_dir + "/conf.d/dirlisting.conf"
+#include conf_dir + "/conf.d/dirlisting.conf"
 
 ##
 ## Should lighttpd follow symlinks?
