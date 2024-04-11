@@ -3,6 +3,13 @@
 #ini for each user: php.ini, in systemctl
 #/usr/local/php/sbin/php-fpm --fpm-config /etc/php/php-fpm.conf -c /etc/php/php.ini
 
+#change upload max filesize limit in /home/admin/domain.com/php/php_domain.conf
+#php_admin_value[memory_limit] = 4096M
+#php_admin_value[post_max_size] = 4096M
+#php_admin_value[max_file_uploads] = 4096M
+#;php_admin_value[upload_max_filesize] = 4096M
+
+
 # UMASK NEW
 # sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
 
