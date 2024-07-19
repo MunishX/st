@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # CERTBOT CAMMANDS
+# > list all timers
+# systemctl list-timers
 # > list all certificate domains
 # sudo certbot certificates 
 # > log file path
