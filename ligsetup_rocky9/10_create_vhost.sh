@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# CERTBOT CAMMANDS
+# > list all certificate domains
+# sudo certbot certificates 
+# > log file path
+# tail -n 100 /var/log/letsencrypt/letsencrypt.log
+# delete certbot domain to stop renewal
+# ls -alh /etc/letsencrypt/renewal/
+
+
 #ini for each user: php.ini, in systemctl
 #/usr/local/php/sbin/php-fpm --fpm-config /etc/php/php-fpm.conf -c /etc/php/php.ini
 
