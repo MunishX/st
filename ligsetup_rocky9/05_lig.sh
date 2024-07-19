@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# lighttpd config file test
+# lighttpd -t -f /etc/lighttpd/lighttpd.conf
+# lighttpd -tt -f /etc/lighttpd/lighttpd.conf
+
 ### install lighttpd
 
 systemctl stop httpd.service
