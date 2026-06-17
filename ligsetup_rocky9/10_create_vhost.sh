@@ -250,7 +250,12 @@ fi
 
 if [[ $set_ip_host = 'y' ]]; then
 
+# add lighttpd to admin_user's group 
 sudo usermod -a -G lighttpd $admin_username
+
+# add wheel to admin_user's group # to make it sodo user # root access
+sudo usermod -a -G wheel $admin_username
+
 chown $admin_username:$admin_username /home
 
 echo "
