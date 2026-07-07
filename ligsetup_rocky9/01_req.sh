@@ -32,7 +32,8 @@ echo ""
 echo "Installing latest RAR..."
 cd /tmp
 #wget https://www.rarlab.com/rar/rarlinux-x64-6.0.2.tar.gz
-wget https://www.rarlab.com/rar/rarlinux-x64-624.tar.gz
+#wget https://www.rarlab.com/rar/rarlinux-x64-624.tar.gz
+wget https://www.rarlab.com/rar/rarlinux-x64-723.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar*/
 make
@@ -45,7 +46,8 @@ mv /usr/local/bin/sqlite3 /usr/local/bin/sqlite3_old
 
 cd /tmp
 #wget https://www.sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
-wget https://www.sqlite.org/2023/sqlite-autoconf-3440000.tar.gz
+#wget https://www.sqlite.org/2023/sqlite-autoconf-3440000.tar.gz
+wget https://www.sqlite.org/2026/sqlite-autoconf-3530300.tar.gz
 tar -xf sqlite*.tar.gz
 cd sqlite*/
 CFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA=1" ./configure
