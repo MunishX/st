@@ -23,7 +23,7 @@
 # http://yum.mariadb.org/mariadb-10.11/ Rocky 9
 echo "
 
-# MariaDB 10.11 Rocky repository list - updated on 2023-11-11
+# MariaDB 12.3 Rocky RHEL 10 repository list - updated on 2026-07-07
 # https://mariadb.org/download/
 [mariadb]
 name = MariaDB
