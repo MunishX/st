@@ -11,19 +11,19 @@ mv /etc/lighttpd/conf.d/access_log.conf /etc/lighttpd/conf.d/access_log.old
 #mv /etc/lighttpd/conf.d/geoip.conf /etc/lighttpd/conf.d/geoip.old
 
 #### LIGHTTPD CONFIG
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligcnf -O /etc/lighttpd/lighttpd.conf
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_ligcnf -O /etc/lighttpd/lighttpd.conf
 
 #### MODULES CONFIG
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/modcnf -O /etc/lighttpd/modules.conf
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_modcnf -O /etc/lighttpd/modules.conf
 
 #### FASTCGI CONFIG
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/fgicnf -O /etc/lighttpd/conf.d/fastcgi.conf
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_fgicnf -O /etc/lighttpd/conf.d/fastcgi.conf
 
 #### CGI CONFIG
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/cgi -O /etc/lighttpd/conf.d/cgi.conf
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_cgi -O /etc/lighttpd/conf.d/cgi.conf
 
 #### ACCESS_LOG CONFIG
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/alog -O /etc/lighttpd/conf.d/access_log.conf
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_alog -O /etc/lighttpd/conf.d/access_log.conf
 
 #### GEO_IP CONFIG
-#wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/gip -O /etc/lighttpd/conf.d/geoip.conf
+#wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_gip -O /etc/lighttpd/conf.d/geoip.conf
