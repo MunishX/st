@@ -37,13 +37,13 @@ echo ""
 
 
 Admin_User=admin 
-#ADMIN_HTML=html
+
 
 #------------------------------------------------------------------------------------
 # Install LIG CONFIG 
 #------------------------------------------------------------------------------------
-Restart_Lig="y"
-/usr/bin/addnewuser_create_vhost $User_Name $User_Pass $DOMAIN_SUB_PART $DOMAIN_MAIN_PART $Admin_User $Restart_Lig n n n
+
+/usr/bin/addnewuser_create_vhost $User_Name $User_Pass $DOMAIN_SUB_PART $DOMAIN_MAIN_PART $Admin_User y y n n
 
 echo ""
 echo ""
