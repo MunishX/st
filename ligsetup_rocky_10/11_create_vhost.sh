@@ -406,11 +406,9 @@ chmod -R 777 /home/admin/bin/
 wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_add_user.sh -O /usr/bin/addnewuser
 chmod 777 /usr/bin/addnewuser
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/11__create_vhost.sh -O /usr/bin/addnewuser_create_vhost
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/11_create_vhost.sh -O /usr/bin/addnewuser_create_vhost
 chmod 777 /usr/bin/addnewuser_create_vhost
 
-#wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/12_tmm.sh -O /usr/bin/addnewuser_tmm
-#chmod 777 /usr/bin/addnewuser_tmm
 
 #server_stat='
 #server.modules += ( "mod_status" )
