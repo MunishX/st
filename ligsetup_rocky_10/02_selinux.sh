@@ -27,6 +27,7 @@ selinux_disable() {
     fi
 
     echo ""
+    echo "SELINUX: disabled"
     echo "Reboot is required for persistent selinux disable."
     echo ""
 }
@@ -53,14 +54,22 @@ selinux_enable() {
     if command -v setenforce >/dev/null 2>&1; then
         setenforce 1 2>/dev/null || true
     fi
+    
+    echo ""
+    echo "SELINUX: enabled"
+    echo "Reboot is required for persistent selinux enable."
+    echo ""
 }
 
 selinux_status() {
+    echo ""
+    echo "SELINUX status: "
     if command -v getenforce >/dev/null 2>&1; then
         getenforce
     else
         echo "Unknown"
     fi
+    echo ""
 }
 
 
