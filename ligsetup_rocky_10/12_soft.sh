@@ -44,12 +44,6 @@ echo "
 
 ###########################################
 
-#wget wget https://svwh.dl.sourceforge.net/project/phpfm/phpFileManager/version%200.9.8/phpFileManager-0.9.8.zip --no-check-certificate
-#wget http://ncu.dl.sourceforge.net/project/phpfm/phpFileManager/version%200.9.8/phpFileManager-0.9.8.zip
-#wget http://ncu.dl.sourceforge.net/project/phpfm/phpFileManager/version%200.9.9/phpFileManager-0.9.9.zip
-
-#wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
-
 #wget https://github.com/Th3-822/rapidleech/archive/master.zip
 #unzip master
 #mv rapidleech-master test
@@ -60,8 +54,8 @@ echo "composer require fruitcakestudio/recaptcha" > autoload/note.txt
 echo "composer create-project kleiram/transmission-php --keep-vcs -s dev ftl" >> autoload/note.txt
 
 
-mkdir admin
-touch admin/php.php
+#mkdir admin
+#touch admin/php.php
 
 mkdir status
 cd status
@@ -86,21 +80,13 @@ rm -rf mem.zip
 
 # PHP 5.5 or > Required
 
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.0/phpMyAdmin-4.7.0-all-languages.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.1/phpMyAdmin-4.7.1-all-languages.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.2/phpMyAdmin-4.7.2-english.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.3/phpMyAdmin-4.7.3-english.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.4/phpMyAdmin-4.7.4-english.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.7/phpMyAdmin-4.7.7-english.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.7.8/phpMyAdmin-4.7.8-english.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.8.2/phpMyAdmin-4.8.2-english.zip
-#wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip
 #wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-english.zip
 
 #best , all ok
 #wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-english.zip
 #wget https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.zip
-wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip
+#wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip
+wget https://files.phpmyadmin.net/phpMyAdmin/5.2.3/phpMyAdmin-5.2.3-english.zip
 #
 
 unzip phpMy*
@@ -122,7 +108,8 @@ yum -y install htop
 yum -y groupinstall 'Development Tools'
 cd /tmp/
 rm -rf ImageMagick.tar.gz
-wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-21.tar.gz
+#wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-21.tar.gz
+wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-27/ImageMagick-7.1.2-27.tar.xz
 tar xvf ImageMagick.tar.gz
 cd ImageMagick*/
 ./configure
