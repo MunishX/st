@@ -64,7 +64,7 @@ yum -y install ${PHP_V}-php-pecl-event
 ## PHP-swoole (swoole/swoole-src)
 #yum -y install ${PHP_V}-php-pecl-swoole
 
-## PHP-ioncube-loader (ioncube-loader)
+## PHP-ioncube-loader (ioncube-loader) (Not available for PHP 8.0 and any X.0)
 yum -y install ${PHP_V}-php-ioncube-loader
 
 ## PHP-Trader extension
