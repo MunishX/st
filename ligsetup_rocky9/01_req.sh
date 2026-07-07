@@ -31,6 +31,7 @@ sudo yum -y install unzip zip unrar rsync psmisc mediainfo iftop
 echo ""
 echo "Installing latest RAR..."
 cd /tmp
+rm -rf rar*
 #wget https://www.rarlab.com/rar/rarlinux-x64-6.0.2.tar.gz
 #wget https://www.rarlab.com/rar/rarlinux-x64-624.tar.gz
 wget https://www.rarlab.com/rar/rarlinux-x64-723.tar.gz
@@ -45,6 +46,7 @@ rm -rf rar*
 mv /usr/local/bin/sqlite3 /usr/local/bin/sqlite3_old
 
 cd /tmp
+rm -rf sqlite*
 #wget https://www.sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
 #wget https://www.sqlite.org/2023/sqlite-autoconf-3440000.tar.gz
 wget https://www.sqlite.org/2026/sqlite-autoconf-3530300.tar.gz
