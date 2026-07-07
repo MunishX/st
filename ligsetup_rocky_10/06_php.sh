@@ -91,6 +91,12 @@ ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/phpize
 ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/php-cgi
 
 
+#### OPCACHE CONFIG
+sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
+sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
+####
+
+
 ####
 
 ### MEMCACHED CONFIG
@@ -111,16 +117,15 @@ OPTIONS="-l 127.0.0.1,::1"
 yum -y install valkey
 valkey-server --version
 
-systemctl enable valkey # --now
+#systemctl enable valkey # --now
 systemctl start valkey
 systemctl status valkey
 
 systemctl is-active valkey
 systemctl is-enabled valkey
 valkey-cli ping
+
+systemctl stop valkey
 #####
 
-#### OPCACHE CONFIG
-sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
-sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
-####
+
