@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-# yum -y install wget && cd /tmp && rm -rf 00_install.sh && wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/00_install.sh && chmod 777 00_install.sh && ./00_install.sh
-# yum -y install wget nano && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
+# yum -y install wget && cd /tmp && rm -rf 00_install.sh && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/00_install.sh && chmod 777 00_install.sh && ./00_install.sh
+# yum -y install wget nano && cd /tmp && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
 
 
 
