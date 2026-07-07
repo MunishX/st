@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# cd /tmp && rm -rf 02_seli* && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/02_selinux.sh && chmod +x 02_selinux.sh && ./02_selinux.sh
+
 ###############################################################################
 # Disable SELinux (temporary + permanent)
 ###############################################################################
