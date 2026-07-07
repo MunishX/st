@@ -38,7 +38,7 @@ wget https://www.rarlab.com/rar/rarlinux-x64-723.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar*/
 make
-wget -O /etc/rarreg.key https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/rarreg.key
+wget -O /etc/rarreg.key https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/01_req_rarreg.key
 cd ..
 rm -rf rar*
 
