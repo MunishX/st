@@ -17,7 +17,12 @@ yum -y remove exim
 yum -y update
 
 sudo yum -y groupinstall "Development Tools"
-sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel gperftools-devel libicu libicu-devel gmp-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant pam-devel git perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils numactl lsof pkgconfig tk-devel 
+sudo yum -y install gcc gcc-c++ zlib zlib-devel expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel gperftools-devel libicu libicu-devel gmp-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant pam-devel git perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils numactl lsof pkgconfig tk-devel 
+
+# for upto Rocky 9 only (removed since Rocky 10)
+sudo yum -y install pcre pcre-devel perl-Crypt-SSLeay
+sudo yum -y libart_lgpl-devel
+
 #yum -y install mailx libgcj GeoIP-devel aspell aspell-devel enchant-devel perl-ExtUtils libc-client libc-client-devel gdbm-devel bluez-libs-devel
 
 sudo yum -y install unzip zip unrar rsync psmisc mediainfo iftop 
