@@ -560,7 +560,7 @@ unzip master
 #rm -rf LICENSE.html
 #mv index.php up.php
 mv rapidleech-master test
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_man.php -O up.php
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_man1.php -O up1.php
 wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_man2.php -O up2.php
 wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_PHPMailer.zip
 unzip PHPMailer.zip
