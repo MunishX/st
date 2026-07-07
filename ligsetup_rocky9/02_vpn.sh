@@ -8,7 +8,7 @@ IPADDR="$(hostname -I)"
 
 yum -y update
 yum -y install git zip unzip curl nano sudo wget
-yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release 
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip unrar epel-release # rar 
 yum -y groupinstall "Development Tools"
 yum -y update
 
