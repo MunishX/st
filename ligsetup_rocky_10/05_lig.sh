@@ -20,10 +20,12 @@ cd /tmp
 #yum -y remove epel-release remi-release
 rm -rf epel-release* RPM-GPG-KEY-EPEL*
 
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9
-yum -y install epel-release-latest-9.noarch.rpm
-rpm --import /tmp/RPM-GPG-KEY-EPEL-9
+#wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
+#wget https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-10
+#yum -y install epel-release-latest-10.noarch.rpm
+#rpm --import /tmp/RPM-GPG-KEY-EPEL-10
+
+yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
 
 # or
 # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
@@ -48,7 +50,7 @@ mkdir -p /home/lighttpd/{tmp,bin}
 
 
 chown -R lighttpd:lighttpd /home/lighttpd
-chmod -R 777 /home/lighttpd
+chmod -R 766 /home/lighttpd
 
 #usermod -m -d /home/lighttpd lighttpd
 
@@ -67,14 +69,17 @@ sudo usermod -a -G lighttpd lighttpd
 ## Lighttpd Angel
 #service lighttpd stop
 systemctl stop lighttpd
+systemctl disable lighttpd
 
-rm -rf /usr/lib/systemd/system/lighttpdo.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
+rm -rf /usr/lib/systemd/system/lighttpdo.service 
 mv  /usr/lib/systemd/system/lighttpd.service /usr/lib/systemd/system/lighttpdo.service
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/ligintl -O /usr/lib/systemd/system/lighttpd.service
+chmod 777  /usr/lib/systemd/system/lighttpd*
+
+#rm -rf /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 #mv /etc/systemd/system/multi-user.target.wants/lighttpd.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 #wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligintl -O /usr/lib/systemd/system/lighttpd.service
 #chmod 777 /etc/systemd/system/multi-user.target.wants/lighttp*
-chmod 777  /usr/lib/systemd/system/lighttpd*
 
 
 systemctl daemon-reload
