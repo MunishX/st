@@ -75,7 +75,14 @@ sudo systemctl status crond.service
 echo ""
 echo " Fixing UMASK for all user..."
 sleep 3
-sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
+#sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
+
+sudo tee /etc/profile.d/umask.sh >/dev/null <<'EOF'
+umask 002
+EOF
+
+sudo chmod 644 /etc/profile.d/umask.sh
+
 
 # yum -y install wget && cd /tmp && wget https://github.com/munishgaurav5/st/raw/master/ligsetup/req.sh && chmod 777 req.sh && ./req.sh
 
