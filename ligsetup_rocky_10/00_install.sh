@@ -9,15 +9,17 @@
 #------------------------------------------------------------------------------------
 # Vars AND Inputs 
 #------------------------------------------------------------------------------------
-NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
+#NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}')"
+NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}' | head -1)"
 
 ###### IP Check
 #IPADDR=$(ip a s $NETWORK_INTERFACE_NAME |grep "inet "|awk '{print $2}'| awk -F '/' '{print $1}')
 #or
 #MAIN_IP="$(hostname -I)"
-MAIN_IP=$(ip a | grep "scope global" | grep -Po '(?<=inet )[\d.]+' | tr '\n' ' ' | awk '{print $1}')
+#MAIN_IP=$(ip a | grep "scope global" | grep -Po '(?<=inet )[\d.]+' | tr '\n' ' ' | awk '{print $1}')
+MAIN_IP=$(ip a s "$NETWORK_INTERFACE_NAME" | grep "inet " | awk '{print $2}' | awk -F '/' '{print $1}' | head -1)
 # Remove blank space
-MAIN_IP=${MAIN_IP//[[:blank:]]/}
+#MAIN_IP=${MAIN_IP//[[:blank:]]/}
 
 echo ""
 echo ""
@@ -79,23 +81,7 @@ echo ""
     done
 
 
-Install_Torrent=$6
-echo ""
-   while [[ $Install_Torrent = "" ]]; do # to be replaced with regex
-       read -p "(7/9) INSTALL Torrent (y/n): " Install_Torrent
-    done
-
-if [ $Install_Torrent = "y" ]; then
-   
-   Torrent_Port=$7
-   echo ""
-   while [[ $Torrent_Port = "" ]]; do # to be replaced with regex
-       read -p "(8/9) Torrent Port (9091): " Torrent_Port
-    done
-  
-fi
-
-Setup_IPv6=$8
+Setup_IPv6=$6
 echo ""
    while [[ $Setup_IPv6 = "" ]]; do # to be replaced with regex
        read -p "(9/9) Enable ipv6 for lighttpd (y/n): " Setup_IPv6
@@ -111,10 +97,10 @@ ADMIN_HTML=html
 
 #### SETUP HOSTNAME AND HOST FILE
 
-hostnamectl set-hostname $SERVER_HOST.$SERVER_DOMAIN
-
 #OUT_HOSTNAME="$(hostname)"
 OUT_HOSTNAME=$SERVER_HOST.$SERVER_DOMAIN
+
+hostnamectl set-hostname $OUT_HOSTNAME
 
 echo ""
 while [[ $HOST_CORRECT = "" ]]; do # to be replaced with regex       
@@ -131,16 +117,6 @@ echo "$MAIN_IP $OUT_HOSTNAME $SERVER_HOST" >> /etc/hosts
 
 #######################
 
-### UMASK FIX FOR ROOT ###
-echo ""
-echo "Temporary UMASK FIX for root user..."
-umask
-umask 0002
-umask
-echo ""
-sleep 6
-#########################
-
 ##### Create Installer Folder
 rm -rf /tmp/lig_installer
 mkdir -p /tmp/lig_installer
@@ -156,7 +132,7 @@ sleep 10
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/01_req.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/01_req.sh
 chmod 777 01_req.sh
 ./01_req.sh
 
@@ -167,12 +143,26 @@ echo ""
 sleep 10
 
 
+#------------------------------------------------------------------------------------
+# SELINUX Disable
+#------------------------------------------------------------------------------------
+
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/02_selinux.sh
+chmod 777 02_selinux.sh
+./02_selinux.sh
+
+echo ""
+echo ""
+echo "2) SELINUX DISABLE COMPLETED!"
+echo ""
+sleep 10
+
 
 #------------------------------------------------------------------------------------
 # UPDATE SSH
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/03_ssh.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/03_ssh.sh
 chmod 777 03_ssh.sh
 ./03_ssh.sh $SSH_PORT
 
@@ -186,7 +176,7 @@ sleep 10
 # UPDATE TIME
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/04_time.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/04_time.sh
 chmod 777 04_time.sh
 ./04_time.sh
 
@@ -196,40 +186,30 @@ echo "4) TIME COMPLETED!"
 echo ""
 sleep 10
 
-
 #------------------------------------------------------------------------------------
-# Install Lighttpd
+# Add New user (incomplete) (ignored)
+#------------------------------------------------------------------------------------
+echo "5) Add New User Empty COMPLETED  (Ignored)!"
+#------------------------------------------------------------------------------------
+# Install CACHE
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/05_lig.sh
-chmod 777 05_lig.sh
-./05_lig.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/06_cache_redis_valkey.sh
+chmod 777 06_cache_redis_valkey.sh
+./06_cache_redis_valkey.sh
 
 echo ""
 echo ""
-echo "5) LIG COMPLETED!"
+echo "6) CACHE COMPLETED!"
 echo ""
 sleep 10
 
-#------------------------------------------------------------------------------------
-# Install php
-#------------------------------------------------------------------------------------
-
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/06_php.sh
-chmod 777 06_php.sh
-./06_php.sh
-
-echo ""
-echo ""
-echo "6) PHP COMPLETED!"
-echo ""
-sleep 10
 
 #------------------------------------------------------------------------------------
 # Install db
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/07_db.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/07_db.sh
 chmod 777 07_db.sh
 ./07_db.sh
 
@@ -243,7 +223,7 @@ sleep 10
 # Install db pw up
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/08_dbpass.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/08_dbpass.sh
 chmod 777 08_dbpass.sh
 ./08_dbpass.sh $DB_PASS
 
@@ -254,19 +234,32 @@ echo ""
 sleep 10
 
 #------------------------------------------------------------------------------------
-# Install REPLACE
+# Install Lighttpd
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/09_replace.sh
-chmod 777 09_replace.sh
-./09_replace.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/09_lig.sh
+chmod 777 09_lig.sh
+./09_lig.sh
 
 echo ""
 echo ""
-echo "9) REPLACE COMPLETED!"
+echo "9) LIG COMPLETED!"
 echo ""
 sleep 10
 
+#------------------------------------------------------------------------------------
+# Install php
+#------------------------------------------------------------------------------------
+
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/10_php.sh
+chmod 777 10_php.sh
+./10_php.sh
+
+echo ""
+echo ""
+echo "10) PHP COMPLETED!"
+echo ""
+sleep 10
 
 
 
@@ -274,17 +267,14 @@ sleep 10
 # Install LIG CONFIG 
 #------------------------------------------------------------------------------------
 restart_no=n
-#wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/ligconf.sh
-#chmod 777 ligconf.sh
-#./ligconf.sh $ADMIN_USER $ADMIN_PASS $OUT_HOSTNAME $ADMIN_USER $restart_no
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/10_create_vhost.sh
-chmod 777 10_create_vhost.sh
-./10_create_vhost.sh $ADMIN_USER $ADMIN_PASS $SERVER_HOST $SERVER_DOMAIN $ADMIN_USER $Setup_IPv6 $restart_no y $MAIN_IP
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/11_create_vhost.sh
+chmod 777 11_create_vhost.sh
+./11_create_vhost.sh $ADMIN_USER $ADMIN_PASS $SERVER_HOST $SERVER_DOMAIN $ADMIN_USER $Setup_IPv6 $restart_no y $MAIN_IP
 
 echo ""
 echo ""
-echo "10) LIG CONFIG  COMPLETED!"
+echo "11) LIG CONFIG  COMPLETED!"
 echo ""
 sleep 10
 
@@ -297,43 +287,16 @@ sleep 10
 # Software Install
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/11_soft.sh
-chmod 777 11_soft.sh
-./11_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/12_soft.sh
+chmod 777 12_soft.sh
+./12_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
 
 echo ""
 echo ""
-echo "11) Software Install COMPLETED!"
+echo "12) Software Install COMPLETED!"
 echo ""
 sleep 10
 
-
-
-#------------------------------------------------------------------------------------
-# Install Torrent
-#------------------------------------------------------------------------------------
-
-if [[ $Install_Torrent = "y" ]]; then
-
-old_user_true=y
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/12_tmm.sh
-chmod 777 12_tmm.sh 
-./12_tmm.sh $ADMIN_USER $ADMIN_PASS $Torrent_Port $OUT_HOSTNAME $ADMIN_USER $old_user_true
-
-echo ""
-echo ""
-echo "12) Torrent COMPLETED!"
-echo ""
-
-else
-echo ""
-echo ""
-echo "12) SKIPPING Torrent!"
-echo ""
-fi
-
-
-sleep 10
 
 
 
@@ -341,7 +304,7 @@ sleep 10
 # Enable & RESTART ALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/13_restart.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/13_restart.sh
 chmod 777 13_restart.sh
 ./13_restart.sh $OUT_HOSTNAME $ADMIN_USER 
 
@@ -356,7 +319,7 @@ sleep 10
 # FIREWALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/14_firewall.sh
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/14_firewall.sh
 chmod 777 14_firewall.sh
 ./14_firewall.sh 
 
@@ -367,10 +330,26 @@ echo ""
 sleep 10
 
 
+#------------------------------------------------------------------------------------
+# MAIL
+#------------------------------------------------------------------------------------
+
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/15_mail.sh
+chmod 777 15_mail.sh
+./15_mail.sh 
+
+echo ""
+echo ""
+echo "15) Mail COMPLETED!"
+echo ""
+sleep 10
+
 
 
 echo "END!!"
 exit 1
+
+
 
 #------------------------------------------------------------------------------------
 # Install ftp
