@@ -25,9 +25,9 @@ cd /tmp
 #wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 #rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
 
-yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-yum install -y https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-9.noarch.rpm
-yum install -y http://rpms.remirepo.net/enterprise/remi-release-9.rpm
+yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
+yum install -y https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-10.noarch.rpm
+yum install -y http://rpms.remirepo.net/enterprise/remi-release-10.rpm
 
 yum -y update
 
