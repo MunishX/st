@@ -49,15 +49,11 @@ echo "
 #wget http://ncu.dl.sourceforge.net/project/phpfm/phpFileManager/version%200.9.9/phpFileManager-0.9.9.zip
 
 #wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
-wget https://github.com/Th3-822/rapidleech/archive/master.zip
-unzip master
-#unzip php*
-#rm -rf phpF*.zip
-##rm -rf master*.zip
-#rm -rf LICENSE.html
-#mv index.php up.php
-mv rapidleech-master test
-wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/man.php -O up.php
+
+#wget https://github.com/Th3-822/rapidleech/archive/master.zip
+#unzip master
+#mv rapidleech-master test
+#wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/man.php -O up.php
 
 mkdir autoload
 echo "composer require fruitcakestudio/recaptcha" > autoload/note.txt
@@ -158,7 +154,7 @@ chown -R vnstat:vnstat /var/lib/vnstat
 
 ########
 #wget https://raw.github.com/munishgaurav5/st/master/vn.zip -O vnstat.zip
-wget https://github.com/MunishX/st/raw/master/ligsetup_rocky9/replace/vn.zip -O vnstat.zip
+wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/12_vn.zip -O vnstat.zip
 ########
 
 unzip vnstat.zip
