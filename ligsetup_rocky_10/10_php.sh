@@ -70,6 +70,12 @@ yum -y install ${PHP_V}-php-ioncube-loader
 ## PHP-Trader extension
 yum -y install ${PHP_V}-php-pecl-trader
 
+#### OPCACHE CONFIG
+sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
+sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
+####
+
+
 ## PHP FIX + DATE 
 echo "cgi.fix_pathinfo=1" >> /etc/opt/remi/${PHP_V}/php.ini
 echo "date.timezone = UTC" >> /etc/opt/remi/${PHP_V}/php.ini
@@ -79,9 +85,12 @@ sed -i "s/^.*expose_php =.*/expose_php = Off/" /etc/opt/remi/${PHP_V}/php.ini
 sed -i "s/^.*mail.add_x_header =.*/mail.add_x_header = Off/" /etc/opt/remi/${PHP_V}/php.ini
 sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/${PHP_V}/php.ini
 
+## EASY ACCESS LINKS
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/${PHP_V}-fpm
 ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/${PHP_V}-phpize
+ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/${PHP_V}-cgi
 
+## DEFAULT PHP LINK REPLACE (Making current PHP Default)
 ## php7x to PHP LINK to bin path (symLINK) (FIX)
 # PHP_V='php74'
 rm -rf /usr/bin/php /usr/bin/php-cgi /usr/bin/phpize /usr/bin/php-fpm
@@ -90,10 +99,5 @@ ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/php-fpm
 ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/phpize
 ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/php-cgi
 
-
-#### OPCACHE CONFIG
-sed -i "s/^.*opcache.memory_consumption=.*/opcache.memory_consumption=999/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
-sed -i "s/^.*opcache.max_accelerated_files=.*/opcache.max_accelerated_files=94000/" /etc/opt/remi/${PHP_V}/php.d/10-opcache.ini
-####
 
 
