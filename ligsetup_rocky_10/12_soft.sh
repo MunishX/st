@@ -1,5 +1,13 @@
 #!/bin/bash
 
+BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+if [[ $4 = "" ]]; then 
+   echo "using BASE_URL: ${BASE_URL}" 
+else
+   BASE_URL=$4
+fi
+
+
 ADMIN_USER_NAME=$1
 echo ""
    while [[ $ADMIN_USER_NAME = "" ]]; do # to be replaced with regex
