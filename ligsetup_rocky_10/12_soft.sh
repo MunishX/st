@@ -34,14 +34,16 @@ cd /home/$ADMIN_USER_NAME/$mydom/$ADMIN_PUBLIC_HTML/host/
 #yum install awstats -y 
 
 mkdir -p cgi-bin
-wget https://github.com/munishgaurav5/st/raw/master/aw76.zip
+#wget https://github.com/munishgaurav5/st/raw/master/aw76.zip
+wget ${BASE_URL}replace/12_aw76.zip -O aw76.zip
 unzip aw76.zip
 mv awstats-7.6/wwwroot/ awstats
 mv awstats/cgi-bin/* cgi-bin
 rm -rf aw76.zip awstats-7.6
 
 ########
-wget https://raw.github.com/munishgaurav5/st/master/default.conf -O cgi-bin/default.conf
+#wget https://raw.github.com/munishgaurav5/st/master/default.conf -O cgi-bin/default.conf
+wget ${BASE_URL}replace/12_default.conf -O default.conf
 ########
 
 echo "
@@ -73,7 +75,13 @@ wget https://github.com/munishgaurav5/st/raw/master/ocp.php
 wget https://github.com/munishgaurav5/st/raw/master/op.php
 wget https://github.com/munishgaurav5/st/raw/master/mem.php
 
-wget https://raw.github.com/munishgaurav5/st/master/mem.zip
+wget ${BASE_URL}replace/12_opcache.php -O opcache.php
+wget ${BASE_URL}replace/12_ocp.php -O ocp.php
+wget ${BASE_URL}replace/12_op.php -O op.php
+wget ${BASE_URL}replace/12_mem.php -O mem.php
+
+#wget https://raw.github.com/munishgaurav5/st/master/mem.zip
+wget ${BASE_URL}replace/12_mem.zip -O mem.zip
 unzip mem.zip
 rm -rf mem.zip
 # /run/memcached/memcached.sock
