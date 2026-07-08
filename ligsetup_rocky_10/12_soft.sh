@@ -133,6 +133,9 @@ sleep 2
 #vnstat -i eth0
 #vnstat -u -i eth0
 
+touch /var/lib/vnstat/vnstat.db
+chown -R vnstat:vnstat /var/lib/vnstat/vnstat.db
+
 vnstat -i $NETWORK_INTERFACE_NAME
 #vnstat -u -i $NETWORK_INTERFACE_NAME
 
