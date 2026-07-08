@@ -48,7 +48,7 @@ server.modules = (
   "mod_redirect",
   "mod_rewrite",
   "mod_setenv",
-  "mod_usertrack",
+  #"mod_usertrack",
 )
 
 ##
