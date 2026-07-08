@@ -1,5 +1,13 @@
 #!/bin/bash
 
+BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+if [[ $1 = "" ]]; then 
+   echo "using BASE_URL: ${BASE_URL}" 
+else
+   BASE_URL=$1
+fi
+
+
 # lighttpd config file test
 # lighttpd -t -f /etc/lighttpd/lighttpd.conf
 # lighttpd -tt -f /etc/lighttpd/lighttpd.conf
@@ -119,19 +127,19 @@ mv /etc/lighttpd/conf.d/access_log.conf /etc/lighttpd/conf.d/access_log.old
 #mv /etc/lighttpd/conf.d/geoip.conf /etc/lighttpd/conf.d/geoip.old
 
 #### LIGHTTPD CONFIG
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_ligcnf -O /etc/lighttpd/lighttpd.conf
+wget ${BASE_URL}replace/09_replace_ligcnf -O /etc/lighttpd/lighttpd.conf
 
 #### MODULES CONFIG
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_modcnf -O /etc/lighttpd/modules.conf
+wget ${BASE_URL}replace/09_replace_modcnf -O /etc/lighttpd/modules.conf
 
 #### FASTCGI CONFIG
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_fgicnf -O /etc/lighttpd/conf.d/fastcgi.conf
+wget ${BASE_URL}replace/09_replace_fgicnf -O /etc/lighttpd/conf.d/fastcgi.conf
 
 #### CGI CONFIG
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_cgi -O /etc/lighttpd/conf.d/cgi.conf
+wget ${BASE_URL}replace/09_replace_cgi -O /etc/lighttpd/conf.d/cgi.conf
 
 #### ACCESS_LOG CONFIG
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_alog -O /etc/lighttpd/conf.d/access_log.conf
+wget ${BASE_URL}replace/09_replace_alog -O /etc/lighttpd/conf.d/access_log.conf
 
 #### GEO_IP CONFIG
-#wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_replace_gip -O /etc/lighttpd/conf.d/geoip.conf
+#wget ${BASE_URL}replace/09_replace_gip -O /etc/lighttpd/conf.d/geoip.conf
