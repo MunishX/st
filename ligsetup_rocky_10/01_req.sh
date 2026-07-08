@@ -2,11 +2,27 @@
 
 # cd /tmp && yum install wget -y && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/01_req.sh && chmod 777 01_req.sh && ./01_req.sh 
 
-BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+NETWORK_INTERFACE_NAME="$(ip -o -4 route show to default | awk '{print $5}' | head -1)"
 if [[ $1 = "" ]]; then 
-   echo "using BASE_URL: ${BASE_URL}" 
+   echo "using default NETWORK_INTERFACE_NAME: ${NETWORK_INTERFACE_NAME}" 
 else
-   BASE_URL=$1
+   NETWORK_INTERFACE_NAME=$1
+fi
+
+Setup_IPv6=n
+if [[ $2 = "y" ]]; then 
+   Setup_IPv6=$2
+   echo "ipv6 enabled, updating ipv6 DNS in device: ${NETWORK_INTERFACE_NAME}" 
+else
+   echo "ipv6 disabled, not updating ipv6 DNS in device: ${NETWORK_INTERFACE_NAME}" 
+fi
+
+
+BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+if [[ $3 = "" ]]; then 
+   echo "using default BASE_URL: ${BASE_URL}" 
+else
+   BASE_URL=$3
 fi
 
 ############## Req Install Start #############
@@ -20,8 +36,13 @@ chkconfig iptables off
 sudo echo 'precedence ::ffff:0:0/96 100' > /etc/gai.conf
 
 yum -y update
-yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git sudo make cmake sed at ant iotop hdparm 
-#yum -y install rar unrar lsblk awk GeoIP
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git sudo make cmake sed at ant iotop hdparm nmcli 
+
+sudo nmcli dev modify "$NETWORK_INTERFACE_NAME" ipv4.dns "8.8.8.8 8.8.4.4"
+if [[ $Setup_IPV6 = 'y' ]]; then
+sudo nmcli dev modify "$NETWORK_INTERFACE_NAME" ipv6.dns "2001:4860:4860::8888 2001:4860:4860::8844"
+fi
+sudo nmcli dev up "$NETWORK_INTERFACE_NAME"
 
 yum -y update
 
