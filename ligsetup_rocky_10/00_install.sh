@@ -140,6 +140,7 @@ echo ""
 echo ""
 echo "1) REQ COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -155,6 +156,7 @@ echo ""
 echo ""
 echo "2) SELINUX DISABLE COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -170,6 +172,7 @@ echo ""
 echo ""
 echo "3) SSH COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 #------------------------------------------------------------------------------------
@@ -184,12 +187,14 @@ echo ""
 echo ""
 echo "4) TIME COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 #------------------------------------------------------------------------------------
 # Add New user (incomplete) (ignored)
 #------------------------------------------------------------------------------------
 echo "5) Add New User Empty COMPLETED  (Ignored)!"
+printf '\n%.0s' {1..10}
 #------------------------------------------------------------------------------------
 # Install CACHE
 #------------------------------------------------------------------------------------
@@ -202,6 +207,7 @@ echo ""
 echo ""
 echo "6) CACHE COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -217,6 +223,7 @@ echo ""
 echo ""
 echo "7) DB COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 #------------------------------------------------------------------------------------
@@ -231,6 +238,7 @@ echo ""
 echo ""
 echo "8) DB_PASS COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 #------------------------------------------------------------------------------------
@@ -245,6 +253,7 @@ echo ""
 echo ""
 echo "9) LIG COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 #------------------------------------------------------------------------------------
@@ -259,6 +268,7 @@ echo ""
 echo ""
 echo "10) PHP COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -276,6 +286,7 @@ echo ""
 echo ""
 echo "11) LIG CONFIG  COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 #while [[ $Continue_do != "y" ]]; do # to be replaced with regex       
@@ -295,6 +306,7 @@ echo ""
 echo ""
 echo "12) Software Install COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -312,6 +324,7 @@ echo ""
 echo ""
 echo "13) Restart and Enable COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -327,6 +340,7 @@ echo ""
 echo ""
 echo "14) Firewall COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
@@ -342,6 +356,7 @@ echo ""
 echo ""
 echo "15) Mail COMPLETED!"
 echo ""
+printf '\n%.0s' {1..10}
 sleep 10
 
 
