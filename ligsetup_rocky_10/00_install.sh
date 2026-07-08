@@ -1,6 +1,20 @@
 #!/bin/bash
+# to change base dir, https://github.com/sgreben/http-file-server can be used.
+
 
 BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+
+if [[ $1 = "" ]]; then 
+   echo "using BASE_URL: ${BASE_URL}" 
+else
+   BASE_URL=$1
+fi
+
+BASE_URL_OK=""
+   while [[ $BASE_URL_OK = "" ]]; do # to be replaced with regex       
+       read -p "(0/9) Using Base_URL '${BASE_URL}' (y/n) : " BASE_URL_OK
+    done
+
 
 # yum -y install wget && cd /tmp && rm -rf 00_install.sh && wget ${BASE_URL}00_install.sh && chmod 777 00_install.sh && ./00_install.sh
 # yum -y install wget nano && cd /tmp && wget ${BASE_URL}00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
