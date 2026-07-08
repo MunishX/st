@@ -81,6 +81,7 @@ wget ${BASE_URL}replace/12_op.php -O op.php
 wget ${BASE_URL}replace/12_mem.php -O mem.php
 wget ${BASE_URL}replace/12_red.php -O redis.php
 wget ${BASE_URL}replace/12_adm_db.php -O db.php
+wget ${BASE_URL}replace/12_fl.php -O file.php
 
 #wget https://raw.github.com/munishgaurav5/st/master/mem.zip
 wget ${BASE_URL}replace/12_mem.zip -O mem.zip
