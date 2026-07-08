@@ -222,6 +222,7 @@ if [[ $uname != $admin_username ]]; then
 sudo usermod -a -G $uname $admin_username
 fi
 
+############# admin user add ####################
 if [[ $set_ip_host = 'y' ]]; then
 
 # add lighttpd to admin_user's group 
@@ -234,8 +235,58 @@ sudo usermod -a -G wheel $admin_username
 #chown $admin_username:$admin_username /home
 
 #######################################################
+fi
 
-############# add virtual host common non-https ##############
+############# admin installation start ####################
+if [[ $set_ip_host = 'y' ]]; then
+
+################ CERTBOT START ##################
+# CERTBOT install certbot - auto mode for lighttpd 
+
+echo "Setting up Certbot Auto HTTPS.."
+sudo yum install epel-release -y
+sudo yum install certbot -y
+
+sed -i "s/^POST_HOOK.*/POST_HOOK=\"--post-hook 'systemctl reload lighttpd'\"/g" /etc/sysconfig/certbot
+
+systemctl daemon-reload
+systemctl enable certbot-renew.timer
+systemctl start certbot-renew.timer
+systemctl list-timers
+systemctl status certbot-renew.timer
+
+################ CERTBOT END ##################
+
+mkdir -p /home/lighttpd/acme-challenge/
+chmod 777 /home/lighttpd/acme-challenge/
+chown -R lighttpd:admin /home/lighttpd/acme-challenge/
+#chown -R lighttpd:admin /home/lighttpd/renew-hook.sh
+
+
+
+mkdir -p /home/admin/ip/{html,error,ssl}
+chmod -R 777 /home/admin/ip/
+
+mkdir -p /home/admin/bin/
+chmod -R 777 /home/admin/bin/
+
+wget ${BASE_URL}replace/11_add_user.sh -O /usr/bin/addnewuser
+chmod 777 /usr/bin/addnewuser
+
+wget ${BASE_URL}11_create_vhost.sh -O /usr/bin/addnewuser_create_vhost
+chmod 777 /usr/bin/addnewuser_create_vhost
+
+
+#server_stat='
+#server.modules += ( "mod_status" )
+#  status.status-url          = "/admin/server-status"
+#  status.config-url          = "/admin/server-config"
+#  status.statistics-url      = "/admin/server-statistics"
+#  status.enable-sort         = "enable"  
+#  '
+  
+
+## add virtual host common non-https start ##
 
 echo "
  ## IP Vhost (default)
@@ -277,22 +328,15 @@ sleep 10
 echo ""
 
 ########################################################
-
-################ CERTBOT ##################
-# CERTBOT install certbot - auto mode for lighttpd 
-
-echo "Setting up Certbot Auto HTTPS.."
-sudo yum install epel-release -y
-sudo yum install certbot -y
-
-sed -i "s/^POST_HOOK.*/POST_HOOK=\"--post-hook 'systemctl reload lighttpd'\"/g" /etc/sysconfig/certbot
-
-systemctl daemon-reload
-systemctl enable certbot-renew.timer
-systemctl start certbot-renew.timer
-systemctl list-timers
-systemctl status certbot-renew.timer
-
+# certbot auto ssl for website
+ 
+if [[ $mydom2 = "" ]]; then
+   echo "User $USERID already exists."   
+   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --email admin@${mydom} --agree-tos --no-eff-email
+else
+   echo "UserID : OK"
+   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --domain $mydom2 --email admin@${mydom} --agree-tos --no-eff-email
+fi
 
 
 echo '
@@ -384,34 +428,19 @@ sed -i "s/__MAIN_IP__/$main_ip/" /etc/lighttpd/enabled/1http_to_https.conf
 
 # nano /var/log/letsencrypt/letsencrypt.log
 
-mkdir -p /home/lighttpd/acme-challenge/
-chmod 777 /home/lighttpd/acme-challenge/
-chown -R lighttpd:admin /home/lighttpd/acme-challenge/
-#chown -R lighttpd:admin /home/lighttpd/renew-hook.sh
+############# admin installation end ####################
 
+else
+	# certbot auto ssl for website
+	 
+	if [[ $mydom2 = "" ]]; then
+	   echo "User $USERID already exists."   
+	   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --email admin@${mydom} --agree-tos --no-eff-email
+	else
+	   echo "UserID : OK"
+	   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --domain $mydom2 --email admin@${mydom} --agree-tos --no-eff-email
+	fi
 
-
-mkdir -p /home/admin/ip/{html,error,ssl}
-chmod -R 777 /home/admin/ip/
-
-mkdir -p /home/admin/bin/
-chmod -R 777 /home/admin/bin/
-
-wget ${BASE_URL}replace/11_add_user.sh -O /usr/bin/addnewuser
-chmod 777 /usr/bin/addnewuser
-
-wget ${BASE_URL}11_create_vhost.sh -O /usr/bin/addnewuser_create_vhost
-chmod 777 /usr/bin/addnewuser_create_vhost
-
-
-#server_stat='
-#server.modules += ( "mod_status" )
-#  status.status-url          = "/admin/server-status"
-#  status.config-url          = "/admin/server-config"
-#  status.statistics-url      = "/admin/server-statistics"
-#  status.enable-sort         = "enable"  
-#  '
-  
 fi
 
 #######
@@ -508,15 +537,7 @@ url.rewrite-once = (
  #chown $admin_username:$admin_username /home/$admin_username/.htpasswd
  chown $admin_username:$admin_username $user_root/$mydom/.htpasswd
 
-# certbot auto ssl for website
- 
-if [[ $mydom2 = "" ]]; then
-   echo "User $USERID already exists."   
-   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --email admin@${mydom} --agree-tos --no-eff-email
-else
-   echo "UserID : OK"
-   sudo certbot certonly --webroot -w /home/lighttpd/acme-challenge/ --preferred-challenges http --domain $mydom --domain $mydom2 --email admin@${mydom} --agree-tos --no-eff-email
-fi
+
 ###################
 
 wget ${BASE_URL}replace/11_www -O $user_root/$mydom/$php_add_head/$software_name.conf
