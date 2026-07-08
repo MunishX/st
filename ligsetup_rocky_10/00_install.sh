@@ -1,8 +1,9 @@
 #!/bin/bash
 
+BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
 
-# yum -y install wget && cd /tmp && rm -rf 00_install.sh && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/00_install.sh && chmod 777 00_install.sh && ./00_install.sh
-# yum -y install wget nano && cd /tmp && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
+# yum -y install wget && cd /tmp && rm -rf 00_install.sh && wget ${BASE_URL}00_install.sh && chmod 777 00_install.sh && ./00_install.sh
+# yum -y install wget nano && cd /tmp && wget ${BASE_URL}00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
 
 
 
@@ -132,7 +133,7 @@ sleep 10
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/01_req.sh
+wget ${BASE_URL}01_req.sh
 chmod 777 01_req.sh
 ./01_req.sh
 
@@ -148,7 +149,7 @@ sleep 10
 # SELINUX Disable
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/02_selinux.sh
+wget ${BASE_URL}02_selinux.sh
 chmod 777 02_selinux.sh
 ./02_selinux.sh
 
@@ -164,7 +165,7 @@ sleep 10
 # UPDATE SSH
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/03_ssh.sh
+wget ${BASE_URL}03_ssh.sh
 chmod 777 03_ssh.sh
 ./03_ssh.sh $SSH_PORT
 
@@ -179,7 +180,7 @@ sleep 10
 # UPDATE TIME
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/04_time.sh
+wget ${BASE_URL}04_time.sh
 chmod 777 04_time.sh
 ./04_time.sh
 
@@ -199,7 +200,7 @@ printf '\n%.0s' {1..10}
 # Install CACHE
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/06_cache_redis_valkey.sh
+wget ${BASE_URL}06_cache_redis_valkey.sh
 chmod 777 06_cache_redis_valkey.sh
 ./06_cache_redis_valkey.sh
 
@@ -215,7 +216,7 @@ sleep 10
 # Install db
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/07_db.sh
+wget ${BASE_URL}07_db.sh
 chmod 777 07_db.sh
 ./07_db.sh
 
@@ -230,7 +231,7 @@ sleep 10
 # Install db pw up
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/08_dbpass.sh
+wget ${BASE_URL}08_dbpass.sh
 chmod 777 08_dbpass.sh
 ./08_dbpass.sh $DB_PASS
 
@@ -245,7 +246,7 @@ sleep 10
 # Install Lighttpd
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/09_lig.sh
+wget ${BASE_URL}09_lig.sh
 chmod 777 09_lig.sh
 ./09_lig.sh
 
@@ -260,7 +261,7 @@ sleep 10
 # Install php
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/10_php.sh
+wget ${BASE_URL}10_php.sh
 chmod 777 10_php.sh
 ./10_php.sh
 
@@ -278,7 +279,7 @@ sleep 10
 #------------------------------------------------------------------------------------
 restart_no=n
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/11_create_vhost.sh
+wget ${BASE_URL}11_create_vhost.sh
 chmod 777 11_create_vhost.sh
 ./11_create_vhost.sh $ADMIN_USER $ADMIN_PASS $SERVER_HOST $SERVER_DOMAIN $ADMIN_USER $Setup_IPv6 $restart_no y $MAIN_IP
 
@@ -298,7 +299,7 @@ sleep 10
 # Software Install
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/12_soft.sh
+wget ${BASE_URL}12_soft.sh
 chmod 777 12_soft.sh
 ./12_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
 
@@ -316,7 +317,7 @@ sleep 10
 # Enable & RESTART ALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/13_restart.sh
+wget ${BASE_URL}13_restart.sh
 chmod 777 13_restart.sh
 ./13_restart.sh $OUT_HOSTNAME $ADMIN_USER 
 
@@ -332,7 +333,7 @@ sleep 10
 # FIREWALL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/14_firewall.sh
+wget ${BASE_URL}14_firewall.sh
 chmod 777 14_firewall.sh
 ./14_firewall.sh 
 
@@ -348,7 +349,7 @@ sleep 10
 # MAIL
 #------------------------------------------------------------------------------------
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/15_mail.sh
+wget ${BASE_URL}15_mail.sh
 chmod 777 15_mail.sh
 ./15_mail.sh 
 
