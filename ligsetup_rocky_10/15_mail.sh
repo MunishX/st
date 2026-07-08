@@ -4,13 +4,17 @@ sleep 5
 
 yum -y remove exim
 
-yum install sudo sed postfix -y
+yum install sudo sed postfix nc -y
 sudo sed -i "s/^inet_protocols.*/inet_protocols = ipv4/" /etc/postfix/main.cf
 sudo postconf -e 'smtp_tls_security_level = may'
 sudo postconf -e 'smtpd_tls_security_level = may'
 systemctl start postfix
 systemctl enable postfix
 systemctl status postfix --no-pager
+
+nc -zv4 gmail-smtp-in.l.google.com 25
+nc -zv6 gmail-smtp-in.l.google.com 25
+
 ###
 
 echo ""
