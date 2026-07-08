@@ -152,7 +152,7 @@ chown -R vnstat:vnstat /var/lib/vnstat
 
 ########
 #wget https://raw.github.com/munishgaurav5/st/master/vn.zip -O vnstat.zip
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/12_vn.zip -O vnstat.zip
+wget ${BASE_URL}replace/12_vn.zip -O vnstat.zip
 ########
 
 unzip vnstat.zip
