@@ -16,6 +16,9 @@ iptables -F
 service iptables stop
 chkconfig iptables off
 
+# prefer ipv4 over ipv6
+sudo echo 'precedence ::ffff:0:0/96 100' > /etc/gai.conf
+
 yum -y update
 yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git sudo make cmake sed at ant iotop hdparm 
 #yum -y install rar unrar lsblk awk GeoIP
