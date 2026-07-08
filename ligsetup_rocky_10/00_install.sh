@@ -133,7 +133,7 @@ sleep 10
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-wget ${BASE_URL}01_req.sh
+wget ${BASE_URL}01_req.sh $BASE_URL
 chmod 777 01_req.sh
 ./01_req.sh
 
@@ -248,7 +248,7 @@ sleep 10
 
 wget ${BASE_URL}09_lig.sh
 chmod 777 09_lig.sh
-./09_lig.sh
+./09_lig.sh $BASE_URL
 
 echo ""
 echo ""
@@ -281,7 +281,7 @@ restart_no=n
 
 wget ${BASE_URL}11_create_vhost.sh
 chmod 777 11_create_vhost.sh
-./11_create_vhost.sh $ADMIN_USER $ADMIN_PASS $SERVER_HOST $SERVER_DOMAIN $ADMIN_USER $Setup_IPv6 $restart_no y $MAIN_IP
+./11_create_vhost.sh $ADMIN_USER $ADMIN_PASS $SERVER_HOST $SERVER_DOMAIN $ADMIN_USER $Setup_IPv6 $restart_no y $MAIN_IP $BASE_URL
 
 echo ""
 echo ""
@@ -301,7 +301,7 @@ sleep 10
 
 wget ${BASE_URL}12_soft.sh
 chmod 777 12_soft.sh
-./12_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML
+./12_soft.sh $ADMIN_USER $OUT_HOSTNAME $ADMIN_HTML $BASE_URL
 
 echo ""
 echo ""
