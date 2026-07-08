@@ -460,7 +460,7 @@ mkdir -p $user_root/$mydom/$php_add_head/{session,savedsession,wsdlcache,opcache
 
    #$server_stat
 
-  $HTTP["url"] =~ "^/host/" {
+  \$HTTP["url"] =~ "^/host/" {
     auth.backend = \"htpasswd\"
     auth.backend.htpasswd.userfile = \"$user_root/$mydom/.htpasswd\"
     auth.require = ( \"/host/\" =>
