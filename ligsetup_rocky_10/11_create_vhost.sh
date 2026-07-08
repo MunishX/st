@@ -21,6 +21,9 @@ fi
 # list all certs
 # certbot certificates
 
+# delete cert
+# certbot delete --cert-name yourdomain.com
+
 
 ############################### ADDED START
 #main_ip="$(hostname -I)"
