@@ -70,10 +70,10 @@ echo "composer create-project kleiram/transmission-php --keep-vcs -s dev ftl" >>
 mkdir status
 cd status
 
-wget https://github.com/munishgaurav5/st/raw/master/opcache.php
-wget https://github.com/munishgaurav5/st/raw/master/ocp.php
-wget https://github.com/munishgaurav5/st/raw/master/op.php
-wget https://github.com/munishgaurav5/st/raw/master/mem.php
+#wget https://github.com/munishgaurav5/st/raw/master/opcache.php
+#wget https://github.com/munishgaurav5/st/raw/master/ocp.php
+#wget https://github.com/munishgaurav5/st/raw/master/op.php
+#wget https://github.com/munishgaurav5/st/raw/master/mem.php
 
 wget ${BASE_URL}replace/12_opcache.php -O opcache.php
 wget ${BASE_URL}replace/12_ocp.php -O ocp.php
@@ -125,7 +125,8 @@ yum -y groupinstall 'Development Tools'
 cd /tmp/
 rm -rf ImageMagick.tar.gz
 #wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-21.tar.gz
-wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-27/ImageMagick-7.1.2-27.tar.xz
+#wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-27/ImageMagick-7.1.2-27.tar.xz
+wget ${BASE_URL}replace/12_ImageMagick-7.1.2-27.tar.xz -O ImageMagick.tar.gz
 tar xvf ImageMagick.tar.gz
 cd ImageMagick*/
 ./configure
