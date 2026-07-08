@@ -15,6 +15,11 @@ BASE_URL_OK=""
        read -p "(0/9) Using Base_URL '${BASE_URL}' (y/n) : " BASE_URL_OK
     done
 
+if [ $BASE_URL_OK != "y" ]; then
+   echo "$0 BASE_URL_PATH_ending_with_/ having files of /ligsetup_rocky_10/"
+   echo "Error!... Try Again!"
+   exit 1
+fi
 
 # yum -y install wget && cd /tmp && rm -rf 00_install.sh && wget ${BASE_URL}00_install.sh && chmod 777 00_install.sh && ./00_install.sh
 # yum -y install wget nano && cd /tmp && wget ${BASE_URL}00_install.sh && chmod 777 00_install.sh && nano 00_install.sh 
