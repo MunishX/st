@@ -22,6 +22,6 @@ echo "set A record"
 echo "set SPF record / update server ip in spf record"
 echo "set reverse IP Host at Network"
 echo ""
-echo " Then visit http://$(hostname)/host/PHPMailer/src/test.php or http://test10.fastserver.me/host/PHPMailer/src/test.php"
+echo " Then visit http://$(hostname)/host/PHPMailer/src/test.php"
 echo ""
 
