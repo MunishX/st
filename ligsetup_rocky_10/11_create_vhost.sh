@@ -305,8 +305,8 @@ echo '
    server.modules += ( "mod_openssl" )
    $SERVER["socket"] == "*:443" {
      ssl.engine  = "enable"
-     ssl.privkey= "/etc/letsencrypt/live/'${$mydom}'/privkey.pem"
-     ssl.pemfile= "/etc/letsencrypt/live/'${$mydom}'/fullchain.pem"
+     ssl.privkey= "/etc/letsencrypt/live/'${mydom}'/privkey.pem"
+     ssl.pemfile= "/etc/letsencrypt/live/'${mydom}'/fullchain.pem"
      ssl.openssl.ssl-conf-cmd = ("MinProtocol" => "TLSv1.2") # (recommended to accept only TLSv1.2 and TLSv1.3)
      ssl.cipher-list = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
 #     ssl.ec-curve = "secp384r1"
@@ -321,8 +321,8 @@ echo '
    server.modules += ( "mod_openssl" )
    $SERVER["socket"] == "[::]:443" {
      ssl.engine  = "enable"
-     ssl.privkey= "/etc/letsencrypt/live/'${$mydom}'/privkey.pem"
-     ssl.pemfile= "/etc/letsencrypt/live/'${$mydom}'/fullchain.pem"
+     ssl.privkey= "/etc/letsencrypt/live/'${mydom}'/privkey.pem"
+     ssl.pemfile= "/etc/letsencrypt/live/'${mydom}'/fullchain.pem"
      ssl.openssl.ssl-conf-cmd = ("MinProtocol" => "TLSv1.2") # (recommended to accept only TLSv1.2 and TLSv1.3)
      ssl.cipher-list = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
 #     ssl.ec-curve = "secp384r1"
