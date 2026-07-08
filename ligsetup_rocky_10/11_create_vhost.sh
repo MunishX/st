@@ -533,7 +533,7 @@ else
 fi
 ###################
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_www -O $user_root/$mydom/$php_add_head/$software_name.conf
+wget ${BASE_URL}replace/11_www -O $user_root/$mydom/$php_add_head/$software_name.conf
 sed -i "s,^.*/run/php-fpm-pool.pid.*,pid = $user_root/$mydom/$php_add_head/$software_name.pid," $user_root/$mydom/$php_add_head/$software_name.conf
 sed -i "s/^.*www-name.*/[$software_name]/" $user_root/$mydom/$php_add_head/$software_name.conf
 sed -i "s/^.*user-name.*/user = $uname/" $user_root/$mydom/$php_add_head/$software_name.conf
