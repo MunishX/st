@@ -88,7 +88,7 @@ sed -i "s/^.*upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/opt/remi/$
 ## EASY ACCESS LINKS
 ln -s /opt/remi/${PHP_V}/root/usr/sbin/php-fpm /usr/bin/${PHP_V}-fpm
 ln -s /opt/remi/${PHP_V}/root/usr/bin/phpize /usr/bin/${PHP_V}-phpize
-ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/${PHP_V}-cgi
+#ln -s /opt/remi/${PHP_V}/root/usr/bin/php-cgi /usr/bin/${PHP_V}-cgi
 
 ## DEFAULT PHP LINK REPLACE (Making current PHP Default)
 ## php7x to PHP LINK to bin path (symLINK) (FIX)
