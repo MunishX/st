@@ -81,12 +81,12 @@ systemctl disable lighttpd
 
 rm -rf /usr/lib/systemd/system/lighttpdo.service 
 mv  /usr/lib/systemd/system/lighttpd.service /usr/lib/systemd/system/lighttpdo.service
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/09_lig_ligintl -O /usr/lib/systemd/system/lighttpd.service
+wget ${BASE_URL}replace/09_lig_ligintl -O /usr/lib/systemd/system/lighttpd.service
 chmod 777  /usr/lib/systemd/system/lighttpd*
 
 #rm -rf /etc/systemd/system/multi-user.target.wants/lighttpdo.service
 #mv /etc/systemd/system/multi-user.target.wants/lighttpd.service /etc/systemd/system/multi-user.target.wants/lighttpdo.service
-#wget https://github.com/munishgaurav5/st/raw/master/ligsetup_rocky9/replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
+#wget ${BASE_URL}replace/ligintl -O /etc/systemd/system/multi-user.target.wants/lighttpd.service
 #chmod 777 /etc/systemd/system/multi-user.target.wants/lighttp*
 
 
