@@ -2,6 +2,13 @@
 
 # cd /tmp && yum install wget -y && wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/01_req.sh && chmod 777 01_req.sh && ./01_req.sh 
 
+BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+if [[ $1 = "" ]]; then 
+   echo "using BASE_URL: ${BASE_URL}" 
+else
+   BASE_URL=$1
+fi
+
 ############## Req Install Start #############
 cd /tmp
 
@@ -37,7 +44,7 @@ wget https://www.rarlab.com/rar/rarlinux-x64-723.tar.gz
 tar xzf rarlinux-x64-*.tar.gz
 cd rar*/
 make
-wget -O /etc/rarreg.key https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/01_req_rarreg
+wget -O /etc/rarreg.key ${BASE_URL}replace/01_req_rarreg
 cd ..
 rm -rf rar*
 
