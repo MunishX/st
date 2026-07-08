@@ -576,7 +576,7 @@ unzip rl-master.zip
 mv rapidleech-master test
 wget ${BASE_URL}replace/11_man1.php -O up1.php
 wget ${BASE_URL}replace/11_man2.php -O up2.php
-wget ${BASE_URL}replace/11_PHPMailer.zip
+wget ${BASE_URL}replace/11_PHPMailer.zip -O PHPMailer.zip
 unzip PHPMailer.zip
 rm -rf PHPMailer.zip
 mkdir -p $user_root/$mydom/html/host/
