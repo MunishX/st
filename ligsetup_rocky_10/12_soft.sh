@@ -43,7 +43,7 @@ rm -rf aw76.zip awstats-7.6
 
 ########
 #wget https://raw.github.com/munishgaurav5/st/master/default.conf -O cgi-bin/default.conf
-wget ${BASE_URL}replace/12_default.conf -O default.conf
+wget ${BASE_URL}replace/12_default.conf -O cgi-bin/default.conf
 ########
 
 echo "
