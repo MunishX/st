@@ -212,6 +212,9 @@ make install
 ldconfig /usr/local/lib
 convert -version
 #########################################
+### P7ZIP
+yum -y install p7zip p7zip-plugins
+#########################################
 
 echo ""
 echo ""
