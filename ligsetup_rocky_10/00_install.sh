@@ -167,7 +167,7 @@ sleep 10
 # Req Install and Update
 #------------------------------------------------------------------------------------
 
-wget ${BASE_URL}01_req.sh $NETWORK_INTERFACE_NAME $BASE_URL
+wget ${BASE_URL}01_req.sh $NETWORK_INTERFACE_NAME $Setup_IPv6 $BASE_URL
 chmod 777 01_req.sh
 ./01_req.sh
 
