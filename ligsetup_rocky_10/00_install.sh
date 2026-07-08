@@ -1,5 +1,20 @@
 #!/bin/bash
-# to change base dir, https://github.com/sgreben/http-file-server can be used.
+# to use localhost as BASE_URL,  https://github.com/sgreben/http-file-server can be used.
+
+# cd ~/
+# rm -rf tmp && mkdir tmp && cd tmp/
+# wget -O st.zip https://github.com/MunishX/st/archive/refs/heads/master.zip
+# unzip st.zip
+# cd st*/
+# wget https://github.com/sgreben/http-file-server/releases/download/1.6.1/http-file-server_1.6.1_linux_x86_64.tar.gz
+# tar -xf http-file-server_*.tar.gz
+# http-file-server -p 8080 ligsetup_rocky_10
+# then visit ip:8080  get 00_install.sh link
+
+# cd /tmp && rm -rf *.sh && wget 00_install.sh link 
+# chmod +x 00_install.sh 
+# ./00_install.sh 00_install.sh_link ending /ligsetup_rocky_10/
+
 
 
 BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
