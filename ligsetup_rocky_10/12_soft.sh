@@ -116,24 +116,6 @@ echo "<?php \$cfg['blowfish_secret'] = 'ykuglihlufjtfjguhigjbhuhlyjfgtfj'; ?>" >
 cd ..
 
 
-##########################################
-## HTOP
-yum -y install htop
-
-## ImageMagick 7
-yum -y groupinstall 'Development Tools'
-cd /tmp/
-rm -rf ImageMagick.tar.gz
-#wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-21.tar.gz
-#wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-27/ImageMagick-7.1.2-27.tar.xz
-wget ${BASE_URL}replace/12_ImageMagick-7.1.2-27.tar.xz -O ImageMagick.tar.gz
-tar xvf ImageMagick.tar.gz
-cd ImageMagick*/
-./configure
-make -j$(nproc)
-make install
-ldconfig /usr/local/lib
-convert -version
 
 ############# vnSTAT Network Traffic  ############
 sleep 2
@@ -208,4 +190,29 @@ echo "<?php header(\"Location: src/\"); ?> " > cron/index.php
 
 chown -R $ADMIN_USER_NAME:$ADMIN_USER_NAME /home/$ADMIN_USER_NAME
 
+
+##########################################
+## HTOP
+yum -y install htop
+
+## ImageMagick 7
+yum -y groupinstall 'Development Tools'
+cd /tmp/
+rm -rf ImageMagick.tar.gz
+#wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-21.tar.gz
+#wget -O ImageMagick.tar.gz https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-27/ImageMagick-7.1.2-27.tar.xz
+wget ${BASE_URL}replace/12_ImageMagick-7.1.2-27.tar.xz -O ImageMagick.tar.gz
+tar xvf ImageMagick.tar.gz
+cd ImageMagick*/
+./configure
+make -j$(nproc)
+make install
+ldconfig /usr/local/lib
+convert -version
+#########################################
+
+echo ""
+echo ""
 echo "DONE!"
+echo ""
+echo ""
