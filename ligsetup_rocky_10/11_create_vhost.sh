@@ -18,6 +18,8 @@ fi
 # delete certbot domain to stop renewal
 # ls -alh /etc/letsencrypt/renewal/
 
+# list all certs
+# certbot certificates
 
 
 ############################### ADDED START
