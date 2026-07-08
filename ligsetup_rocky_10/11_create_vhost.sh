@@ -1,5 +1,13 @@
 #!/bin/bash
 
+BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
+if [[ ${10} = "" ]]; then 
+   echo "using BASE_URL: ${BASE_URL}" 
+else
+   BASE_URL=${10}
+fi
+
+
 # CERTBOT CAMMANDS
 # > list all timers
 # systemctl list-timers
@@ -403,10 +411,10 @@ chmod -R 777 /home/admin/ip/
 mkdir -p /home/admin/bin/
 chmod -R 777 /home/admin/bin/
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_add_user.sh -O /usr/bin/addnewuser
+wget ${BASE_URL}replace/11_add_user.sh -O /usr/bin/addnewuser
 chmod 777 /usr/bin/addnewuser
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/11_create_vhost.sh -O /usr/bin/addnewuser_create_vhost
+wget ${BASE_URL}11_create_vhost.sh -O /usr/bin/addnewuser_create_vhost
 chmod 777 /usr/bin/addnewuser_create_vhost
 
 
@@ -537,7 +545,7 @@ sed -i "s,/user-php-root/,$user_root/$user_php/,g" $user_root/$mydom/$php_add_he
 
 sleep 5
 
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_phpintl -O /usr/lib/systemd/system/$software_name.service
+wget ${BASE_URL}replace/11_phpintl -O /usr/lib/systemd/system/$software_name.service
 sed -i "s,^.*php_config_file.conf.*,ExecStart=/usr/bin/php-fpm --fpm-config=$user_root/$mydom/$php_add_head/$software_name.conf --nodaemonize," /usr/lib/systemd/system/$software_name.service
 chmod 777 /usr/lib/systemd/system/$software_name.service
 
@@ -550,17 +558,18 @@ cd $user_root/$mydom/html/host
 #if [[ $uname != $admin_username ]]; then
 
 #wget https://raw.github.com/munishgaurav5/st/master/pFM98.zip -O phpFileManager-0.9.9.zip
-wget https://github.com/Th3-822/rapidleech/archive/master.zip
-unzip master
+#wget https://github.com/Th3-822/rapidleech/archive/master.zip
+wget ${BASE_URL}replace/11_rl.zip -O rl-master.zip
+unzip rl-master.zip
 #unzip php*
 #rm -rf phpF*.zip
 ##rm -rf master*.zip
 #rm -rf LICENSE.html
 #mv index.php up.php
 mv rapidleech-master test
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_man1.php -O up1.php
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_man2.php -O up2.php
-wget https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/replace/11_PHPMailer.zip
+wget ${BASE_URL}replace/11_man1.php -O up1.php
+wget ${BASE_URL}replace/11_man2.php -O up2.php
+wget ${BASE_URL}replace/11_PHPMailer.zip
 unzip PHPMailer.zip
 rm -rf PHPMailer.zip
 mkdir -p $user_root/$mydom/html/host/
