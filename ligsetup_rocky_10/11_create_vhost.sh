@@ -19,24 +19,6 @@ fi
 # ls -alh /etc/letsencrypt/renewal/
 
 
-#ini for each user: php.ini, in systemctl
-#/usr/local/php/sbin/php-fpm --fpm-config /etc/php/php-fpm.conf -c /etc/php/php.ini
-
-#change upload max filesize limit in /home/admin/domain.com/php/php_domain.conf
-#php_admin_value[memory_limit] = 4096M
-#php_admin_value[post_max_size] = 4096M
-#php_admin_value[max_file_uploads] = 4096M
-#;php_admin_value[upload_max_filesize] = 4096M
-
-
-# UMASK NEW
-# sed -i "s,^.*umask 0.*,umask 002,g" /etc/bashrc
-
-#### PHP CONFIG
-#PHP_V='php70'
-#PHP_V='php71'
-#PHP_V='php74'
-# PHP_V not required in this page
 
 ############################### ADDED START
 #main_ip="$(hostname -I)"
@@ -148,21 +130,15 @@ if [ $Final_Confirm != "y" ]; then
 fi
 
     
-#read -p "Transmission username: " uname
-#read -p "$uname's Password: " passw
 
 
 
-#uname=$1
-#admin_username=$4
 
 php_add_head=php
-#software_name=${php_add_head}-${uname}
 software_name=${php_add_head}-${mydom}
 user_root=/home/$uname
 user_php=${mydom}/${php_add_head}
-#admin_bin_loc=/home/$admin_username/intl
-#admin_bin_loc=/home/$admin_username/bin
+
 
 
 #### Check Status
@@ -222,31 +198,21 @@ server_stat=''
 
 # Update system and install required packages
 #yum -y update
-#yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gettext openssl-devel perl-Time-HiRes wget
-
-#yum -y update
-#yum -y install nano wget curl net-tools lsof bzip2 zip unzip rar unrar epel-release git sudo make cmake GeoIP sed at
-
-#yum -y update
-
-#sudo yum -y groupinstall "Development Tools"
-#sudo yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel mailx expect imake lsof autoconf nc ca-certificates libedit-devel make automake expat-devel perl-libwww-perl perl-Crypt-SSLeay perl-Net-SSLeay tree virt-what cmake openssl-devel net-tools systemd-devel libdb-devel libxslt-devel gd gd-devel perl-ExtUtils-Embed patch sysstat libtool bind-utils libXext-devel cyrus-sasl-devel glib2 glib2-devel openssl ncurses-devel bzip2 bzip2-devel flex bison libcurl-devel which libevent libevent-devel libgcj gettext-devel vim-minimal nano cairo-devel libxml2-devel libxml2 libpng-devel freetype freetype-devel libart_lgpl-devel  GeoIP-devel gperftools-devel libicu libicu-devel aspell gmp-devel aspell-devel libtidy libtidy-devel readline-devel iptables* coreutils libedit-devel enchant enchant-devel pam-devel git perl-ExtUtils perl-ExtUtils-MakeMaker perl-Time-HiRes openldap openldap-devel curl curl-devel diffutils libc-client libc-client-devel numactl lsof pkgconfig gdbm-devel tk-devel bluez-libs-devel
-#sudo yum -y install unzip zip rar unrar rsync psmisc syslog-ng-libdbi mediainfo
 yum -y install gcc gcc-c++ m4 xz make automake curl-devel intltool libtool gettext openssl-devel perl-Time-HiRes wget
 
-
+######################## CREATE USER ####################
 #Create UNIX user and directories for transmission
 #encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 #useradd -m -p $encrypt_pass -g $admin_username $uname
 
 #######
- encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
+encrypt_pass=$(perl -e 'print crypt($ARGV[0], "password")' $passw)
 ## sudo useradd -m -p $encrypt_pass -g $admin_username $uname
 sudo useradd -m -p $encrypt_pass $uname
 sudo usermod -a -G $uname $uname
-############################################# #sudo useradd -m -p $encrypt_pass $uname
- #sudo useradd -m -p $encrypt_pass –g $admin_username $uname
-#############################################
+#sudo useradd -m -p $encrypt_pass $uname
+#sudo useradd -m -p $encrypt_pass –g $admin_username $uname
+
  
 # sudo usermod -a -G $uname $uname
 # sudo usermod -a -G lighttpd $uname
@@ -264,7 +230,12 @@ sudo usermod -a -G lighttpd $admin_username
 # add wheel to admin_user's group # to make it sodo user # root access
 sudo usermod -a -G wheel $admin_username
 
-chown $admin_username:$admin_username /home
+# fast todo
+#chown $admin_username:$admin_username /home
+
+#######################################################
+
+############# add virtual host common non-https ##############
 
 echo "
  ## IP Vhost (default)
@@ -281,7 +252,33 @@ echo "
 }
   " > /etc/lighttpd/enabled/1ip.conf
 
+echo "
+ ## Certbot Cert-only acme-challenge (default)
 
+server.modules += (
+    \"mod_alias\"
+)
+
+alias.url += (
+    \"/.well-known/\" => \"/home/lighttpd/acme-challenge/.well-known/\"
+)
+
+  " > /etc/lighttpd/enabled/1certbot.conf
+
+# start lighttpd
+systemctl start lighttpd
+systemctl status lighttpd
+systemctl restart lighttpd
+systemctl status lighttpd
+
+echo ""
+echo "waiting 10 sec..."
+sleep 10 
+echo ""
+
+########################################################
+
+################ CERTBOT ##################
 # CERTBOT install certbot - auto mode for lighttpd 
 
 echo "Setting up Certbot Auto HTTPS.."
@@ -296,18 +293,7 @@ systemctl start certbot-renew.timer
 systemctl list-timers
 systemctl status certbot-renew.timer
 
-echo "
- ## Certbot Cert-only acme-challenge (default)
 
-server.modules += (
-    \"mod_alias\"
-)
-
-alias.url += (
-    \"/.well-known/\" => \"/home/lighttpd/acme-challenge/.well-known/\"
-)
-
-  " > /etc/lighttpd/enabled/1certbot.conf
 
 echo '
    server.modules += ( "mod_openssl" )
