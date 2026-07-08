@@ -79,6 +79,7 @@ wget ${BASE_URL}replace/12_opcache.php -O opcache.php
 wget ${BASE_URL}replace/12_ocp.php -O ocp.php
 wget ${BASE_URL}replace/12_op.php -O op.php
 wget ${BASE_URL}replace/12_mem.php -O mem.php
+wget ${BASE_URL}replace/12_red.php -O redis.php
 
 #wget https://raw.github.com/munishgaurav5/st/master/mem.zip
 wget ${BASE_URL}replace/12_mem.zip -O mem.zip
