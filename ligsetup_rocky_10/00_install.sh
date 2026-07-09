@@ -15,6 +15,8 @@
 # chmod +x 00_install.sh 
 # ./00_install.sh 00_install.sh_link ending /ligsetup_rocky_10/
 
+# install nodejs via nvm manually
+# https://github.com/nvm-sh/nvm
 
 
 BASE_URL="https://github.com/MunishX/st/raw/refs/heads/master/ligsetup_rocky_10/"
