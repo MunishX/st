@@ -36,7 +36,7 @@ chkconfig iptables off
 sudo echo 'precedence ::ffff:0:0/96 100' > /etc/gai.conf
 
 yum -y update
-yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git sudo make cmake sed at ant iotop hdparm nmcli 
+yum -y install nano wget curl net-tools lsof bzip2 zip unzip epel-release git sudo make cmake sed at ant iotop hdparm nmcli libatomic
 
 sudo nmcli dev modify "$NETWORK_INTERFACE_NAME" ipv4.dns "8.8.8.8 8.8.4.4"
 if [[ $Setup_IPV6 = 'y' ]]; then
