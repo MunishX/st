@@ -534,7 +534,7 @@ url.rewrite-once = (
   " > /etc/lighttpd/enabled/$mydom.conf
 
  echo "admin:ZmQSkiPCXoQs2" > $user_root/$mydom/.htpasswd
- chmod 775 $user_root/$mydom/.htpasswd
+ chmod 755 $user_root/$mydom/.htpasswd
  
  #echo "admin:pass" > /home/$admin_username/.lighttpdpassword
  #chmod 775 /home/$admin_username/.lighttpdpassword
@@ -610,13 +610,13 @@ echo "Done!"
 chown -R $uname:$admin_username $user_root
 #chown -R $uname:$admin_username $user_root
 
-chmod 777 $user_root
-chmod 777 $user_root/$mydom/
+chmod 755 $user_root
+chmod 755 $user_root/$mydom/
 #cd $user_root/$mydom/
 #sudo find . -type f -exec chmod 664 {} \;
 #sudo find . -type d -exec chmod 775 {} \;
 
-#chmod -R 777 $admin_bin_loc
+#chmod -R 755 $admin_bin_loc
 
 #chown -R $admin_username:$uname $user_root/logs
 chown -R lighttpd:$admin_username /home/lighttpd
