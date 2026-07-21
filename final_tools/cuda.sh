@@ -63,7 +63,7 @@ detect_os()
             esac
             ;;
 
-        oracle)
+        ol)
             case "${VERSION_ID%%.*}" in
                 8|9)
                     CUDA_PAGE_DISTRO="Oracle Linux"
@@ -239,22 +239,6 @@ detect_os()
                     ;;
             esac
             ;;
-            
-        ol)
-        case "$VERSION_ID" in
-            8)
-                CUDA_PACKAGE_CODE="rhel8"
-                CUDA_PACKAGE="rpm"
-                ;;
-            9)
-                CUDA_PACKAGE_CODE="rhel9"
-                CUDA_PACKAGE="rpm"
-                ;;
-            *)
-                unsupported_os
-                ;;
-        esac
-        ;;
             
         alpine)
             echo "[ERROR] Alpine Linux is not supported by the NVIDIA CUDA RPM/DEB repository installer."
@@ -634,7 +618,7 @@ install_basic_tools()
 
         deb)
             apt-get -y install nano wget curl net-tools lsof zip unzip sudo sed || {
-                echo "[ERROR] Failed to remove previous CUDA packages."
+                echo "[ERROR] Failed to install basic tools."
                 exit 1
             }
             apt-get autoremove -y
@@ -643,13 +627,13 @@ install_basic_tools()
         rpm)
             if command -v dnf >/dev/null 2>&1; then
                 dnf -y install nano wget curl net-tools lsof zip unzip sudo sed || {
-                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    echo "[ERROR] Failed to install basic tools."
                     exit 1
                 }
 
             elif command -v yum >/dev/null 2>&1; then
                 yum -y install nano wget curl net-tools lsof zip unzip sudo sed || {
-                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    echo "[ERROR] Failed to install basic tools."
                     exit 1
                 }
             fi
@@ -679,34 +663,30 @@ install_required_tools()
 
         rpm)
             if command -v dnf >/dev/null 2>&1; then
-                dnf -y update
                 dnf -y install epel-release || {
                     echo "[ERROR] Failed to install epel-release packages."
                     exit 1
                 }
-                dnf -y update
                 dnf -y groupinstall "Development Tools" || {
                     echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
                 dnf -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || {
-                    echo "[ERROR] Failed to install kernel-devel-matched kernel-headers packages."
+                    echo "[ERROR] Failed to install kernel-devel-$(uname -r) kernel-headers-$(uname -r) packages."
                     exit 1
                 }
 
             elif command -v yum >/dev/null 2>&1; then
-                yum -y update
                 yum -y install epel-release || {
                     echo "[ERROR] Failed to install epel-release packages."
                     exit 1
                 }
-                yum -y update
                 yum -y groupinstall "Development Tools" || {
                     echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
-                yum -y install kernel-devel-matched kernel-headers || {
-                    echo "[ERROR] Failed to install kernel-devel-matched kernel-headers packages."
+                yum -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || {
+                    echo "[ERROR] Failed to install kernel-devel-$(uname -r) kernel-headers-$(uname -r) packages."
                     exit 1
                 }
             fi
@@ -721,15 +701,24 @@ install_required_tools()
     echo "[OK] Required Tools Installed."
 }
 
+
+# run functions
+
 detect_os
 detect_arch
-get_cuda_download_url
+
 install_basic_tools
+
 remove_previous_cuda
 remove_old_cuda_directories
-install_required_tools
-install_cuda
-configure_cuda_environment
-test_cuda
 
+install_required_tools
+
+get_cuda_download_url
+
+install_cuda
+
+configure_cuda_environment
+
+test_cuda
 
