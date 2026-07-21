@@ -567,7 +567,7 @@ install_required_tools()
         deb)
             apt-get -y update
             apt-get -y install build-essential dkms linux-headers-$(uname -r) || {
-                echo "[ERROR] Failed to remove previous CUDA packages."
+                echo "[ERROR] Failed to install build-essential dkms linux-headers-$(uname -r) packages."
                 exit 1
             }
             apt-get autoremove -y
@@ -614,7 +614,7 @@ install_required_tools()
             ;;
     esac
 
-    echo "[OK] Basic Tools Installed."
+    echo "[OK] Required Tools Installed."
 }
 
 detect_arch
