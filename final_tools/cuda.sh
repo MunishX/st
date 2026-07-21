@@ -606,7 +606,7 @@ install_required_tools()
                     echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
-                dnf -y install kernel-devel-matched kernel-headers || {
+                dnf -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || {
                     echo "[ERROR] Failed to install kernel-devel-matched kernel-headers packages."
                     exit 1
                 }
