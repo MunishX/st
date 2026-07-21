@@ -522,6 +522,17 @@ test_cuda()
         echo "[ERROR] nvcc was not found after CUDA installation."
         exit 1
     fi
+
+    echo
+    echo "========================================"
+    echo " CUDA installation completed"
+    echo "========================================"
+    echo
+    
+    nvcc --version
+
+    echo
+    echo
 }
 
 install_basic_tools()
@@ -628,10 +639,4 @@ install_cuda
 configure_cuda_environment
 test_cuda
 
-echo
-echo "========================================"
-echo " CUDA installation completed"
-echo "========================================"
-
-nvcc --version
 
