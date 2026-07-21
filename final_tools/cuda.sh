@@ -576,7 +576,7 @@ install_required_tools()
         rpm)
             if command -v dnf >/dev/null 2>&1; then
                 dnf -y update
-                dnf -y epel-release
+                dnf -y install epel-release
                 dnf -y update
                 dnf -y groupinstall "Development Tools" || {
                     echo "[ERROR] Failed to remove previous CUDA packages."
@@ -589,7 +589,7 @@ install_required_tools()
 
             elif command -v yum >/dev/null 2>&1; then
                 yum -y update
-                yum -y epel-release
+                yum -y install epel-release
                 yum -y update
                 yum -y groupinstall "Development Tools" || {
                     echo "[ERROR] Failed to remove previous CUDA packages."
