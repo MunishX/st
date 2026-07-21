@@ -576,27 +576,33 @@ install_required_tools()
         rpm)
             if command -v dnf >/dev/null 2>&1; then
                 dnf -y update
-                dnf -y install epel-release
+                dnf -y install epel-release || {
+                    echo "[ERROR] Failed to install epel-release packages."
+                    exit 1
+                }
                 dnf -y update
                 dnf -y groupinstall "Development Tools" || {
-                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
                 dnf -y install kernel-devel-matched kernel-headers || {
-                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    echo "[ERROR] Failed to install kernel-devel-matched kernel-headers packages."
                     exit 1
                 }
 
             elif command -v yum >/dev/null 2>&1; then
                 yum -y update
-                yum -y install epel-release
+                yum -y install epel-release || {
+                    echo "[ERROR] Failed to install epel-release packages."
+                    exit 1
+                }
                 yum -y update
                 yum -y groupinstall "Development Tools" || {
-                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
                 yum -y install kernel-devel-matched kernel-headers || {
-                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    echo "[ERROR] Failed to install kernel-devel-matched kernel-headers packages."
                     exit 1
                 }
             fi
