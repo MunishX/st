@@ -524,12 +524,100 @@ test_cuda()
     fi
 }
 
+install_basic_tools()
+{
+    case "$CUDA_PACKAGE" in
+
+        deb)
+            apt-get -y install nano wget curl net-tools lsof zip unzip sudo sed || {
+                echo "[ERROR] Failed to remove previous CUDA packages."
+                exit 1
+            }
+            apt-get autoremove -y
+            ;;
+
+        rpm)
+            if command -v dnf >/dev/null 2>&1; then
+                dnf -y install nano wget curl net-tools lsof zip unzip sudo sed || {
+                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    exit 1
+                }
+
+            elif command -v yum >/dev/null 2>&1; then
+                yum -y install nano wget curl net-tools lsof zip unzip sudo sed || {
+                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    exit 1
+                }
+            fi
+            ;;
+
+        *)
+            echo "[ERROR] Unknown package type: $CUDA_PACKAGE"
+            exit 1
+            ;;
+    esac
+
+    echo "[OK] Basic Tools Installed."
+}
+
+install_required_tools()
+{
+    case "$CUDA_PACKAGE" in
+
+        deb)
+            apt-get -y update
+            apt-get -y install build-essential dkms linux-headers-$(uname -r) || {
+                echo "[ERROR] Failed to remove previous CUDA packages."
+                exit 1
+            }
+            apt-get autoremove -y
+            ;;
+
+        rpm)
+            if command -v dnf >/dev/null 2>&1; then
+                dnf -y update
+                dnf -y epel-release
+                dnf -y update
+                dnf -y groupinstall "Development Tools" || {
+                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    exit 1
+                }
+                dnf -y install kernel-devel-matched kernel-headers || {
+                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    exit 1
+                }
+
+            elif command -v yum >/dev/null 2>&1; then
+                yum -y update
+                yum -y epel-release
+                yum -y update
+                yum -y groupinstall "Development Tools" || {
+                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    exit 1
+                }
+                yum -y install kernel-devel-matched kernel-headers || {
+                    echo "[ERROR] Failed to remove previous CUDA packages."
+                    exit 1
+                }
+            fi
+            ;;
+
+        *)
+            echo "[ERROR] Unknown package type: $CUDA_PACKAGE"
+            exit 1
+            ;;
+    esac
+
+    echo "[OK] Basic Tools Installed."
+}
 
 detect_arch
 detect_os
 get_cuda_download_url
+install_basic_tools
 remove_previous_cuda
 remove_old_cuda_directories
+install_required_tools
 install_cuda
 configure_cuda_environment
 test_cuda
