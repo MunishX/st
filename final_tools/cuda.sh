@@ -2,7 +2,10 @@
 
 set -e
 
-CUDA_DOWNLOAD_PAGE="https://developer.nvidia.com/cuda-downloads"
+CUDA_SUB="developer"
+CUDA_DOMAIN="nvidia.com"
+CUDA_DIR="cuda-downloads"
+CUDA_DOWNLOAD_PAGE="https://$CUDA_SUB.$CUDA_DOMAIN/$CUDA_DIR"
 
 detect_arch()
 {
