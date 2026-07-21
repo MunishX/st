@@ -284,14 +284,6 @@ detect_os()
     echo "[INFO] Package type: .$CUDA_PACKAGE"
 }
 
-get_cuda_page_url()
-{
-    CUDA_PAGE_URL="${CUDA_DOWNLOAD_PAGE}?target_os=Linux&target_arch=${TARGET_ARCH}&target_distro=${CUDA_OS}&target_version=${CUDA_VERSION}&target_type=${CUDA_PACKAGE}_local"
-
-    echo "[INFO] CUDA page:"
-    echo "$CUDA_PAGE_URL"
-}
-
 get_cuda_download_url()
 {
     local html
@@ -301,7 +293,7 @@ get_cuda_download_url()
     echo
     echo "[INFO] Fetching CUDA download page..."
 
-    html=$(curl -fsSL "$CUDA_PAGE_URL") || {
+    html=$(curl -fsSL "$CUDA_DOWNLOAD_PAGE") || {
         echo "[ERROR] Failed to download CUDA page."
         exit 1
     }
@@ -535,7 +527,6 @@ test_cuda()
 
 detect_arch
 detect_os
-get_cuda_page_url
 get_cuda_download_url
 remove_previous_cuda
 remove_old_cuda_directories
