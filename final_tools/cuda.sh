@@ -7,35 +7,6 @@ CUDA_DOMAIN="nvidia.com"
 CUDA_DIR="cuda-downloads"
 CUDA_DOWNLOAD_PAGE="https://$CUDA_SUB.$CUDA_DOMAIN/$CUDA_DIR"
 
-detect_arch()
-{
-    case "$(uname -m)" in
-        x86_64)
-            TARGET_ARCH="x86_64"
-            ;;
-
-        aarch64|arm64)
-            TARGET_ARCH="sbsa"
-            ;;
-
-        *)
-            echo "[ERROR] Unsupported CPU architecture: $(uname -m)"
-            exit 1
-            ;;
-    esac
-
-    if [[ "$TARGET_ARCH" == "sbsa" ]]; then
-        if file /bin/bash | grep -q "ARM aarch64"; then
-            echo "Native Arm SBSA environment detected."
-        else
-            echo "Cross-compiled or emulated environment detected."
-            echo "Cross is currently not supported by this script.., Exiting.."
-            exit 1
-        fi
-    fi
-    echo "[INFO] Architecture: $TARGET_ARCH"
-}
-
 detect_os()
 {
     if [ ! -f /etc/os-release ]; then
@@ -269,6 +240,22 @@ detect_os()
             esac
             ;;
             
+        ol)
+        case "$VERSION_ID" in
+            8)
+                CUDA_PACKAGE_CODE="rhel8"
+                CUDA_PACKAGE="rpm"
+                ;;
+            9)
+                CUDA_PACKAGE_CODE="rhel9"
+                CUDA_PACKAGE="rpm"
+                ;;
+            *)
+                unsupported_os
+                ;;
+        esac
+        ;;
+            
         alpine)
             echo "[ERROR] Alpine Linux is not supported by the NVIDIA CUDA RPM/DEB repository installer."
             echo
@@ -294,9 +281,47 @@ detect_os()
     echo "[INFO] Package type: .$CUDA_PACKAGE"
 }
 
+detect_arch()
+{
+    TARGET_ARCH_RAW=$(uname -m)
+
+    case "$TARGET_ARCH_RAW" in
+        x86_64)
+            TARGET_ARCH_RPM="x86_64"
+            TARGET_ARCH_DEB="amd64"
+            ;;
+
+        aarch64)
+            TARGET_ARCH_RPM="aarch64"
+            TARGET_ARCH_DEB="arm64"
+            ;;
+
+        *)
+            echo "[ERROR] Unsupported architecture: $TARGET_ARCH_RAW"
+            exit 1
+            ;;
+    esac
+
+    case "$CUDA_PACKAGE" in
+        rpm)
+            TARGET_ARCH="$TARGET_ARCH_RPM"
+            ;;
+
+        deb)
+            TARGET_ARCH="$TARGET_ARCH_DEB"
+            ;;
+
+        *)
+            echo "[ERROR] Unknown package type: $CUDA_PACKAGE"
+            exit 1
+            ;;
+    esac
+}
+
 get_cuda_download_url()
 {
     local html
+    local all_urls
     local urls
     local url_count
 
@@ -308,32 +333,90 @@ get_cuda_download_url()
         exit 1
     }
 
-    urls=$(
-        printf '%s' "$html" |
-        grep -oE 'https://developer\.download\.nvidia\.com/[^"<>[:space:]]+\.'"$CUDA_PACKAGE" |
-        grep "/local_installers/cuda-repo-${CUDA_PACKAGE_CODE}-" |
-        grep -E "\.${TARGET_ARCH}\.${CUDA_PACKAGE}$" |
-        sort -u
-    )
+    case "$CUDA_PACKAGE" in
+
+        rpm)
+
+            all_urls=$(
+                printf '%s' "$html" |
+                grep -oE \
+                'https://developer\.download\.nvidia\.com/[^"<>[:space:]]+\.rpm' |
+                grep '/local_installers/' |
+                sort -u
+            )
+
+            urls=$(
+                printf '%s\n' "$all_urls" |
+                grep "/local_installers/cuda-repo-${CUDA_PACKAGE_CODE}-" |
+                grep -E "\.${TARGET_ARCH}\.rpm$" |
+                sort -u
+            )
+
+            ;;
+
+        deb)
+
+            all_urls=$(
+                printf '%s' "$html" |
+                grep -oE \
+                'https://developer\.download\.nvidia\.com/[^"<>[:space:]]+\.deb' |
+                grep '/local_installers/' |
+                sort -u
+            )
+
+            urls=$(
+                printf '%s\n' "$all_urls" |
+                grep "/local_installers/cuda-repo-${CUDA_PACKAGE_CODE}-" |
+                grep -E "_${TARGET_ARCH}\.deb$" |
+                sort -u
+            )
+
+            ;;
+
+        *)
+            echo "[ERROR] Unsupported package type: $CUDA_PACKAGE"
+            exit 1
+            ;;
+    esac
+
 
     if [ -z "$urls" ]; then
+
         echo
-        echo "[ERROR] No CUDA installer found."
-        echo "        OS           : $PRETTY_NAME"
-        echo "        Package code : $CUDA_PACKAGE_CODE"
-        echo "        Architecture : $TARGET_ARCH"
+        echo "[ERROR] Exact CUDA installer URL not found."
+        echo
+        echo "Requested:"
+        echo "  OS           : $PRETTY_NAME"
+        echo "  Package code : $CUDA_PACKAGE_CODE"
+        echo "  Architecture : $TARGET_ARCH_RAW"
+        echo "  Package type : $CUDA_PACKAGE"
+        echo
+
+        if [ -n "$all_urls" ]; then
+            echo "[INFO] All installer URLs found on the NVIDIA page:"
+            echo
+            printf '%s\n' "$all_urls"
+        else
+            echo "[ERROR] No .$CUDA_PACKAGE installer URLs were found."
+        fi
+
         exit 1
     fi
+
 
     url_count=$(printf '%s\n' "$urls" | wc -l)
 
     if [ "$url_count" -ne 1 ]; then
         echo
-        echo "[ERROR] Expected exactly one CUDA installer."
+        echo "[ERROR] Expected exactly one matching CUDA installer."
         echo "[ERROR] Found $url_count matching URLs:"
+        echo
+
         printf '%s\n' "$urls"
+
         exit 1
     fi
+
 
     CUDA_DOWNLOAD_URL="$urls"
 
@@ -638,8 +721,8 @@ install_required_tools()
     echo "[OK] Required Tools Installed."
 }
 
-detect_arch
 detect_os
+detect_arch
 get_cuda_download_url
 install_basic_tools
 remove_previous_cuda
