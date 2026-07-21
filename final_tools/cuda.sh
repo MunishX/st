@@ -268,7 +268,17 @@ detect_os()
                     ;;
             esac
             ;;
-
+            
+        alpine)
+            echo "[ERROR] Alpine Linux is not supported by the NVIDIA CUDA RPM/DEB repository installer."
+            echo
+            echo "The current installation method supports NVIDIA's RPM/DEB distributions."
+            echo
+            echo "For Alpine/Docker, use an NVIDIA CUDA devel container image. OR supported OS like RHEL, Rocky, Ubuntu, Debian, etc"
+            echo
+            exit 1
+            ;;
+            
         *)
             echo "[ERROR] Unsupported Linux distribution."
             echo "        ID=$ID"
