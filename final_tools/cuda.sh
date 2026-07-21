@@ -45,87 +45,228 @@ detect_os()
 
     . /etc/os-release
 
-    OS_ID="$ID"
-    OS_VERSION_ID="$VERSION_ID"
-
     case "$ID" in
 
+        rhel)
+            case "${VERSION_ID%%.*}" in
+                8|9|10)
+                    CUDA_PAGE_DISTRO="RHEL"
+                    CUDA_PAGE_VERSION="${VERSION_ID%%.*}"
+                    CUDA_PACKAGE_CODE="rhel${VERSION_ID%%.*}"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+                *)
+                    echo "[ERROR] Unsupported RHEL version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
+        rocky)
+            case "${VERSION_ID%%.*}" in
+                8|9|10)
+                    CUDA_PAGE_DISTRO="Rocky"
+                    CUDA_PAGE_VERSION="${VERSION_ID%%.*}"
+                    CUDA_PACKAGE_CODE="rhel${VERSION_ID%%.*}"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+                *)
+                    echo "[ERROR] Unsupported Rocky Linux version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
+        almalinux)
+            case "${VERSION_ID%%.*}" in
+                8|9|10)
+                    CUDA_PAGE_DISTRO="AlmaLinux"
+                    CUDA_PAGE_VERSION="${VERSION_ID%%.*}"
+                    CUDA_PACKAGE_CODE="rhel${VERSION_ID%%.*}"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+                *)
+                    echo "[ERROR] Unsupported AlmaLinux version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
+        oracle)
+            case "${VERSION_ID%%.*}" in
+                8|9)
+                    CUDA_PAGE_DISTRO="Oracle Linux"
+                    CUDA_PAGE_VERSION="${VERSION_ID%%.*}"
+                    CUDA_PACKAGE_CODE="rhel${VERSION_ID%%.*}"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+                *)
+                    echo "[ERROR] Unsupported Oracle Linux version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
+        opensuse-leap)
+            case "${VERSION_ID%%.*}" in
+                15)
+                    CUDA_PAGE_DISTRO="openSUSE"
+                    CUDA_PAGE_VERSION="15"
+                    CUDA_PACKAGE_CODE="opensuse15"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                16)
+                    CUDA_PAGE_DISTRO="openSUSE"
+                    CUDA_PAGE_VERSION="16"
+                    CUDA_PACKAGE_CODE="suse16"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported openSUSE Leap version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
+        sles)
+            case "${VERSION_ID%%.*}" in
+                15)
+                    CUDA_PAGE_DISTRO="SLES"
+                    CUDA_PAGE_VERSION="15"
+                    CUDA_PACKAGE_CODE="sles15"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                16)
+                    CUDA_PAGE_DISTRO="SLES"
+                    CUDA_PAGE_VERSION="16"
+                    CUDA_PACKAGE_CODE="suse16"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported SLES version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
         ubuntu)
-            CUDA_OS="Ubuntu"
-            CUDA_VERSION="${VERSION_ID//./}"
+            case "$VERSION_ID" in
+                22.04)
+                    CUDA_PAGE_DISTRO="Ubuntu"
+                    CUDA_PAGE_VERSION="2204"
+                    CUDA_PACKAGE_CODE="ubuntu2204"
+                    ;;
+
+                24.04)
+                    CUDA_PAGE_DISTRO="Ubuntu"
+                    CUDA_PAGE_VERSION="2404"
+                    CUDA_PACKAGE_CODE="ubuntu2404"
+                    ;;
+
+                26.04)
+                    CUDA_PAGE_DISTRO="Ubuntu"
+                    CUDA_PAGE_VERSION="2604"
+                    CUDA_PACKAGE_CODE="ubuntu2604"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported Ubuntu version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+
             CUDA_PACKAGE="deb"
             ;;
 
         debian)
-            CUDA_OS="Debian"
-            CUDA_VERSION="${VERSION_ID%%.*}"
+            case "${VERSION_ID%%.*}" in
+                12)
+                    CUDA_PAGE_DISTRO="Debian"
+                    CUDA_PAGE_VERSION="12"
+                    CUDA_PACKAGE_CODE="debian12"
+                    ;;
+
+                13)
+                    CUDA_PAGE_DISTRO="Debian"
+                    CUDA_PAGE_VERSION="13"
+                    CUDA_PACKAGE_CODE="debian13"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported Debian version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+
             CUDA_PACKAGE="deb"
             ;;
 
-        rhel)
-            CUDA_OS="RHEL"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
-        rocky)
-            CUDA_OS="Rocky"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
-        almalinux)
-            CUDA_OS="AlmaLinux"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
-        centos)
-            CUDA_OS="CentOS"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
         fedora)
-            CUDA_OS="Fedora"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
+            case "${VERSION_ID%%.*}" in
+                44)
+                    CUDA_PAGE_DISTRO="Fedora"
+                    CUDA_PAGE_VERSION="44"
+                    CUDA_PACKAGE_CODE="fedora44"
+                    CUDA_PACKAGE="rpm"
+                    ;;
 
-        opensuse-leap)
-            CUDA_OS="OpenSUSE"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
-        sles)
-            CUDA_OS="SLES"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
-        amzn)
-            CUDA_OS="Amazon Linux"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
-            ;;
-
-        ol)
-            CUDA_OS="Oracle Linux"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
+                *)
+                    echo "[ERROR] Unsupported Fedora version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
             ;;
 
         kylin)
-            CUDA_OS="KylinOS"
-            CUDA_VERSION="10"
-            CUDA_PACKAGE="rpm"
+            case "$VERSION_ID" in
+                11)
+                    CUDA_PAGE_DISTRO="KylinOS"
+                    CUDA_PAGE_VERSION="11"
+                    CUDA_PACKAGE_CODE="kylin11"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported KylinOS version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
             ;;
 
         azurelinux)
-            CUDA_OS="Azure Linux"
-            CUDA_VERSION="${VERSION_ID%%.*}"
-            CUDA_PACKAGE="rpm"
+            case "$VERSION_ID" in
+                3.0|3)
+                    CUDA_PAGE_DISTRO="Azure Linux"
+                    CUDA_PAGE_VERSION="3"
+                    CUDA_PACKAGE_CODE="azl3"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported Azure Linux version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
+            ;;
+
+        amzn)
+            case "$VERSION_ID" in
+                2023)
+                    CUDA_PAGE_DISTRO="Amazon Linux"
+                    CUDA_PAGE_VERSION="2023"
+                    CUDA_PACKAGE_CODE="amzn2023"
+                    CUDA_PACKAGE="rpm"
+                    ;;
+
+                *)
+                    echo "[ERROR] Unsupported Amazon Linux version: $VERSION_ID"
+                    exit 1
+                    ;;
+            esac
             ;;
 
         *)
@@ -137,9 +278,10 @@ detect_os()
     esac
 
     echo "[INFO] OS: $PRETTY_NAME"
-    echo "[INFO] CUDA OS: $CUDA_OS"
-    echo "[INFO] CUDA version: $CUDA_VERSION"
-    echo "[INFO] Package: .$CUDA_PACKAGE"
+    echo "[INFO] CUDA page distro: $CUDA_PAGE_DISTRO"
+    echo "[INFO] CUDA page version: $CUDA_PAGE_VERSION"
+    echo "[INFO] CUDA package code: $CUDA_PACKAGE_CODE"
+    echo "[INFO] Package type: .$CUDA_PACKAGE"
 }
 
 get_cuda_page_url()
@@ -156,29 +298,28 @@ get_cuda_download_url()
     local urls
     local url_count
 
+    echo
+    echo "[INFO] Fetching CUDA download page..."
+
     html=$(curl -fsSL "$CUDA_PAGE_URL") || {
-        echo "[ERROR] Failed to download CUDA download page."
+        echo "[ERROR] Failed to download CUDA page."
         exit 1
     }
 
     urls=$(
         printf '%s' "$html" |
         grep -oE 'https://developer\.download\.nvidia\.com/[^"<>[:space:]]+\.'"$CUDA_PACKAGE" |
+        grep "/local_installers/cuda-repo-${CUDA_PACKAGE_CODE}-" |
+        grep -E "\.${TARGET_ARCH}\.${CUDA_PACKAGE}$" |
         sort -u
     )
 
     if [ -z "$urls" ]; then
         echo
-        echo "[ERROR] No .$CUDA_PACKAGE installer found."
-        echo
-        echo "Detected system:"
-        echo "  OS           : $PRETTY_NAME"
-        echo "  Distribution : $CUDA_OS"
-        echo "  Version      : $CUDA_VERSION"
-        echo "  Architecture : $TARGET_ARCH"
-        echo
-        echo "This OS/version/architecture combination may not be supported"
-        echo "by the current CUDA download page."
+        echo "[ERROR] No CUDA installer found."
+        echo "        OS           : $PRETTY_NAME"
+        echo "        Package code : $CUDA_PACKAGE_CODE"
+        echo "        Architecture : $TARGET_ARCH"
         exit 1
     fi
 
@@ -186,15 +327,16 @@ get_cuda_download_url()
 
     if [ "$url_count" -ne 1 ]; then
         echo
-        echo "[ERROR] Expected exactly one .$CUDA_PACKAGE installer."
-        echo "[ERROR] Found $url_count links:"
+        echo "[ERROR] Expected exactly one CUDA installer."
+        echo "[ERROR] Found $url_count matching URLs:"
         printf '%s\n' "$urls"
         exit 1
     fi
 
     CUDA_DOWNLOAD_URL="$urls"
 
-    echo "[INFO] CUDA download URL:"
+    echo
+    echo "[INFO] CUDA installer:"
     echo "$CUDA_DOWNLOAD_URL"
 }
 
