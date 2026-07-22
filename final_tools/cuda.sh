@@ -555,6 +555,9 @@ install_cuda()
                 exit 1
             }
 
+            sudo cp /var/cuda-repo-${CUDA_PACKAGE_CODE}-*-local/cuda-*-keyring.gpg /usr/share/keyrings/
+
+
             apt-get update || {
                 echo "[ERROR] apt-get update failed."
                 exit 1
