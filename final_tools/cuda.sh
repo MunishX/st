@@ -2,10 +2,10 @@
 
 set -e
 
-CUDA_SUB="developer"
-CUDA_DOMAIN="nvidia.com"
+CUDA_DOMAIN_SUB="developer"
+CUDA_DOMAIN_MAIN="nvidia.com"
 CUDA_DIR="cuda-downloads"
-CUDA_DOWNLOAD_PAGE="https://$CUDA_SUB.$CUDA_DOMAIN/$CUDA_DIR"
+CUDA_DOWNLOAD_PAGE="https://$CUDA_DOMAIN_SUB.$CUDA_DOMAIN_MAIN/$CUDA_DIR"
 
 detect_os()
 {
@@ -300,6 +300,35 @@ detect_arch()
             exit 1
             ;;
     esac
+}
+
+selinux_disable() {
+
+    # Disable immediately (if currently enforcing/permissive)
+    if command -v setenforce >/dev/null 2>&1; then
+        setenforce 0 2>/dev/null || true
+    fi
+
+    local cfg="/etc/selinux/config"
+
+    if [[ -f "$cfg" ]]; then
+
+        if grep -qE '^[[:space:]]*SELINUX=' "$cfg"; then
+            sed -ri \
+                's/^[[:space:]]*SELINUX=.*/SELINUX=disabled/' \
+                "$cfg"
+        else
+            echo "SELINUX=disabled" >> "$cfg"
+        fi
+
+    else
+        echo "SELINUX=disabled" > "$cfg"
+    fi
+
+    echo ""
+    echo "SELINUX: disabled"
+    echo "Reboot is required for persistent selinux disable."
+    echo ""
 }
 
 get_cuda_download_url()
@@ -607,6 +636,8 @@ test_cuda()
     echo
     
     nvcc --version
+    echo 
+    nvidia-smi
 
     echo
     echo
@@ -625,6 +656,7 @@ install_basic_tools()
             ;;
 
         rpm)
+            selinux_disable
             if command -v dnf >/dev/null 2>&1; then
                 dnf -y install nano wget curl net-tools lsof zip unzip sudo sed || {
                     echo "[ERROR] Failed to install basic tools."
