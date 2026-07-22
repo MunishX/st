@@ -9,6 +9,8 @@ fi
 
 if [ -z "$1" ]; then
     echo "Usage: $0 <username>"
+    echo "Usage: $0 <username> <password>"
+    echo "Usage: $0 <username> <password> sudo"
     exit 1
 fi
 
