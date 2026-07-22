@@ -14,6 +14,8 @@ fi
 
 USERNAME="$1"
 PASSWORD="$2"
+ALLOW_SUDO="$3"
+# ALLOW_SUDO must be "sudo" for making user a sudoers
 
 # Validate username
 if ! [[ "$USERNAME" =~ ^[a-z_][a-z0-9_-]*[$]?$ ]]; then
@@ -40,12 +42,21 @@ if [[ -z "$PASSWORD" ]]; then
 else
     printf '%s:%s\n' "$USERNAME" "$PASSWORD" | chpasswd
 fi
-
 unset PASSWORD
+
+# Making Sudoers user
+if [[ "$ALLOW_SUDO" == "sudo" ]]; then
+    echo "$USERNAME   ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+fi
 
 echo
 echo "[OK] User created successfully."
 echo "[INFO] Username: $USERNAME"
+if [[ "$ALLOW_SUDO" == "sudo" ]]; then
+    echo "[INFO] is_Sudoers: true"
+else
+    echo "[INFO] is_Sudoers: false"
+fi
 echo "[INFO] Home: /home/$USERNAME"
 echo "[INFO] Shell: /bin/bash"
 echo
