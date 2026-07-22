@@ -707,7 +707,8 @@ install_required_tools()
                     echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
-                dnf -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || {
+                #dnf -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || 
+                dnf -y install kernel-devel kernel-headers || {
                     echo "[ERROR] Failed to install kernel-devel-$(uname -r) kernel-headers-$(uname -r) packages."
                     exit 1
                 }
@@ -722,7 +723,8 @@ install_required_tools()
                     echo "[ERROR] Failed to install Development Tools packages."
                     exit 1
                 }
-                yum -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || {
+                #yum -y install kernel-devel-$(uname -r) kernel-headers-$(uname -r) || 
+                yum -y install kernel-devel kernel-headers || {
                     echo "[ERROR] Failed to install kernel-devel-$(uname -r) kernel-headers-$(uname -r) packages."
                     exit 1
                 }
