@@ -641,6 +641,11 @@ test_cuda()
     nvcc --version
     echo 
     nvidia-smi
+    echo
+    echo "=== binary path ==="
+    where nvcc
+    where nvidia-smi
+    echo "=== === === === ==="
 
     echo
     echo
