@@ -698,6 +698,7 @@ install_required_tools()
 
         rpm)
             if command -v dnf >/dev/null 2>&1; then
+                dnf -y update
                 dnf -y install epel-release || {
                     echo "[ERROR] Failed to install epel-release packages."
                     exit 1
@@ -712,6 +713,7 @@ install_required_tools()
                 }
 
             elif command -v yum >/dev/null 2>&1; then
+                yum -y update
                 yum -y install epel-release || {
                     echo "[ERROR] Failed to install epel-release packages."
                     exit 1
