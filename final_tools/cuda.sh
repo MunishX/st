@@ -688,7 +688,7 @@ install_required_tools()
     case "$CUDA_PACKAGE" in
 
         deb)
-            apt-get -y update
+            apt-get -y update && apt-get -y upgrade
             apt-get -y install build-essential dkms linux-headers-$(uname -r) || {
                 echo "[ERROR] Failed to install build-essential dkms linux-headers-$(uname -r) packages."
                 exit 1
