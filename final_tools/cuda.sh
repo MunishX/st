@@ -643,8 +643,8 @@ test_cuda()
     nvidia-smi
     echo
     echo "=== binary path ==="
-    where nvcc
-    where nvidia-smi
+    which nvcc
+    which nvidia-smi
     echo "=== === === === ==="
 
     echo
