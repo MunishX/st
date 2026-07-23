@@ -59,6 +59,8 @@ fi
 echo
 echo "[OK] User created successfully."
 echo "[INFO] Username: $USERNAME"
+echo "[INFO] Home: /home/$USERNAME"
+echo "[INFO] Shell: /bin/bash"
 if [[ "$ALLOW_SUDO" == "sudo" ]]; then
     echo "[INFO] is_Sudoers: true"
 else
@@ -69,7 +71,5 @@ if [[ "$ALLOW_SUDO" == "wheel" ]]; then
 else
     echo "[INFO] is_wheel: false"
 fi
-echo "[INFO] Home: /home/$USERNAME"
-echo "[INFO] Shell: /bin/bash"
 echo
 
