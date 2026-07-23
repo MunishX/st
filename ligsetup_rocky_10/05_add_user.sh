@@ -11,6 +11,7 @@ if [ -z "$1" ]; then
     echo "Usage: $0 <username>"
     echo "Usage: $0 <username> <password>"
     echo "Usage: $0 <username> <password> sudo"
+    echo "Usage: $0 <username> <password> wheel"
     exit 1
 fi
 
@@ -48,8 +49,12 @@ unset PASSWORD
 
 # Making Sudoers user
 if [[ "$ALLOW_SUDO" == "sudo" ]]; then
-    echo "$USERNAME   ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+    sudo echo "$USERNAME   ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 fi
+if [[ "$ALLOW_SUDO" == "wheel" ]]; then
+    sudo usermod -aG wheel $USERNAME
+fi
+
 
 echo
 echo "[OK] User created successfully."
@@ -58,6 +63,11 @@ if [[ "$ALLOW_SUDO" == "sudo" ]]; then
     echo "[INFO] is_Sudoers: true"
 else
     echo "[INFO] is_Sudoers: false"
+fi
+if [[ "$ALLOW_SUDO" == "wheel" ]]; then
+    echo "[INFO] is_wheel: true"
+else
+    echo "[INFO] is_wheel: false"
 fi
 echo "[INFO] Home: /home/$USERNAME"
 echo "[INFO] Shell: /bin/bash"
