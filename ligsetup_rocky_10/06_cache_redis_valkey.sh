@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# more:-  st: redis, valkey | mt: keydb, dragonfly 
+
 ### MEMCACHED CONFIG
 yum -y install memcached 
 
